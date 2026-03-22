@@ -1,0 +1,335 @@
+[
+  {
+    "PK": "DISTRICT#ariyalur",
+    "SK": "METADATA",
+    "id": "1",
+    "name": "ARIYALUR",
+    "normalized_name": "ariyalur",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#chengalpattu",
+    "SK": "METADATA",
+    "id": "33",
+    "name": "CHENGALPATTU",
+    "normalized_name": "chengalpattu",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#chennai",
+    "SK": "METADATA",
+    "id": "2",
+    "name": "CHENNAI",
+    "normalized_name": "chennai",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#coimbatore",
+    "SK": "METADATA",
+    "id": "3",
+    "name": "COIMBATORE",
+    "normalized_name": "coimbatore",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#cuddalore",
+    "SK": "METADATA",
+    "id": "4",
+    "name": "CUDDALORE",
+    "normalized_name": "cuddalore",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#dharmapuri",
+    "SK": "METADATA",
+    "id": "5",
+    "name": "DHARMAPURI",
+    "normalized_name": "dharmapuri",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#dindigul",
+    "SK": "METADATA",
+    "id": "6",
+    "name": "DINDIGUL",
+    "normalized_name": "dindigul",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#erode",
+    "SK": "METADATA",
+    "id": "7",
+    "name": "ERODE",
+    "normalized_name": "erode",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#kallakurichi",
+    "SK": "METADATA",
+    "id": "34",
+    "name": "KALLAKURICHI",
+    "normalized_name": "kallakurichi",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#kancheepuram",
+    "SK": "METADATA",
+    "id": "8",
+    "name": "KANCHEEPURAM",
+    "normalized_name": "kancheepuram",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#kanniyakumari",
+    "SK": "METADATA",
+    "id": "9",
+    "name": "KANNIYAKUMARI",
+    "normalized_name": "kanniyakumari",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#karur",
+    "SK": "METADATA",
+    "id": "10",
+    "name": "KARUR",
+    "normalized_name": "karur",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#krishnagiri",
+    "SK": "METADATA",
+    "id": "11",
+    "name": "KRISHNAGIRI",
+    "normalized_name": "krishnagiri",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#madurai",
+    "SK": "METADATA",
+    "id": "12",
+    "name": "MADURAI",
+    "normalized_name": "madurai",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#nagapattinam",
+    "SK": "METADATA",
+    "id": "13",
+    "name": "NAGAPATTINAM",
+    "normalized_name": "nagapattinam",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#namakkal",
+    "SK": "METADATA",
+    "id": "14",
+    "name": "NAMAKKAL",
+    "normalized_name": "namakkal",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#perambalur",
+    "SK": "METADATA",
+    "id": "15",
+    "name": "PERAMBALUR",
+    "normalized_name": "perambalur",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#pudukkottai",
+    "SK": "METADATA",
+    "id": "16",
+    "name": "PUDUKKOTTAI",
+    "normalized_name": "pudukkottai",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#ramanathapuram",
+    "SK": "METADATA",
+    "id": "17",
+    "name": "RAMANATHAPURAM",
+    "normalized_name": "ramanathapuram",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#ranipet",
+    "SK": "METADATA",
+    "id": "35",
+    "name": "RANIPET",
+    "normalized_name": "ranipet",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#salem",
+    "SK": "METADATA",
+    "id": "18",
+    "name": "SALEM",
+    "normalized_name": "salem",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#sivaganga",
+    "SK": "METADATA",
+    "id": "19",
+    "name": "SIVAGANGA",
+    "normalized_name": "sivaganga",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#tenkasi",
+    "SK": "METADATA",
+    "id": "36",
+    "name": "TENKASI",
+    "normalized_name": "tenkasi",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#thanjavur",
+    "SK": "METADATA",
+    "id": "20",
+    "name": "THANJAVUR",
+    "normalized_name": "thanjavur",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#thenilgiris",
+    "SK": "METADATA",
+    "id": "21",
+    "name": "THE NILGIRIS",
+    "normalized_name": "thenilgiris",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#theni",
+    "SK": "METADATA",
+    "id": "22",
+    "name": "THENI",
+    "normalized_name": "theni",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#thiruvallur",
+    "SK": "METADATA",
+    "id": "23",
+    "name": "THIRUVALLUR",
+    "normalized_name": "thiruvallur",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#thiruvarur",
+    "SK": "METADATA",
+    "id": "25",
+    "name": "THIRUVARUR",
+    "normalized_name": "thiruvarur",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#thoothukudi",
+    "SK": "METADATA",
+    "id": "26",
+    "name": "THOOTHUKUDI",
+    "normalized_name": "thoothukudi",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#tiruchirappalli",
+    "SK": "METADATA",
+    "id": "27",
+    "name": "TIRUCHIRAPPALLI",
+    "normalized_name": "tiruchirappalli",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#tirunelveli",
+    "SK": "METADATA",
+    "id": "28",
+    "name": "TIRUNELVELI",
+    "normalized_name": "tirunelveli",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#tirupathur",
+    "SK": "METADATA",
+    "id": "37",
+    "name": "TIRUPATHUR",
+    "normalized_name": "tirupathur",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#tiruppur",
+    "SK": "METADATA",
+    "id": "29",
+    "name": "TIRUPPUR",
+    "normalized_name": "tiruppur",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#tiruvannamalai",
+    "SK": "METADATA",
+    "id": "24",
+    "name": "TIRUVANNAMALAI",
+    "normalized_name": "tiruvannamalai",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#vellore",
+    "SK": "METADATA",
+    "id": "30",
+    "name": "VELLORE",
+    "normalized_name": "vellore",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#villuppuram",
+    "SK": "METADATA",
+    "id": "31",
+    "name": "VILLUPPURAM",
+    "normalized_name": "villuppuram",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  },
+  {
+    "PK": "DISTRICT#virudhunagar",
+    "SK": "METADATA",
+    "id": "32",
+    "name": "VIRUDHUNAGAR",
+    "normalized_name": "virudhunagar",
+    "alias": [],
+    "state_id": "STATE#tamilnadu"
+  }
+]

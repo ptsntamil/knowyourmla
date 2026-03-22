@@ -1,0 +1,1570 @@
+{
+  "generated_at": 1771998214,
+  "region": "ap-south-2",
+  "sources": [
+    "scan_candidates:gap_pages=4499"
+  ],
+  "threshold": 0.9,
+  "suggestions": [
+    {
+      "alias": "drradhakrishannagar",
+      "canonical": "drradhakrishnannagar",
+      "score": 0.9744,
+      "example_raw": "011 Dr Radhakrishan Nagar"
+    },
+    {
+      "alias": "drradhakrishnanagar",
+      "canonical": "drradhakrishnannagar",
+      "score": 0.9744,
+      "example_raw": "11 DR. RADHAKRISHNA NAGAR"
+    },
+    {
+      "alias": "tiruchirapallieast",
+      "canonical": "tiruchirappallieast",
+      "score": 0.973,
+      "example_raw": "141 Tiruchirapalli East"
+    },
+    {
+      "alias": "krisghnarayapuram",
+      "canonical": "krishnarayapuram",
+      "score": 0.9697,
+      "example_raw": "136 - Krisghnarayapuram"
+    },
+    {
+      "alias": "thiruidaimarudur",
+      "canonical": "thiruvidaimarudur",
+      "score": 0.9697,
+      "example_raw": "170-Thiruidaimarudur"
+    },
+    {
+      "alias": "thiyagarayarnagar",
+      "canonical": "thiyagarayanagar",
+      "score": 0.9697,
+      "example_raw": "24-Thiyagarayar Nagar"
+    },
+    {
+      "alias": "kattumannarkovil",
+      "canonical": "kattumannarkoil",
+      "score": 0.9677,
+      "example_raw": "159-Kattumannarkovil"
+    },
+    {
+      "alias": "thyagarayanagar",
+      "canonical": "thiyagarayanagar",
+      "score": 0.9677,
+      "example_raw": "Thyagaraya nagar"
+    },
+    {
+      "alias": "gandarvakkottai",
+      "canonical": "gandarvakottai",
+      "score": 0.9655,
+      "example_raw": "Gandarvakkottai"
+    },
+    {
+      "alias": "kavundapalayam",
+      "canonical": "kavundampalayam",
+      "score": 0.9655,
+      "example_raw": "Kavundapalayam"
+    },
+    {
+      "alias": "padmanbhapuram",
+      "canonical": "padmanabhapuram",
+      "score": 0.9655,
+      "example_raw": "232-Padmanbhapuram tamil nadu"
+    },
+    {
+      "alias": "paramathivellur",
+      "canonical": "paramathivelur",
+      "score": 0.9655,
+      "example_raw": "Paramathivellur"
+    },
+    {
+      "alias": "thousandslights",
+      "canonical": "thousandlights",
+      "score": 0.9655,
+      "example_raw": "Thousands Lights"
+    },
+    {
+      "alias": "bodinayakanur",
+      "canonical": "bodinayakkanur",
+      "score": 0.963,
+      "example_raw": "Bodinayakanur"
+    },
+    {
+      "alias": "kumarapalaiyam",
+      "canonical": "kumarapalayam",
+      "score": 0.963,
+      "example_raw": "97- kumarapalaiyam"
+    },
+    {
+      "alias": "mannachanallur",
+      "canonical": "manachanallur",
+      "score": 0.963,
+      "example_raw": "144 Mannachanallur"
+    },
+    {
+      "alias": "sethamangalam",
+      "canonical": "senthamangalam",
+      "score": 0.963,
+      "example_raw": "93 sethamangalam"
+    },
+    {
+      "alias": "solinganallur",
+      "canonical": "sholinganallur",
+      "score": 0.963,
+      "example_raw": "27-Solinganallur"
+    },
+    {
+      "alias": "thiruvkanagar",
+      "canonical": "thiruvikanagar",
+      "score": 0.963,
+      "example_raw": "thiru V.KA Nagar"
+    },
+    {
+      "alias": "thousandlight",
+      "canonical": "thousandlights",
+      "score": 0.963,
+      "example_raw": "20 Thousand Light"
+    },
+    {
+      "alias": "udumalapettai",
+      "canonical": "udumalaipettai",
+      "score": 0.963,
+      "example_raw": "125-udumalapettai"
+    },
+    {
+      "alias": "aruppukkottai",
+      "canonical": "aruppukottai",
+      "score": 0.96,
+      "example_raw": "Aruppukkottai, Tamil Nadu"
+    },
+    {
+      "alias": "aruppukotttai",
+      "canonical": "aruppukottai",
+      "score": 0.96,
+      "example_raw": "207 Aruppukotttai"
+    },
+    {
+      "alias": "bhavanishagar",
+      "canonical": "bhavanisagar",
+      "score": 0.96,
+      "example_raw": "107-Bhavanishagar"
+    },
+    {
+      "alias": "kalasampakkam",
+      "canonical": "kalasapakkam",
+      "score": 0.96,
+      "example_raw": "Kalasampakkam"
+    },
+    {
+      "alias": "knniyakumari",
+      "canonical": "kanniyakumari",
+      "score": 0.96,
+      "example_raw": "229-Knniyakumari-tamil nadu"
+    },
+    {
+      "alias": "kumarapalyam",
+      "canonical": "kumarapalayam",
+      "score": 0.96,
+      "example_raw": "97 Kumarapalyam"
+    },
+    {
+      "alias": "madathukullam",
+      "canonical": "madathukulam",
+      "score": 0.96,
+      "example_raw": "Madathukullam"
+    },
+    {
+      "alias": "mettuppalayam",
+      "canonical": "mettupalayam",
+      "score": 0.96,
+      "example_raw": "Mettuppalayam"
+    },
+    {
+      "alias": "mudhukulathur",
+      "canonical": "mudukulathur",
+      "score": 0.96,
+      "example_raw": "Mudhukulathur"
+    },
+    {
+      "alias": "mudukullathur",
+      "canonical": "mudukulathur",
+      "score": 0.96,
+      "example_raw": "212 Mudukullathur"
+    },
+    {
+      "alias": "nagappattinam",
+      "canonical": "nagapattinam",
+      "score": 0.96,
+      "example_raw": "163- Nagappattinam"
+    },
+    {
+      "alias": "sankarankoil",
+      "canonical": "sankarankovil",
+      "score": 0.96,
+      "example_raw": "219 Sankarankoil"
+    },
+    {
+      "alias": "shankarapuram",
+      "canonical": "sankarapuram",
+      "score": 0.96,
+      "example_raw": "Shankarapuram"
+    },
+    {
+      "alias": "thirukkoyilur",
+      "canonical": "tirukkoyilur",
+      "score": 0.96,
+      "example_raw": "Thirukkoyilur tamil nadu"
+    },
+    {
+      "alias": "thiruvaiyaaru",
+      "canonical": "thiruvaiyaru",
+      "score": 0.96,
+      "example_raw": "THIRUVAIYAARU"
+    },
+    {
+      "alias": "tirupursouth",
+      "canonical": "tiruppursouth",
+      "score": 0.96,
+      "example_raw": "TIRUPUR SOUTH"
+    },
+    {
+      "alias": "tiruverumbur",
+      "canonical": "thiruverumbur",
+      "score": 0.96,
+      "example_raw": "Tiruverumbur"
+    },
+    {
+      "alias": "tiruvottiyur",
+      "canonical": "thiruvottiyur",
+      "score": 0.96,
+      "example_raw": "10-tiruvottiyur"
+    },
+    {
+      "alias": "venppanahalli",
+      "canonical": "veppanahalli",
+      "score": 0.96,
+      "example_raw": "Venppanahalli"
+    },
+    {
+      "alias": "veppananhalli",
+      "canonical": "veppanahalli",
+      "score": 0.96,
+      "example_raw": "Veppananhalli"
+    },
+    {
+      "alias": "vilanthikulam",
+      "canonical": "vilathikulam",
+      "score": 0.96,
+      "example_raw": "VILANTHIKULAM"
+    },
+    {
+      "alias": "virugampakam",
+      "canonical": "virugampakkam",
+      "score": 0.96,
+      "example_raw": "Virugampakam"
+    },
+    {
+      "alias": "aravakurchi",
+      "canonical": "aravakurichi",
+      "score": 0.9565,
+      "example_raw": "134- Aravakurchi"
+    },
+    {
+      "alias": "kallakurchi",
+      "canonical": "kallakurichi",
+      "score": 0.9565,
+      "example_raw": "Kallakurchi"
+    },
+    {
+      "alias": "maduravoyal",
+      "canonical": "madhuravoyal",
+      "score": 0.9565,
+      "example_raw": "Maduravoyal"
+    },
+    {
+      "alias": "modakurichi",
+      "canonical": "modakkurichi",
+      "score": 0.9565,
+      "example_raw": "100- Modakurichi"
+    },
+    {
+      "alias": "nagapatinam",
+      "canonical": "nagapattinam",
+      "score": 0.9565,
+      "example_raw": "163-NAGAPATINAM"
+    },
+    {
+      "alias": "nagapattiam",
+      "canonical": "nagapattinam",
+      "score": 0.9565,
+      "example_raw": "163-Nagapattiam tamil nadu"
+    },
+    {
+      "alias": "ottapiadaram",
+      "canonical": "ottapidaram",
+      "score": 0.9565,
+      "example_raw": "217-Ottapiadaram tamil nadu"
+    },
+    {
+      "alias": "pattukottai",
+      "canonical": "pattukkottai",
+      "score": 0.9565,
+      "example_raw": "176 PATTU KOTTAI"
+    },
+    {
+      "alias": "periyakullam",
+      "canonical": "periyakulam",
+      "score": 0.9565,
+      "example_raw": "199 PERIYAKULLAM"
+    },
+    {
+      "alias": "sankarpuram",
+      "canonical": "sankarapuram",
+      "score": 0.9565,
+      "example_raw": "80-Sankarpuram"
+    },
+    {
+      "alias": "thirunelveli",
+      "canonical": "tirunelveli",
+      "score": 0.9565,
+      "example_raw": "224-Thirunelveli"
+    },
+    {
+      "alias": "thiruppathur",
+      "canonical": "tiruppathur",
+      "score": 0.9565,
+      "example_raw": "185 Thiruppathur"
+    },
+    {
+      "alias": "thiruvadanai",
+      "canonical": "tiruvadanai",
+      "score": 0.9565,
+      "example_raw": "THIRUVADANAI"
+    },
+    {
+      "alias": "thiruvayaru",
+      "canonical": "thiruvaiyaru",
+      "score": 0.9565,
+      "example_raw": "173- Thiruvayaru"
+    },
+    {
+      "alias": "thoothukkudi",
+      "canonical": "thoothukudi",
+      "score": 0.9565,
+      "example_raw": "Thoothukkudi"
+    },
+    {
+      "alias": "tirukoyilur",
+      "canonical": "tirukkoyilur",
+      "score": 0.9565,
+      "example_raw": "076-Tirukoyilur"
+    },
+    {
+      "alias": "tirunelvelli",
+      "canonical": "tirunelveli",
+      "score": 0.9565,
+      "example_raw": "Tirunelvelli"
+    },
+    {
+      "alias": "vanniyambadi",
+      "canonical": "vaniyambadi",
+      "score": 0.9565,
+      "example_raw": "47 Vanniyambadi"
+    },
+    {
+      "alias": "vepanahalli",
+      "canonical": "veppanahalli",
+      "score": 0.9565,
+      "example_raw": "54 Vepanahalli"
+    },
+    {
+      "alias": "virudhnagar",
+      "canonical": "virudhunagar",
+      "score": 0.9565,
+      "example_raw": "Virudhnagar"
+    },
+    {
+      "alias": "buvanagiri",
+      "canonical": "bhuvanagiri",
+      "score": 0.9524,
+      "example_raw": "157 buvanagiri"
+    },
+    {
+      "alias": "dharumapuri",
+      "canonical": "dharmapuri",
+      "score": 0.9524,
+      "example_raw": "59 DHARUMAPURI"
+    },
+    {
+      "alias": "kullithalai",
+      "canonical": "kulithalai",
+      "score": 0.9524,
+      "example_raw": "137- Kullithalai"
+    },
+    {
+      "alias": "kummbakonam",
+      "canonical": "kumbakonam",
+      "score": 0.9524,
+      "example_raw": "KUMMBAKONAM"
+    },
+    {
+      "alias": "kurinjpadi",
+      "canonical": "kurinjipadi",
+      "score": 0.9524,
+      "example_raw": "155-Kurinjpadi"
+    },
+    {
+      "alias": "nilakottai",
+      "canonical": "nilakkottai",
+      "score": 0.9524,
+      "example_raw": "130 NILAKOTTAI"
+    },
+    {
+      "alias": "perunduarai",
+      "canonical": "perundurai",
+      "score": 0.9524,
+      "example_raw": "103-Perunduarai"
+    },
+    {
+      "alias": "poonamalle",
+      "canonical": "poonamallee",
+      "score": 0.9524,
+      "example_raw": "5 POONAMALLE"
+    },
+    {
+      "alias": "pudukottai",
+      "canonical": "pudukkottai",
+      "score": 0.9524,
+      "example_raw": "180 Pudukottai"
+    },
+    {
+      "alias": "radhapuramy",
+      "canonical": "radhapuram",
+      "score": 0.9524,
+      "example_raw": "228 Radhapuramy"
+    },
+    {
+      "alias": "salaemsouth",
+      "canonical": "salemsouth",
+      "score": 0.9524,
+      "example_raw": "90 SALAEM SOUTH"
+    },
+    {
+      "alias": "singanalur",
+      "canonical": "singanallur",
+      "score": 0.9524,
+      "example_raw": "121 Singanalur"
+    },
+    {
+      "alias": "solavandan",
+      "canonical": "sholavandan",
+      "score": 0.9524,
+      "example_raw": "190-Solavandan"
+    },
+    {
+      "alias": "thirupattur",
+      "canonical": "tirupattur",
+      "score": 0.9524,
+      "example_raw": "THIRUPATTUR"
+    },
+    {
+      "alias": "thootukudi",
+      "canonical": "thoothukudi",
+      "score": 0.9524,
+      "example_raw": "Thootukudi"
+    },
+    {
+      "alias": "tirupathur",
+      "canonical": "tiruppathur",
+      "score": 0.9524,
+      "example_raw": "50 Tirupathur"
+    },
+    {
+      "alias": "tiruppattur",
+      "canonical": "tirupattur",
+      "score": 0.9524,
+      "example_raw": "Tiruppattur"
+    },
+    {
+      "alias": "tiruppatur",
+      "canonical": "tiruppathur",
+      "score": 0.9524,
+      "example_raw": "Tiruppatur"
+    },
+    {
+      "alias": "tiruvallur",
+      "canonical": "thiruvallur",
+      "score": 0.9524,
+      "example_raw": "Tiruvallur"
+    },
+    {
+      "alias": "toothukudi",
+      "canonical": "thoothukudi",
+      "score": 0.9524,
+      "example_raw": "TOOTHUKUDI"
+    },
+    {
+      "alias": "uthanagarai",
+      "canonical": "uthangarai",
+      "score": 0.9524,
+      "example_raw": "51- Uthanagarai-tamil nadu"
+    },
+    {
+      "alias": "vedaranyam",
+      "canonical": "vedharanyam",
+      "score": 0.9524,
+      "example_raw": "Vedaranyam"
+    },
+    {
+      "alias": "veerapandai",
+      "canonical": "veerapandi",
+      "score": 0.9524,
+      "example_raw": "91-VEERAPANDAI"
+    },
+    {
+      "alias": "vikravaandi",
+      "canonical": "vikravandi",
+      "score": 0.9524,
+      "example_raw": "Vikravaandi"
+    },
+    {
+      "alias": "villivakam",
+      "canonical": "villivakkam",
+      "score": 0.9524,
+      "example_raw": "Villivakam"
+    },
+    {
+      "alias": "villuppuram",
+      "canonical": "villupuram",
+      "score": 0.9524,
+      "example_raw": "Villuppuram"
+    },
+    {
+      "alias": "drrathakrishnannagar",
+      "canonical": "drradhakrishnannagar",
+      "score": 0.95,
+      "example_raw": "11-Dr.Rathakrishnan Nagar"
+    },
+    {
+      "alias": "aranthagi",
+      "canonical": "aranthangi",
+      "score": 0.9474,
+      "example_raw": "183 Aranthagi"
+    },
+    {
+      "alias": "darmapuri",
+      "canonical": "dharmapuri",
+      "score": 0.9474,
+      "example_raw": "059- Darmapuri"
+    },
+    {
+      "alias": "erasipuram",
+      "canonical": "rasipuram",
+      "score": 0.9474,
+      "example_raw": "92 Erasipuram"
+    },
+    {
+      "alias": "kilvaithinankuppamsc",
+      "canonical": "kilvaithinankuppam",
+      "score": 0.9474,
+      "example_raw": "KILVAITHINANKUPPAM (SC)"
+    },
+    {
+      "alias": "kulithali",
+      "canonical": "kulithalai",
+      "score": 0.9474,
+      "example_raw": "137-kulithali"
+    },
+    {
+      "alias": "madavaram",
+      "canonical": "madhavaram",
+      "score": 0.9474,
+      "example_raw": "Madavaram"
+    },
+    {
+      "alias": "orthanadu",
+      "canonical": "orathanadu",
+      "score": 0.9474,
+      "example_raw": "Orthanadu"
+    },
+    {
+      "alias": "paapanasam",
+      "canonical": "papanasam",
+      "score": 0.9474,
+      "example_raw": "Paapanasam"
+    },
+    {
+      "alias": "penagaram",
+      "canonical": "pennagaram",
+      "score": 0.9474,
+      "example_raw": "58 Penagaram"
+    },
+    {
+      "alias": "perudurai",
+      "canonical": "perundurai",
+      "score": 0.9474,
+      "example_raw": "103-Perudurai"
+    },
+    {
+      "alias": "radhakrishnannagar",
+      "canonical": "drradhakrishnannagar",
+      "score": 0.9474,
+      "example_raw": "011-Radhakrishnan Nagar"
+    },
+    {
+      "alias": "sivagangai",
+      "canonical": "sivaganga",
+      "score": 0.9474,
+      "example_raw": "186 sivagangai"
+    },
+    {
+      "alias": "thirchirappallieast",
+      "canonical": "tiruchirappallieast",
+      "score": 0.9474,
+      "example_raw": "141-Thirchirappalli (east) tamil nadu"
+    },
+    {
+      "alias": "thiruchirappalieast",
+      "canonical": "tiruchirappallieast",
+      "score": 0.9474,
+      "example_raw": "Thiruchirappali East"
+    },
+    {
+      "alias": "thiruchuli",
+      "canonical": "tiruchuli",
+      "score": 0.9474,
+      "example_raw": "208  Thiruchuli"
+    },
+    {
+      "alias": "thiruvarur",
+      "canonical": "thiruvaur",
+      "score": 0.9474,
+      "example_raw": "THIRUVARUR"
+    },
+    {
+      "alias": "thittakudi",
+      "canonical": "tittakudi",
+      "score": 0.9474,
+      "example_raw": "151-Thittakudi"
+    },
+    {
+      "alias": "thuraiyurt",
+      "canonical": "thuraiyur",
+      "score": 0.9474,
+      "example_raw": "146-Thuraiyur t"
+    },
+    {
+      "alias": "tirumayam",
+      "canonical": "thirumayam",
+      "score": 0.9474,
+      "example_raw": "181 Tirumayam"
+    },
+    {
+      "alias": "titttakudi",
+      "canonical": "tittakudi",
+      "score": 0.9474,
+      "example_raw": "151-Titttakudi-tamil nadu"
+    },
+    {
+      "alias": "vedsandur",
+      "canonical": "vedasandur",
+      "score": 0.9474,
+      "example_raw": "133 vedsandur"
+    },
+    {
+      "alias": "velacherry",
+      "canonical": "velachery",
+      "score": 0.9474,
+      "example_raw": "VELACHERRY, TAMILNADU"
+    },
+    {
+      "alias": "vellachery",
+      "canonical": "velachery",
+      "score": 0.9474,
+      "example_raw": "Vellachery"
+    },
+    {
+      "alias": "vilupuram",
+      "canonical": "villupuram",
+      "score": 0.9474,
+      "example_raw": "Vilupuram"
+    },
+    {
+      "alias": "thiruthuraipoondisc",
+      "canonical": "thiruthuraipoondi",
+      "score": 0.9444,
+      "example_raw": "THIRUTHURAIPOONDI (SC)"
+    },
+    {
+      "alias": "thiruvidaimarudursc",
+      "canonical": "thiruvidaimarudur",
+      "score": 0.9444,
+      "example_raw": "THIRUVIDAIMARUDUR (SC)"
+    },
+    {
+      "alias": "andipati",
+      "canonical": "andipatti",
+      "score": 0.9412,
+      "example_raw": "198 Andipati"
+    },
+    {
+      "alias": "eodeeast",
+      "canonical": "erodeeast",
+      "score": 0.9412,
+      "example_raw": "99-Eode East"
+    },
+    {
+      "alias": "erodeeas",
+      "canonical": "erodeeast",
+      "score": 0.9412,
+      "example_raw": "98 Erode (Eas)"
+    },
+    {
+      "alias": "gobichettypalayam",
+      "canonical": "gobichettipalayam",
+      "score": 0.9412,
+      "example_raw": "Gobichettypalayam"
+    },
+    {
+      "alias": "gopichettipalayam",
+      "canonical": "gobichettipalayam",
+      "score": 0.9412,
+      "example_raw": "Gopichettipalayam"
+    },
+    {
+      "alias": "karikudi",
+      "canonical": "karaikudi",
+      "score": 0.9412,
+      "example_raw": "Karikudi"
+    },
+    {
+      "alias": "killiyor",
+      "canonical": "killiyoor",
+      "score": 0.9412,
+      "example_raw": "234 Killiyor"
+    },
+    {
+      "alias": "kivathinankuppam",
+      "canonical": "kilvaithinankuppam",
+      "score": 0.9412,
+      "example_raw": "045 kivathinankuppam"
+    },
+    {
+      "alias": "krishnarayapuramsc",
+      "canonical": "krishnarayapuram",
+      "score": 0.9412,
+      "example_raw": "KRISHNARAYAPURAM (SC)"
+    },
+    {
+      "alias": "pompuhar",
+      "canonical": "poompuhar",
+      "score": 0.9412,
+      "example_raw": "162 Pompuhar"
+    },
+    {
+      "alias": "poopuhar",
+      "canonical": "poompuhar",
+      "score": 0.9412,
+      "example_raw": "POOPUHAR"
+    },
+    {
+      "alias": "raipuram",
+      "canonical": "rasipuram",
+      "score": 0.9412,
+      "example_raw": "18-Raipuram"
+    },
+    {
+      "alias": "thambaram",
+      "canonical": "tambaram",
+      "score": 0.9412,
+      "example_raw": "31-Thambaram"
+    },
+    {
+      "alias": "thiruparangundram",
+      "canonical": "thiruparankundram",
+      "score": 0.9412,
+      "example_raw": "195-Thiruparangundram"
+    },
+    {
+      "alias": "thiruparankundarm",
+      "canonical": "thiruparankundram",
+      "score": 0.9412,
+      "example_raw": "195-Thiruparankundarm"
+    },
+    {
+      "alias": "thiruvadaimarudur",
+      "canonical": "thiruvidaimarudur",
+      "score": 0.9412,
+      "example_raw": "Thiruvadaimarudur"
+    },
+    {
+      "alias": "thuraiur",
+      "canonical": "thuraiyur",
+      "score": 0.9412,
+      "example_raw": "146 Thuraiur"
+    },
+    {
+      "alias": "thurayur",
+      "canonical": "thuraiyur",
+      "score": 0.9412,
+      "example_raw": "146 thurayur"
+    },
+    {
+      "alias": "kattumannarkoilsc",
+      "canonical": "kattumannarkoil",
+      "score": 0.9375,
+      "example_raw": "KATTUMANNARKOIL (SC)"
+    },
+    {
+      "alias": "krishnarajapuram",
+      "canonical": "krishnarayapuram",
+      "score": 0.9375,
+      "example_raw": "136-Krishnarajapuram"
+    },
+    {
+      "alias": "thiruparakunram",
+      "canonical": "thiruparankundram",
+      "score": 0.9375,
+      "example_raw": "Thiruparakunram"
+    },
+    {
+      "alias": "95paramathivelur",
+      "canonical": "paramathivelur",
+      "score": 0.9333,
+      "example_raw": "95Paramathi velur"
+    },
+    {
+      "alias": "coimbatoersouth",
+      "canonical": "coimbatoresouth",
+      "score": 0.9333,
+      "example_raw": "Coimbatoer South"
+    },
+    {
+      "alias": "didigul",
+      "canonical": "dindigul",
+      "score": 0.9333,
+      "example_raw": "132 Didigul"
+    },
+    {
+      "alias": "gandarvakottaisc",
+      "canonical": "gandarvakottai",
+      "score": 0.9333,
+      "example_raw": "GANDARVAKOTTAI (SC)"
+    },
+    {
+      "alias": "katumannarkovil",
+      "canonical": "kattumannarkoil",
+      "score": 0.9333,
+      "example_raw": "159 Katumannar kovil"
+    },
+    {
+      "alias": "krishnarapuram",
+      "canonical": "krishnarayapuram",
+      "score": 0.9333,
+      "example_raw": "136-krishnarapuram"
+    },
+    {
+      "alias": "mylaore",
+      "canonical": "mylapore",
+      "score": 0.9333,
+      "example_raw": "25-Mylaore"
+    },
+    {
+      "alias": "namakal",
+      "canonical": "namakkal",
+      "score": 0.9333,
+      "example_raw": "94 Namakal"
+    },
+    {
+      "alias": "nanilam",
+      "canonical": "nannilam",
+      "score": 0.9333,
+      "example_raw": "Nanilam"
+    },
+    {
+      "alias": "paramaththivelur",
+      "canonical": "paramathivelur",
+      "score": 0.9333,
+      "example_raw": "95- Paramaththi velur"
+    },
+    {
+      "alias": "senthamangalamst",
+      "canonical": "senthamangalam",
+      "score": 0.9333,
+      "example_raw": "SENTHAMANGALAM(ST)"
+    },
+    {
+      "alias": "srivillipuththur",
+      "canonical": "srivilliputhur",
+      "score": 0.9333,
+      "example_raw": "Srivillipuththur"
+    },
+    {
+      "alias": "srivilliputhursc",
+      "canonical": "srivilliputhur",
+      "score": 0.9333,
+      "example_raw": "SRIVILLIPUTHUR (SC)"
+    },
+    {
+      "alias": "thenkasi",
+      "canonical": "tenkasi",
+      "score": 0.9333,
+      "example_raw": "222 Thenkasi"
+    },
+    {
+      "alias": "thiruvannamallai",
+      "canonical": "tiruvannamalai",
+      "score": 0.9333,
+      "example_raw": "Thiruvannamallai"
+    },
+    {
+      "alias": "thiruvikanagarsc",
+      "canonical": "thiruvikanagar",
+      "score": 0.9333,
+      "example_raw": "THIRU-VI-KA-NAGAR (SC)"
+    },
+    {
+      "alias": "vasudevanallursc",
+      "canonical": "vasudevanallur",
+      "score": 0.9333,
+      "example_raw": "VASUDEVANALLUR (SC)"
+    },
+    {
+      "alias": "cholinganallur",
+      "canonical": "sholinganallur",
+      "score": 0.9286,
+      "example_raw": "027 Cholinganallur"
+    },
+    {
+      "alias": "ghandarvakotai",
+      "canonical": "gandarvakottai",
+      "score": 0.9286,
+      "example_raw": "178 Ghandarvakotai"
+    },
+    {
+      "alias": "papiredipatti",
+      "canonical": "pappireddipatti",
+      "score": 0.9286,
+      "example_raw": "60  Papiredipatti"
+    },
+    {
+      "alias": "sankarankovilsc",
+      "canonical": "sankarankovil",
+      "score": 0.9286,
+      "example_raw": "SANKARANKOVIL (SC)"
+    },
+    {
+      "alias": "shozinganallur",
+      "canonical": "sholinganallur",
+      "score": 0.9286,
+      "example_raw": "27-Shozinganallur"
+    },
+    {
+      "alias": "solainganallur",
+      "canonical": "sholinganallur",
+      "score": 0.9286,
+      "example_raw": "27-Solainganallur"
+    },
+    {
+      "alias": "sriperumbudursc",
+      "canonical": "sriperumbudur",
+      "score": 0.9286,
+      "example_raw": "SRIPERUMBUDUR (SC)"
+    },
+    {
+      "alias": "srivilliputtur",
+      "canonical": "srivilliputhur",
+      "score": 0.9286,
+      "example_raw": "Srivilliputtur"
+    },
+    {
+      "alias": "thiruvakanagar",
+      "canonical": "thiruvikanagar",
+      "score": 0.9286,
+      "example_raw": "Thiru va ka Nagar"
+    },
+    {
+      "alias": "thiruvanamalai",
+      "canonical": "tiruvannamalai",
+      "score": 0.9286,
+      "example_raw": "63-Thiruvanamalai"
+    },
+    {
+      "alias": "bavani",
+      "canonical": "bhavani",
+      "score": 0.9231,
+      "example_raw": "104-Bavani"
+    },
+    {
+      "alias": "bhavanisagarsc",
+      "canonical": "bhavanisagar",
+      "score": 0.9231,
+      "example_raw": "BHAVANISAGAR (SC)"
+    },
+    {
+      "alias": "coonor",
+      "canonical": "coonoor",
+      "score": 0.9231,
+      "example_raw": "110-COONOR"
+    },
+    {
+      "alias": "gummudipoondi",
+      "canonical": "gummidipoondi",
+      "score": 0.9231,
+      "example_raw": "01-Gummudipoondi"
+    },
+    {
+      "alias": "kallakurichisc",
+      "canonical": "kallakurichi",
+      "score": 0.9231,
+      "example_raw": "KALLAKURICHI (SC)"
+    },
+    {
+      "alias": "kenathukadavu",
+      "canonical": "kinathukadavu",
+      "score": 0.9231,
+      "example_raw": "122 ,Kenathukadavu"
+    },
+    {
+      "alias": "kinathukadave",
+      "canonical": "kinathukadavu",
+      "score": 0.9231,
+      "example_raw": "Kinathukadave"
+    },
+    {
+      "alias": "komarapalayam",
+      "canonical": "kumarapalayam",
+      "score": 0.9231,
+      "example_raw": "Komarapalayam"
+    },
+    {
+      "alias": "kumarapaliyam",
+      "canonical": "kumarapalayam",
+      "score": 0.9231,
+      "example_raw": "Kumarapaliyam"
+    },
+    {
+      "alias": "madurainorth31",
+      "canonical": "madurainorth",
+      "score": 0.9231,
+      "example_raw": "Madurai North 31"
+    },
+    {
+      "alias": "madurantakamsc",
+      "canonical": "madurantakam",
+      "score": 0.9231,
+      "example_raw": "MADURANTAKAM (SC)"
+    },
+    {
+      "alias": "manchanallaur",
+      "canonical": "manachanallur",
+      "score": 0.9231,
+      "example_raw": "144-Manchanallaur"
+    },
+    {
+      "alias": "mudhukulathure",
+      "canonical": "mudukulathur",
+      "score": 0.9231,
+      "example_raw": "212 Mudhukulathure"
+    },
+    {
+      "alias": "oomalur",
+      "canonical": "omalur",
+      "score": 0.9231,
+      "example_raw": "84 Oomalur"
+    },
+    {
+      "alias": "palayankottai",
+      "canonical": "palayamkottai",
+      "score": 0.9231,
+      "example_raw": "226 Palayankottai"
+    },
+    {
+      "alias": "ponner",
+      "canonical": "ponneri",
+      "score": 0.9231,
+      "example_raw": "2 Ponner"
+    },
+    {
+      "alias": "rishivandiyan",
+      "canonical": "rishivandiyam",
+      "score": 0.9231,
+      "example_raw": "Rishivandiyan"
+    },
+    {
+      "alias": "sangarankovil",
+      "canonical": "sankarankovil",
+      "score": 0.9231,
+      "example_raw": "Sangarankovil"
+    },
+    {
+      "alias": "solinganalur",
+      "canonical": "sholinganallur",
+      "score": 0.9231,
+      "example_raw": "Solinganalur"
+    },
+    {
+      "alias": "sriperumbidur",
+      "canonical": "sriperumbudur",
+      "score": 0.9231,
+      "example_raw": "29-Sriperumbidur"
+    },
+    {
+      "alias": "thiruverumbar",
+      "canonical": "thiruverumbur",
+      "score": 0.9231,
+      "example_raw": "142 Thiruverumbar"
+    },
+    {
+      "alias": "thiruvknagar",
+      "canonical": "thiruvikanagar",
+      "score": 0.9231,
+      "example_raw": "THIRU V.K. NAGAR"
+    },
+    {
+      "alias": "thriuverumbur",
+      "canonical": "thiruverumbur",
+      "score": 0.9231,
+      "example_raw": "Thriuverumbur"
+    },
+    {
+      "alias": "virukampakkam",
+      "canonical": "virugampakkam",
+      "score": 0.9231,
+      "example_raw": "Virukampakkam"
+    },
+    {
+      "alias": "tiruchurapallieast",
+      "canonical": "tiruchirappallieast",
+      "score": 0.9189,
+      "example_raw": "Tiruchurapalli  East"
+    },
+    {
+      "alias": "aravakuruchi",
+      "canonical": "aravakurichi",
+      "score": 0.9167,
+      "example_raw": "134-Aravakuruchi"
+    },
+    {
+      "alias": "changalpattu",
+      "canonical": "chengalpattu",
+      "score": 0.9167,
+      "example_raw": "Changalpattu"
+    },
+    {
+      "alias": "kanyakumari",
+      "canonical": "kanniyakumari",
+      "score": 0.9167,
+      "example_raw": "Kanyakumari"
+    },
+    {
+      "alias": "krishnagiri53",
+      "canonical": "krishnagiri",
+      "score": 0.9167,
+      "example_raw": "krishnagiri 53"
+    },
+    {
+      "alias": "madhuravayal",
+      "canonical": "madhuravoyal",
+      "score": 0.9167,
+      "example_raw": "07 -MADHURAVAYAL"
+    },
+    {
+      "alias": "manamaduraisc",
+      "canonical": "manamadurai",
+      "score": 0.9167,
+      "example_raw": "MANAMADURAI (SC)"
+    },
+    {
+      "alias": "modakkuruchi",
+      "canonical": "modakkurichi",
+      "score": 0.9167,
+      "example_raw": "100-Modakkuruchi"
+    },
+    {
+      "alias": "mudugulathur",
+      "canonical": "mudukulathur",
+      "score": 0.9167,
+      "example_raw": "Mudugulathur"
+    },
+    {
+      "alias": "nilakkottaisc",
+      "canonical": "nilakkottai",
+      "score": 0.9167,
+      "example_raw": "NILAKKOTTAI (SC)"
+    },
+    {
+      "alias": "ottapidaramsc",
+      "canonical": "ottapidaram",
+      "score": 0.9167,
+      "example_raw": "OTTAPIDARAM (SC)"
+    },
+    {
+      "alias": "periyakulamsc",
+      "canonical": "periyakulam",
+      "score": 0.9167,
+      "example_raw": "PERIYAKULAM (SC)"
+    },
+    {
+      "alias": "poonamalleesc",
+      "canonical": "poonamallee",
+      "score": 0.9167,
+      "example_raw": "POONAMALLEE (SC)"
+    },
+    {
+      "alias": "sholavandansc",
+      "canonical": "sholavandan",
+      "score": 0.9167,
+      "example_raw": "SHOLAVANDAN (SC)"
+    },
+    {
+      "alias": "soringanallur",
+      "canonical": "singanallur",
+      "score": 0.9167,
+      "example_raw": "27-Soringanallur,Tamilnadu"
+    },
+    {
+      "alias": "srivaikundam",
+      "canonical": "srivaikuntam",
+      "score": 0.9167,
+      "example_raw": "SRIVAIKUNDAM"
+    },
+    {
+      "alias": "tirpursouth",
+      "canonical": "tiruppursouth",
+      "score": 0.9167,
+      "example_raw": "Tirpur South"
+    },
+    {
+      "alias": "tiruchengode",
+      "canonical": "tiruchengodu",
+      "score": 0.9167,
+      "example_raw": "TIRUCHENGODE"
+    },
+    {
+      "alias": "tiruchengudu",
+      "canonical": "tiruchengodu",
+      "score": 0.9167,
+      "example_raw": "TIRUCHENGUDU"
+    },
+    {
+      "alias": "virudhanagar",
+      "canonical": "virudhunagar",
+      "score": 0.9167,
+      "example_raw": "Virudhanagar"
+    },
+    {
+      "alias": "viruthunagar",
+      "canonical": "virudhunagar",
+      "score": 0.9167,
+      "example_raw": "206 Viruthunagar"
+    },
+    {
+      "alias": "aambur",
+      "canonical": "ambur",
+      "score": 0.9091,
+      "example_raw": "48-Aambur"
+    },
+    {
+      "alias": "arakurichi",
+      "canonical": "aravakurichi",
+      "score": 0.9091,
+      "example_raw": "135-arakurichi"
+    },
+    {
+      "alias": "atoor",
+      "canonical": "athoor",
+      "score": 0.9091,
+      "example_raw": "129 Atoor"
+    },
+    {
+      "alias": "dharapuramsc",
+      "canonical": "dharapuram",
+      "score": 0.9091,
+      "example_raw": "DHARAPURAM (SC)"
+    },
+    {
+      "alias": "gangavallisc",
+      "canonical": "gangavalli",
+      "score": 0.9091,
+      "example_raw": "GANGAVALLI (SC)"
+    },
+    {
+      "alias": "gopichettipalyam",
+      "canonical": "gobichettipalayam",
+      "score": 0.9091,
+      "example_raw": "106 Gopichettipalyam"
+    },
+    {
+      "alias": "gudiyattamsc",
+      "canonical": "gudiyattam",
+      "score": 0.9091,
+      "example_raw": "GUDIYATTAM (SC)"
+    },
+    {
+      "alias": "jayangondam",
+      "canonical": "jayankondam",
+      "score": 0.9091,
+      "example_raw": "Jayangondam"
+    },
+    {
+      "alias": "jayankandam",
+      "canonical": "jayankondam",
+      "score": 0.9091,
+      "example_raw": "150-Jayankandam-tamil nadu"
+    },
+    {
+      "alias": "kurenjipadi",
+      "canonical": "kurinjipadi",
+      "score": 0.9091,
+      "example_raw": "156 Kurenjipadi"
+    },
+    {
+      "alias": "madurvoyal",
+      "canonical": "madhuravoyal",
+      "score": 0.9091,
+      "example_raw": "Madurvoyal"
+    },
+    {
+      "alias": "mattur",
+      "canonical": "attur",
+      "score": 0.9091,
+      "example_raw": "85 Mattur"
+    },
+    {
+      "alias": "paramakudisc",
+      "canonical": "paramakudi",
+      "score": 0.9091,
+      "example_raw": "PARAMAKUDI (SC)"
+    },
+    {
+      "alias": "pattukotai",
+      "canonical": "pattukkottai",
+      "score": 0.9091,
+      "example_raw": "176-Pattukotai"
+    },
+    {
+      "alias": "perambalursc",
+      "canonical": "perambalur",
+      "score": 0.9091,
+      "example_raw": "Perambalur (SC)"
+    },
+    {
+      "alias": "periyakulum",
+      "canonical": "periyakulam",
+      "score": 0.9091,
+      "example_raw": "199 PERIYAKULUM"
+    },
+    {
+      "alias": "thaly",
+      "canonical": "thally",
+      "score": 0.9091,
+      "example_raw": "56 Thaly Tamilnadu"
+    },
+    {
+      "alias": "thirupathur",
+      "canonical": "tiruppathur",
+      "score": 0.9091,
+      "example_raw": "50 Thirupathur"
+    },
+    {
+      "alias": "thiruvadamarudur",
+      "canonical": "thiruvidaimarudur",
+      "score": 0.9091,
+      "example_raw": "Thiruvadamarudur"
+    },
+    {
+      "alias": "thoothukodi",
+      "canonical": "thoothukudi",
+      "score": 0.9091,
+      "example_raw": "Thoothukodi"
+    },
+    {
+      "alias": "tindivanamsc",
+      "canonical": "tindivanam",
+      "score": 0.9091,
+      "example_raw": "TINDIVANAM (SC)"
+    },
+    {
+      "alias": "tirukoilur",
+      "canonical": "tirukkoyilur",
+      "score": 0.9091,
+      "example_raw": "76-Tirukoilur-tamil nadu"
+    },
+    {
+      "alias": "truvandanai",
+      "canonical": "tiruvadanai",
+      "score": 0.9091,
+      "example_raw": "TRUVANDANAI"
+    },
+    {
+      "alias": "turuppathur",
+      "canonical": "tiruppathur",
+      "score": 0.9091,
+      "example_raw": "Turuppathur"
+    },
+    {
+      "alias": "usalampatti",
+      "canonical": "usilampatti",
+      "score": 0.9091,
+      "example_raw": "197 Usalampatti"
+    },
+    {
+      "alias": "uthangaraisc",
+      "canonical": "uthangarai",
+      "score": 0.9091,
+      "example_raw": "UTHANGARAI (SC)"
+    },
+    {
+      "alias": "vaanur",
+      "canonical": "vanur",
+      "score": 0.9091,
+      "example_raw": "Vaanur"
+    },
+    {
+      "alias": "vikeravaandi",
+      "canonical": "vikravandi",
+      "score": 0.9091,
+      "example_raw": "Vikeravaandi"
+    },
+    {
+      "alias": "vikiravaandi",
+      "canonical": "vikravandi",
+      "score": 0.9091,
+      "example_raw": "Vikiravaandi"
+    },
+    {
+      "alias": "kattumanarkogill",
+      "canonical": "kattumannarkoil",
+      "score": 0.9032,
+      "example_raw": "Kattumanar kogill"
+    },
+    {
+      "alias": "maduraicentral193",
+      "canonical": "maduraicentral",
+      "score": 0.9032,
+      "example_raw": "Madurai Central-193"
+    },
+    {
+      "alias": "thingarayanagar",
+      "canonical": "thiyagarayanagar",
+      "score": 0.9032,
+      "example_raw": "Thingarayanagar"
+    },
+    {
+      "alias": "thyagarajanagar",
+      "canonical": "thiyagarayanagar",
+      "score": 0.9032,
+      "example_raw": "24-Thyagaraja Nagar"
+    },
+    {
+      "alias": "arakkonamsc",
+      "canonical": "arakkonam",
+      "score": 0.9,
+      "example_raw": "ARAKKONAM (SC)"
+    },
+    {
+      "alias": "dharampuri",
+      "canonical": "dharmapuri",
+      "score": 0.9,
+      "example_raw": "59-Dharampuri"
+    },
+    {
+      "alias": "mannarkudi",
+      "canonical": "mannargudi",
+      "score": 0.9,
+      "example_raw": "167-Mannarkudi"
+    },
+    {
+      "alias": "pannagaram",
+      "canonical": "pennagaram",
+      "score": 0.9,
+      "example_raw": "Pannagaram"
+    },
+    {
+      "alias": "paramagudi",
+      "canonical": "paramakudi",
+      "score": 0.9,
+      "example_raw": "209 Paramagudi"
+    },
+    {
+      "alias": "perunduari",
+      "canonical": "perundurai",
+      "score": 0.9,
+      "example_raw": "perunduari"
+    },
+    {
+      "alias": "rasipuramsc",
+      "canonical": "rasipuram",
+      "score": 0.9,
+      "example_raw": "RASIPURAM(SC)"
+    },
+    {
+      "alias": "salamnorth",
+      "canonical": "salemnorth",
+      "score": 0.9,
+      "example_raw": "89 Salam North"
+    },
+    {
+      "alias": "salamsouth",
+      "canonical": "salemsouth",
+      "score": 0.9,
+      "example_raw": "90 Salam South"
+    },
+    {
+      "alias": "tharapuram",
+      "canonical": "dharapuram",
+      "score": 0.9,
+      "example_raw": "Tharapuram"
+    },
+    {
+      "alias": "thuraiyursc",
+      "canonical": "thuraiyur",
+      "score": 0.9,
+      "example_raw": "THURAIYUR (SC)"
+    },
+    {
+      "alias": "tittakudisc",
+      "canonical": "tittakudi",
+      "score": 0.9,
+      "example_raw": "TITTAKUDI (SC)"
+    },
+    {
+      "alias": "tnidivanam",
+      "canonical": "tindivanam",
+      "score": 0.9,
+      "example_raw": "Tnidivanam"
+    },
+    {
+      "alias": "uthanagari",
+      "canonical": "uthangarai",
+      "score": 0.9,
+      "example_raw": "51- Uthanagari-tamil nadu"
+    },
+    {
+      "alias": "vandavasisc",
+      "canonical": "vandavasi",
+      "score": 0.9,
+      "example_raw": "VANDAVASI (SC)"
+    },
+    {
+      "alias": "vikarvandi",
+      "canonical": "vikravandi",
+      "score": 0.9,
+      "example_raw": "75-Vikarvandi"
+    },
+    {
+      "alias": "viluppuram",
+      "canonical": "villupuram",
+      "score": 0.9,
+      "example_raw": "74 Viluppuram"
+    },
+    {
+      "alias": "viramalai",
+      "canonical": "viralimalai",
+      "score": 0.9,
+      "example_raw": "Viramalai"
+    }
+  ]
+}

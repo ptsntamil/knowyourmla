@@ -1,0 +1,16 @@
+{
+  "generated_at": 1772072518,
+  "region": "ap-south-2",
+  "sources": [
+    "scan_candidates:gap_pages=99"
+  ],
+  "threshold": 0.9,
+  "suggestions": [
+    {
+      "alias": "thiruvarur",
+      "canonical": "thiruvaur",
+      "score": 0.9474,
+      "example_raw": "THIRUVARUR"
+    }
+  ]
+}
