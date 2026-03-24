@@ -7,7 +7,14 @@ import {
   DistrictDetailResponse
 } from "@/types/models";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+const USE_V2_API = process.env.NEXT_PUBLIC_USE_V2_API === "true";
+const PYTHON_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+const isServer = typeof window === "undefined";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+
+const BASE_URL = USE_V2_API 
+  ? (isServer ? `${SITE_URL}/api/v2` : "/api/v2")
+  : PYTHON_API_URL;
 
 export async function fetchDistricts(): Promise<DistrictResponse[]> {
   const res = await fetch(`${BASE_URL}/districts`, { cache: "no-store" });

@@ -12,20 +12,24 @@ export default function Navbar() {
     <>
       <nav className="sticky top-0 z-50 bg-brand-dark border-b border-white/5 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-          <a href="/tn" className="flex items-center ont-black text-2xl tracking-tighter text-white font-bold">
-            <div
-              className="h-16 w-16 md:h-20 md:w-20 bg-cover bg-no-repeat bg-center"
-              style={{ backgroundImage: "url('/KnowYourMLA_logo.png')" }}
-              role="img"
-              aria-label="KnowYourMLA Logo"
-            />
-            <span className="hidden md:inline">KnowYour<span className="text-brand-gold">MLA</span></span>
-          </a>
+          <div className="flex items-center gap-4">
+            <a href="/tn" className="flex items-center font-black text-2xl tracking-tighter text-white font-bold">
+              <div
+                className="h-16 w-16 md:h-20 md:w-20 bg-cover bg-no-repeat bg-center"
+                style={{ backgroundImage: "url('/KnowYourMLA_logo.png')" }}
+                role="img"
+                aria-label="KnowYourMLA Logo"
+              />
+              <span className="hidden md:inline">KnowYour<span className="text-brand-gold">MLA</span></span>
+            </a>
+            <a href="/tn" className="text-slate-400 hover:text-white text-[10px] md:text-xs font-black uppercase tracking-widest transition-colors">
+              Home
+            </a>
+          </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8 text-xs font-black uppercase tracking-widest">
             <a href="/news" className="text-slate-400 hover:text-white transition-colors self-center">News</a>
-            <a href="/tn" className="text-slate-400 hover:text-white transition-colors self-center">Districts</a>
             <button
               onClick={() => setIsFeedbackOpen(true)}
               className="bg-brand-green text-white px-5 py-2 rounded-lg hover:opacity-90 transition-opacity flex items-center gap-2 border border-white/10 shadow-lg"
@@ -54,13 +58,6 @@ export default function Navbar() {
         {/* Mobile Navigation Content */}
         {isMenuOpen && (
           <div className="md:hidden bg-brand-dark border-t border-white/5 px-4 py-6 space-y-4 animate-in slide-in-from-top duration-300">
-            <a
-              href="/tn"
-              className="block text-slate-400 hover:text-white text-sm font-black uppercase tracking-widest transition-colors"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              Districts
-            </a>
             <button
               onClick={() => {
                 setIsFeedbackOpen(true);

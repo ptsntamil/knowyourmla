@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { fetchConstituencyWinners } from "@/services/api";
 import CoverImage from "@/components/CoverImage";
+import ProfileImage from "@/components/ProfileImage";
 import { getBaseMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -50,17 +51,11 @@ export default async function ConstituencyPage({ params }: PageProps) {
               <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl pointer-events-none" />
               
               <div className="w-40 h-40 md:w-48 md:h-48 bg-slate-200 rounded-full flex items-center justify-center overflow-hidden border-8 border-white/10 shadow-2xl flex-shrink-0 z-10">
-                {currentWinner.profile_pic ? (
-                  <img 
-                    src={currentWinner.profile_pic} 
-                    alt={currentWinner.winner} 
-                    className="w-full h-full object-cover" 
-                  />
-                ) : (
-                  <div className="text-brand-green capitalize flex items-center justify-center h-full w-full font-black text-6xl">
-                    {currentWinner.winner.charAt(0)}
-                  </div>
-                )}
+                <ProfileImage 
+                  src={currentWinner.profile_pic} 
+                  alt={currentWinner.winner} 
+                  className="w-full h-full object-cover" 
+                />
               </div>
 
               <div className="flex-1 text-center md:text-left z-10 space-y-8">
