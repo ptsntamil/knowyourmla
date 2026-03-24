@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import FeedbackModal from "./FeedbackModal";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <>
@@ -12,15 +14,16 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <a href="/tn" className="flex items-center ont-black text-2xl tracking-tighter text-white font-bold">
             <div
-              className="h-20 w-20 bg-cover bg-no-repeat bg-center"
+              className="h-16 w-16 md:h-20 md:w-20 bg-cover bg-no-repeat bg-center"
               style={{ backgroundImage: "url('/KnowYourMLA_logo.png')" }}
               role="img"
               aria-label="KnowYourMLA Logo"
             />
-            KnowYour<span className="text-brand-gold">MLA</span>
-
+            <span className="hidden md:inline">KnowYour<span className="text-brand-gold">MLA</span></span>
           </a>
-          <div className="flex gap-8 text-xs font-black uppercase tracking-widest">
+
+          {/* Desktop Menu */}
+          <div className="hidden md:flex gap-8 text-xs font-black uppercase tracking-widest">
             <a href="/news" className="text-slate-400 hover:text-white transition-colors self-center">News</a>
             <a href="/tn" className="text-slate-400 hover:text-white transition-colors self-center">Districts</a>
             <button
@@ -30,7 +33,45 @@ export default function Navbar() {
               Feedback
             </button>
           </div>
+
+          {/* Mobile Menu Button */}
+          <div className="flex md:hidden items-center gap-4">
+            <a
+              href="/news"
+              className="text-slate-400 hover:text-white text-[10px] font-black uppercase tracking-widest transition-colors"
+            >
+              News
+            </a>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="text-white p-2 hover:bg-white/5 rounded-lg transition-colors"
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Navigation Content */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-brand-dark border-t border-white/5 px-4 py-6 space-y-4 animate-in slide-in-from-top duration-300">
+            <a
+              href="/tn"
+              className="block text-slate-400 hover:text-white text-sm font-black uppercase tracking-widest transition-colors"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Districts
+            </a>
+            <button
+              onClick={() => {
+                setIsFeedbackOpen(true);
+                setIsMenuOpen(false);
+              }}
+              className="w-full bg-brand-green text-white px-5 py-3 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 border border-white/10 shadow-lg text-xs font-black uppercase tracking-widest"
+            >
+              Feedback
+            </button>
+          </div>
+        )}
       </nav>
 
       <FeedbackModal

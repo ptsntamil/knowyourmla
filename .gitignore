@@ -24,6 +24,8 @@ MANIFEST
 
 ### Environments ###
 .env
+.env.local
+scraper/.env.local
 .venv
 env/
 venv/
