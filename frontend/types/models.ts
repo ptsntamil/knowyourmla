@@ -1,6 +1,8 @@
 export interface DistrictResponse {
   id: string;
   name: string;
+  total_constituencies?: number;
+  image_url?: string;
 }
 
 export interface DistrictStatYear {
@@ -14,6 +16,9 @@ export interface DistrictStatYear {
 export interface DistrictDetailResponse {
   id: string;
   name: string;
+  description?: string;
+  total_constituencies?: number;
+  image_url?: string;
   stats: DistrictStatYear[];
 }
 
@@ -155,4 +160,22 @@ export interface MLAListItem {
 export interface MLAListResponse {
   mlas: MLAListItem[];
   total: number;
+}
+export interface CandidateHistoryRecordShort {
+  year: number;
+  constituency: string;
+  party: string;
+  winner: boolean;
+}
+
+export interface CandidateHistoryResponse {
+  person_id: string;
+  history: CandidateHistoryRecordShort[];
+}
+
+export interface ElectionResponse {
+  id: string;
+  year: number;
+  type: string;
+  category: string;
 }

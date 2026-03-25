@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { fetchConstituencyWinners } from "@/services/api";
 import CoverImage from "@/components/CoverImage";
+import ProfileImage from "@/components/ProfileImage";
 import { getBaseMetadata } from "@/lib/seo";
 
 export const dynamic = "force-dynamic";
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: PageProps) {
   return getBaseMetadata(
     `${name} MLA Election History`,
     `Complete election results and MLA history of ${name} constituency Tamil Nadu.`,
-    `/constituency/${slug}`,
+    `/tn/constituency/${slug}`,
     [`${name} Constituency`, "Election History", "Tamil Nadu MLA", "Election Results"]
   );
 }
@@ -33,7 +34,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
         subtitle={`Historical election data and representative details for the ${slug} constituency.`}
       >
         <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
           <span className="mx-3 text-white/20">/</span>
           <span className="text-brand-gold">{slug} History</span>
         </nav>
@@ -50,17 +51,11 @@ export default async function ConstituencyPage({ params }: PageProps) {
               <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl pointer-events-none" />
               
               <div className="w-40 h-40 md:w-48 md:h-48 bg-slate-200 rounded-full flex items-center justify-center overflow-hidden border-8 border-white/10 shadow-2xl flex-shrink-0 z-10">
-                {currentWinner.profile_pic ? (
-                  <img 
-                    src={currentWinner.profile_pic} 
-                    alt={currentWinner.winner} 
-                    className="w-full h-full object-cover" 
-                  />
-                ) : (
-                  <div className="text-brand-green capitalize flex items-center justify-center h-full w-full font-black text-6xl">
-                    {currentWinner.winner.charAt(0)}
-                  </div>
-                )}
+                <ProfileImage 
+                  src={currentWinner.profile_pic} 
+                  alt={currentWinner.winner} 
+                  className="w-full h-full object-cover" 
+                />
               </div>
 
               <div className="flex-1 text-center md:text-left z-10 space-y-8">
@@ -101,7 +96,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
                 </div>
                 
                 <Link
-                  href={`/mla/${currentWinner.person_id ? currentWinner.person_id.replace("PERSON#", "") : currentWinner.winner.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
+                  href={`/tn/mla/${currentWinner.person_id ? currentWinner.person_id.replace("PERSON#", "") : currentWinner.winner.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
                   className="inline-flex items-center gap-3 bg-brand-gold text-white px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-brand-yellow transition-all shadow-2xl transform hover:scale-105"
                 >
                   View Full Profile
@@ -246,7 +241,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
                       <td className="px-10 py-8">
                         {record.person_id || record.slug ? (
                           <Link
-                            href={`/mla/${record.person_id ? record.person_id.replace("PERSON#", "") : record.slug}`}
+                            href={`/tn/mla/${record.person_id ? record.person_id.replace("PERSON#", "") : record.slug}`}
                             className="font-black text-brand-gold hover:text-brand-green uppercase tracking-tight text-lg"
                           >
                             {record.winner}

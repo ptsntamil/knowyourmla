@@ -12,7 +12,8 @@ export const metadata: Metadata = getBaseMetadata(
   ["Tamil Nadu MLA", "TN Election Results", "Constituency Details", "MLA Performance", "Know Your MLA"]
 );
 
-export const dynamic = "force-dynamic";
+// Static generation for better performance
+export const revalidate = 3600; // revalidate every hour
 
 export default async function TNPage() {
   const [districts, allConstituencies] = await Promise.all([
@@ -47,7 +48,7 @@ export default async function TNPage() {
           </div>
           <div className="flex items-center gap-4">
             <Link
-              href="/mla/list"
+              href="/tn/mla/list"
               className="text-[10px] bg-brand-gold text-brand-dark font-black px-6 py-2 rounded-full uppercase tracking-[0.2em] border border-white/20 shadow-lg hover:bg-white hover:text-brand-dark transition-all"
             >
               View All MLAs

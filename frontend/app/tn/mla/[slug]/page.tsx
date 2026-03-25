@@ -26,14 +26,14 @@ export async function generateMetadata({ params }: PageProps) {
     return getBaseMetadata(
       `${name} MLA Profile | Assets, Income, Criminal Cases`,
       `View ${name} MLA profile including election history, asset growth, vote trends and criminal case record.`,
-      `/mla/${slug}`,
+      `/tn/mla/${slug}`,
       [`${name}`, `${constituency} MLA`, `${party}`, "Tamil Nadu Politics", "MLA Assets", "Criminal Cases"]
     );
   } catch (error) {
     return getBaseMetadata(
       "MLA Profile",
       "View MLA profile details.",
-      `/mla/${slug}`,
+      `/tn/mla/${slug}`,
       ["MLA Profile", "Tamil Nadu Politics", "Election History"]
     );
   }
@@ -65,7 +65,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
 
       <main className="max-w-7xl mx-auto px-4 py-10 space-y-12">
         <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-slate-400">
-          <a href="/" className="hover:text-brand-dark transition-colors">Home</a>
+          <a href="/tn" className="hover:text-brand-dark transition-colors">Home</a>
           <span className="mx-3 text-slate-300">/</span>
           <span className="text-brand-dark">{profile.person.name}</span>
         </nav>
@@ -205,13 +205,13 @@ export default async function MLAProfilePage({ params }: PageProps) {
                             <h3 className="text-brand-dark font-black uppercase tracking-[0.2em] text-[10px] mb-6">Internal Links</h3>
                             <ul className="space-y-6">
                                 <li>
-                                    <a href={`/district/${latestElection?.constituency.toLowerCase().replace(/\s+/g, '-')}`} className="text-brand-dark hover:text-brand-gold font-black text-xs flex items-center gap-3 transition-colors group">
+                                    <a href={`/tn/districts/${latestElection?.constituency.toLowerCase().replace(/\s+/g, '-')}`} className="text-brand-dark hover:text-brand-gold font-black text-xs flex items-center gap-3 transition-colors group">
                                     <span className="w-1.5 h-1.5 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
                                     View all MLAs in this District
                                     </a>
                                 </li>
                                 <li>
-                                    <a href={`/constituency/${latestElection?.constituency.toLowerCase().replace(/\s+/g, '-')}`} className="text-brand-dark hover:text-brand-gold font-black text-xs flex items-center gap-3 transition-colors group">
+                                    <a href={`/tn/constituency/${latestElection?.constituency.toLowerCase().replace(/\s+/g, '-')}`} className="text-brand-dark hover:text-brand-gold font-black text-xs flex items-center gap-3 transition-colors group">
                                         <span className="w-1.5 h-1.5 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
                                     View {latestElection?.constituency} history
                                     </a>
