@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { fetchConstituencies, fetchDistrictDetails } from "@/services/api";
 import ConstituencyList from "@/components/ConstituencyList";
 import CoverImage from "@/components/CoverImage";
@@ -15,7 +16,7 @@ export async function generateMetadata({ params }: PageProps) {
   return getBaseMetadata(
     `${districtName} District MLAs and Constituencies`,
     `List of all constituencies and MLAs in ${districtName} district Tamil Nadu.`,
-    `/district/${slug}`,
+    `/tn/districts/${slug}`,
     [`${districtName} District`, "Tamil Nadu Politics", "MLA List", "Constituency Details"]
   );
 }
@@ -39,9 +40,9 @@ export default async function DistrictPage({ params }: PageProps) {
         subtitle={`Total of ${constituencies.length} legislative constituencies representing the people of ${slug}.`}
       >
         <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <a href="/" className="hover:text-white transition-colors">Home</a>
+          <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
           <span className="mx-3 text-white/20">/</span>
-          <a href="/tn" className="hover:text-white transition-colors">Tamil Nadu</a>
+          <Link href="/tn" className="hover:text-white transition-colors">Tamil Nadu</Link>
           <span className="mx-3 text-white/20">/</span>
           <span className="text-brand-gold">{slug}</span>
         </nav>

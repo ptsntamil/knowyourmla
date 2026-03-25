@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { fetchDistricts, fetchConstituencies } from '@/services/api';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://knowyourmla-info.web.app';
+  const baseUrl = 'https://knowyourmla-info.vercel.app/tn';
 
   const [districts, constituencies] = await Promise.all([
     fetchDistricts(),
@@ -10,7 +10,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
 
   const districtUrls = districts.map((d: any) => ({
-    url: `${baseUrl}/district/${d.id.replace("DISTRICT#", "").toLowerCase()}`,
+    url: `${baseUrl}/districts/${d.id.replace("DISTRICT#", "").toLowerCase()}`,
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.8,
@@ -51,6 +51,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/news/tamil-nadu-mlas-100-percent-attendance-2021-2026`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.8,
     },
   ];
 

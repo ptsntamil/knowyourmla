@@ -11,7 +11,7 @@ export default function ConstituencyList({ constituencies }: ConstituencyListPro
       {constituencies.map((constituency) => {
         const slug = constituency.id.replace("CONSTITUENCY#", "").toLowerCase();
         return (
-          <Link key={constituency.id} href={`/constituency/${slug}`} className="group">
+          <Link key={constituency.id} href={`/tn/constituency/${slug}`} className="group">
             <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-brand-gold transition-all group-hover:-translate-y-1 h-full flex flex-col justify-between">
               <div className="flex justify-between items-start mb-4">
                 <h4 className="text-xl font-black text-brand-dark uppercase tracking-tight leading-tight capitalize">

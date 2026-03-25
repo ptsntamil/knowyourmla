@@ -10,7 +10,7 @@ export default function DistrictCard({ district, constituencyCount }: DistrictCa
   const slug = district.id.replace("DISTRICT#", "").toLowerCase();
 
   return (
-    <Link href={`/district/${slug}`} className="group">
+    <Link href={`/tn/districts/${slug}`} className="group">
       <div className="bg-white p-8 rounded-3xl border border-slate-100 shadow-sm hover:shadow-2xl hover:border-brand-gold transition-all hover:-translate-y-2 h-full flex flex-col relative overflow-hidden">
         <div className="absolute top-0 right-0 w-24 h-24 bg-brand-gold/5 rounded-full -mr-12 -mt-12 blur-2xl group-hover:bg-brand-green/10 transition-colors" />
         

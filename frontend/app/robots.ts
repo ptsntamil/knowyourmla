@@ -6,6 +6,6 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: '*',
       allow: '/',
     },
-    sitemap: 'https://knowyourmla.in/sitemap.xml',
+    sitemap: 'https://knowyourmla-info.vercel.app/sitemap.xml',
   };
 }
