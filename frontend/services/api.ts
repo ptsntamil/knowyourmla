@@ -17,7 +17,7 @@ const BASE_URL = USE_V2_API
   : PYTHON_API_URL;
 
 export async function fetchDistricts(): Promise<DistrictResponse[]> {
-  const res = await fetch(`${BASE_URL}/districts`, { cache: "no-store" });
+  const res = await fetch(`${BASE_URL}/districts`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error("Failed to fetch districts");
@@ -26,7 +26,7 @@ export async function fetchDistricts(): Promise<DistrictResponse[]> {
 }
 
 export async function fetchDistrictDetails(districtId: string): Promise<DistrictDetailResponse> {
-  const res = await fetch(`${BASE_URL}/districts/${encodeURIComponent(districtId)}`, { cache: "no-store" });
+  const res = await fetch(`${BASE_URL}/districts/${encodeURIComponent(districtId)}`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error("Failed to fetch district details");
@@ -38,7 +38,7 @@ export async function fetchConstituencies(district_id?: string): Promise<Constit
   const url = district_id
     ? `${BASE_URL}/constituencies?district_id=${encodeURIComponent(district_id)}`
     : `${BASE_URL}/constituencies`;
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetch(url, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error("Failed to fetch constituencies");
@@ -47,7 +47,7 @@ export async function fetchConstituencies(district_id?: string): Promise<Constit
 }
 
 export async function fetchConstituencyWinners(constituencyId: string): Promise<ConstituencyWinnerHistoryResponse> {
-  const res = await fetch(`${BASE_URL}/constituencies/${encodeURIComponent(constituencyId)}/winners`, { cache: "no-store" });
+  const res = await fetch(`${BASE_URL}/constituencies/${encodeURIComponent(constituencyId)}/winners`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error("Failed to fetch constituency winners");
@@ -56,7 +56,7 @@ export async function fetchConstituencyWinners(constituencyId: string): Promise<
 }
 
 export async function fetchMLAProfile(identifier: string): Promise<MLAProfileResponse> {
-  const res = await fetch(`${BASE_URL}/mlas/${encodeURIComponent(identifier)}/profile`, { cache: "no-store" });
+  const res = await fetch(`${BASE_URL}/mlas/${encodeURIComponent(identifier)}/profile`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error("Failed to fetch MLA profile");
@@ -64,7 +64,7 @@ export async function fetchMLAProfile(identifier: string): Promise<MLAProfileRes
   return res.json();
 }
 export async function fetchMLAs(year: number = 2021): Promise<MLAListResponse> {
-  const res = await fetch(`${BASE_URL}/mlas?year=${year}`, { cache: "no-store" });
+  const res = await fetch(`${BASE_URL}/mlas?year=${year}`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error("Failed to fetch MLAs");

@@ -3,15 +3,17 @@ import { getBaseMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { fetchMLAs } from "@/services/api";
 import CoverImage from "@/components/CoverImage";
+import Image from "next/image";
 
 export const metadata: Metadata = getBaseMetadata(
   "Current MLAs",
   "List of elected members of the Tamil Nadu Legislative Assembly (2021-2026).",
-  "mla/list",
+  "tn/mla/list",
   ["MLA List", "Tamil Nadu MLAs", "Elected Members", "Constituency Wise MLAs"]
 );
 
-export const dynamic = "force-dynamic";
+// Static generation for better performance
+export const revalidate = 3600; // revalidate every hour
 
 export default async function MLAListPage() {
   const { mlas } = await fetchMLAs();
@@ -23,7 +25,7 @@ export default async function MLAListPage() {
         subtitle="List of elected members of the Tamil Nadu Legislative Assembly (2021-2026)."
       >
         <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
           <span className="mx-3 text-white/20">/</span>
           <Link href="/tn" className="hover:text-white transition-colors">Tamil Nadu</Link>
           <span className="mx-3 text-white/20">/</span>
@@ -60,7 +62,7 @@ export default async function MLAListPage() {
                             <tr key={mla.constituency_id} className="hover:bg-slate-50/50 transition-colors group">
                                 <td className="px-8 py-4">
                                     <Link 
-                                        href={`/constituency/${mla.constituency_id.replace("CONSTITUENCY#", "")}`}
+                                        href={`/tn/constituency/${mla.constituency_id.replace("CONSTITUENCY#", "")}`}
                                         className="text-sm font-bold text-brand-dark hover:text-brand-gold transition-colors inline-flex items-center"
                                     >
                                         {mla.constituency}
@@ -72,7 +74,7 @@ export default async function MLAListPage() {
                                 <td className="px-8 py-4">
                                     {mla.person_id ? (
                                         <Link 
-                                            href={`/mla/${mla.person_id.replace("PERSON#", "")}`}
+                                            href={`/tn/mla/${mla.person_id.replace("PERSON#", "")}`}
                                             className="text-sm font-black text-slate-800 hover:text-brand-gold transition-colors"
                                         >
                                             {mla.name}
@@ -91,8 +93,14 @@ export default async function MLAListPage() {
                                         }}
                                     >
                                         {mla.party_logo_url && (
-                                            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-slate-100 shadow-inner">
-                                                <img src={mla.party_logo_url} alt={mla.party} className="w-8 h-8 object-contain" />
+                                            <div className="relative w-10 h-10 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-slate-100 shadow-inner">
+                                                <Image 
+                                                    src={mla.party_logo_url} 
+                                                    alt={mla.party} 
+                                                    width={32}
+                                                    height={32}
+                                                    className="object-contain" 
+                                                />
                                             </div>
                                         )}
                                         {mla.party}

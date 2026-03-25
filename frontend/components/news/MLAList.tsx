@@ -34,7 +34,7 @@ const MLAList: React.FC = () => {
         {mlaDataset.map((mla, idx) => (
           <Link
             key={idx}
-            href={`/mla/${mla.slug}`}
+            href={`/tn/mla/${mla.slug}`}
             className="group block p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-brand-gold/30 hover:-translate-y-1 transition-all duration-300"
           >
             <div className="flex items-center justify-between">

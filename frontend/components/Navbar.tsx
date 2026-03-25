@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import FeedbackModal from "./FeedbackModal";
 import { Menu, X } from "lucide-react";
 
@@ -13,14 +14,19 @@ export default function Navbar() {
       <nav className="sticky top-0 z-50 bg-brand-dark border-b border-white/5 shadow-lg">
         <div className="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-4">
-            <a href="/tn" className="flex items-center font-black text-2xl tracking-tighter text-white font-bold">
-              <div
-                className="h-16 w-16 md:h-20 md:w-20 bg-cover bg-no-repeat bg-center"
-                style={{ backgroundImage: "url('/KnowYourMLA_logo.png')" }}
-                role="img"
-                aria-label="KnowYourMLA Logo"
-              />
-              <span className="hidden md:inline">KnowYour<span className="text-brand-gold">MLA</span></span>
+            <a href="/tn" className="flex items-center gap-2 group">
+              <div className="relative h-12 w-12 md:h-16 md:w-16 overflow-hidden">
+                <Image
+                  src="/KnowYourMLA_logo.png"
+                  alt="KnowYourMLA Logo"
+                  fill
+                  className="object-contain transform group-hover:scale-110 transition-transform duration-300"
+                  priority
+                />
+              </div>
+              <span className="hidden md:inline font-black text-2xl tracking-tighter text-white">
+                KnowYour<span className="text-brand-gold">MLA</span>
+              </span>
             </a>
             <a href="/tn" className="text-slate-400 hover:text-white text-[10px] md:text-xs font-black uppercase tracking-widest transition-colors">
               Home

@@ -13,10 +13,13 @@ export const metadata: Metadata = {
   description: "Comprehensive source for MLA information, election history, and performance analytics across Tamil Nadu constituencies. Empowering citizens with data-driven political insights.",
   keywords: ["KnowYourMLA", "MLA", "Tamil Nadu Politics", "Election Data", "Constituency Analysis"],
   robots: "index, follow",
+  alternates: {
+    canonical: "https://knowyourmla-info.vercel.app",
+  },
   openGraph: {
     title: "KnowYourMLA - Tamil Nadu MLA Directory & Election History",
     description: "Comprehensive source for MLA information, election history, and performance analytics across Tamil Nadu constituencies.",
-    url: "https://knowyourmla-info.web.app/",
+    url: "https://knowyourmla-info.vercel.app",
     siteName: "KnowYourMLA",
     images: [
       {
@@ -44,6 +47,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://images.unsplash.com" />
+      </head>
       <body className={`${inter.className} bg-slate-50 dark:bg-slate-950 min-h-screen text-slate-900 dark:text-slate-100 flex flex-col`}>
         <Navbar />
 

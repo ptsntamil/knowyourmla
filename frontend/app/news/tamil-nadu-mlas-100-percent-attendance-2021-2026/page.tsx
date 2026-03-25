@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: '18 MLAs with 100% Assembly Attendance in Tamil Nadu (2021–2026)',
       description: 'Explore the profiles of the 18 Tamil Nadu MLAs who never missed a day in the Assembly.',
       type: 'article',
-      url: `https://knowyourmla-info.web.app/news/${slug}`,
+      url: `https://knowyourmla-info.vercel.app/news/${slug}`,
       images: [
         {
-          url: 'https://knowyourmla-info.web.app/logo.png',
+          url: 'https://knowyourmla-info.vercel.app/logo.png',
           width: 1200,
           height: 630,
           alt: 'TN MLAs 100% Attendance',
@@ -38,7 +38,7 @@ export default function AttendanceNewsPage() {
   const description = 'Discover the 18 Tamil Nadu MLAs who maintained 100% attendance in the Assembly from 2021 to 2026. Explore their profiles, constituencies, and performance data.';
   const publishDate = "March 21, 2026";
   const readingTime = "4 min";
-  const articleUrl = "https://knowyourmla-info.web.app/news/tamil-nadu-mlas-100-percent-attendance-2021-2026";
+  const articleUrl = "https://knowyourmla-info.vercel.app/news/tamil-nadu-mlas-100-percent-attendance-2021-2026";
   const title = "18 MLAs with 100% Assembly Attendance in Tamil Nadu (2021–2026)";
 
   // JSON-LD Structured Data
@@ -51,14 +51,14 @@ export default function AttendanceNewsPage() {
     "author": {
       "@type": "Organization",
       "name": "KnowYourMLA Team",
-      "url": "https://knowyourmla-info.web.app"
+      "url": "https://knowyourmla-info.vercel.app"
     },
     "publisher": {
       "@type": "Organization",
       "name": "KnowYourMLA",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://knowyourmla-info.web.app/KnowYourMLA_logo.png"
+        "url": "https://knowyourmla-info.vercel.app/KnowYourMLA_logo.png"
       }
     },
     "description": description,
@@ -218,7 +218,7 @@ export default function AttendanceNewsPage() {
           <section className="mt-8 pt-12 border-t border-slate-100 flex flex-col items-center">
             <h3 className="text-2xl font-black text-brand-dark uppercase tracking-tight mb-6">Want to know more about your MLA?</h3>
             <Link
-              href="/mla/list"
+              href="/tn/mla/list"
               className="group bg-brand-dark text-white px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-sm flex items-center gap-4 hover:bg-black transition-all shadow-xl hover:shadow-brand-gold/20"
             >
               Explore All MLA Profiles

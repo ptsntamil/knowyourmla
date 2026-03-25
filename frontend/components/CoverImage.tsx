@@ -9,12 +9,14 @@ interface CoverImageProps {
 export default function CoverImage({ title, subtitle, children }: CoverImageProps) {
   return (
     <div className="relative h-[300px] md:h-[400px] w-full overflow-hidden flex items-center justify-center text-white bg-brand-dark">
-      {/* Background Image Layer */}
-      <div className="absolute inset-0 z-0">
-        <img 
+      <div className="absolute inset-0 z-0 h-full w-full">
+        <Image 
           src="https://images.unsplash.com/photo-1582510003544-4d00b7f74220?q=80&w=2000&auto=format&fit=crop" 
           alt="Background" 
-          className="w-full h-full object-cover opacity-30 mix-blend-luminosity scale-105 group-hover:scale-110 transition-transform duration-700"
+          fill
+          priority
+          className="object-cover opacity-30 mix-blend-luminosity scale-105 group-hover:scale-110 transition-transform duration-700"
+          sizes="100vw"
         />
         <div className="absolute inset-0 bg-gradient-to-tr from-brand-dark via-brand-dark/80 to-transparent opacity-90" />
       </div>

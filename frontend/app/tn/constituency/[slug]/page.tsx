@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps) {
   return getBaseMetadata(
     `${name} MLA Election History`,
     `Complete election results and MLA history of ${name} constituency Tamil Nadu.`,
-    `/constituency/${slug}`,
+    `/tn/constituency/${slug}`,
     [`${name} Constituency`, "Election History", "Tamil Nadu MLA", "Election Results"]
   );
 }
@@ -34,7 +34,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
         subtitle={`Historical election data and representative details for the ${slug} constituency.`}
       >
         <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+          <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
           <span className="mx-3 text-white/20">/</span>
           <span className="text-brand-gold">{slug} History</span>
         </nav>
@@ -96,7 +96,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
                 </div>
                 
                 <Link
-                  href={`/mla/${currentWinner.person_id ? currentWinner.person_id.replace("PERSON#", "") : currentWinner.winner.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
+                  href={`/tn/mla/${currentWinner.person_id ? currentWinner.person_id.replace("PERSON#", "") : currentWinner.winner.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
                   className="inline-flex items-center gap-3 bg-brand-gold text-white px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-brand-yellow transition-all shadow-2xl transform hover:scale-105"
                 >
                   View Full Profile
@@ -241,7 +241,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
                       <td className="px-10 py-8">
                         {record.person_id || record.slug ? (
                           <Link
-                            href={`/mla/${record.person_id ? record.person_id.replace("PERSON#", "") : record.slug}`}
+                            href={`/tn/mla/${record.person_id ? record.person_id.replace("PERSON#", "") : record.slug}`}
                             className="font-black text-brand-gold hover:text-brand-green uppercase tracking-tight text-lg"
                           >
                             {record.winner}
