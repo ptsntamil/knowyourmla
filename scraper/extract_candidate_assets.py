@@ -12,7 +12,7 @@ from scraper.fetcher import AsyncFetcher
 from scraper.asset_parser import AssetParser
 from scraper.config import logger
 
-async def extract_candidate_assets(candidate_id: int):
+async def extract_candidate_assets(candidate_id: int, update_db: bool = False, dry_run: bool = False):
     """Fetch and parse candidate asset details using the print-friendly version."""
     fetcher = AsyncFetcher()
     # Using the print version which is not obfuscated
@@ -37,15 +37,28 @@ async def extract_candidate_assets(candidate_id: int):
         
         print(json.dumps(output, indent=2, ensure_ascii=False))
         
+        # Update DynamoDB if requested
+        if update_db:
+            from scraper.update_candidate_assets_db import AssetDBUpdater
+            updater = AssetDBUpdater()
+            # Assuming 2021 as the default year for now, consistent with the URL
+            success = updater.update_assets(candidate_id, 2021, output, dry_run=dry_run)
+            if success:
+                logger.info(f"DynamoDB update successful for candidate {candidate_id}")
+            else:
+                logger.error(f"DynamoDB update failed for candidate {candidate_id}")
+        
     finally:
         await fetcher.close()
 
 def main():
     parser = argparse.ArgumentParser(description="Extract candidate assets from MyNeta.")
     parser.add_argument("--candidate_id", type=int, default=222, help="MyNeta candidate ID")
+    parser.add_argument("--update_db", action="store_true", help="Update DynamoDB with extracted assets")
+    parser.add_argument("--dry_run", action="store_true", help="Perform a dry run for DynamoDB update (no actual write)")
     args = parser.parse_args()
     
-    asyncio.run(extract_candidate_assets(args.candidate_id))
+    asyncio.run(extract_candidate_assets(args.candidate_id, update_db=args.update_db, dry_run=args.dry_run))
 
 if __name__ == "__main__":
     main()

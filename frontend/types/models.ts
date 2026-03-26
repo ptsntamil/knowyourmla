@@ -134,6 +134,9 @@ export interface MLAAnalytics {
   criminal_case_trend: CriminalCaseRecord[];
   election_expenses_trend: ElectionExpenseRecord[];
   itr_history?: Record<string, Record<string, number>> | null;
+  gold_assets?: any | null;
+  vehicle_assets?: any | null;
+  land_assets?: any | null;
 }
 
 export interface MLAProfileResponse {

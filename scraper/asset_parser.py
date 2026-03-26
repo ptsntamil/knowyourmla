@@ -141,6 +141,8 @@ class AssetParser:
                     e["name"] = f"{e['village']} (S.No: {e['survey_no']})"
                     e["area"] = f"{e['acres']} Acres {e['cents']} Cents" if e['acres'] or e['cents'] else e['raw_area']
                     e["value"] = f"{int(e['purchase_cost']):,}" if e['purchase_cost'] else "0"
+                if owner_key not in ["self", "spouse"]:
+                    result.pop("full_text", None)
                 land_data[owner_key] = result
             else:
                 land_data[owner_key] = {"entries": [], "total": {"calculated": {"acres": 0.0, "cents": 0.0}, "declared": {"acres": 0.0, "cents": 0.0}, "total_purchase_cost": 0.0, "mismatch": False}}
