@@ -1,19 +1,6 @@
 import re
 import math
-import os
-import json
-import logging
-import requests
 from typing import List, Dict, Tuple, Optional
-
-# Setup logger
-logger = logging.getLogger(__name__)
-if not logger.handlers:
-    handler = logging.StreamHandler()
-    formatter = logging.Formatter('%(asctime)s [%(levelname)s] %(name)s: %(message)s')
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    logger.setLevel(logging.INFO)
 
 def parse_land_data(text: str) -> dict:
     """
@@ -39,6 +26,10 @@ def parse_land_data(text: str) -> dict:
         area_info = parse_area(raw_block, purchase_cost)
         confidence = assign_confidence(area_info, purchase_cost, raw_block)
         
+        # Filter out empty entries (no area and no cost)
+        if area_info["acres"] == 0 and area_info["cents"] == 0 and purchase_cost == 0:
+            continue
+            
         processed_entries.append({
             "village": village,
             "survey_no": survey_no,
@@ -69,6 +60,7 @@ def parse_land_data(text: str) -> dict:
                    mismatch = True
             
     return {
+        "full_text": text,
         "entries": processed_entries,
         "total": {
             "calculated": {
@@ -83,46 +75,7 @@ def parse_land_data(text: str) -> dict:
 
 def split_entries(text: str) -> list:
     """
-    Coordination function to split entries using Regex with LLM fallback.
-    """
-    entries = split_entries_regex(text)
-
-    # Heuristic to detect bad split
-    if is_bad_split(entries):
-        logger.info(f"Detected potential bad split (entries: {len(entries)}), attempting LLM fallback...")
-        try:
-            llm_entries = split_entries_llm(text)
-
-            # Use LLM output if it produces more meaningful entries
-            if len(llm_entries) > len(entries):
-                logger.info(f"LLM split successful: extracted {len(llm_entries)} entries.")
-                return llm_entries
-            else:
-                logger.info("LLM split did not produce more entries, falling back to regex.")
-        except Exception as e:
-            logger.error(f"LLM split failed: {e}")
-            pass  # Fallback safely to regex results
-
-    return entries
-
-def is_bad_split(entries: list) -> bool:
-    """Heuristic to detect if regex splitting produced unsatisfactory results."""
-    if not entries:
-        return True
-        
-    if len(entries) <= 2:
-        return True
-
-    # Check if high percentage of entries lack 'Total Area'
-    zero_area_count = sum(1 for e in entries if "Total Area" not in e)
-    if zero_area_count / max(len(entries), 1) > 0.6:
-        return True
-
-    return False
-
-def split_entries_regex(text: str) -> list:
-    """
-    Robustly splits land data into separate logical blocks using Regex.
+    Robustly splits land data into separate logical blocks.
     Handles numbered entries (1), 2)) and paragraph-style blocks.
     """
     # Normalize whitespace
@@ -130,10 +83,15 @@ def split_entries_regex(text: str) -> list:
 
     # Case 1: Numbered entries
     if re.search(r"\d+\)", text):
+        # We split by the number tags but keep them for extraction if needed
+        # Use lookahead to keep the tag in the next block if preferred, 
+        # but here we just need the content blocks.
         parts = re.split(r"(?:\n?\s*\d+\)\s*)", text)
         return [p.strip() for p in parts if p.strip()]
 
     # Case 2: Paragraph-based entries (Fallback)
+    # Split before lines containing 'village' or 'District' followed by 'Survey NO'
+    # Use a positive lookahead for the entry start pattern
     pattern = r"(?=(?:[A-Za-z ,.-]+?(?:village|District).*?Survey\s*NO))"
     parts = re.split(pattern, text, flags=re.IGNORECASE | re.DOTALL)
 
@@ -141,93 +99,20 @@ def split_entries_regex(text: str) -> list:
     cleaned = []
     for part in parts:
         part = part.strip()
+        # Ignore noise blocks
         if not part:
             continue
+        # Skip blocks that are just totals, noise, or summary lines
         if re.fullmatch(r"(Nil|\s|Rs.*|[\d, ]+Lacs\+?)+", part, re.IGNORECASE):
             continue
             
+        # Validation: Each entry must contain Survey NO or Total Area
         if not (re.search(r"Survey\s*NO", part, re.I) or re.search(r"Total Area", part, re.I)):
             continue
 
         cleaned.append(part)
 
     return cleaned
-
-def split_entries_llm(text: str) -> list:
-    """Uses Gemini API to split entries as a fallback."""
-    api_key = os.getenv("GOOGLE_GEMINI_API_KEY")
-    if not api_key:
-        # Fallback to loading from .env.local in relative paths
-        try:
-            env_paths = [".env.local", "scraper/.env.local", "../scraper/.env.local"]
-            for path in env_paths:
-                if os.path.exists(path):
-                    with open(path, "r") as f:
-                        for line in f:
-                            if "GOOGLE_GEMINI_API_KEY" in line:
-                                api_key = line.split("=")[1].strip().strip('"').strip("'")
-                                break
-                if api_key: break
-        except Exception:
-            pass
-            
-    if not api_key:
-        logger.error("Cannot proceed with LLM split: GOOGLE_GEMINI_API_KEY missing.")
-        return []
-
-    # Use a working Gemini model name from the available pool
-    model = "gemini-flash-latest" 
-    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={api_key}"
-    
-    prompt = f"""You are a data extraction engine.
-
-Split the following affidavit text into separate land property entries.
-
-Each entry represents ONE property and includes:
-- Location (village / district)
-- Survey number
-- Total Area
-- Purchase Cost
-
-Rules:
-- Start a new entry when a new village, district, or survey appears
-- Also split when a new "Total Area" clearly belongs to a new property
-- Ignore "Nil", "Rs", "Lacs+", "Crore+", and section headers
-
-Return STRICT JSON:
-
-{{
-  "entries": [
-    "entry 1 full text",
-    "entry 2 full text"
-  ]
-}}
-
-TEXT:
-{text}"""
-
-    payload = {
-        "contents": [{
-            "parts": [{"text": prompt}]
-        }]
-    }
-    
-    try:
-        response = requests.post(url, json=payload, timeout=30)
-        response.raise_for_status()
-        result = response.json()
-        
-        # Extract response text
-        content = result['candidates'][0]['content']['parts'][0]['text']
-        # Extract JSON from markdown if needed
-        json_match = re.search(r"(\{.*\})", content, re.DOTALL)
-        if json_match:
-            data = json.loads(json_match.group(1))
-            return [e.strip() for e in data.get("entries", []) if e.strip()]
-    except Exception as e:
-        logger.error(f"Gemini API request failed: {e}")
-        
-    return []
 
 def extract_entries(text: str) -> List[Dict]:
     """Extracts entries and tracks village context across them."""

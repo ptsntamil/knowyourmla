@@ -95588,3 +95588,1912 @@ Node.js v22.14.0
 2026-03-23 23:12:56,636 [INFO] scraper.land_parser: LLM split did not produce more entries, falling back to regex.
 2026-03-23 23:12:56,639 [INFO] scraper.land_parser: Detected potential bad split (entries: 0), attempting LLM fallback...
 2026-03-23 23:13:07,182 [INFO] scraper.land_parser: LLM split did not produce more entries, falling back to regex.
+2026-03-25 21:20:31,519 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true
+2026-03-25 21:20:31,520 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true (Attempt 1)
+2026-03-25 21:20:34,455 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:20:35,160 [INFO] scraper.land_parser: Detected potential bad split (entries: 2), attempting LLM fallback...
+2026-03-25 21:20:35,617 [ERROR] scraper.land_parser: Gemini API request failed: 403 Client Error: Forbidden for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=AIzaSyBMej_RCdarAZ08sm5POkXMFkezTZF9dTc
+2026-03-25 21:20:35,618 [INFO] scraper.land_parser: LLM split did not produce more entries, falling back to regex.
+2026-03-25 21:20:35,619 [INFO] scraper.land_parser: Detected potential bad split (entries: 2), attempting LLM fallback...
+2026-03-25 21:20:36,126 [ERROR] scraper.land_parser: Gemini API request failed: 403 Client Error: Forbidden for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=AIzaSyBMej_RCdarAZ08sm5POkXMFkezTZF9dTc
+2026-03-25 21:20:36,126 [INFO] scraper.land_parser: LLM split did not produce more entries, falling back to regex.
+2026-03-25 21:20:36,127 [INFO] scraper.land_parser: Detected potential bad split (entries: 0), attempting LLM fallback...
+2026-03-25 21:20:36,311 [ERROR] scraper.land_parser: Gemini API request failed: 403 Client Error: Forbidden for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=AIzaSyBMej_RCdarAZ08sm5POkXMFkezTZF9dTc
+2026-03-25 21:20:36,312 [INFO] scraper.land_parser: LLM split did not produce more entries, falling back to regex.
+2026-03-25 21:23:12,321 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true
+2026-03-25 21:23:12,321 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true (Attempt 1)
+2026-03-25 21:23:15,276 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:24:04,636 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true
+2026-03-25 21:24:04,637 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true (Attempt 1)
+2026-03-25 21:24:07,595 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:24:25,249 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:24:25,249 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:24:28,176 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:38:06,706 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:38:06,706 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:38:09,717 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:38:18,968 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:38:18,969 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:38:21,918 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:38:36,529 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:38:36,529 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:38:39,493 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:41:29,007 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:41:29,008 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:41:31,977 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:46:54,987 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:46:54,987 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:46:57,947 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:46:58,657 [INFO] botocore.credentials: Found credentials in shared credentials file: ~/.aws/credentials
+2026-03-25 21:46:58,697 [INFO] asset_db_updater: [DRY RUN] Updating assets for AFFIDAVIT#2021#222
+2026-03-25 21:46:58,697 [INFO] asset_db_updater: Update Expression: SET gold_assets = :gold, vehicle_assets = :veh, land_assets = :land
+2026-03-25 21:46:58,697 [INFO] asset_db_updater: Attribute Values: {
+  ":gold": {
+    "self": {
+      "gold": "40 Gram",
+      "value": "0",
+      "raw_text": "40 Gram Gold1,72,0001\u00a0Lacs+"
+    },
+    "spouse": {
+      "gold": "577 gram",
+      "value": "0",
+      "raw_text": "577 gram gold24,82,99224\u00a0Lacs+"
+    },
+    "dep1": {
+      "gold": "97.48 gram",
+      "value": "0",
+      "raw_text": "97.48 gram gold4,19,1644\u00a0Lacs+"
+    }
+  },
+  ":veh": {
+    "self": [
+      {
+        "name": "Ashok Lyland, OIL tanker Lorry",
+        "vehicle": "TN 57M 1717(2007)",
+        "value": "1,432,255",
+        "raw_text": "Ashok Lyland, OIL tanker Lorry, TN 57M 1717(2007)"
+      },
+      {
+        "name": "Hyundai Creta Car 7(2017)",
+        "vehicle": "TN 94Z2348",
+        "value": "1,563,529",
+        "raw_text": "Hyundai Creta Car TN 94Z23487(2017)"
+      },
+      {
+        "name": "Toyota Innoa Car",
+        "vehicle": "TN 57 BH 1717(2017)",
+        "value": "2,806,610",
+        "raw_text": "Toyota Innoa Car, TN 57 BH 1717(2017)"
+      },
+      {
+        "name": "Yamaha 2 wheeler Vechile",
+        "vehicle": "TN 57AW 6706",
+        "value": "61,179",
+        "raw_text": "Yamaha 2 wheeler Vechile, TN 57AW 6706"
+      },
+      {
+        "name": "Ashok Two Wheeler",
+        "vehicle": "TN 94 Y 1717(2020)",
+        "value": "1,316,943",
+        "raw_text": "Ashok Two Wheeler , TN 94 Y 1717(2020)"
+      }
+    ],
+    "spouse": [],
+    "dep1": []
+  },
+  ":land": {
+    "self": {
+      "full_text": "1)\nSurvey NO:257/3\n\n2)\nSurvey NO:257/2\n\n3)\nSurvey NO:262/2\n\n4)\nSurvey NO:262/3\n\n5)\nSurvey NO:226/1B2\n\n6)\nSurvey NO:254/1A\n\n7)\nSurvey NO:262/3A\nTotal Area\n16.80 1/4 Acre\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2016-02-29\nPurchase Cost\n22000.00\nDevelopment Cost\n14833822.00\n53,01,040\n53\u00a0Lacs+\nKalimandayam Village:\n1)\nSurvey No:388/1C2A\nAcre:13068\nDate of Purchase:25.11.1985\nCost of Purchase:34000\n\n2)\nSurvey No:388/1C2B\nAcre:2613\nDate of Purchase:05.03.1988\nCost of Purchase:8900\n\n3)\nSurvey No:388/7\nAcre:2613\nDate of Purchase:17.03.2006\nCost of Purchase:31500\n\n4)\nSurvey No:388/1C2B,386/3B2\nAcre:13068\nDate of Purchase:26.11.2007\nCost of Purchase:1467600\n\n5)\nSurvey No:388/6\nAcre:366\nDate of Purchase:29.11.2007\nCost of Purchase:40400\n\n6)\nSurvey No:386/18B2,19A\nAcre:3099\nDate of Purchase:\nCost of Purchase:1676570\n\n7)\nSurvey No:265/37\nAcre:759\nDate of Purchase:10.01.2013\nCost of Purchase:123260\n\n8)\nSurvey No:265/36,37\nAcre:621\nDate of Purchase:30.01.2013\nCost of Purchase:101640\n\n9)\nSurvey No:265/38\nAcre:667\nDate of Purchase:30.01.2013\nCost of Purchase:119000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n0.00\n87,37,497\n87\u00a0Lacs+\n0",
+      "entries": [
+        {
+          "village": "Kalimandayam",
+          "survey_no": "262/3A",
+          "raw_area": "0",
+          "acres": 0.0,
+          "cents": 0.0,
+          "purchase_cost": 22000.0,
+          "confidence": "low",
+          "correction_applied": false,
+          "raw_text": "Survey NO:262/3A\n\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2016-02-29\nPurchase Cost\n22000.00\nDevelopment Cost\n14833822.00\n53,01,040\n53\u00a0Lacs+",
+          "name": "Kalimandayam (S.No: 262/3A)",
+          "area": "0",
+          "value": "22,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2A",
+          "raw_area": "13068",
+          "acres": 0.0,
+          "cents": 30.0,
+          "purchase_cost": 34000.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/1C2A\nAcre:13068\nDate of Purchase:25.11.1985\nCost of Purchase:34000",
+          "name": "Kalimandayam (S.No: 388/1C2A)",
+          "area": "0.0 Acres 30.0 Cents",
+          "value": "34,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "2613",
+          "acres": 0.0,
+          "cents": 5.99,
+          "purchase_cost": 8900.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/1C2B\nAcre:2613\nDate of Purchase:05.03.1988\nCost of Purchase:8900",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 5.99 Cents",
+          "value": "8,900"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/7",
+          "raw_area": "7",
+          "acres": 0.0,
+          "cents": 0.01,
+          "purchase_cost": 31500.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/7\nAcre:2613\nDate of Purchase:17.03.2006\nCost of Purchase:31500",
+          "name": "Kalimandayam (S.No: 388/7)",
+          "area": "0.0 Acres 0.01 Cents",
+          "value": "31,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "2",
+          "acres": 2.0,
+          "cents": 0.0,
+          "purchase_cost": 1467600.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B,386/3B2\nAcre:13068\nDate of Purchase:26.11.2007\nCost of Purchase:1467600",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "2.0 Acres 0.0 Cents",
+          "value": "1,467,600"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/6",
+          "raw_area": "6",
+          "acres": 0.0,
+          "cents": 0.01,
+          "purchase_cost": 40400.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/6\nAcre:366\nDate of Purchase:29.11.2007\nCost of Purchase:40400",
+          "name": "Kalimandayam (S.No: 388/6)",
+          "area": "0.0 Acres 0.01 Cents",
+          "value": "40,400"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/18B2",
+          "raw_area": "3099",
+          "acres": 0.0,
+          "cents": 7.11,
+          "purchase_cost": 1676570.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:386/18B2,19A\nAcre:3099\nDate of Purchase:\nCost of Purchase:1676570",
+          "name": "Kalimandayam (S.No: 386/18B2)",
+          "area": "0.0 Acres 7.11 Cents",
+          "value": "1,676,570"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/37",
+          "raw_area": "37",
+          "acres": 37.0,
+          "cents": 0.0,
+          "purchase_cost": 123260.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/37\nAcre:759\nDate of Purchase:10.01.2013\nCost of Purchase:123260",
+          "name": "Kalimandayam (S.No: 265/37)",
+          "area": "37.0 Acres 0.0 Cents",
+          "value": "123,260"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/36",
+          "raw_area": "37",
+          "acres": 37.0,
+          "cents": 0.0,
+          "purchase_cost": 101640.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/36,37\nAcre:621\nDate of Purchase:30.01.2013\nCost of Purchase:101640",
+          "name": "Kalimandayam (S.No: 265/36)",
+          "area": "37.0 Acres 0.0 Cents",
+          "value": "101,640"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/38",
+          "raw_area": "38",
+          "acres": 38.0,
+          "cents": 0.0,
+          "purchase_cost": 119000.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/38\nAcre:667\nDate of Purchase:30.01.2013\nCost of Purchase:119000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n0.00\n87,37,497\n87\u00a0Lacs+\n0",
+          "name": "Kalimandayam (S.No: 265/38)",
+          "area": "38.0 Acres 0.0 Cents",
+          "value": "119,000"
+        }
+      ],
+      "total": {
+        "calculated": {
+          "acres": 114.0,
+          "cents": 43.12
+        },
+        "declared": {
+          "acres": 0.0,
+          "cents": 29.0
+        },
+        "total_purchase_cost": 3624870.0,
+        "mismatch": true
+      }
+    },
+    "spouse": {
+      "full_text": "Kalimandayam Village:\n1)\nSurvey No:226/1B\nAcre:5.16\nDate of Purchase:05.11.1997\nCost of Purchase:76840\n\n2)\nSurvey No:254/1B\nAcre:1.33\nDate of Purchase:17.09.2004\nCost of Purchase:32400\n\n3)\nSurvey No:224/1,4,5\nAcre:9\nDate of Purchase:14.07.2008\nCost of Purchase:186000\n\n4)\nSurvey No:261/1,2\nAcre:1.33\nDate of Purchase:21.08.2006\nCost of Purchase:134500\n\n5)\nSurvey No:222/1\nAcre:0.30\nDate of Purchase:14.07.2010\nCost of Purchase:12800\n\n6)\nSurvey No:222/1A\nAcre:0.52\nDate of Purchase:30.07.2020\nCost of Purchase:196688\n\nSikamanayakanpatti Village:\n7)\nSurvey No:186/1A,1b,208/2c,2c,4b,209/2f\nAcre:6.30\nDate of Purchase:14.06.2005\nCost of Purchase:250000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n7896480.00\n48,71,570\n48\u00a0Lacs+\nKalimandayam Village;\n\n1)\nSurvey No:397/1A,394/3B2\nSq.ft:4368\nDate of Purchase:08.04.1994\nCost of Purchase:37250\n\n2)\nSurvey No:388/1C2B\nSq.ft:5702\nDate of Purchase:01.02.1999\nCost of Purchase:30610\n\n3)\nSurvey No:388/1C2B\nSq.ft:4360\nDate of Purchase:17.03.2006\nCost of Purchase:60000\n\n4)\nSurvey No:386/1B1C\nSq.ft:4796\nDate of Purchase:29.05.2008\nCost of Purchase:5600\n\n5)\nSurvey No:386/19A\nSq.ft:2743\nDate of Purchase:29.05.2008\nCost of Purchase:13500\n\n6)\nSurvey No:386/18,386/19A\nSq.ft:2743\nDate of Purchase:02.02.2011\nCost of Purchase:301090\n\n7)\nSurvey No:386/6\nSq.ft:1076.2\nDate of Purchase:29.02.2016\nCost of Purchase:584000\n\nMugaper Veetu Vasathi\n8)\nSurvey No:442\nSq.ft:1047\nDate of Purchase:29.04.2010\nCost of Purchase:9581855\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n17205915.00\n4,71,19,198\n4\u00a0Crore+\nNil",
+      "entries": [
+        {
+          "village": "Kalimandayam",
+          "survey_no": "226/1B",
+          "raw_area": "5.16",
+          "acres": 5.0,
+          "cents": 16.0,
+          "purchase_cost": 76840.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:226/1B\nAcre:5.16\nDate of Purchase:05.11.1997\nCost of Purchase:76840",
+          "name": "Kalimandayam (S.No: 226/1B)",
+          "area": "5.0 Acres 16.0 Cents",
+          "value": "76,840"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "254/1B",
+          "raw_area": "1.33",
+          "acres": 1.0,
+          "cents": 33.0,
+          "purchase_cost": 32400.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:254/1B\nAcre:1.33\nDate of Purchase:17.09.2004\nCost of Purchase:32400",
+          "name": "Kalimandayam (S.No: 254/1B)",
+          "area": "1.0 Acres 33.0 Cents",
+          "value": "32,400"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "224/1",
+          "raw_area": "5",
+          "acres": 5.0,
+          "cents": 0.0,
+          "purchase_cost": 186000.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:224/1,4,5\nAcre:9\nDate of Purchase:14.07.2008\nCost of Purchase:186000",
+          "name": "Kalimandayam (S.No: 224/1)",
+          "area": "5.0 Acres 0.0 Cents",
+          "value": "186,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "261/1",
+          "raw_area": "2",
+          "acres": 2.0,
+          "cents": 0.0,
+          "purchase_cost": 134500.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:261/1,2\nAcre:1.33\nDate of Purchase:21.08.2006\nCost of Purchase:134500",
+          "name": "Kalimandayam (S.No: 261/1)",
+          "area": "2.0 Acres 0.0 Cents",
+          "value": "134,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "222/1",
+          "raw_area": "1",
+          "acres": 1.0,
+          "cents": 0.0,
+          "purchase_cost": 12800.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:222/1\nAcre:0.30\nDate of Purchase:14.07.2010\nCost of Purchase:12800",
+          "name": "Kalimandayam (S.No: 222/1)",
+          "area": "1.0 Acres 0.0 Cents",
+          "value": "12,800"
+        },
+        {
+          "village": "Sikamanayakanpatti",
+          "survey_no": "222/1A",
+          "raw_area": "0.52",
+          "acres": 0.0,
+          "cents": 52.0,
+          "purchase_cost": 196688.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:222/1A\nAcre:0.52\nDate of Purchase:30.07.2020\nCost of Purchase:196688",
+          "name": "Sikamanayakanpatti (S.No: 222/1A)",
+          "area": "0.0 Acres 52.0 Cents",
+          "value": "196,688"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "186/1A",
+          "raw_area": "6.30",
+          "acres": 6.0,
+          "cents": 30.0,
+          "purchase_cost": 250000.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:186/1A,1b,208/2c,2c,4b,209/2f\nAcre:6.30\nDate of Purchase:14.06.2005\nCost of Purchase:250000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n7896480.00\n48,71,570\n48\u00a0Lacs+",
+          "name": "Kalimandayam (S.No: 186/1A)",
+          "area": "6.0 Acres 30.0 Cents",
+          "value": "250,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "397/1A",
+          "raw_area": "4368",
+          "acres": 0.0,
+          "cents": 10.02,
+          "purchase_cost": 37250.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:397/1A,394/3B2\nSq.ft:4368\nDate of Purchase:08.04.1994\nCost of Purchase:37250",
+          "name": "Kalimandayam (S.No: 397/1A)",
+          "area": "0.0 Acres 10.02 Cents",
+          "value": "37,250"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "5702",
+          "acres": 0.0,
+          "cents": 13.08,
+          "purchase_cost": 30610.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B\nSq.ft:5702\nDate of Purchase:01.02.1999\nCost of Purchase:30610",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 13.08 Cents",
+          "value": "30,610"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "4360",
+          "acres": 0.0,
+          "cents": 10.0,
+          "purchase_cost": 60000.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B\nSq.ft:4360\nDate of Purchase:17.03.2006\nCost of Purchase:60000",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 10.0 Cents",
+          "value": "60,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/1B1C",
+          "raw_area": "4796",
+          "acres": 0.0,
+          "cents": 11.01,
+          "purchase_cost": 5600.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/1B1C\nSq.ft:4796\nDate of Purchase:29.05.2008\nCost of Purchase:5600",
+          "name": "Kalimandayam (S.No: 386/1B1C)",
+          "area": "0.0 Acres 11.01 Cents",
+          "value": "5,600"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/19A",
+          "raw_area": "2743",
+          "acres": 0.0,
+          "cents": 6.29,
+          "purchase_cost": 13500.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/19A\nSq.ft:2743\nDate of Purchase:29.05.2008\nCost of Purchase:13500",
+          "name": "Kalimandayam (S.No: 386/19A)",
+          "area": "0.0 Acres 6.29 Cents",
+          "value": "13,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/18",
+          "raw_area": "2743",
+          "acres": 0.0,
+          "cents": 6.29,
+          "purchase_cost": 301090.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/18,386/19A\nSq.ft:2743\nDate of Purchase:02.02.2011\nCost of Purchase:301090",
+          "name": "Kalimandayam (S.No: 386/18)",
+          "area": "0.0 Acres 6.29 Cents",
+          "value": "301,090"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/6",
+          "raw_area": "1076.2",
+          "acres": 0.0,
+          "cents": 2.47,
+          "purchase_cost": 584000.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/6\nSq.ft:1076.2\nDate of Purchase:29.02.2016\nCost of Purchase:584000\n\nMugaper Veetu Vasathi",
+          "name": "Kalimandayam (S.No: 386/6)",
+          "area": "0.0 Acres 2.47 Cents",
+          "value": "584,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "442",
+          "raw_area": "1047",
+          "acres": 0.0,
+          "cents": 2.4,
+          "purchase_cost": 9581855.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:442\nSq.ft:1047\nDate of Purchase:29.04.2010\nCost of Purchase:9581855\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n17205915.00\n4,71,19,198\n4\u00a0Crore+\nNil",
+          "name": "Kalimandayam (S.No: 442)",
+          "area": "0.0 Acres 2.4 Cents",
+          "value": "9,581,855"
+        }
+      ],
+      "total": {
+        "calculated": {
+          "acres": 21.0,
+          "cents": 92.56
+        },
+        "declared": {
+          "acres": 0.0,
+          "cents": 0.0
+        },
+        "total_purchase_cost": 11503133.0,
+        "mismatch": true
+      }
+    },
+    "dep1": {
+      "entries": [],
+      "total": {
+        "calculated": {
+          "acres": 0.0,
+          "cents": 0.0
+        },
+        "declared": {
+          "acres": 0.0,
+          "cents": 0.0
+        },
+        "total_purchase_cost": 0.0,
+        "mismatch": false
+      }
+    }
+  }
+}
+2026-03-25 21:46:58,697 [INFO] myneta_scraper: DynamoDB update successful for candidate 222
+2026-03-25 21:47:02,566 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:47:02,567 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:47:05,541 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:47:06,186 [INFO] botocore.credentials: Found credentials in shared credentials file: ~/.aws/credentials
+2026-03-25 21:47:06,219 [INFO] asset_db_updater: [DRY RUN] Updating assets for AFFIDAVIT#2021#222
+2026-03-25 21:47:06,219 [INFO] asset_db_updater: Update Expression: SET gold_assets = :gold, vehicle_assets = :veh, land_assets = :land
+2026-03-25 21:47:06,219 [INFO] asset_db_updater: Attribute Values: {
+  ":gold": {
+    "self": {
+      "gold": "40 Gram",
+      "value": "0",
+      "raw_text": "40 Gram Gold1,72,0001\u00a0Lacs+"
+    },
+    "spouse": {
+      "gold": "577 gram",
+      "value": "0",
+      "raw_text": "577 gram gold24,82,99224\u00a0Lacs+"
+    },
+    "dep1": {
+      "gold": "97.48 gram",
+      "value": "0",
+      "raw_text": "97.48 gram gold4,19,1644\u00a0Lacs+"
+    }
+  },
+  ":veh": {
+    "self": [
+      {
+        "name": "Ashok Lyland, OIL tanker Lorry",
+        "vehicle": "TN 57M 1717(2007)",
+        "value": "1,432,255",
+        "raw_text": "Ashok Lyland, OIL tanker Lorry, TN 57M 1717(2007)"
+      },
+      {
+        "name": "Hyundai Creta Car 7(2017)",
+        "vehicle": "TN 94Z2348",
+        "value": "1,563,529",
+        "raw_text": "Hyundai Creta Car TN 94Z23487(2017)"
+      },
+      {
+        "name": "Toyota Innoa Car",
+        "vehicle": "TN 57 BH 1717(2017)",
+        "value": "2,806,610",
+        "raw_text": "Toyota Innoa Car, TN 57 BH 1717(2017)"
+      },
+      {
+        "name": "Yamaha 2 wheeler Vechile",
+        "vehicle": "TN 57AW 6706",
+        "value": "61,179",
+        "raw_text": "Yamaha 2 wheeler Vechile, TN 57AW 6706"
+      },
+      {
+        "name": "Ashok Two Wheeler",
+        "vehicle": "TN 94 Y 1717(2020)",
+        "value": "1,316,943",
+        "raw_text": "Ashok Two Wheeler , TN 94 Y 1717(2020)"
+      }
+    ],
+    "spouse": [],
+    "dep1": []
+  },
+  ":land": {
+    "self": {
+      "full_text": "1)\nSurvey NO:257/3\n\n2)\nSurvey NO:257/2\n\n3)\nSurvey NO:262/2\n\n4)\nSurvey NO:262/3\n\n5)\nSurvey NO:226/1B2\n\n6)\nSurvey NO:254/1A\n\n7)\nSurvey NO:262/3A\nTotal Area\n16.80 1/4 Acre\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2016-02-29\nPurchase Cost\n22000.00\nDevelopment Cost\n14833822.00\n53,01,040\n53\u00a0Lacs+\nKalimandayam Village:\n1)\nSurvey No:388/1C2A\nAcre:13068\nDate of Purchase:25.11.1985\nCost of Purchase:34000\n\n2)\nSurvey No:388/1C2B\nAcre:2613\nDate of Purchase:05.03.1988\nCost of Purchase:8900\n\n3)\nSurvey No:388/7\nAcre:2613\nDate of Purchase:17.03.2006\nCost of Purchase:31500\n\n4)\nSurvey No:388/1C2B,386/3B2\nAcre:13068\nDate of Purchase:26.11.2007\nCost of Purchase:1467600\n\n5)\nSurvey No:388/6\nAcre:366\nDate of Purchase:29.11.2007\nCost of Purchase:40400\n\n6)\nSurvey No:386/18B2,19A\nAcre:3099\nDate of Purchase:\nCost of Purchase:1676570\n\n7)\nSurvey No:265/37\nAcre:759\nDate of Purchase:10.01.2013\nCost of Purchase:123260\n\n8)\nSurvey No:265/36,37\nAcre:621\nDate of Purchase:30.01.2013\nCost of Purchase:101640\n\n9)\nSurvey No:265/38\nAcre:667\nDate of Purchase:30.01.2013\nCost of Purchase:119000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n0.00\n87,37,497\n87\u00a0Lacs+\n0",
+      "entries": [
+        {
+          "village": "Kalimandayam",
+          "survey_no": "262/3A",
+          "raw_area": "0",
+          "acres": 0.0,
+          "cents": 0.0,
+          "purchase_cost": 22000.0,
+          "confidence": "low",
+          "correction_applied": false,
+          "raw_text": "Survey NO:262/3A\n\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2016-02-29\nPurchase Cost\n22000.00\nDevelopment Cost\n14833822.00\n53,01,040\n53\u00a0Lacs+",
+          "name": "Kalimandayam (S.No: 262/3A)",
+          "area": "0",
+          "value": "22,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2A",
+          "raw_area": "13068",
+          "acres": 0.0,
+          "cents": 30.0,
+          "purchase_cost": 34000.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/1C2A\nAcre:13068\nDate of Purchase:25.11.1985\nCost of Purchase:34000",
+          "name": "Kalimandayam (S.No: 388/1C2A)",
+          "area": "0.0 Acres 30.0 Cents",
+          "value": "34,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "2613",
+          "acres": 0.0,
+          "cents": 5.99,
+          "purchase_cost": 8900.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/1C2B\nAcre:2613\nDate of Purchase:05.03.1988\nCost of Purchase:8900",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 5.99 Cents",
+          "value": "8,900"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/7",
+          "raw_area": "7",
+          "acres": 0.0,
+          "cents": 0.01,
+          "purchase_cost": 31500.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/7\nAcre:2613\nDate of Purchase:17.03.2006\nCost of Purchase:31500",
+          "name": "Kalimandayam (S.No: 388/7)",
+          "area": "0.0 Acres 0.01 Cents",
+          "value": "31,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "2",
+          "acres": 2.0,
+          "cents": 0.0,
+          "purchase_cost": 1467600.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B,386/3B2\nAcre:13068\nDate of Purchase:26.11.2007\nCost of Purchase:1467600",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "2.0 Acres 0.0 Cents",
+          "value": "1,467,600"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/6",
+          "raw_area": "6",
+          "acres": 0.0,
+          "cents": 0.01,
+          "purchase_cost": 40400.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/6\nAcre:366\nDate of Purchase:29.11.2007\nCost of Purchase:40400",
+          "name": "Kalimandayam (S.No: 388/6)",
+          "area": "0.0 Acres 0.01 Cents",
+          "value": "40,400"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/18B2",
+          "raw_area": "3099",
+          "acres": 0.0,
+          "cents": 7.11,
+          "purchase_cost": 1676570.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:386/18B2,19A\nAcre:3099\nDate of Purchase:\nCost of Purchase:1676570",
+          "name": "Kalimandayam (S.No: 386/18B2)",
+          "area": "0.0 Acres 7.11 Cents",
+          "value": "1,676,570"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/37",
+          "raw_area": "37",
+          "acres": 37.0,
+          "cents": 0.0,
+          "purchase_cost": 123260.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/37\nAcre:759\nDate of Purchase:10.01.2013\nCost of Purchase:123260",
+          "name": "Kalimandayam (S.No: 265/37)",
+          "area": "37.0 Acres 0.0 Cents",
+          "value": "123,260"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/36",
+          "raw_area": "37",
+          "acres": 37.0,
+          "cents": 0.0,
+          "purchase_cost": 101640.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/36,37\nAcre:621\nDate of Purchase:30.01.2013\nCost of Purchase:101640",
+          "name": "Kalimandayam (S.No: 265/36)",
+          "area": "37.0 Acres 0.0 Cents",
+          "value": "101,640"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/38",
+          "raw_area": "38",
+          "acres": 38.0,
+          "cents": 0.0,
+          "purchase_cost": 119000.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/38\nAcre:667\nDate of Purchase:30.01.2013\nCost of Purchase:119000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n0.00\n87,37,497\n87\u00a0Lacs+\n0",
+          "name": "Kalimandayam (S.No: 265/38)",
+          "area": "38.0 Acres 0.0 Cents",
+          "value": "119,000"
+        }
+      ],
+      "total": {
+        "calculated": {
+          "acres": 114.0,
+          "cents": 43.12
+        },
+        "declared": {
+          "acres": 0.0,
+          "cents": 29.0
+        },
+        "total_purchase_cost": 3624870.0,
+        "mismatch": true
+      }
+    },
+    "spouse": {
+      "full_text": "Kalimandayam Village:\n1)\nSurvey No:226/1B\nAcre:5.16\nDate of Purchase:05.11.1997\nCost of Purchase:76840\n\n2)\nSurvey No:254/1B\nAcre:1.33\nDate of Purchase:17.09.2004\nCost of Purchase:32400\n\n3)\nSurvey No:224/1,4,5\nAcre:9\nDate of Purchase:14.07.2008\nCost of Purchase:186000\n\n4)\nSurvey No:261/1,2\nAcre:1.33\nDate of Purchase:21.08.2006\nCost of Purchase:134500\n\n5)\nSurvey No:222/1\nAcre:0.30\nDate of Purchase:14.07.2010\nCost of Purchase:12800\n\n6)\nSurvey No:222/1A\nAcre:0.52\nDate of Purchase:30.07.2020\nCost of Purchase:196688\n\nSikamanayakanpatti Village:\n7)\nSurvey No:186/1A,1b,208/2c,2c,4b,209/2f\nAcre:6.30\nDate of Purchase:14.06.2005\nCost of Purchase:250000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n7896480.00\n48,71,570\n48\u00a0Lacs+\nKalimandayam Village;\n\n1)\nSurvey No:397/1A,394/3B2\nSq.ft:4368\nDate of Purchase:08.04.1994\nCost of Purchase:37250\n\n2)\nSurvey No:388/1C2B\nSq.ft:5702\nDate of Purchase:01.02.1999\nCost of Purchase:30610\n\n3)\nSurvey No:388/1C2B\nSq.ft:4360\nDate of Purchase:17.03.2006\nCost of Purchase:60000\n\n4)\nSurvey No:386/1B1C\nSq.ft:4796\nDate of Purchase:29.05.2008\nCost of Purchase:5600\n\n5)\nSurvey No:386/19A\nSq.ft:2743\nDate of Purchase:29.05.2008\nCost of Purchase:13500\n\n6)\nSurvey No:386/18,386/19A\nSq.ft:2743\nDate of Purchase:02.02.2011\nCost of Purchase:301090\n\n7)\nSurvey No:386/6\nSq.ft:1076.2\nDate of Purchase:29.02.2016\nCost of Purchase:584000\n\nMugaper Veetu Vasathi\n8)\nSurvey No:442\nSq.ft:1047\nDate of Purchase:29.04.2010\nCost of Purchase:9581855\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n17205915.00\n4,71,19,198\n4\u00a0Crore+\nNil",
+      "entries": [
+        {
+          "village": "Kalimandayam",
+          "survey_no": "226/1B",
+          "raw_area": "5.16",
+          "acres": 5.0,
+          "cents": 16.0,
+          "purchase_cost": 76840.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:226/1B\nAcre:5.16\nDate of Purchase:05.11.1997\nCost of Purchase:76840",
+          "name": "Kalimandayam (S.No: 226/1B)",
+          "area": "5.0 Acres 16.0 Cents",
+          "value": "76,840"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "254/1B",
+          "raw_area": "1.33",
+          "acres": 1.0,
+          "cents": 33.0,
+          "purchase_cost": 32400.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:254/1B\nAcre:1.33\nDate of Purchase:17.09.2004\nCost of Purchase:32400",
+          "name": "Kalimandayam (S.No: 254/1B)",
+          "area": "1.0 Acres 33.0 Cents",
+          "value": "32,400"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "224/1",
+          "raw_area": "5",
+          "acres": 5.0,
+          "cents": 0.0,
+          "purchase_cost": 186000.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:224/1,4,5\nAcre:9\nDate of Purchase:14.07.2008\nCost of Purchase:186000",
+          "name": "Kalimandayam (S.No: 224/1)",
+          "area": "5.0 Acres 0.0 Cents",
+          "value": "186,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "261/1",
+          "raw_area": "2",
+          "acres": 2.0,
+          "cents": 0.0,
+          "purchase_cost": 134500.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:261/1,2\nAcre:1.33\nDate of Purchase:21.08.2006\nCost of Purchase:134500",
+          "name": "Kalimandayam (S.No: 261/1)",
+          "area": "2.0 Acres 0.0 Cents",
+          "value": "134,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "222/1",
+          "raw_area": "1",
+          "acres": 1.0,
+          "cents": 0.0,
+          "purchase_cost": 12800.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:222/1\nAcre:0.30\nDate of Purchase:14.07.2010\nCost of Purchase:12800",
+          "name": "Kalimandayam (S.No: 222/1)",
+          "area": "1.0 Acres 0.0 Cents",
+          "value": "12,800"
+        },
+        {
+          "village": "Sikamanayakanpatti",
+          "survey_no": "222/1A",
+          "raw_area": "0.52",
+          "acres": 0.0,
+          "cents": 52.0,
+          "purchase_cost": 196688.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:222/1A\nAcre:0.52\nDate of Purchase:30.07.2020\nCost of Purchase:196688",
+          "name": "Sikamanayakanpatti (S.No: 222/1A)",
+          "area": "0.0 Acres 52.0 Cents",
+          "value": "196,688"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "186/1A",
+          "raw_area": "6.30",
+          "acres": 6.0,
+          "cents": 30.0,
+          "purchase_cost": 250000.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:186/1A,1b,208/2c,2c,4b,209/2f\nAcre:6.30\nDate of Purchase:14.06.2005\nCost of Purchase:250000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n7896480.00\n48,71,570\n48\u00a0Lacs+",
+          "name": "Kalimandayam (S.No: 186/1A)",
+          "area": "6.0 Acres 30.0 Cents",
+          "value": "250,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "397/1A",
+          "raw_area": "4368",
+          "acres": 0.0,
+          "cents": 10.02,
+          "purchase_cost": 37250.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:397/1A,394/3B2\nSq.ft:4368\nDate of Purchase:08.04.1994\nCost of Purchase:37250",
+          "name": "Kalimandayam (S.No: 397/1A)",
+          "area": "0.0 Acres 10.02 Cents",
+          "value": "37,250"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "5702",
+          "acres": 0.0,
+          "cents": 13.08,
+          "purchase_cost": 30610.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B\nSq.ft:5702\nDate of Purchase:01.02.1999\nCost of Purchase:30610",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 13.08 Cents",
+          "value": "30,610"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "4360",
+          "acres": 0.0,
+          "cents": 10.0,
+          "purchase_cost": 60000.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B\nSq.ft:4360\nDate of Purchase:17.03.2006\nCost of Purchase:60000",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 10.0 Cents",
+          "value": "60,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/1B1C",
+          "raw_area": "4796",
+          "acres": 0.0,
+          "cents": 11.01,
+          "purchase_cost": 5600.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/1B1C\nSq.ft:4796\nDate of Purchase:29.05.2008\nCost of Purchase:5600",
+          "name": "Kalimandayam (S.No: 386/1B1C)",
+          "area": "0.0 Acres 11.01 Cents",
+          "value": "5,600"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/19A",
+          "raw_area": "2743",
+          "acres": 0.0,
+          "cents": 6.29,
+          "purchase_cost": 13500.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/19A\nSq.ft:2743\nDate of Purchase:29.05.2008\nCost of Purchase:13500",
+          "name": "Kalimandayam (S.No: 386/19A)",
+          "area": "0.0 Acres 6.29 Cents",
+          "value": "13,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/18",
+          "raw_area": "2743",
+          "acres": 0.0,
+          "cents": 6.29,
+          "purchase_cost": 301090.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/18,386/19A\nSq.ft:2743\nDate of Purchase:02.02.2011\nCost of Purchase:301090",
+          "name": "Kalimandayam (S.No: 386/18)",
+          "area": "0.0 Acres 6.29 Cents",
+          "value": "301,090"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/6",
+          "raw_area": "1076.2",
+          "acres": 0.0,
+          "cents": 2.47,
+          "purchase_cost": 584000.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/6\nSq.ft:1076.2\nDate of Purchase:29.02.2016\nCost of Purchase:584000\n\nMugaper Veetu Vasathi",
+          "name": "Kalimandayam (S.No: 386/6)",
+          "area": "0.0 Acres 2.47 Cents",
+          "value": "584,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "442",
+          "raw_area": "1047",
+          "acres": 0.0,
+          "cents": 2.4,
+          "purchase_cost": 9581855.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:442\nSq.ft:1047\nDate of Purchase:29.04.2010\nCost of Purchase:9581855\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n17205915.00\n4,71,19,198\n4\u00a0Crore+\nNil",
+          "name": "Kalimandayam (S.No: 442)",
+          "area": "0.0 Acres 2.4 Cents",
+          "value": "9,581,855"
+        }
+      ],
+      "total": {
+        "calculated": {
+          "acres": 21.0,
+          "cents": 92.56
+        },
+        "declared": {
+          "acres": 0.0,
+          "cents": 0.0
+        },
+        "total_purchase_cost": 11503133.0,
+        "mismatch": true
+      }
+    },
+    "dep1": {
+      "entries": [],
+      "total": {
+        "calculated": {
+          "acres": 0.0,
+          "cents": 0.0
+        },
+        "declared": {
+          "acres": 0.0,
+          "cents": 0.0
+        },
+        "total_purchase_cost": 0.0,
+        "mismatch": false
+      }
+    }
+  }
+}
+2026-03-25 21:47:06,219 [INFO] myneta_scraper: DynamoDB update successful for candidate 222
+2026-03-25 21:47:11,108 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:47:11,108 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:47:14,025 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:47:14,725 [INFO] botocore.credentials: Found credentials in shared credentials file: ~/.aws/credentials
+2026-03-25 21:47:14,753 [INFO] asset_db_updater: [DRY RUN] Updating assets for AFFIDAVIT#2021#222
+2026-03-25 21:47:14,753 [INFO] asset_db_updater: Update Expression: SET gold_assets = :gold, vehicle_assets = :veh, land_assets = :land
+2026-03-25 21:47:14,753 [INFO] asset_db_updater: Attribute Values: {
+  ":gold": {
+    "self": {
+      "gold": "40 Gram",
+      "value": "0",
+      "raw_text": "40 Gram Gold1,72,0001\u00a0Lacs+"
+    },
+    "spouse": {
+      "gold": "577 gram",
+      "value": "0",
+      "raw_text": "577 gram gold24,82,99224\u00a0Lacs+"
+    },
+    "dep1": {
+      "gold": "97.48 gram",
+      "value": "0",
+      "raw_text": "97.48 gram gold4,19,1644\u00a0Lacs+"
+    }
+  },
+  ":veh": {
+    "self": [
+      {
+        "name": "Ashok Lyland, OIL tanker Lorry",
+        "vehicle": "TN 57M 1717(2007)",
+        "value": "1,432,255",
+        "raw_text": "Ashok Lyland, OIL tanker Lorry, TN 57M 1717(2007)"
+      },
+      {
+        "name": "Hyundai Creta Car 7(2017)",
+        "vehicle": "TN 94Z2348",
+        "value": "1,563,529",
+        "raw_text": "Hyundai Creta Car TN 94Z23487(2017)"
+      },
+      {
+        "name": "Toyota Innoa Car",
+        "vehicle": "TN 57 BH 1717(2017)",
+        "value": "2,806,610",
+        "raw_text": "Toyota Innoa Car, TN 57 BH 1717(2017)"
+      },
+      {
+        "name": "Yamaha 2 wheeler Vechile",
+        "vehicle": "TN 57AW 6706",
+        "value": "61,179",
+        "raw_text": "Yamaha 2 wheeler Vechile, TN 57AW 6706"
+      },
+      {
+        "name": "Ashok Two Wheeler",
+        "vehicle": "TN 94 Y 1717(2020)",
+        "value": "1,316,943",
+        "raw_text": "Ashok Two Wheeler , TN 94 Y 1717(2020)"
+      }
+    ],
+    "spouse": [],
+    "dep1": []
+  },
+  ":land": {
+    "self": {
+      "full_text": "1)\nSurvey NO:257/3\n\n2)\nSurvey NO:257/2\n\n3)\nSurvey NO:262/2\n\n4)\nSurvey NO:262/3\n\n5)\nSurvey NO:226/1B2\n\n6)\nSurvey NO:254/1A\n\n7)\nSurvey NO:262/3A\nTotal Area\n16.80 1/4 Acre\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2016-02-29\nPurchase Cost\n22000.00\nDevelopment Cost\n14833822.00\n53,01,040\n53\u00a0Lacs+\nKalimandayam Village:\n1)\nSurvey No:388/1C2A\nAcre:13068\nDate of Purchase:25.11.1985\nCost of Purchase:34000\n\n2)\nSurvey No:388/1C2B\nAcre:2613\nDate of Purchase:05.03.1988\nCost of Purchase:8900\n\n3)\nSurvey No:388/7\nAcre:2613\nDate of Purchase:17.03.2006\nCost of Purchase:31500\n\n4)\nSurvey No:388/1C2B,386/3B2\nAcre:13068\nDate of Purchase:26.11.2007\nCost of Purchase:1467600\n\n5)\nSurvey No:388/6\nAcre:366\nDate of Purchase:29.11.2007\nCost of Purchase:40400\n\n6)\nSurvey No:386/18B2,19A\nAcre:3099\nDate of Purchase:\nCost of Purchase:1676570\n\n7)\nSurvey No:265/37\nAcre:759\nDate of Purchase:10.01.2013\nCost of Purchase:123260\n\n8)\nSurvey No:265/36,37\nAcre:621\nDate of Purchase:30.01.2013\nCost of Purchase:101640\n\n9)\nSurvey No:265/38\nAcre:667\nDate of Purchase:30.01.2013\nCost of Purchase:119000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n0.00\n87,37,497\n87\u00a0Lacs+\n0",
+      "entries": [
+        {
+          "village": "Kalimandayam",
+          "survey_no": "262/3A",
+          "raw_area": "0",
+          "acres": 0.0,
+          "cents": 0.0,
+          "purchase_cost": 22000.0,
+          "confidence": "low",
+          "correction_applied": false,
+          "raw_text": "Survey NO:262/3A\n\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2016-02-29\nPurchase Cost\n22000.00\nDevelopment Cost\n14833822.00\n53,01,040\n53\u00a0Lacs+",
+          "name": "Kalimandayam (S.No: 262/3A)",
+          "area": "0",
+          "value": "22,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2A",
+          "raw_area": "13068",
+          "acres": 0.0,
+          "cents": 30.0,
+          "purchase_cost": 34000.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/1C2A\nAcre:13068\nDate of Purchase:25.11.1985\nCost of Purchase:34000",
+          "name": "Kalimandayam (S.No: 388/1C2A)",
+          "area": "0.0 Acres 30.0 Cents",
+          "value": "34,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "2613",
+          "acres": 0.0,
+          "cents": 5.99,
+          "purchase_cost": 8900.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/1C2B\nAcre:2613\nDate of Purchase:05.03.1988\nCost of Purchase:8900",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 5.99 Cents",
+          "value": "8,900"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/7",
+          "raw_area": "7",
+          "acres": 0.0,
+          "cents": 0.01,
+          "purchase_cost": 31500.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/7\nAcre:2613\nDate of Purchase:17.03.2006\nCost of Purchase:31500",
+          "name": "Kalimandayam (S.No: 388/7)",
+          "area": "0.0 Acres 0.01 Cents",
+          "value": "31,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "2",
+          "acres": 2.0,
+          "cents": 0.0,
+          "purchase_cost": 1467600.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B,386/3B2\nAcre:13068\nDate of Purchase:26.11.2007\nCost of Purchase:1467600",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "2.0 Acres 0.0 Cents",
+          "value": "1,467,600"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/6",
+          "raw_area": "6",
+          "acres": 0.0,
+          "cents": 0.01,
+          "purchase_cost": 40400.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/6\nAcre:366\nDate of Purchase:29.11.2007\nCost of Purchase:40400",
+          "name": "Kalimandayam (S.No: 388/6)",
+          "area": "0.0 Acres 0.01 Cents",
+          "value": "40,400"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/18B2",
+          "raw_area": "3099",
+          "acres": 0.0,
+          "cents": 7.11,
+          "purchase_cost": 1676570.0,
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:386/18B2,19A\nAcre:3099\nDate of Purchase:\nCost of Purchase:1676570",
+          "name": "Kalimandayam (S.No: 386/18B2)",
+          "area": "0.0 Acres 7.11 Cents",
+          "value": "1,676,570"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/37",
+          "raw_area": "37",
+          "acres": 37.0,
+          "cents": 0.0,
+          "purchase_cost": 123260.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/37\nAcre:759\nDate of Purchase:10.01.2013\nCost of Purchase:123260",
+          "name": "Kalimandayam (S.No: 265/37)",
+          "area": "37.0 Acres 0.0 Cents",
+          "value": "123,260"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/36",
+          "raw_area": "37",
+          "acres": 37.0,
+          "cents": 0.0,
+          "purchase_cost": 101640.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/36,37\nAcre:621\nDate of Purchase:30.01.2013\nCost of Purchase:101640",
+          "name": "Kalimandayam (S.No: 265/36)",
+          "area": "37.0 Acres 0.0 Cents",
+          "value": "101,640"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/38",
+          "raw_area": "38",
+          "acres": 38.0,
+          "cents": 0.0,
+          "purchase_cost": 119000.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/38\nAcre:667\nDate of Purchase:30.01.2013\nCost of Purchase:119000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n0.00\n87,37,497\n87\u00a0Lacs+\n0",
+          "name": "Kalimandayam (S.No: 265/38)",
+          "area": "38.0 Acres 0.0 Cents",
+          "value": "119,000"
+        }
+      ],
+      "total": {
+        "calculated": {
+          "acres": 114.0,
+          "cents": 43.12
+        },
+        "declared": {
+          "acres": 0.0,
+          "cents": 29.0
+        },
+        "total_purchase_cost": 3624870.0,
+        "mismatch": true
+      }
+    },
+    "spouse": {
+      "full_text": "Kalimandayam Village:\n1)\nSurvey No:226/1B\nAcre:5.16\nDate of Purchase:05.11.1997\nCost of Purchase:76840\n\n2)\nSurvey No:254/1B\nAcre:1.33\nDate of Purchase:17.09.2004\nCost of Purchase:32400\n\n3)\nSurvey No:224/1,4,5\nAcre:9\nDate of Purchase:14.07.2008\nCost of Purchase:186000\n\n4)\nSurvey No:261/1,2\nAcre:1.33\nDate of Purchase:21.08.2006\nCost of Purchase:134500\n\n5)\nSurvey No:222/1\nAcre:0.30\nDate of Purchase:14.07.2010\nCost of Purchase:12800\n\n6)\nSurvey No:222/1A\nAcre:0.52\nDate of Purchase:30.07.2020\nCost of Purchase:196688\n\nSikamanayakanpatti Village:\n7)\nSurvey No:186/1A,1b,208/2c,2c,4b,209/2f\nAcre:6.30\nDate of Purchase:14.06.2005\nCost of Purchase:250000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n7896480.00\n48,71,570\n48\u00a0Lacs+\nKalimandayam Village;\n\n1)\nSurvey No:397/1A,394/3B2\nSq.ft:4368\nDate of Purchase:08.04.1994\nCost of Purchase:37250\n\n2)\nSurvey No:388/1C2B\nSq.ft:5702\nDate of Purchase:01.02.1999\nCost of Purchase:30610\n\n3)\nSurvey No:388/1C2B\nSq.ft:4360\nDate of Purchase:17.03.2006\nCost of Purchase:60000\n\n4)\nSurvey No:386/1B1C\nSq.ft:4796\nDate of Purchase:29.05.2008\nCost of Purchase:5600\n\n5)\nSurvey No:386/19A\nSq.ft:2743\nDate of Purchase:29.05.2008\nCost of Purchase:13500\n\n6)\nSurvey No:386/18,386/19A\nSq.ft:2743\nDate of Purchase:02.02.2011\nCost of Purchase:301090\n\n7)\nSurvey No:386/6\nSq.ft:1076.2\nDate of Purchase:29.02.2016\nCost of Purchase:584000\n\nMugaper Veetu Vasathi\n8)\nSurvey No:442\nSq.ft:1047\nDate of Purchase:29.04.2010\nCost of Purchase:9581855\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n17205915.00\n4,71,19,198\n4\u00a0Crore+\nNil",
+      "entries": [
+        {
+          "village": "Kalimandayam",
+          "survey_no": "226/1B",
+          "raw_area": "5.16",
+          "acres": 5.0,
+          "cents": 16.0,
+          "purchase_cost": 76840.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:226/1B\nAcre:5.16\nDate of Purchase:05.11.1997\nCost of Purchase:76840",
+          "name": "Kalimandayam (S.No: 226/1B)",
+          "area": "5.0 Acres 16.0 Cents",
+          "value": "76,840"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "254/1B",
+          "raw_area": "1.33",
+          "acres": 1.0,
+          "cents": 33.0,
+          "purchase_cost": 32400.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:254/1B\nAcre:1.33\nDate of Purchase:17.09.2004\nCost of Purchase:32400",
+          "name": "Kalimandayam (S.No: 254/1B)",
+          "area": "1.0 Acres 33.0 Cents",
+          "value": "32,400"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "224/1",
+          "raw_area": "5",
+          "acres": 5.0,
+          "cents": 0.0,
+          "purchase_cost": 186000.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:224/1,4,5\nAcre:9\nDate of Purchase:14.07.2008\nCost of Purchase:186000",
+          "name": "Kalimandayam (S.No: 224/1)",
+          "area": "5.0 Acres 0.0 Cents",
+          "value": "186,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "261/1",
+          "raw_area": "2",
+          "acres": 2.0,
+          "cents": 0.0,
+          "purchase_cost": 134500.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:261/1,2\nAcre:1.33\nDate of Purchase:21.08.2006\nCost of Purchase:134500",
+          "name": "Kalimandayam (S.No: 261/1)",
+          "area": "2.0 Acres 0.0 Cents",
+          "value": "134,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "222/1",
+          "raw_area": "1",
+          "acres": 1.0,
+          "cents": 0.0,
+          "purchase_cost": 12800.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:222/1\nAcre:0.30\nDate of Purchase:14.07.2010\nCost of Purchase:12800",
+          "name": "Kalimandayam (S.No: 222/1)",
+          "area": "1.0 Acres 0.0 Cents",
+          "value": "12,800"
+        },
+        {
+          "village": "Sikamanayakanpatti",
+          "survey_no": "222/1A",
+          "raw_area": "0.52",
+          "acres": 0.0,
+          "cents": 52.0,
+          "purchase_cost": 196688.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:222/1A\nAcre:0.52\nDate of Purchase:30.07.2020\nCost of Purchase:196688",
+          "name": "Sikamanayakanpatti (S.No: 222/1A)",
+          "area": "0.0 Acres 52.0 Cents",
+          "value": "196,688"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "186/1A",
+          "raw_area": "6.30",
+          "acres": 6.0,
+          "cents": 30.0,
+          "purchase_cost": 250000.0,
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:186/1A,1b,208/2c,2c,4b,209/2f\nAcre:6.30\nDate of Purchase:14.06.2005\nCost of Purchase:250000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n7896480.00\n48,71,570\n48\u00a0Lacs+",
+          "name": "Kalimandayam (S.No: 186/1A)",
+          "area": "6.0 Acres 30.0 Cents",
+          "value": "250,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "397/1A",
+          "raw_area": "4368",
+          "acres": 0.0,
+          "cents": 10.02,
+          "purchase_cost": 37250.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:397/1A,394/3B2\nSq.ft:4368\nDate of Purchase:08.04.1994\nCost of Purchase:37250",
+          "name": "Kalimandayam (S.No: 397/1A)",
+          "area": "0.0 Acres 10.02 Cents",
+          "value": "37,250"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "5702",
+          "acres": 0.0,
+          "cents": 13.08,
+          "purchase_cost": 30610.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B\nSq.ft:5702\nDate of Purchase:01.02.1999\nCost of Purchase:30610",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 13.08 Cents",
+          "value": "30,610"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "4360",
+          "acres": 0.0,
+          "cents": 10.0,
+          "purchase_cost": 60000.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B\nSq.ft:4360\nDate of Purchase:17.03.2006\nCost of Purchase:60000",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 10.0 Cents",
+          "value": "60,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/1B1C",
+          "raw_area": "4796",
+          "acres": 0.0,
+          "cents": 11.01,
+          "purchase_cost": 5600.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/1B1C\nSq.ft:4796\nDate of Purchase:29.05.2008\nCost of Purchase:5600",
+          "name": "Kalimandayam (S.No: 386/1B1C)",
+          "area": "0.0 Acres 11.01 Cents",
+          "value": "5,600"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/19A",
+          "raw_area": "2743",
+          "acres": 0.0,
+          "cents": 6.29,
+          "purchase_cost": 13500.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/19A\nSq.ft:2743\nDate of Purchase:29.05.2008\nCost of Purchase:13500",
+          "name": "Kalimandayam (S.No: 386/19A)",
+          "area": "0.0 Acres 6.29 Cents",
+          "value": "13,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/18",
+          "raw_area": "2743",
+          "acres": 0.0,
+          "cents": 6.29,
+          "purchase_cost": 301090.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/18,386/19A\nSq.ft:2743\nDate of Purchase:02.02.2011\nCost of Purchase:301090",
+          "name": "Kalimandayam (S.No: 386/18)",
+          "area": "0.0 Acres 6.29 Cents",
+          "value": "301,090"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/6",
+          "raw_area": "1076.2",
+          "acres": 0.0,
+          "cents": 2.47,
+          "purchase_cost": 584000.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/6\nSq.ft:1076.2\nDate of Purchase:29.02.2016\nCost of Purchase:584000\n\nMugaper Veetu Vasathi",
+          "name": "Kalimandayam (S.No: 386/6)",
+          "area": "0.0 Acres 2.47 Cents",
+          "value": "584,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "442",
+          "raw_area": "1047",
+          "acres": 0.0,
+          "cents": 2.4,
+          "purchase_cost": 9581855.0,
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:442\nSq.ft:1047\nDate of Purchase:29.04.2010\nCost of Purchase:9581855\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n17205915.00\n4,71,19,198\n4\u00a0Crore+\nNil",
+          "name": "Kalimandayam (S.No: 442)",
+          "area": "0.0 Acres 2.4 Cents",
+          "value": "9,581,855"
+        }
+      ],
+      "total": {
+        "calculated": {
+          "acres": 21.0,
+          "cents": 92.56
+        },
+        "declared": {
+          "acres": 0.0,
+          "cents": 0.0
+        },
+        "total_purchase_cost": 11503133.0,
+        "mismatch": true
+      }
+    },
+    "dep1": {
+      "entries": [],
+      "total": {
+        "calculated": {
+          "acres": 0.0,
+          "cents": 0.0
+        },
+        "declared": {
+          "acres": 0.0,
+          "cents": 0.0
+        },
+        "total_purchase_cost": 0.0,
+        "mismatch": false
+      }
+    }
+  }
+}
+2026-03-25 21:47:14,753 [INFO] myneta_scraper: DynamoDB update successful for candidate 222
+2026-03-25 21:52:30,049 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:52:30,050 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:52:32,972 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:52:33,652 [INFO] botocore.credentials: Found credentials in shared credentials file: ~/.aws/credentials
+2026-03-25 21:52:33,687 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#222
+2026-03-25 21:52:33,688 [ERROR] asset_db_updater: Error updating DynamoDB for AFFIDAVIT#2021#222: Float types are not supported. Use Decimal types instead.
+2026-03-25 21:52:33,688 [ERROR] myneta_scraper: DynamoDB update failed for candidate 222
+2026-03-25 21:53:31,323 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:53:31,323 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:53:34,297 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:53:35,020 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-03-25 21:53:35,126 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#222
+2026-03-25 21:53:35,127 [ERROR] asset_db_updater: Error updating DynamoDB for AFFIDAVIT#2021#222: Float types are not supported. Use Decimal types instead.
+2026-03-25 21:53:35,127 [ERROR] myneta_scraper: DynamoDB update failed for candidate 222
+2026-03-25 21:54:20,241 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:54:20,241 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:54:23,213 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:54:23,926 [INFO] botocore.credentials: Found credentials in shared credentials file: ~/.aws/credentials
+2026-03-25 21:54:23,967 [INFO] asset_db_updater: [DRY RUN] Updating assets for AFFIDAVIT#2021#222
+2026-03-25 21:54:23,967 [INFO] asset_db_updater: Update Expression: SET gold_assets = :gold, vehicle_assets = :veh, land_assets = :land
+2026-03-25 21:54:23,967 [INFO] asset_db_updater: Attribute Values: {
+  ":gold": {
+    "self": {
+      "gold": "40 Gram",
+      "value": "0",
+      "raw_text": "40 Gram Gold1,72,0001\u00a0Lacs+"
+    },
+    "spouse": {
+      "gold": "577 gram",
+      "value": "0",
+      "raw_text": "577 gram gold24,82,99224\u00a0Lacs+"
+    },
+    "dep1": {
+      "gold": "97.48 gram",
+      "value": "0",
+      "raw_text": "97.48 gram gold4,19,1644\u00a0Lacs+"
+    }
+  },
+  ":veh": {
+    "self": [
+      {
+        "name": "Ashok Lyland, OIL tanker Lorry",
+        "vehicle": "TN 57M 1717(2007)",
+        "value": "1,432,255",
+        "raw_text": "Ashok Lyland, OIL tanker Lorry, TN 57M 1717(2007)"
+      },
+      {
+        "name": "Hyundai Creta Car 7(2017)",
+        "vehicle": "TN 94Z2348",
+        "value": "1,563,529",
+        "raw_text": "Hyundai Creta Car TN 94Z23487(2017)"
+      },
+      {
+        "name": "Toyota Innoa Car",
+        "vehicle": "TN 57 BH 1717(2017)",
+        "value": "2,806,610",
+        "raw_text": "Toyota Innoa Car, TN 57 BH 1717(2017)"
+      },
+      {
+        "name": "Yamaha 2 wheeler Vechile",
+        "vehicle": "TN 57AW 6706",
+        "value": "61,179",
+        "raw_text": "Yamaha 2 wheeler Vechile, TN 57AW 6706"
+      },
+      {
+        "name": "Ashok Two Wheeler",
+        "vehicle": "TN 94 Y 1717(2020)",
+        "value": "1,316,943",
+        "raw_text": "Ashok Two Wheeler , TN 94 Y 1717(2020)"
+      }
+    ],
+    "spouse": [],
+    "dep1": []
+  },
+  ":land": {
+    "self": {
+      "full_text": "1)\nSurvey NO:257/3\n\n2)\nSurvey NO:257/2\n\n3)\nSurvey NO:262/2\n\n4)\nSurvey NO:262/3\n\n5)\nSurvey NO:226/1B2\n\n6)\nSurvey NO:254/1A\n\n7)\nSurvey NO:262/3A\nTotal Area\n16.80 1/4 Acre\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2016-02-29\nPurchase Cost\n22000.00\nDevelopment Cost\n14833822.00\n53,01,040\n53\u00a0Lacs+\nKalimandayam Village:\n1)\nSurvey No:388/1C2A\nAcre:13068\nDate of Purchase:25.11.1985\nCost of Purchase:34000\n\n2)\nSurvey No:388/1C2B\nAcre:2613\nDate of Purchase:05.03.1988\nCost of Purchase:8900\n\n3)\nSurvey No:388/7\nAcre:2613\nDate of Purchase:17.03.2006\nCost of Purchase:31500\n\n4)\nSurvey No:388/1C2B,386/3B2\nAcre:13068\nDate of Purchase:26.11.2007\nCost of Purchase:1467600\n\n5)\nSurvey No:388/6\nAcre:366\nDate of Purchase:29.11.2007\nCost of Purchase:40400\n\n6)\nSurvey No:386/18B2,19A\nAcre:3099\nDate of Purchase:\nCost of Purchase:1676570\n\n7)\nSurvey No:265/37\nAcre:759\nDate of Purchase:10.01.2013\nCost of Purchase:123260\n\n8)\nSurvey No:265/36,37\nAcre:621\nDate of Purchase:30.01.2013\nCost of Purchase:101640\n\n9)\nSurvey No:265/38\nAcre:667\nDate of Purchase:30.01.2013\nCost of Purchase:119000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n0.00\n87,37,497\n87\u00a0Lacs+\n0",
+      "entries": [
+        {
+          "village": "Kalimandayam",
+          "survey_no": "262/3A",
+          "raw_area": "0",
+          "acres": "0.0",
+          "cents": "0.0",
+          "purchase_cost": "22000.0",
+          "confidence": "low",
+          "correction_applied": false,
+          "raw_text": "Survey NO:262/3A\n\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2016-02-29\nPurchase Cost\n22000.00\nDevelopment Cost\n14833822.00\n53,01,040\n53\u00a0Lacs+",
+          "name": "Kalimandayam (S.No: 262/3A)",
+          "area": "0",
+          "value": "22,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2A",
+          "raw_area": "13068",
+          "acres": "0.0",
+          "cents": "30.0",
+          "purchase_cost": "34000.0",
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/1C2A\nAcre:13068\nDate of Purchase:25.11.1985\nCost of Purchase:34000",
+          "name": "Kalimandayam (S.No: 388/1C2A)",
+          "area": "0.0 Acres 30.0 Cents",
+          "value": "34,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "2613",
+          "acres": "0.0",
+          "cents": "5.99",
+          "purchase_cost": "8900.0",
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/1C2B\nAcre:2613\nDate of Purchase:05.03.1988\nCost of Purchase:8900",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 5.99 Cents",
+          "value": "8,900"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/7",
+          "raw_area": "7",
+          "acres": "0.0",
+          "cents": "0.01",
+          "purchase_cost": "31500.0",
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/7\nAcre:2613\nDate of Purchase:17.03.2006\nCost of Purchase:31500",
+          "name": "Kalimandayam (S.No: 388/7)",
+          "area": "0.0 Acres 0.01 Cents",
+          "value": "31,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "2",
+          "acres": "2.0",
+          "cents": "0.0",
+          "purchase_cost": "1467600.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B,386/3B2\nAcre:13068\nDate of Purchase:26.11.2007\nCost of Purchase:1467600",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "2.0 Acres 0.0 Cents",
+          "value": "1,467,600"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/6",
+          "raw_area": "6",
+          "acres": "0.0",
+          "cents": "0.01",
+          "purchase_cost": "40400.0",
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:388/6\nAcre:366\nDate of Purchase:29.11.2007\nCost of Purchase:40400",
+          "name": "Kalimandayam (S.No: 388/6)",
+          "area": "0.0 Acres 0.01 Cents",
+          "value": "40,400"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/18B2",
+          "raw_area": "3099",
+          "acres": "0.0",
+          "cents": "7.11",
+          "purchase_cost": "1676570.0",
+          "confidence": "medium",
+          "correction_applied": true,
+          "raw_text": "Survey No:386/18B2,19A\nAcre:3099\nDate of Purchase:\nCost of Purchase:1676570",
+          "name": "Kalimandayam (S.No: 386/18B2)",
+          "area": "0.0 Acres 7.11 Cents",
+          "value": "1,676,570"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/37",
+          "raw_area": "37",
+          "acres": "37.0",
+          "cents": "0.0",
+          "purchase_cost": "123260.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/37\nAcre:759\nDate of Purchase:10.01.2013\nCost of Purchase:123260",
+          "name": "Kalimandayam (S.No: 265/37)",
+          "area": "37.0 Acres 0.0 Cents",
+          "value": "123,260"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/36",
+          "raw_area": "37",
+          "acres": "37.0",
+          "cents": "0.0",
+          "purchase_cost": "101640.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/36,37\nAcre:621\nDate of Purchase:30.01.2013\nCost of Purchase:101640",
+          "name": "Kalimandayam (S.No: 265/36)",
+          "area": "37.0 Acres 0.0 Cents",
+          "value": "101,640"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "265/38",
+          "raw_area": "38",
+          "acres": "38.0",
+          "cents": "0.0",
+          "purchase_cost": "119000.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:265/38\nAcre:667\nDate of Purchase:30.01.2013\nCost of Purchase:119000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n0.00\n87,37,497\n87\u00a0Lacs+\n0",
+          "name": "Kalimandayam (S.No: 265/38)",
+          "area": "38.0 Acres 0.0 Cents",
+          "value": "119,000"
+        }
+      ],
+      "total": {
+        "calculated": {
+          "acres": "114.0",
+          "cents": "43.12"
+        },
+        "declared": {
+          "acres": "0.0",
+          "cents": "29.0"
+        },
+        "total_purchase_cost": "3624870.0",
+        "mismatch": true
+      }
+    },
+    "spouse": {
+      "full_text": "Kalimandayam Village:\n1)\nSurvey No:226/1B\nAcre:5.16\nDate of Purchase:05.11.1997\nCost of Purchase:76840\n\n2)\nSurvey No:254/1B\nAcre:1.33\nDate of Purchase:17.09.2004\nCost of Purchase:32400\n\n3)\nSurvey No:224/1,4,5\nAcre:9\nDate of Purchase:14.07.2008\nCost of Purchase:186000\n\n4)\nSurvey No:261/1,2\nAcre:1.33\nDate of Purchase:21.08.2006\nCost of Purchase:134500\n\n5)\nSurvey No:222/1\nAcre:0.30\nDate of Purchase:14.07.2010\nCost of Purchase:12800\n\n6)\nSurvey No:222/1A\nAcre:0.52\nDate of Purchase:30.07.2020\nCost of Purchase:196688\n\nSikamanayakanpatti Village:\n7)\nSurvey No:186/1A,1b,208/2c,2c,4b,209/2f\nAcre:6.30\nDate of Purchase:14.06.2005\nCost of Purchase:250000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n7896480.00\n48,71,570\n48\u00a0Lacs+\nKalimandayam Village;\n\n1)\nSurvey No:397/1A,394/3B2\nSq.ft:4368\nDate of Purchase:08.04.1994\nCost of Purchase:37250\n\n2)\nSurvey No:388/1C2B\nSq.ft:5702\nDate of Purchase:01.02.1999\nCost of Purchase:30610\n\n3)\nSurvey No:388/1C2B\nSq.ft:4360\nDate of Purchase:17.03.2006\nCost of Purchase:60000\n\n4)\nSurvey No:386/1B1C\nSq.ft:4796\nDate of Purchase:29.05.2008\nCost of Purchase:5600\n\n5)\nSurvey No:386/19A\nSq.ft:2743\nDate of Purchase:29.05.2008\nCost of Purchase:13500\n\n6)\nSurvey No:386/18,386/19A\nSq.ft:2743\nDate of Purchase:02.02.2011\nCost of Purchase:301090\n\n7)\nSurvey No:386/6\nSq.ft:1076.2\nDate of Purchase:29.02.2016\nCost of Purchase:584000\n\nMugaper Veetu Vasathi\n8)\nSurvey No:442\nSq.ft:1047\nDate of Purchase:29.04.2010\nCost of Purchase:9581855\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n17205915.00\n4,71,19,198\n4\u00a0Crore+\nNil",
+      "entries": [
+        {
+          "village": "Kalimandayam",
+          "survey_no": "226/1B",
+          "raw_area": "5.16",
+          "acres": "5.0",
+          "cents": "16.0",
+          "purchase_cost": "76840.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:226/1B\nAcre:5.16\nDate of Purchase:05.11.1997\nCost of Purchase:76840",
+          "name": "Kalimandayam (S.No: 226/1B)",
+          "area": "5.0 Acres 16.0 Cents",
+          "value": "76,840"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "254/1B",
+          "raw_area": "1.33",
+          "acres": "1.0",
+          "cents": "33.0",
+          "purchase_cost": "32400.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:254/1B\nAcre:1.33\nDate of Purchase:17.09.2004\nCost of Purchase:32400",
+          "name": "Kalimandayam (S.No: 254/1B)",
+          "area": "1.0 Acres 33.0 Cents",
+          "value": "32,400"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "224/1",
+          "raw_area": "5",
+          "acres": "5.0",
+          "cents": "0.0",
+          "purchase_cost": "186000.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:224/1,4,5\nAcre:9\nDate of Purchase:14.07.2008\nCost of Purchase:186000",
+          "name": "Kalimandayam (S.No: 224/1)",
+          "area": "5.0 Acres 0.0 Cents",
+          "value": "186,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "261/1",
+          "raw_area": "2",
+          "acres": "2.0",
+          "cents": "0.0",
+          "purchase_cost": "134500.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:261/1,2\nAcre:1.33\nDate of Purchase:21.08.2006\nCost of Purchase:134500",
+          "name": "Kalimandayam (S.No: 261/1)",
+          "area": "2.0 Acres 0.0 Cents",
+          "value": "134,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "222/1",
+          "raw_area": "1",
+          "acres": "1.0",
+          "cents": "0.0",
+          "purchase_cost": "12800.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:222/1\nAcre:0.30\nDate of Purchase:14.07.2010\nCost of Purchase:12800",
+          "name": "Kalimandayam (S.No: 222/1)",
+          "area": "1.0 Acres 0.0 Cents",
+          "value": "12,800"
+        },
+        {
+          "village": "Sikamanayakanpatti",
+          "survey_no": "222/1A",
+          "raw_area": "0.52",
+          "acres": "0.0",
+          "cents": "52.0",
+          "purchase_cost": "196688.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:222/1A\nAcre:0.52\nDate of Purchase:30.07.2020\nCost of Purchase:196688",
+          "name": "Sikamanayakanpatti (S.No: 222/1A)",
+          "area": "0.0 Acres 52.0 Cents",
+          "value": "196,688"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "186/1A",
+          "raw_area": "6.30",
+          "acres": "6.0",
+          "cents": "30.0",
+          "purchase_cost": "250000.0",
+          "confidence": "high",
+          "correction_applied": false,
+          "raw_text": "Survey No:186/1A,1b,208/2c,2c,4b,209/2f\nAcre:6.30\nDate of Purchase:14.06.2005\nCost of Purchase:250000\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n7896480.00\n48,71,570\n48\u00a0Lacs+",
+          "name": "Kalimandayam (S.No: 186/1A)",
+          "area": "6.0 Acres 30.0 Cents",
+          "value": "250,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "397/1A",
+          "raw_area": "4368",
+          "acres": "0.0",
+          "cents": "10.02",
+          "purchase_cost": "37250.0",
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:397/1A,394/3B2\nSq.ft:4368\nDate of Purchase:08.04.1994\nCost of Purchase:37250",
+          "name": "Kalimandayam (S.No: 397/1A)",
+          "area": "0.0 Acres 10.02 Cents",
+          "value": "37,250"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "5702",
+          "acres": "0.0",
+          "cents": "13.08",
+          "purchase_cost": "30610.0",
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B\nSq.ft:5702\nDate of Purchase:01.02.1999\nCost of Purchase:30610",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 13.08 Cents",
+          "value": "30,610"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "388/1C2B",
+          "raw_area": "4360",
+          "acres": "0.0",
+          "cents": "10.0",
+          "purchase_cost": "60000.0",
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:388/1C2B\nSq.ft:4360\nDate of Purchase:17.03.2006\nCost of Purchase:60000",
+          "name": "Kalimandayam (S.No: 388/1C2B)",
+          "area": "0.0 Acres 10.0 Cents",
+          "value": "60,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/1B1C",
+          "raw_area": "4796",
+          "acres": "0.0",
+          "cents": "11.01",
+          "purchase_cost": "5600.0",
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/1B1C\nSq.ft:4796\nDate of Purchase:29.05.2008\nCost of Purchase:5600",
+          "name": "Kalimandayam (S.No: 386/1B1C)",
+          "area": "0.0 Acres 11.01 Cents",
+          "value": "5,600"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/19A",
+          "raw_area": "2743",
+          "acres": "0.0",
+          "cents": "6.29",
+          "purchase_cost": "13500.0",
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/19A\nSq.ft:2743\nDate of Purchase:29.05.2008\nCost of Purchase:13500",
+          "name": "Kalimandayam (S.No: 386/19A)",
+          "area": "0.0 Acres 6.29 Cents",
+          "value": "13,500"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/18",
+          "raw_area": "2743",
+          "acres": "0.0",
+          "cents": "6.29",
+          "purchase_cost": "301090.0",
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/18,386/19A\nSq.ft:2743\nDate of Purchase:02.02.2011\nCost of Purchase:301090",
+          "name": "Kalimandayam (S.No: 386/18)",
+          "area": "0.0 Acres 6.29 Cents",
+          "value": "301,090"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "386/6",
+          "raw_area": "1076.2",
+          "acres": "0.0",
+          "cents": "2.47",
+          "purchase_cost": "584000.0",
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:386/6\nSq.ft:1076.2\nDate of Purchase:29.02.2016\nCost of Purchase:584000\n\nMugaper Veetu Vasathi",
+          "name": "Kalimandayam (S.No: 386/6)",
+          "area": "0.0 Acres 2.47 Cents",
+          "value": "584,000"
+        },
+        {
+          "village": "Kalimandayam",
+          "survey_no": "442",
+          "raw_area": "1047",
+          "acres": "0.0",
+          "cents": "2.4",
+          "purchase_cost": "9581855.0",
+          "confidence": "medium",
+          "correction_applied": false,
+          "raw_text": "Survey No:442\nSq.ft:1047\nDate of Purchase:29.04.2010\nCost of Purchase:9581855\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n17205915.00\n4,71,19,198\n4\u00a0Crore+\nNil",
+          "name": "Kalimandayam (S.No: 442)",
+          "area": "0.0 Acres 2.4 Cents",
+          "value": "9,581,855"
+        }
+      ],
+      "total": {
+        "calculated": {
+          "acres": "21.0",
+          "cents": "92.56"
+        },
+        "declared": {
+          "acres": "0.0",
+          "cents": "0.0"
+        },
+        "total_purchase_cost": "11503133.0",
+        "mismatch": true
+      }
+    },
+    "dep1": {
+      "entries": [],
+      "total": {
+        "calculated": {
+          "acres": "0.0",
+          "cents": "0.0"
+        },
+        "declared": {
+          "acres": "0.0",
+          "cents": "0.0"
+        },
+        "total_purchase_cost": "0.0",
+        "mismatch": false
+      }
+    }
+  }
+}
+2026-03-25 21:54:23,967 [INFO] myneta_scraper: DynamoDB update successful for candidate 222
+2026-03-25 21:54:35,282 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-25 21:54:35,282 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-25 21:54:38,698 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"
+2026-03-25 21:54:39,440 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-03-25 21:54:39,473 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#222
+2026-03-25 21:54:39,576 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#222
+2026-03-25 21:54:39,576 [INFO] myneta_scraper: DynamoDB update successful for candidate 222
+2026-03-26 18:49:51,539 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true
+2026-03-26 18:49:51,539 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true (Attempt 1)
+2026-03-26 18:49:54,706 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=222&print=true "HTTP/1.1 200 OK"

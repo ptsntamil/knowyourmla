@@ -7,6 +7,7 @@ import ConstituencyMap from "@/components/ConstituencyMap";
 import { AttendanceWidget, QuestionsWidget } from "@/components/MetricWidgets";
 import IncomeDetailsTable from "@/components/IncomeDetailsTable";
 import ElectionExpensesWidget from "@/components/ElectionExpensesWidget";
+import AssetSummaryWidget from "@/components/AssetSummaryWidget";
 
 export const dynamic = "force-dynamic";
 
@@ -153,6 +154,12 @@ export default async function MLAProfilePage({ params }: PageProps) {
                     <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">Income Details</h2>
                     <IncomeDetailsTable itrHistory={profile.analytics.itr_history} />
                 </section>
+
+                <AssetSummaryWidget 
+                    goldAssets={profile.analytics.gold_assets}
+                    vehicleAssets={profile.analytics.vehicle_assets}
+                    landAssets={profile.analytics.land_assets}
+                />
 
                 <section className="space-y-8">
                     <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">Impact Widgets</h2>

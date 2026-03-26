@@ -234,6 +234,12 @@ class MLAService:
         if not person_detail.image_url and candidates_data:
             person_detail.image_url = candidates_data[-1].get("profile_pic")
 
+        # Extract detailed assets from the latest record
+        latest_record = candidates_data[-1] if candidates_data else {}
+        gold_assets = latest_record.get("gold_assets")
+        vehicle_assets = latest_record.get("vehicle_assets")
+        land_assets = latest_record.get("land_assets")
+
         analytics = MLAAnalytics(
             win_rate=WinRate(total_contested=total_contested, total_wins=total_wins, win_rate=round(win_rate_val, 2)),
             asset_growth=asset_growth,
@@ -242,7 +248,10 @@ class MLAService:
             income_growth=income_growth,
             criminal_case_trend=criminal_case_trend,
             election_expenses_trend=election_expenses_trend,
-            itr_history=total_itr_history if total_itr_history else None
+            itr_history=total_itr_history if total_itr_history else None,
+            gold_assets=gold_assets,
+            vehicle_assets=vehicle_assets,
+            land_assets=land_assets
         )
 
         history.sort(key=lambda x: x.year, reverse=True)

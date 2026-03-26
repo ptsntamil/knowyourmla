@@ -199,6 +199,9 @@ class MLAAnalytics(BaseModel):
     criminal_case_trend: List[CriminalCaseRecord]
     election_expenses_trend: List[ElectionExpenseRecord]
     itr_history: Optional[dict] = None
+    gold_assets: Optional[dict] = None
+    vehicle_assets: Optional[dict] = None
+    land_assets: Optional[dict] = None
 
     model_config = {
         "json_schema_extra": {
