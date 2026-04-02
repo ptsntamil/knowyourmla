@@ -1,34 +1,48 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 interface ProfileImageProps {
   src?: string | null;
   alt: string;
   className?: string;
-  fallbackSrc?: string;
 }
 
 const ProfileImage: React.FC<ProfileImageProps> = ({
   src,
   alt,
   className = "w-full h-full object-cover",
-  fallbackSrc = "/profile_pic.png"
 }) => {
-  const [imgSrc, setImgSrc] = useState<string>(src || fallbackSrc);
+  const [hasError, setHasError] = useState(false);
+  const [imgSrc, setImgSrc] = useState<string | null>(src || null);
 
-  const handleError = () => {
-    if (imgSrc !== fallbackSrc) {
-      setImgSrc(fallbackSrc);
-    }
+  useEffect(() => {
+    setImgSrc(src || null);
+    setHasError(false);
+  }, [src]);
+
+  const getInitials = (name: string) => {
+    const parts = name.split(/[\s.]+/).filter(Boolean);
+    if (parts.length === 0) return "?";
+    if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
   };
+
+  if (!imgSrc || hasError) {
+    return (
+      <div className={`flex items-center justify-center bg-slate-100 dark:bg-slate-800 font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter ${className}`}>
+        {getInitials(alt)}
+      </div>
+    );
+  }
 
   return (
     <img
       src={imgSrc}
       alt={alt}
       className={className}
-      onError={handleError}
+      onError={() => setHasError(true)}
+      referrerPolicy="no-referrer"
     />
   );
 };
