@@ -1,13 +1,14 @@
-import { Metadata } from "next";
-import { getBaseMetadata } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo/metadata";
 import React from 'react';
 
-export const metadata: Metadata = getBaseMetadata(
-  "Terms of Service",
-  "Our terms of service outline the rules and regulations for using the KnowYourMLA platform.",
-  "terms",
-  ["Terms of Service", "User Agreement", "KnowYourMLA Terms", "Usage Policy"]
-);
+export async function generateMetadata() {
+  return buildMetadata({
+    title: "Terms of Service | KnowYourMLA",
+    description: "Our terms of service outline the rules and regulations for using the KnowYourMLA platform.",
+    path: "/terms",
+    keywords: ["Terms of Service", "User Agreement", "KnowYourMLA Terms", "Usage Policy"]
+  });
+}
 
 export default function TermsOfService() {
   return (
