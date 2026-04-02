@@ -233,10 +233,15 @@ class MLAService:
 
         if not person_detail.image_url and candidates_data:
             person_detail.image_url = candidates_data[-1].get("profile_pic")
+        
+        if candidates_data:
+            person_detail.education = candidates_data[-1].get("education")
+            person_detail.profession = candidates_data[-1].get("profession")
 
         # Extract detailed assets from the latest record
         latest_record = candidates_data[-1] if candidates_data else {}
         gold_assets = latest_record.get("gold_assets")
+        silver_assets = latest_record.get("silver_assets")
         vehicle_assets = latest_record.get("vehicle_assets")
         land_assets = latest_record.get("land_assets")
 
@@ -250,6 +255,7 @@ class MLAService:
             election_expenses_trend=election_expenses_trend,
             itr_history=total_itr_history if total_itr_history else None,
             gold_assets=gold_assets,
+            silver_assets=silver_assets,
             vehicle_assets=vehicle_assets,
             land_assets=land_assets
         )

@@ -69,6 +69,8 @@ export interface PersonDetail {
   person_id: string;
   name: string;
   image_url?: string;
+  education?: string;
+  profession?: string;
 }
 
 export interface ElectionHistoryRecord {
@@ -135,6 +137,7 @@ export interface MLAAnalytics {
   election_expenses_trend: ElectionExpenseRecord[];
   itr_history?: Record<string, Record<string, number>> | null;
   gold_assets?: any | null;
+  silver_assets?: any | null;
   vehicle_assets?: any | null;
   land_assets?: any | null;
 }

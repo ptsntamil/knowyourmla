@@ -49,7 +49,13 @@ class AssetParser:
 
     def parse_all(self) -> Dict[str, Any]:
         """Extract all requested assets."""
-        return {"gold": self.parse_gold(), "vehicle": self.parse_vehicles(), "land": self.parse_land()}
+        metals = self.parse_gold()
+        return {
+            "gold": metals["gold"],
+            "silver": metals["silver"],
+            "vehicle": self.parse_vehicles(),
+            "land": self.parse_land()
+        }
 
     def _get_table_by_heading(self, heading_text: str) -> Optional[BeautifulSoup]:
         """Find the table following a specific heading text."""
@@ -60,26 +66,127 @@ class AssetParser:
             return header.find_next("table")
         return None
 
-    def parse_gold(self) -> Dict[str, Dict[str, str]]:
+    def parse_gold(self) -> Dict[str, Dict[str, Any]]:
         table = self._get_table_by_heading("Movable Assets")
         gold_data = {"self": {"gold": "0", "value": "0"}, "spouse": {"gold": "0", "value": "0"}, "dep1": {"gold": "0", "value": "0"}}
-        if not table: return gold_data
+        silver_data = {"self": {"silver": "0", "value": "0"}, "spouse": {"silver": "0", "value": "0"}, "dep1": {"silver": "0", "value": "0"}}
+        
+        if not table: return {"gold": gold_data, "silver": silver_data}
         
         for row in table.find_all("tr"):
             cells = [cell.get_text(strip=True) for cell in row.find_all("td")]
             if len(cells) > 1 and "Jewellery" in cells[1]:
-                if len(cells) > 2: gold_data["self"] = self._extract_gold_info(cells[2])
-                if len(cells) > 3: gold_data["spouse"] = self._extract_gold_info(cells[3])
-                if len(cells) > 5: gold_data["dep1"] = self._extract_gold_info(cells[5])
+                owners = [("self", 2), ("spouse", 3), ("dep1", 5)]
+                for key, col_idx in owners:
+                    if len(cells) > col_idx:
+                        text = cells[col_idx]
+                        # Split text into gold and silver parts. 
+                        # Look for 'Silver/Sliver' OR trailing weights like '5 KG' following gold summary
+                        silver_parts = re.split(r'(Silver|Sliver|(?<=\+)\d+\s*KG)', text, flags=re.I)
+                        gold_text = silver_parts[0]
+                        silver_text = "".join(silver_parts[1:]) if len(silver_parts) > 1 else ""
+                        
+                        # Special case: if Kg follows a gold summary but 'Silver' keyword is missing
+                        if not silver_text:
+                            kg_match = re.search(r'(\d+\s*KG)$', text, re.I)
+                            if kg_match:
+                                gold_text = text[:kg_match.start()]
+                                silver_text = kg_match.group(1)
+
+                        gold_data[key] = self._extract_gold_info(gold_text)
+                        if silver_text:
+                            silver_data[key] = self._extract_silver_info(silver_text)
                 break
-        return gold_data
+        return {"gold": gold_data, "silver": silver_data}
 
     def _extract_gold_info(self, text: str) -> Dict[str, str]:
-        val_match = re.search(r'Rs\s*([\d,.]+)', text)
-        val = val_match.group(1).replace(',', '') if val_match else "0"
-        gold_match = re.search(r'([\d.]+)\s*(?:Gram|gm|kg|Sovereign|Pavan|grm)', text, re.I)
-        gold = gold_match.group(0) if gold_match else "0"
+        # Gold value extraction
+        val = "0"
+        
+        # 1. Try precise unit-based value extraction first (e.g., GRAM39,44,00039 or GRM gold8,50,000)
+        unit_val_match = re.search(r'(?:Gram|gm|kg|Sovereign|Pavan|Savaran|Pawn|grm|GRM|GRAM|G|g)\s*(?:gold\s+)?([\d,]+)', text, re.I)
+        if unit_val_match:
+            raw_val = unit_val_match.group(1).replace(',', '')
+            if len(raw_val) > 5:
+                for i in range(1, 3):
+                    prefix = raw_val[:i]
+                    if raw_val.endswith(prefix) and len(raw_val) > i + 4:
+                        raw_val = raw_val[:-i]
+                        break
+            val = raw_val
+        
+        # 2. Fallback to Rs prefix if unit-based value is missing
+        if val == "0":
+            val_match = re.search(r'Rs\s*([\d,.]+)', text)
+            if val_match:
+                val = val_match.group(1).replace(',', '')
+        
+        # 3. Fallback to Lacs/Thou/Cr markers (using \d{1,3} heuristic for Lacs/Thou)
+        if val == "0":
+            lacs_match = re.search(r'(\d{1,3})\s*Lacs', text, re.I)
+            thou_match = re.search(r'(\d{1,3})\s*Thou', text, re.I)
+            cr_match = re.search(r'(\d+)\s*(?:Cr|Crore)', text, re.I)
+            
+            if lacs_match:
+                val = str(int(float(lacs_match.group(1).replace(',', '')) * 100000))
+            elif thou_match:
+                val = str(int(float(thou_match.group(1).replace(',', '')) * 1000))
+            elif cr_match:
+                val = str(int(float(cr_match.group(1).replace(',', '')) * 10000000))
+        
+        # 4. Final fallback: GOLD [amt] [unit] [value]
+        if val == "0":
+            fallback_match = re.search(r'GOLD\s*[\d,.]+\s*(?:Gram|gm|kg|Sovereign|Pavan|Savaran|Pawn|grm|G|g)\s*(?:gold\s+)?([\d,.]+)', text, re.I)
+            if fallback_match:
+                val = fallback_match.group(1).replace(',', '')
+
+        # Gold weight extraction: Supports GOLD prefix, Savaran/Pavan/Pawn units
+        gold_match = re.search(r'(?:GOLD\s+)?([\d,.]+)\s*(?:Gram|gm|kg|Sovereign|Pavan|Savaran|Pawn|grm|GRM|GRAM|G|g)s?', text, re.I)
+        gold_num = gold_match.group(1).replace(',', '') if gold_match and gold_match.group(1) else "0"
+        
+        # Normalize to grams
+        unit = gold_match.group(0).lower() if gold_match else ""
+        if any(x in unit for x in ["sov", "pav", "sav", "pawn"]):
+            gold = str(float(gold_num) * 8)
+        else:
+            gold = gold_num
+
+        # Safety check for val before float conversion
+        if not val or not any(c.isdigit() for c in val):
+            val = "0"
+
         return {"gold": gold, "value": f"{int(float(val)):,}" if val != "0" else "0", "raw_text": text.strip()}
+
+    def _extract_silver_info(self, text: str) -> Dict[str, str]:
+        # Silver value extraction: prioritize explicit Lacs
+        val = "0"
+        
+        # 1. Look for Rs prefix
+        val_match = re.search(r'Rs\s*([\d,.]+)', text)
+        if val_match:
+            val = val_match.group(1).replace(',', '')
+        else:
+            # 2. Look for Lacs/Thou (using \d{1,3} heuristic)
+            lacs_match = re.search(r'(\d{1,3})\s*Lacs', text, re.I)
+            thou_match = re.search(r'(\d{1,3})\s*Thou', text, re.I)
+            if lacs_match:
+                val = str(int(float(lacs_match.group(1).replace(',', '')) * 100000))
+            elif thou_match:
+                val = str(int(float(thou_match.group(1).replace(',', '')) * 1000))
+            else:
+                # 3. Fallback to any numeric string after unit
+                val_match = re.search(r'(?:KG|Gram|gm|grm|g)\s*([\d,]+)', text, re.I)
+                val = val_match.group(1).replace(',', '') if val_match else "0"
+
+        # Silver weight extraction
+        silver_match = re.search(r'([\d,.]+)?\s*(?:KG|Gram|gm|grm|g)', text, re.I)
+        silver = silver_match.group(0).strip() if silver_match else "0"
+
+        # Safety check for val before float conversion
+        if not val or not any(c.isdigit() for c in val):
+            val = "0"
+
+        return {"silver": silver, "value": f"{int(float(val)):,}" if val != "0" else "0", "raw_text": text.strip()}
 
     def parse_vehicles(self) -> Dict[str, List[Dict]]:
         table = self._get_table_by_heading("Movable Assets")

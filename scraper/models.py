@@ -25,10 +25,11 @@ class CandidateData(BaseModel):
     criminal_cases_count: int = 0
     affidavit_link: Optional[str] = None
     source_url: str
-    election_type: str = "Assembly"  # Default to Assembly
-    candidacy_type: str = "General" # Default to General
+    profile_pic: Optional[str] = None
+    election_type: str = "Assembly"
+    candidacy_type: str = "General"
     election_date: Optional[str] = None
-    other_elections_summary: Optional[List[Dict]] = None
+    other_elections_summary: Optional[List] = None
     group_id: Optional[str] = None
     scraped_timestamp: datetime = Field(default_factory=datetime.now)
 
