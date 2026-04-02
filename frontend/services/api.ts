@@ -25,6 +25,11 @@ const BASE_URL = USE_V2_API
   : PYTHON_API_URL;
 
 export async function fetchDistricts(): Promise<DistrictResponse[]> {
+  if (isServer && USE_V2_API) {
+    const { DistrictService } = await import("@/lib/services/district.service");
+    const service = new DistrictService();
+    return service.getAllDistricts();
+  }
   const res = await fetch(`${BASE_URL}/districts`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
@@ -34,6 +39,11 @@ export async function fetchDistricts(): Promise<DistrictResponse[]> {
 }
 
 export async function fetchDistrictDetails(districtId: string): Promise<DistrictDetailResponse> {
+  if (isServer && USE_V2_API) {
+    const { DistrictService } = await import("@/lib/services/district.service");
+    const service = new DistrictService();
+    return service.getDistrictDetails(districtId);
+  }
   const res = await fetch(`${BASE_URL}/districts/${encodeURIComponent(districtId)}`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
@@ -43,6 +53,11 @@ export async function fetchDistrictDetails(districtId: string): Promise<District
 }
 
 export async function fetchConstituencies(district_id?: string): Promise<ConstituencyResponse[]> {
+  if (isServer && USE_V2_API) {
+    const { ConstituencyService } = await import("@/lib/services/constituency.service");
+    const service = new ConstituencyService();
+    return service.listConstituencies(district_id);
+  }
   const url = district_id
     ? `${BASE_URL}/constituencies?district_id=${encodeURIComponent(district_id)}`
     : `${BASE_URL}/constituencies`;
@@ -55,6 +70,11 @@ export async function fetchConstituencies(district_id?: string): Promise<Constit
 }
 
 export async function fetchConstituencyWinners(constituencyId: string): Promise<ConstituencyWinnerHistoryResponse> {
+  if (isServer && USE_V2_API) {
+    const { ConstituencyService } = await import("@/lib/services/constituency.service");
+    const service = new ConstituencyService();
+    return service.getWinnerHistory(constituencyId);
+  }
   const res = await fetch(`${BASE_URL}/constituencies/${encodeURIComponent(constituencyId)}/winners`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
@@ -64,6 +84,11 @@ export async function fetchConstituencyWinners(constituencyId: string): Promise<
 }
 
 export async function fetchMLAProfile(identifier: string): Promise<MLAProfileResponse> {
+  if (isServer && USE_V2_API) {
+    const { MLAService } = await import("@/lib/services/mla.service");
+    const service = new MLAService();
+    return service.getMLAProfile(identifier);
+  }
   const res = await fetch(`${BASE_URL}/mlas/${encodeURIComponent(identifier)}/profile`, { next: { revalidate: 0 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
@@ -71,7 +96,13 @@ export async function fetchMLAProfile(identifier: string): Promise<MLAProfileRes
   }
   return res.json();
 }
+
 export async function fetchMLAs(year: number = 2021): Promise<MLAListResponse> {
+  if (isServer && USE_V2_API) {
+    const { MLAService } = await import("@/lib/services/mla.service");
+    const service = new MLAService();
+    return service.getCurrentMLAs(year);
+  }
   const res = await fetch(`${BASE_URL}/mlas?year=${year}`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
@@ -96,6 +127,11 @@ export async function submitFeedback(message: string, url: string): Promise<any>
 }
 
 export async function fetchParties(): Promise<any[]> {
+  if (isServer && USE_V2_API) {
+    const { PartyService } = await import("@/lib/services/party.service");
+    const service = new PartyService();
+    return service.getAllParties();
+  }
   const res = await fetch(`${BASE_URL}/parties`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
@@ -105,6 +141,25 @@ export async function fetchParties(): Promise<any[]> {
 }
 
 export async function fetchPartyDetails(slug: string, year?: string): Promise<any> {
+  if (isServer && USE_V2_API) {
+    const { PartyService } = await import("@/lib/services/party.service");
+    const service = new PartyService();
+    const party = await service.getPartyBySlug(slug);
+    if (!party) throw new Error("Party not found");
+    
+    // Aggregate metadata and analytics
+    const [elections, analytics] = await Promise.all([
+      service.getPartyElections(party.PK),
+      service.getPartyAnalytics(party.PK, year && year !== "all" ? parseInt(year) : undefined)
+    ]);
+
+    return {
+      ...party,
+      id: party.PK,
+      elections,
+      analytics
+    };
+  }
   const url = year && year !== "all" 
     ? `${BASE_URL}/parties/${encodeURIComponent(slug)}?year=${year}`
     : `${BASE_URL}/parties/${encodeURIComponent(slug)}`;
@@ -117,6 +172,13 @@ export async function fetchPartyDetails(slug: string, year?: string): Promise<an
 }
 
 export async function fetchPartyCandidates(slug: string, year: number): Promise<any[]> {
+  if (isServer && USE_V2_API) {
+    const { PartyService } = await import("@/lib/services/party.service");
+    const service = new PartyService();
+    const party = await service.getPartyBySlug(slug);
+    if (!party) throw new Error("Party not found");
+    return service.getPartyCandidatesForYear(party.PK, year);
+  }
   const res = await fetch(`${BASE_URL}/parties/${encodeURIComponent(slug)}/candidates?year=${year}`, { next: { revalidate: 0 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");

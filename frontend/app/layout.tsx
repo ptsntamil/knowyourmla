@@ -9,17 +9,18 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla-info.vercel.app"),
   title: "KnowYourMLA - Tamil Nadu MLA Directory & Election History",
   description: "Comprehensive source for MLA information, election history, and performance analytics across Tamil Nadu constituencies. Empowering citizens with data-driven political insights.",
   keywords: ["KnowYourMLA", "MLA", "Tamil Nadu Politics", "Election Data", "Constituency Analysis"],
   robots: "index, follow",
   alternates: {
-    canonical: "https://knowyourmla-info.vercel.app",
+    canonical: process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla-info.vercel.app",
   },
   openGraph: {
     title: "KnowYourMLA - Tamil Nadu MLA Directory & Election History",
     description: "Comprehensive source for MLA information, election history, and performance analytics across Tamil Nadu constituencies.",
-    url: "https://knowyourmla-info.vercel.app",
+    url: process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla-info.vercel.app",
     siteName: "KnowYourMLA",
     images: [
       {

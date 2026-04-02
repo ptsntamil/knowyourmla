@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next';
 import { fetchDistricts, fetchConstituencies, fetchParties, fetchMLAs } from '@/services/api';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.knowyourmla.com';
+  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
   const tnBaseUrl = `${domain}/tn`;
 
   let districts: any[] = [];

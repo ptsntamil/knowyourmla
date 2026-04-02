@@ -1,13 +1,14 @@
-import { Metadata } from "next";
-import { getBaseMetadata } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo/metadata";
 import React from 'react';
 
-export const metadata: Metadata = getBaseMetadata(
-  "About Us",
-  "Learn about our mission to provide transparent and accessible information about Tamil Nadu MLAs and political data.",
-  "about",
-  ["About KnowYourMLA", "Political Transparency", "Tamil Nadu Politics", "MLA Data", "Constituency Information"]
-);
+export async function generateMetadata() {
+  return buildMetadata({
+    title: "About Us | KnowYourMLA",
+    description: "Learn about our mission to provide transparent and accessible information about Tamil Nadu MLAs and political data.",
+    path: "/about",
+    keywords: ["About KnowYourMLA", "Political Transparency", "Tamil Nadu Politics", "MLA Data", "Constituency Information"]
+  });
+}
 
 export default function AboutUs() {
   return (

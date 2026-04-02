@@ -1,16 +1,19 @@
-import { Metadata } from "next";
-import { getBaseMetadata } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import React from 'react';
 import Link from 'next/link';
-
-export const metadata: Metadata = getBaseMetadata(
-  "News & Analysis",
-  "Deep dives into Tamil Nadu's political data, legislative performance, and constituency insights.",
-  "news",
-  ["Tamil Nadu Politics News", "MLA Analysis", "Legislative Performance", "Political Data"]
-);
 import CoverImage from '@/components/CoverImage';
 import { Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react';
+
+export async function generateMetadata() {
+  return buildMetadata({
+    title: "News & Analysis | KnowYourMLA",
+    description: "Deep dives into Tamil Nadu's political data, legislative performance, and constituency insights.",
+    path: "/news",
+    keywords: ["Tamil Nadu Politics News", "MLA Analysis", "Legislative Performance", "Political Data"]
+  });
+}
 
 export default function NewsListPage() {
   const blogs = [
