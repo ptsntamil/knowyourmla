@@ -54,6 +54,8 @@ class PersonDetail(BaseModel):
     person_id: str
     name: str
     image_url: Optional[str] = None
+    education: Optional[str] = None
+    profession: Optional[str] = None
 
     model_config = {
         "json_schema_extra": {
@@ -199,6 +201,10 @@ class MLAAnalytics(BaseModel):
     criminal_case_trend: List[CriminalCaseRecord]
     election_expenses_trend: List[ElectionExpenseRecord]
     itr_history: Optional[dict] = None
+    gold_assets: Optional[dict] = None
+    silver_assets: Optional[dict] = None
+    vehicle_assets: Optional[dict] = None
+    land_assets: Optional[dict] = None
 
     model_config = {
         "json_schema_extra": {

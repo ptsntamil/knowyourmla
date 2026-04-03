@@ -2,45 +2,120 @@ import Link from "next/link";
 import { fetchConstituencyWinners } from "@/services/api";
 import CoverImage from "@/components/CoverImage";
 import ProfileImage from "@/components/ProfileImage";
-import { getBaseMetadata } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
+import SEOIntro from "@/components/seo/SEOIntro";
+import AnswerSnippet from "@/components/seo/AnswerSnippet";
+import FAQSection from "@/components/seo/FAQSection";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 export const dynamic = "force-dynamic";
 
 interface PageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
-  const name = slug.toUpperCase();
-  return getBaseMetadata(
-    `${name} MLA Election History`,
-    `Complete election results and MLA history of ${name} constituency Tamil Nadu.`,
-    `/tn/constituency/${slug}`,
-    [`${name} Constituency`, "Election History", "Tamil Nadu MLA", "Election Results"]
-  );
+  const constituencyId = `CONSTITUENCY#${slug}`;
+  const constituencyName = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
+  
+  // Fetch to get the current winner for the meta description
+  const data = await fetchConstituencyWinners(constituencyId).catch(() => ({ history: [] }));
+  const currentWinner = data.history[0];
+  const mlaInfo = currentWinner ? `currently represented by ${currentWinner.winner} (${currentWinner.party.short_name || currentWinner.party.name})` : "check current MLA and candidates";
+
+  return buildMetadata({
+    title: `${constituencyName} MLA | Current MLA, Candidates & Election Details`,
+    description: `Check the current MLA of ${constituencyName}, ${mlaInfo}, candidate list, party details, and constituency information on KnowYourMLA.`,
+    path: `/tn/constituency/${slug}`,
+    keywords: [`${constituencyName} Constituency`, "Election History", "Tamil Nadu MLA", "Election Results", "Tamil Nadu Politics"]
+  });
 }
 
 export default async function ConstituencyPage({ params }: PageProps) {
   const { slug } = await params;
   const constituencyId = `CONSTITUENCY#${slug}`;
+  const constituencyName = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
   const data = await fetchConstituencyWinners(constituencyId);
   const currentWinner = data.history[0]; // Assuming sorted descending by year
 
+  const faqs = [
+    {
+      question: `Who is the current MLA of ${constituencyName}?`,
+      answer: currentWinner 
+        ? `${currentWinner.winner} from ${currentWinner.party.name} is the current MLA of ${constituencyName} constituency.`
+        : `Information about the current MLA of ${constituencyName} is being updated.`
+    },
+    {
+      question: `Which district is ${constituencyName} in?`,
+      answer: `${constituencyName} is a legislative assembly constituency in Tamil Nadu.`
+    },
+    {
+      question: `What is the voter turnout in ${constituencyName}?`,
+      answer: data.stats && data.stats.length > 0 
+        ? `In the latest elections, the voter turnout in ${constituencyName} was ${data.stats[0].poll_percentage}%.`
+        : `Historical voter turnout data for ${constituencyName} is available in the statistics section above.`
+    },
+    {
+      question: `Where can I find the election history of ${constituencyName}?`,
+      answer: `The complete election history, including past winners and party performance for ${constituencyName}, is listed on this page.`
+    }
+  ];
+
+  const districtName = data.district_name;
+  const districtSlug = data.district_id?.replace("DISTRICT#", "").toLowerCase() || 
+                      districtName?.toLowerCase().replace(/\s+/g, '-');
+
+  const breadcrumbItems = [
+    { name: "Home", item: "/" },
+    { name: "TN", item: "/tn" },
+  ];
+
+  if (districtName) {
+    breadcrumbItems.push({ name: districtName, item: `/tn/districts/${districtSlug}` });
+  }
+
+  breadcrumbItems.push({ name: constituencyName, item: `/tn/constituency/${slug}` });
+
   return (
     <div className="min-h-screen bg-page-bg">
+      <BreadcrumbSchema 
+        items={breadcrumbItems} 
+      />
+
       <CoverImage 
         title={`${slug}`} 
         subtitle={`Historical election data and representative details for the ${slug} constituency.`}
       >
-        <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
+        <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
+          <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span className="mx-3 text-white/20">/</span>
-          <span className="text-brand-gold">{slug} History</span>
+          <Link href="/tn" className="hover:text-white transition-colors">TN</Link>
+          <span className="mx-3 text-white/20">/</span>
+          {districtName && (
+            <>
+              <Link href={`/tn/districts/${districtSlug}`} className="hover:text-white transition-colors">{districtName}</Link>
+              <span className="mx-3 text-white/20">/</span>
+            </>
+          )}
+          <span className="text-brand-gold">{slug}</span>
         </nav>
       </CoverImage>
 
       <main className="max-w-7xl mx-auto px-4 py-16 space-y-16">
+        <SEOIntro 
+          h1={`${constituencyName} Assembly Constituency`}
+          intro={`${constituencyName} is a Tamil Nadu Assembly constituency. This page includes the current MLA, candidate list, party details, election-related information, and constituency profile.`}
+        />
+
+        {currentWinner && (
+          <AnswerSnippet 
+            question={`Who is the current MLA of ${constituencyName}?`}
+            answer={`${currentWinner.winner} is the current MLA of ${constituencyName} constituency, elected in the ${currentWinner.year} Tamil Nadu Assembly elections.`}
+          />
+        )}
+
         {currentWinner && (
           <section>
             <div className="mb-8">
@@ -144,7 +219,6 @@ export default async function ConstituencyPage({ params }: PageProps) {
                 </div>
               </div>
 
-              {/* Gender Distribution Card */}
               {data.stats[0]?.male !== undefined && (
                 (() => {
                   const latest = data.stats[0];
@@ -156,7 +230,6 @@ export default async function ConstituencyPage({ params }: PageProps) {
                       </div>
                       
                       <div className="space-y-8">
-                        {/* Male */}
                         <div className="space-y-3">
                           <div className="flex justify-between items-end">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Male</span>
@@ -170,7 +243,6 @@ export default async function ConstituencyPage({ params }: PageProps) {
                           </div>
                         </div>
 
-                        {/* Female */}
                         <div className="space-y-3">
                           <div className="flex justify-between items-end">
                             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Female</span>
@@ -184,7 +256,6 @@ export default async function ConstituencyPage({ params }: PageProps) {
                           </div>
                         </div>
 
-                        {/* Third Gender */}
                         {latest.third_gender !== undefined && latest.third_gender > 0 && (
                           <div className="space-y-3">
                             <div className="flex justify-between items-end">
@@ -277,9 +348,11 @@ export default async function ConstituencyPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+
+        <section className="pt-16 border-t border-slate-100 dark:border-slate-800">
+          <FAQSection faqs={faqs} />
+        </section>
       </main>
-
-
     </div>
   );
 }

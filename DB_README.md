@@ -258,6 +258,9 @@ Full affidavit details for every candidate (winner and loser) in every election 
 | `total_votes` | Number | Total votes polled in the AC (for winners) or total votes received by candidate (for others) |
 | `winning_margin` | Number | Margin of victory in votes (for winners) |
 | `margin_percentage` | Number | Margin of victory as percentage (for winners) |
+| `gold_assets` | Map | Categorized gold details (self, spouse, dependents) |
+| `vehicle_assets` | Map | Categorized vehicle details (self, spouse, dependents) |
+| `land_assets` | Map | Categorized land details (self, spouse, dependents) including `entries`, `total`, and `full_text` |
 | `createdtime` | String | ISO 8601 formatted creation timestamp |
 
 ### Sample Record
@@ -288,6 +291,43 @@ Full affidavit details for every candidate (winner and loser) in every election 
   "total_votes": 212864,
   "winning_margin": 50000,
   "margin_percentage": 23.5,
+  "gold_assets": {
+    "self": {
+      "gold": "40 Gram",
+      "value": "172000",
+      "raw_text": "40 Gram Gold\n1,72,000"
+    }
+  },
+  "vehicle_assets": {
+    "self": [
+      {
+        "name": "Hyundai Creta Car",
+        "vehicle": "TN 94Z23487",
+        "value": "1563529",
+        "raw_text": "Hyundai Creta Car TN... 1563529"
+      }
+    ]
+  },
+  "land_assets": {
+    "self": {
+      "full_text": "...",
+      "entries": [
+        {
+          "village": "Kalimandayam",
+          "survey_no": "226/1B",
+          "acres": 5,
+          "cents": 16,
+          "purchase_cost": 22000
+        }
+      ],
+      "total": {
+        "calculated": { "acres": 5, "cents": 16 },
+        "declared": { "acres": 5, "cents": 16 },
+        "total_purchase_cost": 22000,
+        "mismatch": false
+      }
+    }
+  },
   "createdtime": "2026-02-26T11:12:06.000000+00:00"
 }
 ```

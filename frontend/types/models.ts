@@ -47,6 +47,8 @@ export interface WinnerHistoryRecord {
   margin: number;
   person_id?: string;
   slug?: string;
+  district_name?: string;
+  district_id?: string;
 }
 
 export interface ConstituencyStatYear {
@@ -61,6 +63,8 @@ export interface ConstituencyStatYear {
 
 export interface ConstituencyWinnerHistoryResponse {
   constituency: string;
+  district_name?: string;
+  district_id?: string;
   history: WinnerHistoryRecord[];
   stats: ConstituencyStatYear[];
 }
@@ -69,6 +73,8 @@ export interface PersonDetail {
   person_id: string;
   name: string;
   image_url?: string;
+  education?: string;
+  profession?: string;
 }
 
 export interface ElectionHistoryRecord {
@@ -80,6 +86,7 @@ export interface ElectionHistoryRecord {
   party_color_text?: string;
   party_color_border?: string;
   winner: boolean;
+  district_name?: string;
   margin?: number | null;
   margin_percent?: number | null;
 }
@@ -134,6 +141,10 @@ export interface MLAAnalytics {
   criminal_case_trend: CriminalCaseRecord[];
   election_expenses_trend: ElectionExpenseRecord[];
   itr_history?: Record<string, Record<string, number>> | null;
+  gold_assets?: any | null;
+  silver_assets?: any | null;
+  vehicle_assets?: any | null;
+  land_assets?: any | null;
 }
 
 export interface MLAProfileResponse {
