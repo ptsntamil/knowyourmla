@@ -7,7 +7,6 @@ import CoverImage from "@/components/CoverImage";
 import MLAListClient from "@/components/MLAListClient";
 import SEOIntro from "@/components/seo/SEOIntro";
 import FAQSection from "@/components/seo/FAQSection";
-import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ItemListSchema from "@/components/seo/ItemListSchema";
 import InternalLinks from "@/components/seo/InternalLinks";
@@ -53,7 +52,6 @@ export default async function MLAListPage() {
           { name: "MLA List", item: "/tn/mla/list" }
         ]} 
       />
-      <FAQSchema faqs={faqs} />
       <ItemListSchema 
         items={mlas.slice(0, 10).map((mla: any, index: number) => ({
           name: mla.name,

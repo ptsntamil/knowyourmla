@@ -13,7 +13,6 @@ import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import SEOIntro from "@/components/seo/SEOIntro";
 import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
-import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 export const dynamic = "force-dynamic";
@@ -103,7 +102,6 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
           { name: party.name, item: `/parties/${slug}` }
         ]} 
       />
-      <FAQSchema faqs={faqs} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5">
         <nav className="flex items-center gap-2 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-400">
@@ -180,7 +178,7 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
           <section id="candidates">
             <PartyElectionView
                 partySlug={slug}
-                initialYear={!isAllElections ? selectedYear! : (analytics?.stats?.latestYear || 2021)}
+                initialYear={isAllElections ? undefined : selectedYear!}
                 years={analytics?.elections || []}
                 isGlobalFilter={true}
             />

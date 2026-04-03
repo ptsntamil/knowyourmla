@@ -7,7 +7,6 @@ import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import SEOIntro from "@/components/seo/SEOIntro";
 import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
-import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 export const dynamic = "force-dynamic";
@@ -64,25 +63,43 @@ export default async function ConstituencyPage({ params }: PageProps) {
     }
   ];
 
+  const districtName = data.district_name;
+  const districtSlug = data.district_id?.replace("DISTRICT#", "").toLowerCase() || 
+                      districtName?.toLowerCase().replace(/\s+/g, '-');
+
+  const breadcrumbItems = [
+    { name: "Home", item: "/" },
+    { name: "TN", item: "/tn" },
+  ];
+
+  if (districtName) {
+    breadcrumbItems.push({ name: districtName, item: `/tn/districts/${districtSlug}` });
+  }
+
+  breadcrumbItems.push({ name: constituencyName, item: `/tn/constituency/${slug}` });
+
   return (
     <div className="min-h-screen bg-page-bg">
       <BreadcrumbSchema 
-        items={[
-          commonBreadcrumbs.home,
-          { name: "Tamil Nadu", item: "/tn" },
-          { name: constituencyName, item: `/tn/constituency/${slug}` }
-        ]} 
+        items={breadcrumbItems} 
       />
-      <FAQSchema faqs={faqs} />
 
       <CoverImage 
         title={`${slug}`} 
         subtitle={`Historical election data and representative details for the ${slug} constituency.`}
       >
-        <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
+        <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
+          <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span className="mx-3 text-white/20">/</span>
-          <span className="text-brand-gold">{slug} History</span>
+          <Link href="/tn" className="hover:text-white transition-colors">TN</Link>
+          <span className="mx-3 text-white/20">/</span>
+          {districtName && (
+            <>
+              <Link href={`/tn/districts/${districtSlug}`} className="hover:text-white transition-colors">{districtName}</Link>
+              <span className="mx-3 text-white/20">/</span>
+            </>
+          )}
+          <span className="text-brand-gold">{slug}</span>
         </nav>
       </CoverImage>
 

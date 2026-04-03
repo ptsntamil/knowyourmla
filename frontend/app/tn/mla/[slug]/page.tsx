@@ -1,4 +1,5 @@
 import { fetchMLAProfile } from "@/services/api";
+import { headers } from "next/headers";
 import MLAHeader from "@/components/MLAHeader";
 import HistoryTable from "@/components/HistoryTable";
 import { AssetChart, VoteTrendChart, MarginTrendChart } from "@/components/AnalyticsCharts";
@@ -27,15 +28,22 @@ export async function generateMetadata({ params }: PageProps) {
     const profile = await fetchMLAProfile(slug);
     const name = profile.person.name;
     const latestElection = profile.history[0];
+    const isWinner = latestElection?.winner === true;
+    const isCurrent = latestElection?.year === 2021 && isWinner;
     const constituency = latestElection?.constituency || "N/A";
     const party = latestElection?.party || "Independent";
 
+    const titleSuffix = isCurrent ? "MLA Profile" : "Candidate Profile";
+    const seoDescription = isCurrent 
+      ? `View ${name} MLA profile from ${constituency} constituency including election history, asset growth, vote share trends and criminal records on KnowYourMLA.`
+      : `View ${name} political profile and election history from ${constituency} constituency. Explore asset declarations, vote share trends and criminal records on KnowYourMLA.`;
+
     return buildMetadata({
-      title: `${name} MLA Profile | Assets, Income, Criminal Cases`,
-      description: `View ${name} MLA profile from ${constituency} constituency including election history, asset growth, vote share trends and criminal records on KnowYourMLA.`,
+      title: `${name} ${titleSuffix} | Assets, Income, Criminal Cases`,
+      description: seoDescription,
       path: `/tn/mla/${slug}`,
       image: profile.person.image_url,
-      keywords: [`${name}`, `${constituency} MLA`, `${party}`, "Tamil Nadu Politics", "MLA Assets", "Criminal Cases"]
+      keywords: [`${name}`, `${constituency} ${isCurrent ? 'MLA' : 'Candidate'}`, `${party}`, "Tamil Nadu Politics", "MLA Assets", "Criminal Cases"]
     });
   } catch (error) {
     return buildMetadata({
@@ -50,6 +58,12 @@ export default async function MLAProfilePage({ params }: PageProps) {
   const { slug } = await params;
   const profile = await fetchMLAProfile(slug);
   const latestElection = profile.history?.[0];
+  const isWinner = latestElection?.winner === true;
+  const isCurrent = latestElection?.year === 2021 && isWinner;
+  const isFormer = !isCurrent && profile.history.some((h: any) => h.winner === true);
+
+  const personalTitle = isCurrent ? "MLA" : (isFormer ? "Former MLA" : "Candidate");
+  
   const criminalCases = profile.analytics?.criminal_case_trend?.length > 0
     ? profile.analytics.criminal_case_trend[profile.analytics.criminal_case_trend.length - 1].cases
     : 0;
@@ -64,28 +78,52 @@ export default async function MLAProfilePage({ params }: PageProps) {
 
   const faqs = [
     {
-      question: `Who is the current MLA of ${constituency}?`,
-      answer: `${profile.person.name} is the current MLA of ${constituency} constituency.`
+      question: isCurrent ? `Who is the current MLA of ${constituency}?` : `Who contested from ${constituency} in ${latestElection?.year}?`,
+      answer: isCurrent 
+        ? `${profile.person.name} is the current MLA of ${constituency} constituency.`
+        : `${profile.person.name} contested from the ${constituency} constituency in the ${latestElection?.year} elections.`
     },
     {
       question: `Which district is ${constituency} in?`,
-      answer: `${constituency} assembly constituency is part of the legislative assembly in Tamil Nadu.`
+      answer: `${constituency} assembly constituency is part of the ${latestElection?.district_name || 'legislative assembly'} district in Tamil Nadu.`
     },
     {
-      question: `What is the constituency profile of ${constituency}?`,
-      answer: `The constituency of ${constituency} is represented by ${profile.person.name} of ${party}. Detailed historical data and performance metrics are available on this page.`
+      question: isCurrent ? `What is the constituency profile of ${constituency}?` : `Who was the ${party} candidate for ${constituency}?`,
+      answer: isCurrent
+        ? `The constituency of ${constituency} is represented by ${profile.person.name} of ${party}. Detailed historical data and performance metrics are available on this page.`
+        : `${profile.person.name} was the ${party} candidate for the ${constituency} constituency. Detailed election history and candidate metrics are available on this page.`
     }
   ];
+
+  const headersList = await headers();
+  const referer = headersList.get("referer") || "";
+  const isFromParty = referer.includes("/parties/") || referer.includes("/party/");
+
+  const districtSlug = latestElection?.district_name?.toLowerCase().replace(/\s+/g, '-');
+  const constituencySlug = latestElection?.constituency.toLowerCase().replace(/\s+/g, '-');
+  const partySlug = latestElection?.party.toLowerCase().replace(/\s+/g, '-');
+
+  const breadcrumbItems = [
+    { name: "Home", item: "/" },
+    { name: "TN", item: "/tn" },
+  ];
+
+  if (isFromParty) {
+    breadcrumbItems.push({ name: party, item: `/parties/${partySlug}` });
+  } else {
+    if (latestElection?.district_name) {
+      breadcrumbItems.push({ name: latestElection.district_name, item: `/tn/districts/${districtSlug}` });
+    }
+    breadcrumbItems.push({ name: constituency, item: `/tn/constituency/${constituencySlug}` });
+  }
+
+  breadcrumbItems.push({ name: profile.person.name, item: `/tn/mla/${slug}` });
 
   return (
     <div className="min-h-screen bg-page-bg">
       <BreadcrumbSchema 
-        items={[
-          commonBreadcrumbs.home,
-          { name: profile.person.name, item: `/tn/mla/${slug}` }
-        ]} 
+        items={breadcrumbItems} 
       />
-      <FAQSchema faqs={faqs} />
       <JsonLd 
         data={generatePersonSchema({
           name: profile.person.name,
@@ -97,9 +135,18 @@ export default async function MLAProfilePage({ params }: PageProps) {
 
       <main className="max-w-7xl mx-auto px-4 py-10 space-y-12">
         <nav className="flex items-center flex-wrap gap-y-2 text-xs md:text-[13px] font-black uppercase tracking-[0.2em] text-slate-400 dark:text-slate-500">
-          <a href="/tn" className="hover:text-brand-gold dark:hover:text-brand-light-gold transition-all active:scale-95 px-2 py-1 -ml-2 rounded outline-none focus-visible:ring-2 focus-visible:ring-brand-gold">Home</a>
-          <span className="mx-2 text-slate-300 dark:text-slate-700">/</span>
-          <span className="text-brand-dark dark:text-brand-light-gold font-black">{profile.person.name}</span>
+          {breadcrumbItems.map((item, index) => (
+            <div key={`${item.item}-${index}`} className="flex items-center">
+              {index > 0 && <span className="mx-2 text-slate-300 dark:text-slate-700">/</span>}
+              {index === breadcrumbItems.length - 1 ? (
+                <span className="text-brand-dark dark:text-brand-light-gold font-black">{item.name}</span>
+              ) : (
+                <a href={item.item} className="hover:text-brand-gold dark:hover:text-brand-light-gold transition-all active:scale-95 px-2 py-1 -ml-2 rounded outline-none focus-visible:ring-2 focus-visible:ring-brand-gold">
+                  {item.name}
+                </a>
+              )}
+            </div>
+          ))}
         </nav>
 
         <div className="w-full">
@@ -112,18 +159,21 @@ export default async function MLAProfilePage({ params }: PageProps) {
             goldAssets={profile.analytics.gold_assets}
             vehicleAssets={profile.analytics.vehicle_assets}
             landAssets={profile.analytics.land_assets}
+            personalTitle={personalTitle}
           />
         </div>
 
         <div className="space-y-8">
           <SEOIntro 
-            h1={`${profile.person.name} MLA Profile - ${constituency}`}
-            intro={`${profile.person.name} is the current representative for the ${constituency} Assembly constituency in Tamil Nadu. This page provides a comprehensive look at their political career, election history, assets, income details, and performance metrics as an MLA.`}
+            h1={`${profile.person.name} ${personalTitle} Profile - ${constituency}`}
+            intro={`${profile.person.name} ${isCurrent ? 'is the current representative for' : (isFormer ? 'is a former MLA who contested for' : 'was a candidate for')} the ${constituency} Assembly constituency in Tamil Nadu. This page provides a comprehensive look at their political career, election history, assets, income details, and performance metrics.`}
           />
           
           <AnswerSnippet 
-            question={`Who is the current MLA of ${constituency}?`}
-            answer={`${profile.person.name} is the incumbent MLA of ${constituency} constituency, representing the ${party} party.`}
+            question={isCurrent ? `Who is the current MLA of ${constituency}?` : `Who is ${profile.person.name}?`}
+            answer={isCurrent 
+              ? `${profile.person.name} is the incumbent MLA of ${constituency} constituency, representing the ${party} party.`
+              : `${profile.person.name} is a political candidate who represented ${party} in the ${constituency} constituency.`}
           />
         </div>
 
@@ -211,7 +261,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
                   <h3 className="text-brand-light-gold font-black uppercase tracking-[0.3em] text-[10px] mb-6">Did you know?</h3>
                   <div className="space-y-6">
                     <p className="text-white text-base leading-relaxed font-bold tracking-tight">
-                      This MLA has contested in <span className="text-brand-gold underline decoration-2 underline-offset-4 font-black">{profile.analytics.win_rate.total_contested}</span> elections and won <span className="text-brand-gold underline decoration-2 underline-offset-4 font-black">{profile.analytics.win_rate.total_wins}</span> of them.
+                      This {personalTitle === "MLA" ? "MLA" : "candidate"} has contested in <span className="text-brand-gold underline decoration-2 underline-offset-4 font-black">{profile.analytics.win_rate.total_contested}</span> elections and won <span className="text-brand-gold underline decoration-2 underline-offset-4 font-black">{profile.analytics.win_rate.total_wins}</span> of them.
                     </p>
                     <p className="text-white text-sm leading-relaxed font-bold tracking-tight opacity-90">
                       For each year ₹3 Cr will be allocated for each MLA as a part of MLACD.{" "}

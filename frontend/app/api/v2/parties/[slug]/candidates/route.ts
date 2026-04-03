@@ -7,7 +7,8 @@ export async function GET(
 ) {
   const { slug } = await params;
   const { searchParams } = new URL(request.url);
-  const year = parseInt(searchParams.get("year") || "2021");
+  const yearParam = searchParams.get("year");
+  const year = yearParam && yearParam !== "all" ? parseInt(yearParam) : undefined;
 
   const service = new PartyService();
   
