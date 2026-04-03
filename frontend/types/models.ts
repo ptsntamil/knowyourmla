@@ -1,6 +1,7 @@
 export interface DistrictResponse {
   id: string;
   name: string;
+  slug?: string;
   total_constituencies?: number;
   image_url?: string;
 }
@@ -25,6 +26,7 @@ export interface DistrictDetailResponse {
 export interface ConstituencyResponse {
   id: string;
   name: string;
+  slug?: string;
   district_id: string;
   type: string;
 }
