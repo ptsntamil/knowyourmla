@@ -136,6 +136,13 @@ class MynetaParser:
                 # e.g. "VILAVANCODE : BYE ELECTION..." -> "VILAVANCODE"
                 constituency = constituency.split(":")[0].strip()
 
+            # Profile Pic
+            import urllib.parse
+            pic_img = soup.find("img", src=lambda s: s and ("photos" in s or "images_candidate" in s))
+            profile_pic = None
+            if pic_img:
+                profile_pic = urllib.parse.urljoin(source_url, pic_img['src'])
+
             # Placeholder for votes
             votes_received = 0
             total_votes = 0
@@ -163,6 +170,7 @@ class MynetaParser:
                 "total_liabilities": liab,
                 "criminal_cases_count": criminal_count,
                 "affidavit_link": affidavit_url,
+                "profile_pic": profile_pic,
                 "source_url": source_url
             }
 

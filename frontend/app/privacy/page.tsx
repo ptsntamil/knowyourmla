@@ -1,13 +1,14 @@
-import { Metadata } from "next";
-import { getBaseMetadata } from "@/lib/seo";
+import { buildMetadata } from "@/lib/seo/metadata";
 import React from 'react';
 
-export const metadata: Metadata = getBaseMetadata(
-  "Privacy Policy",
-  "Our privacy policy explains how we handle your data and protect your privacy while using our platform.",
-  "privacy",
-  ["Privacy Policy", "Data Protection", "KnowYourMLA Privacy", "User Data"]
-);
+export async function generateMetadata() {
+  return buildMetadata({
+    title: "Privacy Policy | KnowYourMLA",
+    description: "Our privacy policy explains how we handle your data and protect your privacy while using our platform.",
+    path: "/privacy",
+    keywords: ["Privacy Policy", "Data Protection", "KnowYourMLA Privacy", "User Data"]
+  });
+}
 
 export default function PrivacyPolicy() {
   return (

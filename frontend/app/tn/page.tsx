@@ -1,19 +1,23 @@
-import { Metadata } from "next";
+import { buildMetadata } from "@/lib/seo/metadata";
+import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
+import { generateItemListSchema } from "@/lib/seo/jsonld";
 import Link from "next/link";
 import { fetchDistricts, fetchConstituencies } from "@/services/api";
 import DistrictCard from "@/components/DistrictCard";
 import CoverImage from "@/components/CoverImage";
-import { getBaseMetadata } from "@/lib/seo";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import ItemListSchema from "@/components/seo/ItemListSchema";
 
-export const metadata: Metadata = getBaseMetadata(
-  "Tamil Nadu MLAs",
-  "Explore comprehensive details of Members of Legislative Assembly (MLAs) in Tamil Nadu. View election history, performance, and constituency-wise data for all 234 seats.",
-  "tn",
-  ["Tamil Nadu MLA", "TN Election Results", "Constituency Details", "MLA Performance", "Know Your MLA"]
-);
+export const revalidate = 3600;
 
-// Static generation for better performance
-export const revalidate = 3600; // revalidate every hour
+export async function generateMetadata() {
+  return buildMetadata({
+    title: "Tamil Nadu MLAs | Election History, Performance & Constituency Data",
+    description: "Explore comprehensive details of Members of Legislative Assembly (MLAs) in Tamil Nadu. View election history, performance metrics, and constituency-wise data for all 234 seats.",
+    path: "/tn",
+    keywords: ["Tamil Nadu MLA", "TN Election Results", "Constituency Details", "MLA Performance", "Know Your MLA"]
+  });
+}
 
 export default async function TNPage() {
   const [districts, allConstituencies] = await Promise.all([
@@ -21,7 +25,6 @@ export default async function TNPage() {
     fetchConstituencies()
   ]);
 
-  // Group constituencies by district_id to get counts
   const countMap = allConstituencies.reduce((acc, c) => {
     acc[c.district_id] = (acc[c.district_id] || 0) + 1;
     return acc;
@@ -29,6 +32,19 @@ export default async function TNPage() {
 
   return (
     <div className="min-h-screen bg-page-bg">
+      <BreadcrumbSchema 
+        items={[
+          commonBreadcrumbs.home
+        ]} 
+      />
+      <ItemListSchema 
+        items={districts.map((d: any, index: number) => ({
+          name: d.name,
+          url: `/tn/districts/${d.name.toLowerCase().replace(/\s+/g, '-')}`,
+          position: index + 1
+        }))} 
+      />
+
       <CoverImage
         title="Tamil Nadu"
         subtitle="Comprehensive analytics on Tamil Nadu MLAs, election history, and performance trends across 234 constituencies."
@@ -71,8 +87,6 @@ export default async function TNPage() {
           ))}
         </div>
       </main>
-
-
     </div>
   );
 }

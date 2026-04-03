@@ -46,6 +46,13 @@ from dataclasses import dataclass, field, asdict
 from decimal import Decimal
 from botocore.exceptions import ClientError
 from boto3.dynamodb.conditions import Key, Attr
+
+# Add project root to path
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
+from scraper.asset_parser import AssetParser
 from config import logger, BASE_URL, USER_AGENT, REQUEST_DELAY
 from utils import (
     normalize_name,
@@ -113,6 +120,9 @@ class AffidavitData:
     error: Optional[bool] = None
     message: Optional[str] = None
     year: Optional[int] = None
+    gold_assets: Dict[str, Any] = field(default_factory=dict)
+    vehicle_assets: Dict[str, Any] = field(default_factory=dict)
+    land_assets: Dict[str, Any] = field(default_factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
         return asdict(self)
@@ -310,6 +320,17 @@ class EnrichmentPipeline:
         if details.year:
             updates.append("#yr = :yr")
             vals[":yr"] = int(details.year)
+        
+        # Add detailed assets if present
+        if details.gold_assets:
+            updates.append("gold_assets = :ga")
+            vals[":ga"] = details.gold_assets
+        if details.vehicle_assets:
+            updates.append("vehicle_assets = :va")
+            vals[":va"] = details.vehicle_assets
+        if details.land_assets:
+            updates.append("land_assets = :la")
+            vals[":la"] = details.land_assets
         
         if updates:
             kwargs = {
@@ -713,8 +734,6 @@ class MyNetaParser:
             return AffidavitData(error=True, message=f"Network error: {str(e)}")
 
         data = AffidavitData()
-        page_text = soup.get_text(separator=' ')
-
         self._parse_basic_info(soup, data, resolver)
         self._parse_voter_info(soup, data)
         self._parse_financials(soup, data)
@@ -722,8 +741,23 @@ class MyNetaParser:
         self._parse_itr_history(soup, data)
         self._parse_election_history(soup, data)
         self._parse_expenses(soup, url, data)
+        self._parse_detailed_assets(url, data)
 
         return data
+
+    def _parse_detailed_assets(self, url: str, data: AffidavitData):
+        """Fetch print-friendly version and parse detailed assets."""
+        print_url = f"{url}&print=true"
+        try:
+            print_soup = self._get_soup(print_url)
+            if print_soup:
+                parser = AssetParser(print_soup)
+                assets = parser.parse_all()
+                data.gold_assets = assets.get("gold", {})
+                data.vehicle_assets = assets.get("vehicles", {})
+                data.land_assets = assets.get("land", {})
+        except Exception as e:
+            logger.warning(f"Error parsing detailed assets from {print_url}: {e}")
 
     def _parse_basic_info(self, soup: BeautifulSoup, data: AffidavitData, resolver: Any):
         """Parse name, age, party, and district."""
