@@ -7,7 +7,7 @@ import CandidateMiniCard from "./CandidateMiniCard";
 
 interface PartyElectionViewProps {
   partySlug: string;
-  initialYear: number;
+  initialYear?: number;
   years: number[];
   isGlobalFilter?: boolean;
 }
@@ -15,7 +15,7 @@ interface PartyElectionViewProps {
 type SortOption = "name" | "assets-desc" | "cases-desc" | "youngest";
 
 export default function PartyElectionView({ partySlug, initialYear, years, isGlobalFilter }: PartyElectionViewProps) {
-  const [selectedYear, setSelectedYear] = useState(initialYear);
+  const [selectedYear, setSelectedYear] = useState<number | undefined>(initialYear);
   const [candidates, setCandidates] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -77,7 +77,7 @@ export default function PartyElectionView({ partySlug, initialYear, years, isGlo
       <div className="space-y-2">
         <h2 className="text-3xl sm:text-5xl font-black text-brand-dark dark:text-slate-100 uppercase tracking-tighter">Candidate Directory</h2>
         <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">
-            Exploring {filteredAndSortedCandidates.length} profiles from the {selectedYear} election
+            Exploring {filteredAndSortedCandidates.length} profiles {selectedYear ? `from the ${selectedYear} election` : "across all elections"}
         </p>
       </div>
 

@@ -6,7 +6,6 @@ import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import { generateItemListSchema } from "@/lib/seo/jsonld";
 import SEOIntro from "@/components/seo/SEOIntro";
 import FAQSection from "@/components/seo/FAQSection";
-import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ItemListSchema from "@/components/seo/ItemListSchema";
 
@@ -47,7 +46,6 @@ export default async function PartiesPage() {
           { name: "Parties", item: "/parties" }
         ]} 
       />
-      <FAQSchema faqs={faqs} />
       <ItemListSchema 
         items={parties.slice(0, 10).map((party: any, index: number) => ({
           name: party.name,

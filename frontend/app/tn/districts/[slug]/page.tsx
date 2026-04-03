@@ -7,7 +7,6 @@ import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import SEOIntro from "@/components/seo/SEOIntro";
 import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
-import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ItemListSchema from "@/components/seo/ItemListSchema";
 
@@ -77,11 +76,11 @@ export default async function DistrictPage({ params }: PageProps) {
     <div className="min-h-screen bg-page-bg">
       <BreadcrumbSchema 
         items={[
-          commonBreadcrumbs.home,
+          { name: "Home", item: "/" },
+          { name: "TN", item: "/tn" },
           { name: districtNameDisplay, item: `/tn/districts/${slug}` }
         ]} 
       />
-      <FAQSchema faqs={faqs} />
       <ItemListSchema 
         items={constituencies.map((c) => ({
           name: c.name,
@@ -93,10 +92,10 @@ export default async function DistrictPage({ params }: PageProps) {
         title={`${slug} District`}
         subtitle={`Total of ${constituencies.length} legislative constituencies representing the people of ${slug}.`}
       >
-        <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
+        <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
+          <Link href="/" className="hover:text-white transition-colors">Home</Link>
           <span className="mx-3 text-white/20">/</span>
-          <Link href="/tn" className="hover:text-white transition-colors">Tamil Nadu</Link>
+          <Link href="/tn" className="hover:text-white transition-colors">TN</Link>
           <span className="mx-3 text-white/20">/</span>
           <span className="text-brand-gold">{slug}</span>
         </nav>

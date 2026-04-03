@@ -146,7 +146,7 @@ export async function fetchPartyDetails(slug: string, year?: string): Promise<an
     const service = new PartyService();
     const party = await service.getPartyBySlug(slug);
     if (!party) throw new Error("Party not found");
-    
+
     // Aggregate metadata and analytics
     const [elections, analytics] = await Promise.all([
       service.getPartyElections(party.PK),
@@ -154,13 +154,12 @@ export async function fetchPartyDetails(slug: string, year?: string): Promise<an
     ]);
 
     return {
-      ...party,
-      id: party.PK,
-      elections,
-      analytics
+      party,
+      analytics: analytics || { stats: {}, age: {}, assets: {}, elections: [], timeline: [] },
+      availableElections: elections
     };
   }
-  const url = year && year !== "all" 
+  const url = year && year !== "all"
     ? `${BASE_URL}/parties/${encodeURIComponent(slug)}?year=${year}`
     : `${BASE_URL}/parties/${encodeURIComponent(slug)}`;
   const res = await fetch(url, { next: { revalidate: 0 } });
@@ -171,7 +170,7 @@ export async function fetchPartyDetails(slug: string, year?: string): Promise<an
   return res.json();
 }
 
-export async function fetchPartyCandidates(slug: string, year: number): Promise<any[]> {
+export async function fetchPartyCandidates(slug: string, year?: number): Promise<any[]> {
   if (isServer && USE_V2_API) {
     const { PartyService } = await import("@/lib/services/party.service");
     const service = new PartyService();
@@ -179,7 +178,10 @@ export async function fetchPartyCandidates(slug: string, year: number): Promise<
     if (!party) throw new Error("Party not found");
     return service.getPartyCandidatesForYear(party.PK, year);
   }
-  const res = await fetch(`${BASE_URL}/parties/${encodeURIComponent(slug)}/candidates?year=${year}`, { next: { revalidate: 0 } });
+  const url = year 
+    ? `${BASE_URL}/parties/${encodeURIComponent(slug)}/candidates?year=${year}`
+    : `${BASE_URL}/parties/${encodeURIComponent(slug)}/candidates`;
+  const res = await fetch(url, { next: { revalidate: 0 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch party candidates: ${res.status} ${res.statusText} - ${errorBody}`);

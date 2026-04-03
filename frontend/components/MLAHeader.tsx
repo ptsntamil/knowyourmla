@@ -12,11 +12,12 @@ interface MLAHeaderProps {
    goldAssets?: any;
    vehicleAssets?: any;
    landAssets?: any;
+   personalTitle?: string;
 }
 
 export default function MLAHeader({
    person, latestHistory, criminalCases, totalAssets, winRate,
-   goldAssets, vehicleAssets, landAssets
+   goldAssets, vehicleAssets, landAssets, personalTitle = "Candidate"
 }: MLAHeaderProps) {
    // Assets Calculation Logic
    let totalGold = 0;
@@ -99,8 +100,8 @@ export default function MLAHeader({
                            {latestHistory?.constituency} Constituency
                         </span>
                         <ShareButton
-                           title={`${person.name} MLA Profile`}
-                           text={`Check out ${person.name}'s MLA profile on KnowYourMLA.`}
+                           title={`${person.name} ${personalTitle} Profile`}
+                           text={`Check out ${person.name}'s ${personalTitle} profile on KnowYourMLA.`}
                            url={`/tn/mla/${person.person_id}`}
                         />
                      </div>
