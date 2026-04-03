@@ -131,7 +131,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 1,
     },
     ...districtUrls,
-    ...constituencyUrls,
+    // ...constituencyUrls,
     ...partyUrls,
     ...mlaUrls,
     ...staticPages,
