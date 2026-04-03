@@ -51,11 +51,11 @@ export default function RootLayout({
       <head>
         <link rel="preconnect" href="https://images.unsplash.com" />
       </head>
-      <body className={`${inter.className} bg-slate-50 dark:bg-slate-950 min-h-screen text-slate-900 dark:text-slate-100 flex flex-col`}>
+      <body className={`${inter.className} bg-bg-page dark:bg-bg-page min-h-screen text-text-secondary dark:text-text-secondary flex flex-col`}>
         <Navbar />
 
-        <div className="bg-brand-gold/15 dark:bg-brand-gold/10 border-b border-brand-gold/30 dark:border-brand-gold/20 py-3 px-4 shadow-sm transition-colors">
-          <div className="max-w-7xl mx-auto flex items-center gap-3 text-sm text-yellow-900 dark:text-brand-light-gold font-semibold">
+        <div className="bg-bg-surface dark:bg-bg-surface border-b border-border-subtle dark:border-border-subtle py-3 px-4 shadow-sm transition-colors">
+          <div className="max-w-7xl mx-auto flex items-center gap-3 text-sm text-text-primary dark:text-text-primary font-semibold">
             <span className="flex-shrink-0 bg-brand-gold text-white px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider shadow-sm">Note</span>
             <p className="leading-relaxed">
               This site currently contains data for only the last 2 elections and may have some issues as we are still updating it.

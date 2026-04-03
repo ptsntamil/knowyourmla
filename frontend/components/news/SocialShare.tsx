@@ -27,7 +27,7 @@ const SocialShare: React.FC<SocialShareProps> = ({ url, title }) => {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mr-2 flex items-center gap-2">
+      <span className="text-[10px] font-black text-text-muted uppercase tracking-widest mr-2 flex items-center gap-2">
         <Share2 size={12} /> Share
       </span>
       {shareLinks.map((link) => (
@@ -36,7 +36,7 @@ const SocialShare: React.FC<SocialShareProps> = ({ url, title }) => {
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className={`w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-white transition-all transform hover:scale-110 ${link.color}`}
+          className={`w-10 h-10 rounded-full bg-bg-surface flex items-center justify-center text-text-muted hover:text-text-inverse transition-all transform hover:scale-110 ${link.color}`}
           title={`Share on ${link.name}`}
         >
           {link.icon}

@@ -17,10 +17,10 @@ export default function CandidateMiniCard({ c }: CandidateMiniCardProps) {
   return (
     <Link
       href={`/tn/mla/${c.person_id?.replace("PERSON#", "")}`}
-      className="group relative bg-white dark:bg-slate-900 border border-border/50 rounded-2xl p-4 hover:border-brand-gold/40 hover:shadow-xl transition-all duration-300 flex items-center gap-4"
+      className="group relative bg-bg-card border border-border-subtle rounded-2xl p-4 hover:border-text-accent/40 hover:shadow-xl transition-all duration-300 flex items-center gap-4"
     >
       {/* Result Indicator Badge handled by Trophy or Result Tag */}
-      <div className="w-14 h-14 sm:w-16 sm:h-16 bg-slate-50 dark:bg-slate-800 rounded-xl overflow-hidden shadow-inner border border-border/20 shrink-0">
+      <div className="w-14 h-14 sm:w-16 sm:h-16 bg-bg-surface rounded-xl overflow-hidden shadow-inner border border-border-subtle shrink-0">
         <ProfileImage
           src={c.profile_pic}
           alt={c.candidate_name}
@@ -30,22 +30,22 @@ export default function CandidateMiniCard({ c }: CandidateMiniCardProps) {
 
       <div className="min-w-0 flex-1">
         <div className="flex items-start justify-between gap-2">
-            <h4 className="text-sm font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight truncate group-hover:text-brand-gold transition-colors">
+            <h4 className="text-sm font-black text-text-primary uppercase tracking-tight truncate group-hover:text-text-accent transition-colors">
             {c.candidate_name}
             </h4>
             {c.is_winner && (
-            <Trophy size={14} className="text-emerald-500 shrink-0 mt-0.5" />
+             <Trophy size={14} className="text-text-primary shrink-0 mt-0.5" />
             )}
         </div>
-        <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-1.5 truncate">
+        <p className="text-[9px] font-bold text-text-muted uppercase tracking-widest flex items-center gap-1.5 truncate">
           {c.constituency_id?.replace("CONSTITUENCY#", "").replace(/-/g, " ")}
-          <span className="text-slate-300">•</span>
+          <span className="text-border-default">•</span>
           {c.election_year || c.year}
         </p>
         
         <div className="flex flex-wrap gap-2 mt-2">
-          <div className="flex items-center gap-1 text-[8px] font-black text-slate-500 dark:text-slate-400 uppercase">
-            <Scale size={10} className="text-emerald-500/70" />
+          <div className="flex items-center gap-1 text-[8px] font-black text-text-muted uppercase">
+            <Scale size={10} className="text-text-primary/70" />
             ₹{formatCurrency(c.total_assets)}
           </div>
           {c.criminal_cases > 0 && (
@@ -55,14 +55,14 @@ export default function CandidateMiniCard({ c }: CandidateMiniCardProps) {
             </div>
           )}
           {c.is_winner ? (
-             <span className="px-1.5 py-0.5 bg-emerald-100 dark:bg-emerald-900/40 text-[7px] font-black text-emerald-600 dark:text-emerald-400 rounded uppercase tracking-tighter">Winner</span>
+             <span className="px-1.5 py-0.5 bg-bg-accent/20 text-[7px] font-black text-text-primary rounded uppercase tracking-tighter">Winner</span>
           ) : (
-             <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-[7px] font-black text-slate-400 rounded uppercase tracking-tighter">Runner</span>
+             <span className="px-1.5 py-0.5 bg-bg-muted text-[7px] font-black text-text-muted rounded uppercase tracking-tighter border border-border-subtle">Runner</span>
           )}
         </div>
       </div>
 
-      <div className="text-slate-300 group-hover:text-brand-gold transition-colors">
+      <div className="text-text-muted group-hover:text-text-accent transition-colors">
         <ChevronRight size={18} />
       </div>
     </Link>

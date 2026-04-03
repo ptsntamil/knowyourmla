@@ -52,65 +52,65 @@ export default function AssetSummaryWidget({ goldAssets, vehicleAssets, landAsse
 
     return (
         <section className="space-y-8">
-            <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">Detailed Asset Summary</h2>
+            <h2 className="text-3xl font-black text-text-primary uppercase tracking-tighter">Detailed Asset Summary</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Gold Widget */}
-                <div className="bg-white rounded-[2.5rem] p-8 shadow-2xl border border-slate-50 relative overflow-hidden group hover:scale-[1.02] transition-all duration-500">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-brand-gold/10 transition-colors" />
+                <div className="bg-bg-card rounded-[2.5rem] p-8 shadow-2xl border border-border-subtle relative overflow-hidden group hover:scale-[1.02] transition-all duration-500">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-text-accent/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-text-accent/10 transition-colors" />
                     <div className="relative z-10 flex flex-col items-center text-center">
-                        <div className="w-16 h-16 bg-brand-gold/10 rounded-2xl flex items-center justify-center mb-6 rotate-3 group-hover:rotate-6 transition-transform shadow-inner">
-                            <Coins className="w-8 h-8 text-brand-gold" />
+                        <div className="w-16 h-16 bg-bg-surface rounded-2xl flex items-center justify-center mb-6 rotate-3 group-hover:rotate-6 transition-transform shadow-inner border border-border-subtle">
+                            <Coins className="w-8 h-8 text-text-accent" />
                         </div>
                         <div className="space-y-1">
-                            <span className="text-5xl font-black text-brand-dark tracking-tighter tabular-nums">
+                            <span className="text-5xl font-black text-text-primary tracking-tighter tabular-nums">
                                 {totalGold > 0 ? totalGold.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 }) : "None"}
                             </span>
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest block">Grams</span>
+                            <span className="text-xs font-black text-text-muted uppercase tracking-widest block">Grams</span>
                         </div>
-                        <p className="text-[11px] text-slate-500 font-bold uppercase tracking-widest mt-6 opacity-60">Total Gold Assets</p>
+                        <p className="text-[11px] text-text-muted font-bold uppercase tracking-widest mt-6 opacity-60">Total Gold Assets</p>
                     </div>
                 </div>
 
                 {/* Vehicle Widget */}
-                <div className="bg-white rounded-[2.5rem] p-8 shadow-2xl border border-slate-50 relative overflow-hidden group hover:scale-[1.02] transition-all duration-500">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-brand-green/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-brand-green/10 transition-colors" />
+                <div className="bg-bg-card rounded-[2.5rem] p-8 shadow-2xl border border-border-subtle relative overflow-hidden group hover:scale-[1.02] transition-all duration-500">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-bg-surface rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-bg-accent/10 transition-colors" />
                     <div className="relative z-10 flex flex-col items-center text-center">
-                        <div className="w-16 h-16 bg-brand-green/10 rounded-2xl flex items-center justify-center mb-6 -rotate-3 group-hover:-rotate-6 transition-transform shadow-inner">
-                            <Car className="w-8 h-8 text-brand-green" />
+                        <div className="w-16 h-16 bg-bg-surface rounded-2xl flex items-center justify-center mb-6 -rotate-3 group-hover:-rotate-6 transition-transform shadow-inner border border-border-subtle">
+                            <Car className="w-8 h-8 text-text-primary" />
                         </div>
                         <div className="space-y-1">
-                            <span className="text-5xl font-black text-brand-dark tracking-tighter tabular-nums">
+                            <span className="text-5xl font-black text-text-primary tracking-tighter tabular-nums">
                                 {vehicleCount || "0"}
                             </span>
-                            <span className="text-xs font-black text-slate-400 uppercase tracking-widest block">Units</span>
+                            <span className="text-xs font-black text-text-muted uppercase tracking-widest block">Units</span>
                         </div>
-                        <p className="text-[11px] text-slate-500 font-bold uppercase tracking-widest mt-6 opacity-60">Vehicle Count</p>
+                        <p className="text-[11px] text-text-muted font-bold uppercase tracking-widest mt-6 opacity-60">Vehicle Count</p>
                     </div>
                 </div>
 
                 {/* Land Widget */}
-                <div className="bg-white rounded-[2.5rem] p-8 shadow-2xl border border-slate-50 relative overflow-hidden group hover:scale-[1.02] transition-all duration-500">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-blue-500/10 transition-colors" />
+                <div className="bg-bg-card rounded-[2.5rem] p-8 shadow-2xl border border-border-subtle relative overflow-hidden group hover:scale-[1.02] transition-all duration-500">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-bg-surface rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-bg-accent/10 transition-colors" />
                     <div className="relative z-10 flex flex-col items-center text-center">
-                        <div className="w-16 h-16 bg-blue-500/10 rounded-2xl flex items-center justify-center mb-6 rotate-2 group-hover:rotate-4 transition-transform shadow-inner">
-                            <MapPin className="w-8 h-8 text-blue-500" />
+                        <div className="w-16 h-16 bg-bg-surface rounded-2xl flex items-center justify-center mb-6 rotate-2 group-hover:rotate-4 transition-transform shadow-inner border border-border-subtle">
+                            <MapPin className="w-8 h-8 text-text-accent" />
                         </div>
                         <div className="flex items-baseline gap-2">
                              <div className="flex flex-col items-center">
-                                <span className="text-4xl font-black text-brand-dark tracking-tighter tabular-nums">{totalAcres}</span>
-                                <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Acres</span>
+                                <span className="text-4xl font-black text-text-primary tracking-tighter tabular-nums">{totalAcres}</span>
+                                <span className="text-[9px] font-black text-text-muted uppercase tracking-widest">Acres</span>
                              </div>
                              {totalCents > 0 && (
                                 <>
-                                    <span className="text-2xl font-black text-slate-200">/</span>
+                                    <span className="text-2xl font-black text-border-subtle">/</span>
                                     <div className="flex flex-col items-center">
-                                        <span className="text-4xl font-black text-brand-dark tracking-tighter tabular-nums">{totalCents}</span>
-                                        <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Cents</span>
+                                        <span className="text-4xl font-black text-text-primary tracking-tighter tabular-nums">{totalCents}</span>
+                                        <span className="text-[9px] font-black text-text-muted uppercase tracking-widest">Cents</span>
                                     </div>
                                 </>
                              )}
                         </div>
-                        <p className="text-[11px] text-slate-500 font-bold uppercase tracking-widest mt-6 opacity-60">Immovable Land Area</p>
+                        <p className="text-[11px] text-text-muted font-bold uppercase tracking-widest mt-6 opacity-60">Immovable Land Area</p>
                     </div>
                 </div>
             </div>

@@ -1,17 +1,42 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme {
+  /* Approved Palette */
+  --color-brand-navy: #16232E;
+  --color-brand-teal: #164C45;
+  --color-brand-gold: #CC8D1A;
+  --color-brand-soft-gold: #E3C75F;
+  --color-brand-olive: #BDA523;
+
+  /* Semantic Mappings */
+  --color-bg-page: #16232E;
+  --color-bg-surface: #164C45;
+  --color-bg-card: #164C45;
+  --color-bg-muted: #16232E;
+  --color-bg-accent: #CC8D1A;
+  --color-bg-accent-soft: #BDA523;
+
+  --color-text-primary: #E3C75F;
+  --color-text-secondary: #E3C75F;
+  --color-text-muted: #BDA523;
+  --color-text-accent: #CC8D1A;
+  --color-text-inverse: #16232E;
+
+  --color-border-subtle: #164C45;
+  --color-border-default: #BDA523;
+  --color-border-accent: #CC8D1A;
+
+  --color-interactive-default: #164C45;
+  --color-interactive-hover: #CC8D1A;
+  --color-interactive-active: #CC8D1A;
+  --color-interactive-selected: #CC8D1A;
+
+  /* Legacy for compatibility during migration */
   --color-brand-dark: #16232E;
   --color-brand-green: #164C45;
   --color-brand-gold: #CC8D1A;
   --color-brand-light-gold: #E3C75F;
   --color-brand-yellow: #BDA523;
-  --color-page-bg: #F5EEDC;
 }
 
 :root {
@@ -22,7 +47,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #16232E;
-    --foreground: #F5EEDC;
+    --foreground: #E3C75F;
   }
 }
 

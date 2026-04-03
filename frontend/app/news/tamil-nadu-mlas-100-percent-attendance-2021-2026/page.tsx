@@ -69,7 +69,7 @@ export default function AttendanceNewsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white selection:bg-brand-gold/20 scroll-smooth">
+    <div className="min-h-screen bg-bg-page selection:bg-bg-accent/20 scroll-smooth">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -85,62 +85,62 @@ export default function AttendanceNewsPage() {
         <div className="flex flex-col gap-12">
 
           {/* Introduction Section */}
-          <section id="introduction" className="prose prose-slate max-w-none">
-            <p className="text-xl text-slate-600 leading-relaxed font-medium mb-8">
-              In the 16th Tamil Nadu Legislative Assembly (2021-2026), while the sessions were marked by intense debates and historic legislations, a select group of 18 members stood out for their unmatched commitment. Out of 234 members, these 18 MLAs recorded <span className="text-brand-dark font-black border-b-2 border-brand-gold">100% attendance</span> across all 161 days of proceedings.
+          <section id="introduction" className="prose prose-invert max-w-none">
+            <p className="text-xl text-text-muted leading-relaxed font-medium mb-8">
+              In the 16th Tamil Nadu Legislative Assembly (2021-2026), while the sessions were marked by intense debates and historic legislations, a select group of 18 members stood out for their unmatched commitment. Out of 234 members, these 18 MLAs recorded <span className="text-text-primary font-black border-b-2 border-bg-accent">100% attendance</span> across all 161 days of proceedings.
             </p>
-            <div className="bg-brand-dark rounded-3xl p-8 text-white flex flex-col md:flex-row gap-8 items-center shadow-2xl overflow-hidden relative">
-              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
+            <div className="bg-bg-surface rounded-3xl p-8 text-text-primary flex flex-col md:flex-row gap-8 items-center shadow-2xl overflow-hidden relative">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-bg-accent/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
               <div className="flex-1">
                 <h3 className="text-2xl font-black mb-4 flex items-center gap-3">
-                  <Info className="text-brand-gold" /> Quick Statistics
+                  <Info className="text-text-accent" /> Quick Statistics
                 </h3>
-                <ul className="space-y-3 text-slate-300 font-bold uppercase tracking-wider text-xs">
-                  <li className="flex justify-between border-b border-white/5 pb-2">
+                <ul className="space-y-3 text-text-muted font-bold uppercase tracking-wider text-xs">
+                  <li className="flex justify-between border-b border-border-subtle pb-2">
                     <span>Total Assembly Days:</span>
-                    <span className="text-white">161 Days</span>
+                    <span className="text-text-primary">161 Days</span>
                   </li>
-                  <li className="flex justify-between border-b border-white/5 pb-2">
+                  <li className="flex justify-between border-b border-border-subtle pb-2">
                     <span>Total Members:</span>
-                    <span className="text-white">234</span>
+                    <span className="text-text-primary">234</span>
                   </li>
                   <li className="flex justify-between">
                     <span>100% Attendance Achievers:</span>
-                    <span className="text-brand-gold">18 (7.7%)</span>
+                    <span className="text-text-accent">18 (7.7%)</span>
                   </li>
                 </ul>
               </div>
             </div>
 
-            <div className="mt-8 p-6 bg-amber-50 rounded-2xl border-l-4 border-amber-400 flex gap-4 items-start">
-              <Info className="text-amber-500 shrink-0 mt-1" size={20} />
-              <div className="text-sm font-medium text-amber-900 leading-relaxed">
+            <div className="mt-8 p-6 bg-bg-surface rounded-2xl border-l-4 border-bg-accent flex gap-4 items-start">
+              <Info className="text-text-accent shrink-0 mt-1" size={20} />
+              <div className="text-sm font-medium text-text-primary leading-relaxed">
                 <span className="font-black uppercase tracking-widest text-[10px] block mb-1">Important Note</span>
-                As per the legislative protocol followed by the Tamil Nadu Assembly Speaker (M. Appavu), any MLA who is suspended from the house proceedings will be marked as <span className="font-black border-b border-amber-900/30">absent</span> for the duration of the suspension.
+                As per the legislative protocol followed by the Tamil Nadu Assembly Speaker (M. Appavu), any MLA who is suspended from the house proceedings will be marked as <span className="font-black border-b border-bg-accent">absent</span> for the duration of the suspension.
               </div>
             </div>
           </section>
 
           {/* Why it Matters Section */}
           <section id="why-it-matters" className="space-y-8">
-            <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter flex items-center gap-3">
-              <CheckCircle2 className="text-brand-green" /> Why Assembly Attendance Matters
+            <h2 className="text-3xl font-black text-text-primary uppercase tracking-tighter flex items-center gap-3">
+              <CheckCircle2 className="text-text-accent" /> Why Assembly Attendance Matters
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-medium text-slate-600 text-lg">
-              <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-brand-gold font-black flex-shrink-0">1</div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 font-medium text-text-muted text-lg">
+              <div className="p-6 bg-bg-card rounded-2xl border border-border-subtle flex gap-4">
+                <div className="w-8 h-8 rounded-full bg-bg-surface flex items-center justify-center shadow-sm text-text-accent font-black flex-shrink-0">1</div>
                 <p>Ensures that the voice of the constituency is heard during crucial policy debates.</p>
               </div>
-              <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-brand-gold font-black flex-shrink-0">2</div>
+              <div className="p-6 bg-bg-card rounded-2xl border border-border-subtle flex gap-4">
+                <div className="w-8 h-8 rounded-full bg-bg-surface flex items-center justify-center shadow-sm text-text-accent font-black flex-shrink-0">2</div>
                 <p>Enables MLAs to participate in the voting process for important bills and budgets.</p>
               </div>
-              <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-brand-gold font-black flex-shrink-0">3</div>
+              <div className="p-6 bg-bg-card rounded-2xl border border-border-subtle flex gap-4">
+                <div className="w-8 h-8 rounded-full bg-bg-surface flex items-center justify-center shadow-sm text-text-accent font-black flex-shrink-0">3</div>
                 <p>Demonstrates accountability and dedication to the democratic responsibilities of an elected member.</p>
               </div>
-              <div className="p-6 bg-slate-50 rounded-2xl border border-slate-100 flex gap-4">
-                <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm text-brand-gold font-black flex-shrink-0">4</div>
+              <div className="p-6 bg-bg-card rounded-2xl border border-border-subtle flex gap-4">
+                <div className="w-8 h-8 rounded-full bg-bg-surface flex items-center justify-center shadow-sm text-text-accent font-black flex-shrink-0">4</div>
                 <p>Allows for effective oversight of government schemes and departmental activities.</p>
               </div>
             </div>
@@ -148,18 +148,18 @@ export default function AttendanceNewsPage() {
 
           {/* The List Section */}
           <section id="mla-list" className="scroll-mt-24">
-            <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-4">
+            <h2 className="text-3xl font-black text-text-primary uppercase tracking-tighter mb-4">
               MLAs with 100% Attendance
             </h2>
-            <p className="text-slate-500 font-medium">Click on any profile to view detailed performance data, assets, and election history.</p>
+            <p className="text-text-muted font-medium">Click on any profile to view detailed performance data, assets, and election history.</p>
             <MLAList />
           </section>
 
           {/* Insights Section */}
-          <section id="insights" className="bg-slate-50 rounded-[40px] p-8 md:p-12 border border-slate-100">
+          <section id="insights" className="bg-bg-surface rounded-[40px] p-8 md:p-12 border border-border-subtle">
             <div className="flex items-center gap-4 mb-8">
-              <PieChart className="text-brand-gold" size={32} />
-              <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">
+              <PieChart className="text-text-accent" size={32} />
+              <h2 className="text-3xl font-black text-text-primary uppercase tracking-tighter">
                 Party-wise Insights
               </h2>
             </div>
@@ -170,41 +170,41 @@ export default function AttendanceNewsPage() {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 text-center">
-                  <div className="text-4xl font-black text-brand-dark mb-1">15</div>
-                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">DMK MLAs</div>
+                <div className="bg-bg-card p-6 rounded-3xl shadow-sm border border-border-subtle text-center">
+                  <div className="text-4xl font-black text-text-accent mb-1">15</div>
+                  <div className="text-[10px] font-black text-text-muted uppercase tracking-widest">DMK MLAs</div>
                 </div>
-                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 text-center">
-                  <div className="text-4xl font-black text-brand-dark mb-1">1</div>
-                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">INC MLA</div>
+                <div className="bg-bg-card p-6 rounded-3xl shadow-sm border border-border-subtle text-center">
+                  <div className="text-4xl font-black text-text-accent mb-1">1</div>
+                  <div className="text-[10px] font-black text-text-muted uppercase tracking-widest">INC MLA</div>
                 </div>
-                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 text-center">
-                  <div className="text-4xl font-black text-brand-dark mb-1">1</div>
-                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">VCK MLA</div>
+                <div className="bg-bg-card p-6 rounded-3xl shadow-sm border border-border-subtle text-center">
+                  <div className="text-4xl font-black text-text-accent mb-1">1</div>
+                  <div className="text-[10px] font-black text-text-muted uppercase tracking-widest">VCK MLA</div>
                 </div>
-                <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 text-center">
-                  <div className="text-4xl font-black text-brand-dark mb-1">1</div>
-                  <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">KMDK MLA</div>
+                <div className="bg-bg-card p-6 rounded-3xl shadow-sm border border-border-subtle text-center">
+                  <div className="text-4xl font-black text-text-accent mb-1">1</div>
+                  <div className="text-[10px] font-black text-text-muted uppercase tracking-widest">KMDK MLA</div>
                 </div>
               </div>
             </div>
           </section>
 
           {/* Voter Experience Section */}
-          <section id="voter-experience" className="bg-brand-gold/5 rounded-[40px] p-8 md:p-12 border border-brand-gold/10">
+          <section id="voter-experience" className="bg-bg-accent/5 rounded-[40px] p-8 md:p-12 border border-bg-accent/10">
             <div className="flex items-center gap-4 mb-8">
-              <Users className="text-brand-gold" size={32} />
-              <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">
+              <Users className="text-text-accent" size={32} />
+              <h2 className="text-3xl font-black text-text-primary uppercase tracking-tighter">
                 What This Means for Voters
               </h2>
             </div>
-            <p className="text-lg text-slate-600 font-medium leading-relaxed mb-8">
+            <p className="text-lg text-text-muted font-medium leading-relaxed mb-8">
               Consistency in assembly attendance is often a leading indicator of an MLA's dedication. For voters, this data serves as a transparent metric to evaluate if their representative is actively participating in the state's legislative process or merely occupying a seat.
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-4">
-                <h4 className="text-sm font-black text-brand-dark uppercase tracking-widest py-2 border-b-2 border-brand-gold w-fit">Key Takeaway</h4>
-                <p className="text-slate-500 text-sm leading-relaxed italic">
+                <h4 className="text-sm font-black text-text-primary uppercase tracking-widest py-2 border-b-2 border-bg-accent w-fit">Key Takeaway</h4>
+                <p className="text-text-muted text-sm leading-relaxed italic">
                   "High attendance does not always equate to performance, but it is the foundational requirement for any legislative work."
                 </p>
               </div>
@@ -215,14 +215,14 @@ export default function AttendanceNewsPage() {
           </section>
 
           {/* Final CTA */}
-          <section className="mt-8 pt-12 border-t border-slate-100 flex flex-col items-center">
-            <h3 className="text-2xl font-black text-brand-dark uppercase tracking-tight mb-6">Want to know more about your MLA?</h3>
+          <section className="mt-8 pt-12 border-t border-border-subtle flex flex-col items-center">
+            <h3 className="text-2xl font-black text-text-primary uppercase tracking-tight mb-6">Want to know more about your MLA?</h3>
             <Link
               href="/tn/mla/list"
-              className="group bg-brand-dark text-white px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-sm flex items-center gap-4 hover:bg-black transition-all shadow-xl hover:shadow-brand-gold/20"
+              className="group bg-bg-surface text-text-primary px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-sm flex items-center gap-4 hover:bg-bg-card transition-all shadow-xl hover:shadow-bg-accent/20"
             >
               Explore All MLA Profiles
-              <ArrowRight className="group-hover:translate-x-2 transition-transform text-brand-gold" />
+              <ArrowRight className="group-hover:translate-x-2 transition-transform text-text-accent" />
             </Link>
           </section>
 

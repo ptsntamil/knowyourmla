@@ -31,7 +31,7 @@ export default async function TNPage() {
   }, {} as Record<string, number>);
 
   return (
-    <div className="min-h-screen bg-page-bg">
+    <div className="min-h-screen bg-bg-page">
       <BreadcrumbSchema 
         items={[
           commonBreadcrumbs.home
@@ -49,28 +49,28 @@ export default async function TNPage() {
         title="Tamil Nadu"
         subtitle="Comprehensive analytics on Tamil Nadu MLAs, election history, and performance trends across 234 constituencies."
       >
-        <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
-          <span className="mx-3 text-white/20">/</span>
-          <span className="text-brand-gold">Tamil Nadu</span>
+        <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-text-muted opacity-80">
+          <Link href="/tn" className="hover:text-text-primary transition-colors">Home</Link>
+          <span className="mx-3 text-border-subtle">/</span>
+          <span className="text-text-accent">Tamil Nadu</span>
         </nav>
       </CoverImage>
 
       <main className="max-w-7xl mx-auto px-4 py-16">
         <div className="flex justify-between items-end mb-12">
           <div>
-            <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Districts of Tamil Nadu</h2>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Select a district to explore its political landscape</p>
+            <h2 className="text-3xl font-black text-text-primary uppercase tracking-tighter mb-2">Districts of Tamil Nadu</h2>
+            <p className="text-xs font-bold text-text-muted uppercase tracking-widest">Select a district to explore its political landscape</p>
           </div>
           <div className="flex items-center gap-4">
             <Link
               href="/tn/mla/list"
-              className="text-[10px] bg-brand-gold text-brand-dark font-black px-6 py-2 rounded-full uppercase tracking-[0.2em] border border-white/20 shadow-lg hover:bg-white hover:text-brand-dark transition-all"
+              className="text-[10px] bg-bg-accent text-text-inverse font-black px-6 py-2 rounded-full uppercase tracking-[0.2em] border border-border-subtle shadow-lg hover:bg-bg-surface hover:text-text-primary transition-all"
             >
               View All MLAs
             </Link>
             <div className="hidden md:block">
-              <span className="text-[10px] bg-brand-dark text-white font-black px-4 py-2 rounded-full uppercase tracking-[0.2em] border border-white/10 shadow-lg">
+              <span className="text-[10px] bg-bg-surface text-text-primary font-black px-4 py-2 rounded-full uppercase tracking-[0.2em] border border-border-subtle shadow-lg">
                 {districts.length} Districts
               </span>
             </div>

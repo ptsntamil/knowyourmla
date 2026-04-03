@@ -55,22 +55,22 @@ export default function PartyAnalyticsTabs({ analytics, isYearView }: PartyAnaly
         );
       case "repeat":
         return (
-          <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-8 sm:p-12 border border-border/50 text-center space-y-6 animate-in fade-in duration-500">
-            <div className="w-20 h-20 bg-teal-500/10 text-teal-600 rounded-3xl flex items-center justify-center mx-auto">
+          <div className="bg-bg-card rounded-[2.5rem] p-8 sm:p-12 border border-border-subtle text-center space-y-6 animate-in fade-in duration-500">
+            <div className="w-20 h-20 bg-bg-surface text-text-primary rounded-3xl flex items-center justify-center mx-auto">
               <UserPlus size={40} />
             </div>
             <div className="space-y-2 max-w-lg mx-auto">
-              <h3 className="text-2xl font-black text-brand-dark dark:text-slate-100 uppercase tracking-tight">Candidate Experience Mix</h3>
-              <p className="text-sm font-medium text-slate-500 dark:text-slate-400">Analysis of first-time vs veteran candidates for this selection.</p>
+              <h3 className="text-2xl font-black text-text-primary uppercase tracking-tight">Candidate Experience Mix</h3>
+              <p className="text-sm font-medium text-text-muted">Analysis of first-time vs veteran candidates for this selection.</p>
             </div>
             <div className="grid grid-cols-2 gap-8 max-w-sm mx-auto pt-6">
               <div className="space-y-1">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">New Faces</p>
-                <p className="text-4xl font-black text-teal-600">{analytics.stats.newCandidates || 0}</p>
+                <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">New Faces</p>
+                <p className="text-4xl font-black text-text-primary">{analytics.stats.newCandidates || 0}</p>
               </div>
               <div className="space-y-1">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Repeat</p>
-                <p className="text-4xl font-black text-brand-gold">{analytics.stats.repeatCandidates || 0}</p>
+                <p className="text-[10px] font-black text-text-muted uppercase tracking-widest">Repeat</p>
+                <p className="text-4xl font-black text-text-accent">{analytics.stats.repeatCandidates || 0}</p>
               </div>
             </div>
           </div>
@@ -83,12 +83,12 @@ export default function PartyAnalyticsTabs({ analytics, isYearView }: PartyAnaly
   return (
     <div id="analytics" className="space-y-8">
        <div className="flex items-center gap-4">
-        <div className="p-3 bg-brand-dark dark:bg-slate-800 text-brand-gold rounded-2xl shrink-0">
+        <div className="p-3 bg-bg-surface text-text-accent rounded-2xl shrink-0">
           <Info size={20} />
         </div>
         <div>
-          <h3 className="text-xl sm:text-2xl font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight">Candidate Analytics</h3>
-          <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest">Detailed profile breakdowns</p>
+          <h3 className="text-xl sm:text-2xl font-black text-text-primary uppercase tracking-tight">Candidate Analytics</h3>
+          <p className="text-[10px] sm:text-xs font-bold text-text-muted uppercase tracking-widest">Detailed profile breakdowns</p>
         </div>
       </div>
 
@@ -103,8 +103,8 @@ export default function PartyAnalyticsTabs({ analytics, isYearView }: PartyAnaly
                 className={`flex items-center gap-2 px-6 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap shadow-sm border
                   ${
                     activeTab === tab.id
-                      ? "bg-brand-dark dark:bg-brand-gold text-white dark:text-brand-dark border-brand-dark dark:border-brand-gold"
-                      : "bg-white dark:bg-slate-900 text-slate-500 border-border/50 hover:border-brand-gold/30"
+                      ? "bg-bg-accent text-text-inverse border-border-accent"
+                      : "bg-bg-card text-text-muted border-border-subtle hover:border-border-accent/30"
                   }`}
               >
                 <Icon size={14} />

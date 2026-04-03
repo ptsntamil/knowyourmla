@@ -27,28 +27,28 @@ export function AssetChart({ data }: AssetChartProps) {
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div className="h-[300px] w-full bg-slate-50 animate-pulse rounded-lg" />;
+  if (!mounted) return <div className="h-[300px] w-full bg-bg-surface animate-pulse rounded-lg" />;
 
   return (
     <div className="h-[300px] w-full" suppressHydrationWarning>
       <ResponsiveContainer width="100%" height="100%">
         <LineChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#164C45" />
           <XAxis
             dataKey="year"
             axisLine={false}
             tickLine={false}
-            tick={{ fill: '#64748B', fontSize: 12, fontWeight: 500 }}
+            tick={{ fill: '#E3C75F', fontSize: 12, fontWeight: 500 }}
             dy={10}
           />
           <YAxis
             axisLine={false}
             tickLine={false}
-            tick={{ fill: '#64748B', fontSize: 12, fontWeight: 500 }}
+            tick={{ fill: '#E3C75F', fontSize: 12, fontWeight: 500 }}
             tickFormatter={(value) => `₹${(value / 10000000).toFixed(1)}Cr`}
           />
           <Tooltip
-            contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', padding: '12px' }}
+            contentStyle={{ backgroundColor: '#16232E', borderRadius: '16px', border: '1px solid #164C45', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.3)', padding: '12px' }}
             formatter={(value: any) => [`₹${Number(value).toLocaleString('en-IN')}`, "Assets"]}
           />
           <Line
@@ -56,7 +56,7 @@ export function AssetChart({ data }: AssetChartProps) {
             dataKey="assets"
             stroke="#CC8D1A"
             strokeWidth={4}
-            dot={{ r: 6, fill: '#CC8D1A', strokeWidth: 3, stroke: '#fff' }}
+            dot={{ r: 6, fill: '#CC8D1A', strokeWidth: 3, stroke: '#16232E' }}
             activeDot={{ r: 8, strokeWidth: 0 }}
           />
         </LineChart>
@@ -76,29 +76,29 @@ export function VoteTrendChart({ data }: VoteTrendChartProps) {
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div className="h-[300px] w-full bg-slate-50 animate-pulse rounded-lg" />;
+  if (!mounted) return <div className="h-[300px] w-full bg-bg-surface animate-pulse rounded-lg" />;
 
   return (
     <div className="h-[300px] w-full" suppressHydrationWarning>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 20 }}>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#164C45" />
           <XAxis
             dataKey="year"
             axisLine={false}
             tickLine={false}
-            tick={{ fill: '#64748B', fontSize: 12, fontWeight: 500 }}
+            tick={{ fill: '#E3C75F', fontSize: 12, fontWeight: 500 }}
             dy={10}
           />
           <YAxis
             axisLine={false}
             tickLine={false}
-            tick={{ fill: '#64748B', fontSize: 12, fontWeight: 500 }}
+            tick={{ fill: '#E3C75F', fontSize: 12, fontWeight: 500 }}
             tickFormatter={(value) => `${(value / 1000).toFixed(0)}k`}
           />
           <Tooltip
             cursor={{ fill: '#F1F5F9' }}
-            contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', padding: '12px' }}
+            contentStyle={{ backgroundColor: '#16232E', borderRadius: '16px', border: '1px solid #164C45', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.3)', padding: '12px' }}
             formatter={(value: any) => [Number(value).toLocaleString('en-IN'), "Votes"]}
           />
           <Bar dataKey="votes" fill="#E3C75F" radius={[4, 4, 0, 0]}>
@@ -123,7 +123,7 @@ export function MarginTrendChart({ data }: MarginTrendChartProps) {
     setMounted(true);
   }, []);
 
-  if (!mounted) return <div className="h-[300px] w-full bg-slate-50 animate-pulse rounded-lg" />;
+  if (!mounted) return <div className="h-[300px] w-full bg-bg-surface animate-pulse rounded-lg" />;
 
   return (
     <div className="h-[300px] w-full" suppressHydrationWarning>
@@ -135,22 +135,22 @@ export function MarginTrendChart({ data }: MarginTrendChartProps) {
               <stop offset="95%" stopColor="#164C45" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
+          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#164C45" />
           <XAxis
             dataKey="year"
             axisLine={false}
             tickLine={false}
-            tick={{ fill: '#64748B', fontSize: 12, fontWeight: 500 }}
+            tick={{ fill: '#E3C75F', fontSize: 12, fontWeight: 500 }}
             dy={10}
           />
           <YAxis
             axisLine={false}
             tickLine={false}
-            tick={{ fill: '#64748B', fontSize: 12, fontWeight: 500 }}
+            tick={{ fill: '#E3C75F', fontSize: 12, fontWeight: 500 }}
             tickFormatter={(value) => `${value}%`}
           />
           <Tooltip
-            contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', padding: '12px' }}
+            contentStyle={{ backgroundColor: '#16232E', borderRadius: '16px', border: '1px solid #164C45', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.3)', padding: '12px' }}
             formatter={(value: any, name: any) => {
               if (name === "margin_percent") {
                 return [`${value}%`, "Margin Strength"];
@@ -165,7 +165,7 @@ export function MarginTrendChart({ data }: MarginTrendChartProps) {
             strokeWidth={4}
             fillOpacity={1}
             fill="url(#colorMargin)"
-            dot={{ r: 6, fill: '#164C45', strokeWidth: 3, stroke: '#fff' }}
+            dot={{ r: 6, fill: '#164C45', strokeWidth: 3, stroke: '#16232E' }}
             activeDot={{ r: 8, strokeWidth: 0 }}
           />
         </AreaChart>

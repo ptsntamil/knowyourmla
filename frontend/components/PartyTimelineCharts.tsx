@@ -35,12 +35,12 @@ export default function PartyTimelineCharts({ analytics, isYearView }: PartyTime
   const CustomTooltip = ({ active, payload, label }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl shadow-2xl border border-border/50 backdrop-blur-md">
-          <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2 text-center">{label} Election</p>
+        <div className="bg-bg-card p-4 rounded-2xl shadow-2xl border border-border-subtle backdrop-blur-md">
+          <p className="text-[10px] font-black text-text-muted uppercase tracking-widest mb-2 text-center">{label} Election</p>
           <div className="space-y-1.5">
             {payload.map((entry: any, index: number) => (
               <div key={index} className="flex items-center justify-between gap-4">
-                <span className="text-[10px] font-bold text-slate-500 uppercase">{entry.name}:</span>
+                <span className="text-[10px] font-bold text-text-muted uppercase">{entry.name}:</span>
                 <span className="text-xs font-black" style={{ color: entry.color }}>
                   {entry.value}{entry.unit || ''}
                 </span>
@@ -57,10 +57,10 @@ export default function PartyTimelineCharts({ analytics, isYearView }: PartyTime
     <div className="space-y-12 sm:space-y-16">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
         {/* Candidates vs Winners Bar Chart */}
-        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-6 sm:p-10 border border-border/50 shadow-sm space-y-6 sm:space-y-8">
+        <div className="bg-bg-card rounded-[2.5rem] p-6 sm:p-10 border border-border-subtle shadow-sm space-y-6 sm:space-y-8">
           <div>
-            <h3 className="text-lg sm:text-xl font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight">Reach & Victories</h3>
-            <p className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">Contestants vs Winners over years</p>
+            <h3 className="text-lg sm:text-xl font-black text-text-primary uppercase tracking-tight">Reach & Victories</h3>
+            <p className="text-[9px] sm:text-[10px] font-black text-text-muted uppercase tracking-widest">Contestants vs Winners over years</p>
           </div>
           
           <div className="h-[250px] sm:h-[300px] w-full">
@@ -71,12 +71,12 @@ export default function PartyTimelineCharts({ analytics, isYearView }: PartyTime
                   dataKey="year" 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
+                  tick={{ fill: '#BDA523', fontSize: 10, fontWeight: 700 }} 
                 />
                 <YAxis 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
+                  tick={{ fill: '#BDA523', fontSize: 10, fontWeight: 700 }} 
                 />
                 <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0,0,0,0.02)' }} />
                 <Legend 
@@ -85,18 +85,18 @@ export default function PartyTimelineCharts({ analytics, isYearView }: PartyTime
                   iconType="circle" 
                   wrapperStyle={{ paddingTop: '20px', fontSize: '10px', fontWeight: 900, textTransform: 'uppercase' }} 
                 />
-                <Bar dataKey="candidates" name="Fielded" fill="#1e293b" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="wins" name="Won" fill="#D4AF37" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="candidates" name="Fielded" fill="#164C45" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="wins" name="Won" fill="#CC8D1A" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
         {/* Win Rate & Diversity Line Chart */}
-        <div className="bg-white dark:bg-slate-900 rounded-[2.5rem] p-6 sm:p-10 border border-border/50 shadow-sm space-y-6 sm:space-y-8">
+        <div className="bg-bg-card rounded-[2.5rem] p-6 sm:p-10 border border-border-subtle shadow-sm space-y-6 sm:space-y-8">
           <div>
-            <h3 className="text-lg sm:text-xl font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight">Diversity & Success %</h3>
-            <p className="text-[9px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">Percentage trends across cycles</p>
+            <h3 className="text-lg sm:text-xl font-black text-text-primary uppercase tracking-tight">Diversity & Success %</h3>
+            <p className="text-[9px] sm:text-[10px] font-black text-text-muted uppercase tracking-widest">Percentage trends across cycles</p>
           </div>
           
           <div className="h-[250px] sm:h-[300px] w-full">
@@ -107,7 +107,7 @@ export default function PartyTimelineCharts({ analytics, isYearView }: PartyTime
                   dataKey="year" 
                   axisLine={false} 
                   tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
+                  tick={{ fill: '#BDA523', fontSize: 10, fontWeight: 700 }} 
                 />
                 <YAxis 
                   axisLine={false} 
@@ -126,9 +126,9 @@ export default function PartyTimelineCharts({ analytics, isYearView }: PartyTime
                   type="monotone" 
                   dataKey="winRate" 
                   name="Win Rate" 
-                  stroke="#10b981" 
+                  stroke="#164C45" 
                   strokeWidth={3} 
-                  dot={{ r: 4, strokeWidth: 2, fill: '#fff' }}
+                  dot={{ r: 4, strokeWidth: 2, fill: '#16232E' }}
                   activeDot={{ r: 6, strokeWidth: 0 }}
                   unit="%"
                 />
@@ -136,9 +136,9 @@ export default function PartyTimelineCharts({ analytics, isYearView }: PartyTime
                   type="monotone" 
                   dataKey="femalePercentage" 
                   name="Women %" 
-                  stroke="#db2777" 
+                  stroke="#CC8D1A" 
                   strokeWidth={3} 
-                  dot={{ r: 4, strokeWidth: 2, fill: '#fff' }}
+                  dot={{ r: 4, strokeWidth: 2, fill: '#16232E' }}
                   activeDot={{ r: 6, strokeWidth: 0 }}
                   unit="%"
                 />
@@ -146,10 +146,10 @@ export default function PartyTimelineCharts({ analytics, isYearView }: PartyTime
                   type="monotone" 
                   dataKey="criminalPercentage" 
                   name="Criminal %" 
-                  stroke="#ef4444" 
+                  stroke="#BDA523" 
                   strokeWidth={2} 
                   strokeDasharray="5 5"
-                  dot={{ r: 3, strokeWidth: 2, fill: '#fff' }}
+                  dot={{ r: 3, strokeWidth: 2, fill: '#16232E' }}
                   activeDot={{ r: 5, strokeWidth: 0 }}
                   unit="%"
                 />

@@ -42,7 +42,7 @@ export default function SectionNav() {
   };
 
   return (
-    <div className="sticky top-0 z-40 w-full bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-border/50 shadow-sm overflow-x-auto no-scrollbar">
+    <div className="sticky top-0 z-40 w-full bg-bg-page/80 backdrop-blur-md border-b border-border-subtle shadow-sm overflow-x-auto no-scrollbar">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav className="flex items-center gap-1 sm:gap-2 h-14 sm:h-16">
           {SECTIONS.map((section) => (
@@ -52,8 +52,8 @@ export default function SectionNav() {
               className={`px-4 sm:px-6 h-full text-[10px] sm:text-xs font-black uppercase tracking-widest transition-all whitespace-nowrap border-b-2
                 ${
                   activeSection === section.id
-                    ? "text-brand-dark dark:text-brand-gold border-brand-dark dark:border-brand-gold"
-                    : "text-slate-400 border-transparent hover:text-brand-dark/70 dark:hover:text-slate-200"
+                    ? "text-text-accent border-text-accent"
+                    : "text-text-muted border-transparent hover:text-text-primary"
                 }`}
             >
               {section.label}

@@ -39,7 +39,7 @@ export default async function PartiesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-page-bg">
+    <div className="min-h-screen bg-bg-page">
       <BreadcrumbSchema 
         items={[
           commonBreadcrumbs.home,
@@ -67,7 +67,7 @@ export default async function PartiesPage() {
 
         <PartyFilters initialParties={parties} />
 
-        <section className="mt-32 pt-16 border-t border-slate-100 dark:border-slate-800">
+        <section className="mt-32 pt-16 border-t border-border-subtle">
           <FAQSection faqs={faqs} />
         </section>
       </main>

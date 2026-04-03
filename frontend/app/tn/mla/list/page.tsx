@@ -45,7 +45,7 @@ export default async function MLAListPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-page-bg">
+    <div className="min-h-screen bg-bg-page">
       <BreadcrumbSchema 
         items={[
           commonBreadcrumbs.home,
@@ -64,12 +64,12 @@ export default async function MLAListPage() {
         title="Current MLAs" 
         subtitle="List of elected members of the Tamil Nadu Legislative Assembly (2021-2026)."
       >
-        <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
-          <span className="mx-3 text-white/20">/</span>
-          <Link href="/tn" className="hover:text-white transition-colors">Tamil Nadu</Link>
-          <span className="mx-3 text-white/20">/</span>
-          <span className="text-brand-gold">MLA List</span>
+        <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-text-muted opacity-80">
+          <Link href="/tn" className="hover:text-text-primary transition-colors">Home</Link>
+          <span className="mx-3 text-border-subtle">/</span>
+          <Link href="/tn" className="hover:text-text-primary transition-colors">Tamil Nadu</Link>
+          <span className="mx-3 text-border-subtle">/</span>
+          <span className="text-text-accent">MLA List</span>
         </nav>
       </CoverImage>
       
@@ -81,12 +81,12 @@ export default async function MLAListPage() {
 
         <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6">
             <div>
-                <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Elected Members</h2>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Displaying all 234 current MLAs by constituency</p>
+                <h2 className="text-3xl font-black text-text-primary uppercase tracking-tighter mb-2">Elected Members</h2>
+                <p className="text-xs font-bold text-text-muted uppercase tracking-widest">Displaying all 234 current MLAs by constituency</p>
             </div>
             <div className="hidden md:block">
-                <span className="text-[10px] bg-brand-dark text-white font-black px-6 py-3 rounded-full uppercase tracking-[0.2em] border border-white/10 shadow-2xl flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
+                <span className="text-[10px] bg-bg-surface text-text-primary font-black px-6 py-3 rounded-full uppercase tracking-[0.2em] border border-border-subtle shadow-2xl flex items-center gap-3">
+                    <span className="w-2 h-2 rounded-full bg-bg-accent animate-pulse"></span>
                     {mlas.length} Active MLAs
                 </span>
             </div>
@@ -94,7 +94,7 @@ export default async function MLAListPage() {
 
         <MLAListClient initialMLAs={mlas} />
 
-        <div className="grid lg:grid-cols-2 gap-12 pt-16 border-t border-slate-100 dark:border-slate-800">
+        <div className="grid lg:grid-cols-2 gap-12 pt-16 border-t border-border-subtle">
           <div className="space-y-12">
             <InternalLinks 
               title="Browse MLAs by District"

@@ -26,7 +26,7 @@ export const mlaDataset = [
 const MLAList: React.FC = () => {
   return (
     <div className="my-12">
-      <div className="bg-slate-50 rounded-3xl p-8 border border-slate-100 italic text-slate-500 text-sm mb-8">
+      <div className="bg-bg-surface rounded-3xl p-8 border border-border-subtle italic text-text-muted text-sm mb-8">
         Below is the list of 18 MLAs who successfully recorded 100% attendance during the 2021-2026 assembly proceedings.
       </div>
 
@@ -35,32 +35,32 @@ const MLAList: React.FC = () => {
           <Link
             key={idx}
             href={`/tn/mla/${mla.slug}`}
-            className="group block p-6 bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl hover:border-brand-gold/30 hover:-translate-y-1 transition-all duration-300"
+            className="group block p-6 bg-bg-card rounded-2xl border border-border-subtle shadow-sm hover:shadow-xl hover:border-text-accent/30 hover:-translate-y-1 transition-all duration-300"
           >
             <div className="flex items-center justify-between">
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-[10px] font-black w-5 h-5 flex items-center justify-center bg-slate-100 text-slate-400 rounded-full group-hover:bg-brand-gold group-hover:text-white transition-colors">
+                  <span className="text-[10px] font-black w-5 h-5 flex items-center justify-center bg-bg-surface text-text-muted rounded-full group-hover:bg-bg-accent group-hover:text-text-inverse transition-colors">
                     {idx + 1}
                   </span>
-                  <h3 className="font-black text-slate-800 text-lg group-hover:text-brand-gold transition-colors">
+                  <h3 className="font-black text-text-primary text-lg group-hover:text-text-accent transition-colors">
                     {mla.name}
                   </h3>
                 </div>
 
-                <div className="flex items-center gap-4 text-xs font-bold text-slate-400 pl-7">
+                <div className="flex items-center gap-4 text-xs font-bold text-text-muted pl-7">
                   <div className="flex items-center gap-1.5 uppercase tracking-wider">
-                    <MapPin size={14} className="text-slate-300" />
+                    <MapPin size={14} className="text-text-muted opacity-50" />
                     <span>{mla.constituency}</span>
                   </div>
                   <div className="flex items-center gap-1.5 uppercase tracking-wider">
-                    <Building2 size={14} className="text-slate-300" />
+                    <Building2 size={14} className="text-text-muted opacity-50" />
                     <span>{mla.party}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="w-10 h-10 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-brand-gold/10 group-hover:text-brand-gold transition-all">
+              <div className="w-10 h-10 rounded-full bg-bg-surface flex items-center justify-center text-text-muted group-hover:bg-text-accent/10 group-hover:text-text-accent transition-all">
                 <ExternalLink size={18} />
               </div>
             </div>

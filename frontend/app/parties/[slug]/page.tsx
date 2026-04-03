@@ -60,15 +60,15 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
 
   if (!party) {
     return (
-      <div className="min-h-screen bg-page-bg flex flex-col items-center justify-center p-4 text-center space-y-6">
-        <div className="w-24 h-24 bg-slate-100 dark:bg-slate-800 rounded-[2rem] flex items-center justify-center">
+      <div className="min-h-screen bg-bg-page flex flex-col items-center justify-center p-4 text-center space-y-6">
+        <div className="w-24 h-24 bg-bg-surface rounded-[2rem] flex items-center justify-center">
           <span className="text-4xl">🔍</span>
         </div>
         <div className="space-y-2">
-          <h1 className="text-2xl font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight">Party Not Found</h1>
-          <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">The requested party slug "{slug}" does not exist in our records.</p>
+          <h1 className="text-2xl font-black text-text-primary uppercase tracking-tight">Party Not Found</h1>
+          <p className="text-text-muted font-bold uppercase tracking-widest text-xs">The requested party slug "{slug}" does not exist in our records.</p>
         </div>
-        <Link href="/tn" className="px-8 py-3 bg-brand-dark text-white rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 transition-all">
+        <Link href="/tn" className="px-8 py-3 bg-bg-accent text-text-inverse rounded-xl text-xs font-black uppercase tracking-widest hover:scale-105 transition-all">
           Back to Home
         </Link>
       </div>
@@ -94,7 +94,7 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
   ];
 
   return (
-    <div className="min-h-screen bg-page-bg selection:bg-brand-gold/20">
+    <div className="min-h-screen bg-bg-page">
       <BreadcrumbSchema 
         items={[
           commonBreadcrumbs.home,
@@ -104,12 +104,12 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5">
-        <nav className="flex items-center gap-2 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-slate-400">
-          <Link href="/tn" className="hover:text-brand-dark transition-colors">Home</Link>
-          <span className="text-slate-300">/</span>
-          <Link href="/parties" className="hover:text-brand-dark transition-colors">Parties</Link>
-          <span className="text-slate-300">/</span>
-          <span className="text-brand-gold">{party.short_name || party.name}</span>
+        <nav className="flex items-center gap-2 text-[9px] sm:text-[10px] font-black uppercase tracking-widest text-text-muted">
+          <Link href="/tn" className="hover:text-text-primary transition-colors">Home</Link>
+          <span className="text-border-subtle">/</span>
+          <Link href="/parties" className="hover:text-text-primary transition-colors">Parties</Link>
+          <span className="text-border-subtle">/</span>
+          <span className="text-text-accent">{party.short_name || party.name}</span>
         </nav>
       </div>
 
@@ -135,8 +135,8 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
         <div className="space-y-20 sm:space-y-32">
           <section id="overview" className="space-y-8">
             <div className="space-y-1">
-              <h2 className="text-2xl sm:text-5xl font-black text-brand-dark dark:text-slate-100 uppercase tracking-tighter">Performance Overview</h2>
-              <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">
+              <h2 className="text-2xl sm:text-5xl font-black text-text-primary uppercase tracking-tighter">Performance Overview</h2>
+              <p className="text-[10px] sm:text-xs font-bold text-text-muted uppercase tracking-[0.2em]">
                 {isAllElections ? "Historical statistics across all elections" : `Aggregated metrics for the ${election} cycle`}
               </p>
             </div>
@@ -155,18 +155,18 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
 
           <section id="trends" className="space-y-8">
             <div className="space-y-1">
-              <h2 className="text-2xl sm:text-5xl font-black text-brand-dark dark:text-slate-100 uppercase tracking-tighter">
+              <h2 className="text-2xl sm:text-5xl font-black text-text-primary uppercase tracking-tighter">
                 {isAllElections ? "Historical Trends" : `${election} Distributions`}
               </h2>
-              <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">
+              <p className="text-[10px] sm:text-xs font-bold text-text-muted uppercase tracking-[0.2em]">
                 {isAllElections ? "Evolution of party performance" : `Demographic breakdown for this selection`}
               </p>
             </div>
             {analytics?.timeline && analytics.timeline.length > 0 ? (
               <PartyTimelineCharts analytics={analytics} isYearView={!isAllElections} selectedYear={selectedYear} />
             ) : (
-              <div className="bg-white dark:bg-slate-900 rounded-[3rem] p-12 text-center border border-dashed border-slate-200 dark:border-slate-800">
-                <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Data visualization not available</p>
+              <div className="bg-bg-card rounded-[3rem] p-12 text-center border border-dashed border-border-subtle">
+                <p className="text-text-muted font-bold uppercase tracking-widest text-xs">Data visualization not available</p>
               </div>
             )}
           </section>
@@ -184,11 +184,11 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
             />
           </section>
 
-          <div className="grid lg:grid-cols-2 gap-12 pt-12 border-t border-slate-100 dark:border-slate-800">
+          <div className="grid lg:grid-cols-2 gap-12 pt-12 border-t border-border-subtle">
             {analytics.education && (
               <div className="space-y-4">
-                <h3 className="text-lg font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight">Education Profile</h3>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed">
+                <h3 className="text-lg font-black text-text-primary uppercase tracking-tight">Education Profile</h3>
+                <p className="text-sm font-medium text-text-muted leading-relaxed">
                   In terms of educational qualifications, {party.short_name} has fielded a total of {analytics.education.graduateCount} graduates and post-graduates.
                   The most prevalent education level observed is "{analytics.education.mostCommon}".
                 </p>
@@ -196,8 +196,8 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
             )}
             {analytics.assets && (
               <div className="space-y-4">
-                <h3 className="text-lg font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight">Financial Profile</h3>
-                <p className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed">
+                <h3 className="text-lg font-black text-text-primary uppercase tracking-tight">Financial Profile</h3>
+                <p className="text-sm font-medium text-text-muted leading-relaxed">
                   The median asset declaration is {analytics.assets.median.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 })}.
                   Approximately {analytics.assets.crorepatiPercentage}% of the candidates are crorepatis.
                 </p>
@@ -206,7 +206,7 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
           </div>
         </div>
 
-        <section className="mt-32 pt-16 border-t border-slate-100 dark:border-slate-800">
+        <section className="mt-32 pt-16 border-t border-border-subtle">
           <FAQSection faqs={faqs} />
         </section>
       </main>

@@ -115885,3 +115885,1651 @@ botocore.exceptions.ClientError: An error occurred (ExpiredTokenException) when 
 2026-04-03 09:04:13,885 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2402
 2026-04-03 09:04:13,957 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2402
 2026-04-03 09:04:13,957 [INFO] myneta_scraper: DynamoDB update successful for candidate 2402 (2021)
+2026-04-03 09:04:14,962 [INFO] myneta_scraper: Processing 813/2577: Candidate 2403
+2026-04-03 09:04:14,972 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2403&print=true
+2026-04-03 09:04:14,972 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2403&print=true (Attempt 1)
+2026-04-03 09:04:18,300 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2403&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:04:19,118 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2403
+2026-04-03 09:04:19,197 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2403
+2026-04-03 09:04:19,197 [INFO] myneta_scraper: DynamoDB update successful for candidate 2403 (2021)
+2026-04-03 09:04:20,201 [INFO] myneta_scraper: Processing 814/2577: Candidate 2404
+2026-04-03 09:04:20,218 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2404&print=true
+2026-04-03 09:04:20,218 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2404&print=true (Attempt 1)
+2026-04-03 09:04:23,526 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2404&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:04:24,364 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2404
+2026-04-03 09:04:24,439 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2404
+2026-04-03 09:04:24,439 [INFO] myneta_scraper: DynamoDB update successful for candidate 2404 (2021)
+2026-04-03 09:04:25,444 [INFO] myneta_scraper: Processing 815/2577: Candidate 2405
+2026-04-03 09:04:25,460 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2405&print=true
+2026-04-03 09:04:25,460 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2405&print=true (Attempt 1)
+2026-04-03 09:04:28,686 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2405&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:04:29,496 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2405
+2026-04-03 09:04:29,618 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2405
+2026-04-03 09:04:29,618 [INFO] myneta_scraper: DynamoDB update successful for candidate 2405 (2021)
+2026-04-03 09:04:30,624 [INFO] myneta_scraper: Processing 816/2577: Candidate 2406
+2026-04-03 09:04:30,640 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2406&print=true
+2026-04-03 09:04:30,640 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2406&print=true (Attempt 1)
+2026-04-03 09:04:33,958 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2406&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:04:34,886 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2406
+2026-04-03 09:04:34,969 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2406
+2026-04-03 09:04:34,970 [INFO] myneta_scraper: DynamoDB update successful for candidate 2406 (2021)
+2026-04-03 09:04:35,975 [INFO] myneta_scraper: Processing 817/2577: Candidate 2407
+2026-04-03 09:04:35,989 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2407&print=true
+2026-04-03 09:04:35,989 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2407&print=true (Attempt 1)
+2026-04-03 09:04:38,987 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2407&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:04:39,249 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2407
+2026-04-03 09:04:39,327 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2407
+2026-04-03 09:04:39,327 [INFO] myneta_scraper: DynamoDB update successful for candidate 2407 (2021)
+2026-04-03 09:04:40,330 [INFO] myneta_scraper: Processing 818/2577: Candidate 2408
+2026-04-03 09:04:40,336 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2408&print=true
+2026-04-03 09:04:40,336 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2408&print=true (Attempt 1)
+2026-04-03 09:04:43,751 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2408&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:04:44,698 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2408
+2026-04-03 09:04:44,824 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2408
+2026-04-03 09:04:44,824 [INFO] myneta_scraper: DynamoDB update successful for candidate 2408 (2021)
+2026-04-03 09:04:45,827 [INFO] myneta_scraper: Processing 819/2577: Candidate 2409
+2026-04-03 09:04:45,841 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2409&print=true
+2026-04-03 09:04:45,842 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2409&print=true (Attempt 1)
+2026-04-03 09:04:49,131 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2409&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:04:49,953 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2409
+2026-04-03 09:04:50,068 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2409
+2026-04-03 09:04:50,069 [INFO] myneta_scraper: DynamoDB update successful for candidate 2409 (2021)
+2026-04-03 09:04:51,073 [INFO] myneta_scraper: Processing 820/2577: Candidate 2410
+2026-04-03 09:04:51,090 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2410&print=true
+2026-04-03 09:04:51,090 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2410&print=true (Attempt 1)
+2026-04-03 09:04:54,357 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2410&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:04:55,310 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2410
+2026-04-03 09:04:55,383 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2410
+2026-04-03 09:04:55,383 [INFO] myneta_scraper: DynamoDB update successful for candidate 2410 (2021)
+2026-04-03 09:04:56,385 [INFO] myneta_scraper: Processing 821/2577: Candidate 2411
+2026-04-03 09:04:56,392 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2411&print=true
+2026-04-03 09:04:56,392 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2411&print=true (Attempt 1)
+2026-04-03 09:04:59,672 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2411&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:05:00,534 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2411
+2026-04-03 09:05:00,607 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2411
+2026-04-03 09:05:00,607 [INFO] myneta_scraper: DynamoDB update successful for candidate 2411 (2021)
+2026-04-03 09:05:01,610 [INFO] myneta_scraper: Processing 822/2577: Candidate 2412
+2026-04-03 09:05:01,624 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2412&print=true
+2026-04-03 09:05:01,624 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2412&print=true (Attempt 1)
+2026-04-03 09:05:04,862 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2412&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:05:05,668 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2412
+2026-04-03 09:05:05,805 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2412
+2026-04-03 09:05:05,805 [INFO] myneta_scraper: DynamoDB update successful for candidate 2412 (2021)
+2026-04-03 09:05:06,810 [INFO] myneta_scraper: Processing 823/2577: Candidate 2413
+2026-04-03 09:05:06,827 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2413&print=true
+2026-04-03 09:05:06,827 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2413&print=true (Attempt 1)
+2026-04-03 09:05:10,122 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2413&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:05:11,038 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2413
+2026-04-03 09:05:11,123 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2413
+2026-04-03 09:05:11,125 [INFO] myneta_scraper: DynamoDB update successful for candidate 2413 (2021)
+2026-04-03 09:05:12,129 [INFO] myneta_scraper: Processing 824/2577: Candidate 2414
+2026-04-03 09:05:12,144 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2414&print=true
+2026-04-03 09:05:12,145 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2414&print=true (Attempt 1)
+2026-04-03 09:05:15,393 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2414&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:05:16,248 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2414
+2026-04-03 09:05:16,327 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2414
+2026-04-03 09:05:16,327 [INFO] myneta_scraper: DynamoDB update successful for candidate 2414 (2021)
+2026-04-03 09:05:17,331 [INFO] myneta_scraper: Processing 825/2577: Candidate 2415
+2026-04-03 09:05:17,347 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2415&print=true
+2026-04-03 09:05:17,348 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2415&print=true (Attempt 1)
+2026-04-03 09:05:20,578 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2415&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:05:21,376 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2415
+2026-04-03 09:05:21,534 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2415
+2026-04-03 09:05:21,535 [INFO] myneta_scraper: DynamoDB update successful for candidate 2415 (2021)
+2026-04-03 09:05:22,539 [INFO] myneta_scraper: Processing 826/2577: Candidate 2416
+2026-04-03 09:05:22,548 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2416&print=true
+2026-04-03 09:05:22,549 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2416&print=true (Attempt 1)
+2026-04-03 09:05:25,801 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2416&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:05:26,599 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2416
+2026-04-03 09:05:26,766 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2416
+2026-04-03 09:05:26,767 [INFO] myneta_scraper: DynamoDB update successful for candidate 2416 (2021)
+2026-04-03 09:05:27,772 [INFO] myneta_scraper: Processing 827/2577: Candidate 2417
+2026-04-03 09:05:27,780 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2417&print=true
+2026-04-03 09:05:27,781 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2417&print=true (Attempt 1)
+2026-04-03 09:05:31,041 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2417&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:05:32,045 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2417
+2026-04-03 09:05:32,126 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2417
+2026-04-03 09:05:32,127 [INFO] myneta_scraper: DynamoDB update successful for candidate 2417 (2021)
+2026-04-03 09:05:33,131 [INFO] myneta_scraper: Processing 828/2577: Candidate 2418
+2026-04-03 09:05:33,145 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2418&print=true
+2026-04-03 09:05:33,145 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2418&print=true (Attempt 1)
+2026-04-03 09:05:36,440 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2418&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:05:37,247 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2418
+2026-04-03 09:05:37,334 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2418
+2026-04-03 09:05:37,334 [INFO] myneta_scraper: DynamoDB update successful for candidate 2418 (2021)
+2026-04-03 09:05:38,338 [INFO] myneta_scraper: Processing 829/2577: Candidate 2419
+2026-04-03 09:05:38,354 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2419&print=true
+2026-04-03 09:05:38,354 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2419&print=true (Attempt 1)
+2026-04-03 09:05:41,591 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2419&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:05:42,490 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2419
+2026-04-03 09:05:42,571 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2419
+2026-04-03 09:05:42,571 [INFO] myneta_scraper: DynamoDB update successful for candidate 2419 (2021)
+2026-04-03 09:05:43,575 [INFO] myneta_scraper: Processing 830/2577: Candidate 2420
+2026-04-03 09:05:43,589 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2420&print=true
+2026-04-03 09:05:43,589 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2420&print=true (Attempt 1)
+2026-04-03 09:05:46,816 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2420&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:05:47,728 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2420
+2026-04-03 09:05:47,807 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2420
+2026-04-03 09:05:47,807 [INFO] myneta_scraper: DynamoDB update successful for candidate 2420 (2021)
+2026-04-03 09:05:48,810 [INFO] myneta_scraper: Processing 831/2577: Candidate 2421
+2026-04-03 09:05:48,826 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2421&print=true
+2026-04-03 09:05:48,826 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2421&print=true (Attempt 1)
+2026-04-03 09:05:52,098 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2421&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:06:10,660 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2421
+2026-04-03 09:06:10,942 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2421
+2026-04-03 09:06:10,943 [INFO] myneta_scraper: DynamoDB update successful for candidate 2421 (2021)
+2026-04-03 09:06:11,948 [INFO] myneta_scraper: Processing 832/2577: Candidate 2422
+2026-04-03 09:06:11,957 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2422&print=true
+2026-04-03 09:06:11,958 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2422&print=true (Attempt 1)
+2026-04-03 09:06:15,453 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2422&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:06:16,797 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2422
+2026-04-03 09:06:16,871 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2422
+2026-04-03 09:06:16,872 [INFO] myneta_scraper: DynamoDB update successful for candidate 2422 (2021)
+2026-04-03 09:06:17,874 [INFO] myneta_scraper: Processing 833/2577: Candidate 2423
+2026-04-03 09:06:17,886 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2423&print=true
+2026-04-03 09:06:17,887 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2423&print=true (Attempt 1)
+2026-04-03 09:06:21,221 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2423&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:06:22,028 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2423
+2026-04-03 09:06:22,102 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2423
+2026-04-03 09:06:22,102 [INFO] myneta_scraper: DynamoDB update successful for candidate 2423 (2021)
+2026-04-03 09:06:23,106 [INFO] myneta_scraper: Processing 834/2577: Candidate 2424
+2026-04-03 09:06:23,116 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2424&print=true
+2026-04-03 09:06:23,116 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2424&print=true (Attempt 1)
+2026-04-03 09:06:26,462 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2424&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:06:27,254 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2424
+2026-04-03 09:06:27,341 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2424
+2026-04-03 09:06:27,341 [INFO] myneta_scraper: DynamoDB update successful for candidate 2424 (2021)
+2026-04-03 09:06:28,345 [INFO] myneta_scraper: Processing 835/2577: Candidate 2425
+2026-04-03 09:06:28,358 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2425&print=true
+2026-04-03 09:06:28,358 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2425&print=true (Attempt 1)
+2026-04-03 09:06:31,706 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2425&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:06:32,523 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2425
+2026-04-03 09:06:32,596 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2425
+2026-04-03 09:06:32,596 [INFO] myneta_scraper: DynamoDB update successful for candidate 2425 (2021)
+2026-04-03 09:06:33,601 [INFO] myneta_scraper: Processing 836/2577: Candidate 2426
+2026-04-03 09:06:33,614 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2426&print=true
+2026-04-03 09:06:33,614 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2426&print=true (Attempt 1)
+2026-04-03 09:06:36,949 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2426&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:06:38,143 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2426
+2026-04-03 09:06:38,219 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2426
+2026-04-03 09:06:38,219 [INFO] myneta_scraper: DynamoDB update successful for candidate 2426 (2021)
+2026-04-03 09:06:39,222 [INFO] myneta_scraper: Processing 837/2577: Candidate 2427
+2026-04-03 09:06:39,236 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2427&print=true
+2026-04-03 09:06:39,236 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2427&print=true (Attempt 1)
+2026-04-03 09:06:42,553 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2427&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:06:43,397 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2427
+2026-04-03 09:06:43,481 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2427
+2026-04-03 09:06:43,481 [INFO] myneta_scraper: DynamoDB update successful for candidate 2427 (2021)
+2026-04-03 09:06:44,486 [INFO] myneta_scraper: Processing 838/2577: Candidate 2428
+2026-04-03 09:06:44,500 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2428&print=true
+2026-04-03 09:06:44,500 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2428&print=true (Attempt 1)
+2026-04-03 09:06:47,734 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2428&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:06:48,537 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2428
+2026-04-03 09:06:48,614 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2428
+2026-04-03 09:06:48,614 [INFO] myneta_scraper: DynamoDB update successful for candidate 2428 (2021)
+2026-04-03 09:06:49,618 [INFO] myneta_scraper: Processing 839/2577: Candidate 2429
+2026-04-03 09:06:49,633 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2429&print=true
+2026-04-03 09:06:49,633 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2429&print=true (Attempt 1)
+2026-04-03 09:06:52,844 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2429&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:06:53,649 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2429
+2026-04-03 09:06:53,811 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2429
+2026-04-03 09:06:53,811 [INFO] myneta_scraper: DynamoDB update successful for candidate 2429 (2021)
+2026-04-03 09:06:54,816 [INFO] myneta_scraper: Processing 840/2577: Candidate 2430
+2026-04-03 09:06:54,831 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2430&print=true
+2026-04-03 09:06:54,832 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2430&print=true (Attempt 1)
+2026-04-03 09:06:58,070 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2430&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:06:58,873 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2430
+2026-04-03 09:06:59,051 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2430
+2026-04-03 09:06:59,052 [INFO] myneta_scraper: DynamoDB update successful for candidate 2430 (2021)
+2026-04-03 09:07:00,057 [INFO] myneta_scraper: Processing 841/2577: Candidate 2431
+2026-04-03 09:07:00,069 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2431&print=true
+2026-04-03 09:07:00,069 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2431&print=true (Attempt 1)
+2026-04-03 09:07:03,379 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2431&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:04,269 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2431
+2026-04-03 09:07:04,347 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2431
+2026-04-03 09:07:04,347 [INFO] myneta_scraper: DynamoDB update successful for candidate 2431 (2021)
+2026-04-03 09:07:05,350 [INFO] myneta_scraper: Processing 842/2577: Candidate 2432
+2026-04-03 09:07:05,365 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2432&print=true
+2026-04-03 09:07:05,365 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2432&print=true (Attempt 1)
+2026-04-03 09:07:08,710 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2432&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:09,551 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2432
+2026-04-03 09:07:09,623 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2432
+2026-04-03 09:07:09,623 [INFO] myneta_scraper: DynamoDB update successful for candidate 2432 (2021)
+2026-04-03 09:07:10,626 [INFO] myneta_scraper: Processing 843/2577: Candidate 2433
+2026-04-03 09:07:10,641 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2433&print=true
+2026-04-03 09:07:10,641 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2433&print=true (Attempt 1)
+2026-04-03 09:07:13,872 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2433&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:14,757 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2433
+2026-04-03 09:07:14,840 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2433
+2026-04-03 09:07:14,840 [INFO] myneta_scraper: DynamoDB update successful for candidate 2433 (2021)
+2026-04-03 09:07:15,845 [INFO] myneta_scraper: Processing 844/2577: Candidate 2435
+2026-04-03 09:07:15,853 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2435&print=true
+2026-04-03 09:07:15,853 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2435&print=true (Attempt 1)
+2026-04-03 09:07:19,193 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2435&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:20,035 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2435
+2026-04-03 09:07:20,113 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2435
+2026-04-03 09:07:20,114 [INFO] myneta_scraper: DynamoDB update successful for candidate 2435 (2021)
+2026-04-03 09:07:21,119 [INFO] myneta_scraper: Processing 845/2577: Candidate 2436
+2026-04-03 09:07:21,132 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2436&print=true
+2026-04-03 09:07:21,132 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2436&print=true (Attempt 1)
+2026-04-03 09:07:24,485 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2436&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:25,317 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2436
+2026-04-03 09:07:25,395 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2436
+2026-04-03 09:07:25,395 [INFO] myneta_scraper: DynamoDB update successful for candidate 2436 (2021)
+2026-04-03 09:07:26,399 [INFO] myneta_scraper: Processing 846/2577: Candidate 2437
+2026-04-03 09:07:26,413 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2437&print=true
+2026-04-03 09:07:26,413 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2437&print=true (Attempt 1)
+2026-04-03 09:07:29,692 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2437&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:30,491 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2437
+2026-04-03 09:07:30,591 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2437
+2026-04-03 09:07:30,591 [INFO] myneta_scraper: DynamoDB update successful for candidate 2437 (2021)
+2026-04-03 09:07:31,596 [INFO] myneta_scraper: Processing 847/2577: Candidate 2438
+2026-04-03 09:07:31,611 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2438&print=true
+2026-04-03 09:07:31,611 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2438&print=true (Attempt 1)
+2026-04-03 09:07:34,829 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2438&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:35,622 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2438
+2026-04-03 09:07:35,747 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2438
+2026-04-03 09:07:35,747 [INFO] myneta_scraper: DynamoDB update successful for candidate 2438 (2021)
+2026-04-03 09:07:36,752 [INFO] myneta_scraper: Processing 848/2577: Candidate 2439
+2026-04-03 09:07:36,766 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2439&print=true
+2026-04-03 09:07:36,767 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2439&print=true (Attempt 1)
+2026-04-03 09:07:40,033 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2439&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:40,851 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2439
+2026-04-03 09:07:40,984 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2439
+2026-04-03 09:07:40,985 [INFO] myneta_scraper: DynamoDB update successful for candidate 2439 (2021)
+2026-04-03 09:07:41,990 [INFO] myneta_scraper: Processing 849/2577: Candidate 2441
+2026-04-03 09:07:42,005 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2441&print=true
+2026-04-03 09:07:42,005 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2441&print=true (Attempt 1)
+2026-04-03 09:07:45,387 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2441&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:46,257 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2441
+2026-04-03 09:07:46,343 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2441
+2026-04-03 09:07:46,343 [INFO] myneta_scraper: DynamoDB update successful for candidate 2441 (2021)
+2026-04-03 09:07:47,348 [INFO] myneta_scraper: Processing 850/2577: Candidate 2442
+2026-04-03 09:07:47,358 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2442&print=true
+2026-04-03 09:07:47,358 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2442&print=true (Attempt 1)
+2026-04-03 09:07:50,667 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2442&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:51,468 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2442
+2026-04-03 09:07:51,543 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2442
+2026-04-03 09:07:51,544 [INFO] myneta_scraper: DynamoDB update successful for candidate 2442 (2021)
+2026-04-03 09:07:52,548 [INFO] myneta_scraper: Processing 851/2577: Candidate 2443
+2026-04-03 09:07:52,562 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2443&print=true
+2026-04-03 09:07:52,562 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2443&print=true (Attempt 1)
+2026-04-03 09:07:55,786 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2443&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:07:56,603 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2443
+2026-04-03 09:07:56,708 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2443
+2026-04-03 09:07:56,708 [INFO] myneta_scraper: DynamoDB update successful for candidate 2443 (2021)
+2026-04-03 09:07:57,712 [INFO] myneta_scraper: Processing 852/2577: Candidate 2444
+2026-04-03 09:07:57,723 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2444&print=true
+2026-04-03 09:07:57,723 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2444&print=true (Attempt 1)
+2026-04-03 09:08:00,989 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2444&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:01,855 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2444
+2026-04-03 09:08:01,964 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2444
+2026-04-03 09:08:01,965 [INFO] myneta_scraper: DynamoDB update successful for candidate 2444 (2021)
+2026-04-03 09:08:02,968 [INFO] myneta_scraper: Processing 853/2577: Candidate 2445
+2026-04-03 09:08:02,977 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2445&print=true
+2026-04-03 09:08:02,977 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2445&print=true (Attempt 1)
+2026-04-03 09:08:06,300 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2445&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:07,195 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2445
+2026-04-03 09:08:07,274 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2445
+2026-04-03 09:08:07,274 [INFO] myneta_scraper: DynamoDB update successful for candidate 2445 (2021)
+2026-04-03 09:08:08,277 [INFO] myneta_scraper: Processing 854/2577: Candidate 2446
+2026-04-03 09:08:08,288 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2446&print=true
+2026-04-03 09:08:08,288 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2446&print=true (Attempt 1)
+2026-04-03 09:08:11,509 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2446&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:12,317 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2446
+2026-04-03 09:08:12,443 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2446
+2026-04-03 09:08:12,443 [INFO] myneta_scraper: DynamoDB update successful for candidate 2446 (2021)
+2026-04-03 09:08:13,449 [INFO] myneta_scraper: Processing 855/2577: Candidate 2447
+2026-04-03 09:08:13,462 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2447&print=true
+2026-04-03 09:08:13,462 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2447&print=true (Attempt 1)
+2026-04-03 09:08:16,753 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2447&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:17,672 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2447
+2026-04-03 09:08:17,750 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2447
+2026-04-03 09:08:17,750 [INFO] myneta_scraper: DynamoDB update successful for candidate 2447 (2021)
+2026-04-03 09:08:18,753 [INFO] myneta_scraper: Processing 856/2577: Candidate 2448
+2026-04-03 09:08:18,766 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2448&print=true
+2026-04-03 09:08:18,767 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2448&print=true (Attempt 1)
+2026-04-03 09:08:21,980 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2448&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:22,936 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2448
+2026-04-03 09:08:23,015 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2448
+2026-04-03 09:08:23,015 [INFO] myneta_scraper: DynamoDB update successful for candidate 2448 (2021)
+2026-04-03 09:08:24,020 [INFO] myneta_scraper: Processing 857/2577: Candidate 2449
+2026-04-03 09:08:24,035 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2449&print=true
+2026-04-03 09:08:24,035 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2449&print=true (Attempt 1)
+2026-04-03 09:08:27,254 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2449&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:28,055 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2449
+2026-04-03 09:08:28,169 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2449
+2026-04-03 09:08:28,170 [INFO] myneta_scraper: DynamoDB update successful for candidate 2449 (2021)
+2026-04-03 09:08:29,175 [INFO] myneta_scraper: Processing 858/2577: Candidate 2450
+2026-04-03 09:08:29,190 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2450&print=true
+2026-04-03 09:08:29,190 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2450&print=true (Attempt 1)
+2026-04-03 09:08:32,458 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2450&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:33,269 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2450
+2026-04-03 09:08:33,419 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2450
+2026-04-03 09:08:33,420 [INFO] myneta_scraper: DynamoDB update successful for candidate 2450 (2021)
+2026-04-03 09:08:34,426 [INFO] myneta_scraper: Processing 859/2577: Candidate 2451
+2026-04-03 09:08:34,440 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2451&print=true
+2026-04-03 09:08:34,441 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2451&print=true (Attempt 1)
+2026-04-03 09:08:37,740 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2451&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:38,629 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2451
+2026-04-03 09:08:38,705 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2451
+2026-04-03 09:08:38,705 [INFO] myneta_scraper: DynamoDB update successful for candidate 2451 (2021)
+2026-04-03 09:08:39,709 [INFO] myneta_scraper: Processing 860/2577: Candidate 2452
+2026-04-03 09:08:39,724 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2452&print=true
+2026-04-03 09:08:39,724 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2452&print=true (Attempt 1)
+2026-04-03 09:08:42,951 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2452&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:43,749 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2452
+2026-04-03 09:08:43,901 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2452
+2026-04-03 09:08:43,901 [INFO] myneta_scraper: DynamoDB update successful for candidate 2452 (2021)
+2026-04-03 09:08:44,905 [INFO] myneta_scraper: Processing 861/2577: Candidate 2453
+2026-04-03 09:08:44,916 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2453&print=true
+2026-04-03 09:08:44,916 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2453&print=true (Attempt 1)
+2026-04-03 09:08:48,185 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2453&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:48,990 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2453
+2026-04-03 09:08:49,155 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2453
+2026-04-03 09:08:49,155 [INFO] myneta_scraper: DynamoDB update successful for candidate 2453 (2021)
+2026-04-03 09:08:50,161 [INFO] myneta_scraper: Processing 862/2577: Candidate 2454
+2026-04-03 09:08:50,177 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2454&print=true
+2026-04-03 09:08:50,177 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2454&print=true (Attempt 1)
+2026-04-03 09:08:53,462 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2454&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:54,369 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2454
+2026-04-03 09:08:54,444 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2454
+2026-04-03 09:08:54,445 [INFO] myneta_scraper: DynamoDB update successful for candidate 2454 (2021)
+2026-04-03 09:08:55,450 [INFO] myneta_scraper: Processing 863/2577: Candidate 2455
+2026-04-03 09:08:55,460 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2455&print=true
+2026-04-03 09:08:55,460 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2455&print=true (Attempt 1)
+2026-04-03 09:08:58,709 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2455&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:08:59,627 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2455
+2026-04-03 09:08:59,708 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2455
+2026-04-03 09:08:59,708 [INFO] myneta_scraper: DynamoDB update successful for candidate 2455 (2021)
+2026-04-03 09:09:00,711 [INFO] myneta_scraper: Processing 864/2577: Candidate 2456
+2026-04-03 09:09:00,725 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2456&print=true
+2026-04-03 09:09:00,725 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2456&print=true (Attempt 1)
+2026-04-03 09:09:04,004 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2456&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:04,934 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2456
+2026-04-03 09:09:05,020 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2456
+2026-04-03 09:09:05,020 [INFO] myneta_scraper: DynamoDB update successful for candidate 2456 (2021)
+2026-04-03 09:09:06,024 [INFO] myneta_scraper: Processing 865/2577: Candidate 2457
+2026-04-03 09:09:06,039 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2457&print=true
+2026-04-03 09:09:06,039 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2457&print=true (Attempt 1)
+2026-04-03 09:09:09,299 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2457&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:10,109 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2457
+2026-04-03 09:09:10,187 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2457
+2026-04-03 09:09:10,187 [INFO] myneta_scraper: DynamoDB update successful for candidate 2457 (2021)
+2026-04-03 09:09:11,191 [INFO] myneta_scraper: Processing 866/2577: Candidate 2458
+2026-04-03 09:09:11,206 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2458&print=true
+2026-04-03 09:09:11,206 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2458&print=true (Attempt 1)
+2026-04-03 09:09:14,480 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2458&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:15,343 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2458
+2026-04-03 09:09:15,421 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2458
+2026-04-03 09:09:15,421 [INFO] myneta_scraper: DynamoDB update successful for candidate 2458 (2021)
+2026-04-03 09:09:16,425 [INFO] myneta_scraper: Processing 867/2577: Candidate 2459
+2026-04-03 09:09:16,438 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2459&print=true
+2026-04-03 09:09:16,439 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2459&print=true (Attempt 1)
+2026-04-03 09:09:19,691 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2459&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:20,595 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2459
+2026-04-03 09:09:20,677 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2459
+2026-04-03 09:09:20,677 [INFO] myneta_scraper: DynamoDB update successful for candidate 2459 (2021)
+2026-04-03 09:09:21,681 [INFO] myneta_scraper: Processing 868/2577: Candidate 2460
+2026-04-03 09:09:21,697 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2460&print=true
+2026-04-03 09:09:21,697 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2460&print=true (Attempt 1)
+2026-04-03 09:09:24,909 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2460&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:25,708 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2460
+2026-04-03 09:09:25,846 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2460
+2026-04-03 09:09:25,846 [INFO] myneta_scraper: DynamoDB update successful for candidate 2460 (2021)
+2026-04-03 09:09:26,850 [INFO] myneta_scraper: Processing 869/2577: Candidate 2461
+2026-04-03 09:09:26,859 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2461&print=true
+2026-04-03 09:09:26,860 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2461&print=true (Attempt 1)
+2026-04-03 09:09:30,125 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2461&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:30,932 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2461
+2026-04-03 09:09:31,094 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2461
+2026-04-03 09:09:31,095 [INFO] myneta_scraper: DynamoDB update successful for candidate 2461 (2021)
+2026-04-03 09:09:32,101 [INFO] myneta_scraper: Processing 870/2577: Candidate 2462
+2026-04-03 09:09:32,116 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2462&print=true
+2026-04-03 09:09:32,116 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2462&print=true (Attempt 1)
+2026-04-03 09:09:35,383 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2462&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:36,189 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2462
+2026-04-03 09:09:36,349 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2462
+2026-04-03 09:09:36,349 [INFO] myneta_scraper: DynamoDB update successful for candidate 2462 (2021)
+2026-04-03 09:09:37,354 [INFO] myneta_scraper: Processing 871/2577: Candidate 2463
+2026-04-03 09:09:37,368 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2463&print=true
+2026-04-03 09:09:37,368 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2463&print=true (Attempt 1)
+2026-04-03 09:09:40,616 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2463&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:41,411 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2463
+2026-04-03 09:09:41,588 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2463
+2026-04-03 09:09:41,588 [INFO] myneta_scraper: DynamoDB update successful for candidate 2463 (2021)
+2026-04-03 09:09:42,593 [INFO] myneta_scraper: Processing 872/2577: Candidate 2464
+2026-04-03 09:09:42,608 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2464&print=true
+2026-04-03 09:09:42,608 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2464&print=true (Attempt 1)
+2026-04-03 09:09:45,885 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2464&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:46,713 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2464
+2026-04-03 09:09:46,827 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2464
+2026-04-03 09:09:46,827 [INFO] myneta_scraper: DynamoDB update successful for candidate 2464 (2021)
+2026-04-03 09:09:47,833 [INFO] myneta_scraper: Processing 873/2577: Candidate 2465
+2026-04-03 09:09:47,847 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2465&print=true
+2026-04-03 09:09:47,847 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2465&print=true (Attempt 1)
+2026-04-03 09:09:51,146 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2465&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:52,051 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2465
+2026-04-03 09:09:52,165 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2465
+2026-04-03 09:09:52,165 [INFO] myneta_scraper: DynamoDB update successful for candidate 2465 (2021)
+2026-04-03 09:09:53,170 [INFO] myneta_scraper: Processing 874/2577: Candidate 2510
+2026-04-03 09:09:53,183 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2510&print=true
+2026-04-03 09:09:53,183 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2510&print=true (Attempt 1)
+2026-04-03 09:09:56,524 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2510&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:09:57,367 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2510
+2026-04-03 09:09:57,446 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2510
+2026-04-03 09:09:57,446 [INFO] myneta_scraper: DynamoDB update successful for candidate 2510 (2021)
+2026-04-03 09:09:58,450 [INFO] myneta_scraper: Processing 875/2577: Candidate 2511
+2026-04-03 09:09:58,464 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2511&print=true
+2026-04-03 09:09:58,464 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2511&print=true (Attempt 1)
+2026-04-03 09:10:01,768 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2511&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:02,583 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2511
+2026-04-03 09:10:02,660 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2511
+2026-04-03 09:10:02,660 [INFO] myneta_scraper: DynamoDB update successful for candidate 2511 (2021)
+2026-04-03 09:10:03,664 [INFO] myneta_scraper: Processing 876/2577: Candidate 2512
+2026-04-03 09:10:03,678 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2512&print=true
+2026-04-03 09:10:03,678 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2512&print=true (Attempt 1)
+2026-04-03 09:10:07,065 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2512&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:07,903 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2512
+2026-04-03 09:10:07,985 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2512
+2026-04-03 09:10:07,986 [INFO] myneta_scraper: DynamoDB update successful for candidate 2512 (2021)
+2026-04-03 09:10:08,989 [INFO] myneta_scraper: Processing 877/2577: Candidate 2513
+2026-04-03 09:10:09,003 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2513&print=true
+2026-04-03 09:10:09,003 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2513&print=true (Attempt 1)
+2026-04-03 09:10:12,218 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2513&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:13,021 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2513
+2026-04-03 09:10:13,093 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2513
+2026-04-03 09:10:13,094 [INFO] myneta_scraper: DynamoDB update successful for candidate 2513 (2021)
+2026-04-03 09:10:14,097 [INFO] myneta_scraper: Processing 878/2577: Candidate 2514
+2026-04-03 09:10:14,111 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2514&print=true
+2026-04-03 09:10:14,111 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2514&print=true (Attempt 1)
+2026-04-03 09:10:17,334 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2514&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:18,146 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2514
+2026-04-03 09:10:18,273 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2514
+2026-04-03 09:10:18,273 [INFO] myneta_scraper: DynamoDB update successful for candidate 2514 (2021)
+2026-04-03 09:10:19,278 [INFO] myneta_scraper: Processing 879/2577: Candidate 2516
+2026-04-03 09:10:19,288 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2516&print=true
+2026-04-03 09:10:19,288 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2516&print=true (Attempt 1)
+2026-04-03 09:10:22,566 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2516&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:23,363 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2516
+2026-04-03 09:10:23,533 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2516
+2026-04-03 09:10:23,533 [INFO] myneta_scraper: DynamoDB update successful for candidate 2516 (2021)
+2026-04-03 09:10:24,539 [INFO] myneta_scraper: Processing 880/2577: Candidate 2517
+2026-04-03 09:10:24,547 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2517&print=true
+2026-04-03 09:10:24,548 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2517&print=true (Attempt 1)
+2026-04-03 09:10:27,845 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2517&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:29,130 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2517
+2026-04-03 09:10:29,287 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2517
+2026-04-03 09:10:29,287 [INFO] myneta_scraper: DynamoDB update successful for candidate 2517 (2021)
+2026-04-03 09:10:30,292 [INFO] myneta_scraper: Processing 881/2577: Candidate 2518
+2026-04-03 09:10:30,307 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2518&print=true
+2026-04-03 09:10:30,307 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2518&print=true (Attempt 1)
+2026-04-03 09:10:33,574 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2518&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:34,373 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2518
+2026-04-03 09:10:34,534 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2518
+2026-04-03 09:10:34,534 [INFO] myneta_scraper: DynamoDB update successful for candidate 2518 (2021)
+2026-04-03 09:10:35,538 [INFO] myneta_scraper: Processing 882/2577: Candidate 2519
+2026-04-03 09:10:35,548 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2519&print=true
+2026-04-03 09:10:35,548 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2519&print=true (Attempt 1)
+2026-04-03 09:10:38,845 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2519&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:39,763 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2519
+2026-04-03 09:10:39,860 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2519
+2026-04-03 09:10:39,860 [INFO] myneta_scraper: DynamoDB update successful for candidate 2519 (2021)
+2026-04-03 09:10:40,864 [INFO] myneta_scraper: Processing 883/2577: Candidate 2520
+2026-04-03 09:10:40,879 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2520&print=true
+2026-04-03 09:10:40,879 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2520&print=true (Attempt 1)
+2026-04-03 09:10:44,154 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2520&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:44,997 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2520
+2026-04-03 09:10:45,070 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2520
+2026-04-03 09:10:45,070 [INFO] myneta_scraper: DynamoDB update successful for candidate 2520 (2021)
+2026-04-03 09:10:46,075 [INFO] myneta_scraper: Processing 884/2577: Candidate 2521
+2026-04-03 09:10:46,086 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2521&print=true
+2026-04-03 09:10:46,086 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2521&print=true (Attempt 1)
+2026-04-03 09:10:49,343 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2521&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:50,246 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2521
+2026-04-03 09:10:50,328 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2521
+2026-04-03 09:10:50,329 [INFO] myneta_scraper: DynamoDB update successful for candidate 2521 (2021)
+2026-04-03 09:10:51,333 [INFO] myneta_scraper: Processing 885/2577: Candidate 2522
+2026-04-03 09:10:51,347 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2522&print=true
+2026-04-03 09:10:51,347 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2522&print=true (Attempt 1)
+2026-04-03 09:10:54,569 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2522&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:10:55,379 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2522
+2026-04-03 09:10:55,503 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2522
+2026-04-03 09:10:55,503 [INFO] myneta_scraper: DynamoDB update successful for candidate 2522 (2021)
+2026-04-03 09:10:56,508 [INFO] myneta_scraper: Processing 886/2577: Candidate 2523
+2026-04-03 09:10:56,521 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2523&print=true
+2026-04-03 09:10:56,521 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2523&print=true (Attempt 1)
+2026-04-03 09:10:59,777 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2523&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:00,579 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2523
+2026-04-03 09:11:00,740 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2523
+2026-04-03 09:11:00,740 [INFO] myneta_scraper: DynamoDB update successful for candidate 2523 (2021)
+2026-04-03 09:11:01,746 [INFO] myneta_scraper: Processing 887/2577: Candidate 2524
+2026-04-03 09:11:01,761 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2524&print=true
+2026-04-03 09:11:01,761 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2524&print=true (Attempt 1)
+2026-04-03 09:11:05,026 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2524&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:05,832 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2524
+2026-04-03 09:11:05,993 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2524
+2026-04-03 09:11:05,993 [INFO] myneta_scraper: DynamoDB update successful for candidate 2524 (2021)
+2026-04-03 09:11:06,999 [INFO] myneta_scraper: Processing 888/2577: Candidate 2525
+2026-04-03 09:11:07,009 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2525&print=true
+2026-04-03 09:11:07,009 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2525&print=true (Attempt 1)
+2026-04-03 09:11:10,318 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2525&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:11,219 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2525
+2026-04-03 09:11:11,307 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2525
+2026-04-03 09:11:11,308 [INFO] myneta_scraper: DynamoDB update successful for candidate 2525 (2021)
+2026-04-03 09:11:12,312 [INFO] myneta_scraper: Processing 889/2577: Candidate 2526
+2026-04-03 09:11:12,325 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2526&print=true
+2026-04-03 09:11:12,325 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2526&print=true (Attempt 1)
+2026-04-03 09:11:15,589 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2526&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:16,481 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2526
+2026-04-03 09:11:16,548 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2526
+2026-04-03 09:11:16,548 [INFO] myneta_scraper: DynamoDB update successful for candidate 2526 (2021)
+2026-04-03 09:11:17,551 [INFO] myneta_scraper: Processing 890/2577: Candidate 2527
+2026-04-03 09:11:17,562 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2527&print=true
+2026-04-03 09:11:17,562 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2527&print=true (Attempt 1)
+2026-04-03 09:11:20,827 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2527&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:21,698 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2527
+2026-04-03 09:11:21,773 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2527
+2026-04-03 09:11:21,773 [INFO] myneta_scraper: DynamoDB update successful for candidate 2527 (2021)
+2026-04-03 09:11:22,777 [INFO] myneta_scraper: Processing 891/2577: Candidate 2528
+2026-04-03 09:11:22,791 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2528&print=true
+2026-04-03 09:11:22,792 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2528&print=true (Attempt 1)
+2026-04-03 09:11:26,038 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2528&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:26,844 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2528
+2026-04-03 09:11:26,962 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2528
+2026-04-03 09:11:26,963 [INFO] myneta_scraper: DynamoDB update successful for candidate 2528 (2021)
+2026-04-03 09:11:27,968 [INFO] myneta_scraper: Processing 892/2577: Candidate 2529
+2026-04-03 09:11:27,980 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2529&print=true
+2026-04-03 09:11:27,980 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2529&print=true (Attempt 1)
+2026-04-03 09:11:31,248 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2529&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:32,050 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2529
+2026-04-03 09:11:32,200 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2529
+2026-04-03 09:11:32,201 [INFO] myneta_scraper: DynamoDB update successful for candidate 2529 (2021)
+2026-04-03 09:11:33,207 [INFO] myneta_scraper: Processing 893/2577: Candidate 2530
+2026-04-03 09:11:33,222 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2530&print=true
+2026-04-03 09:11:33,222 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2530&print=true (Attempt 1)
+2026-04-03 09:11:36,486 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2530&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:37,296 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2530
+2026-04-03 09:11:37,448 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2530
+2026-04-03 09:11:37,448 [INFO] myneta_scraper: DynamoDB update successful for candidate 2530 (2021)
+2026-04-03 09:11:38,453 [INFO] myneta_scraper: Processing 894/2577: Candidate 2531
+2026-04-03 09:11:38,468 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2531&print=true
+2026-04-03 09:11:38,468 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2531&print=true (Attempt 1)
+2026-04-03 09:11:41,717 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2531&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:42,519 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2531
+2026-04-03 09:11:42,706 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2531
+2026-04-03 09:11:42,706 [INFO] myneta_scraper: DynamoDB update successful for candidate 2531 (2021)
+2026-04-03 09:11:43,712 [INFO] myneta_scraper: Processing 895/2577: Candidate 2532
+2026-04-03 09:11:43,722 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2532&print=true
+2026-04-03 09:11:43,722 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2532&print=true (Attempt 1)
+2026-04-03 09:11:46,963 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2532&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:47,761 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2532
+2026-04-03 09:11:47,918 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2532
+2026-04-03 09:11:47,919 [INFO] myneta_scraper: DynamoDB update successful for candidate 2532 (2021)
+2026-04-03 09:11:48,924 [INFO] myneta_scraper: Processing 896/2577: Candidate 2533
+2026-04-03 09:11:48,939 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2533&print=true
+2026-04-03 09:11:48,940 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2533&print=true (Attempt 1)
+2026-04-03 09:11:52,217 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2533&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:53,014 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2533
+2026-04-03 09:11:53,167 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2533
+2026-04-03 09:11:53,167 [INFO] myneta_scraper: DynamoDB update successful for candidate 2533 (2021)
+2026-04-03 09:11:54,171 [INFO] myneta_scraper: Processing 897/2577: Candidate 2534
+2026-04-03 09:11:54,185 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2534&print=true
+2026-04-03 09:11:54,185 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2534&print=true (Attempt 1)
+2026-04-03 09:11:57,496 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2534&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:11:58,397 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2534
+2026-04-03 09:11:58,481 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2534
+2026-04-03 09:11:58,481 [INFO] myneta_scraper: DynamoDB update successful for candidate 2534 (2021)
+2026-04-03 09:11:59,484 [INFO] myneta_scraper: Processing 898/2577: Candidate 2535
+2026-04-03 09:11:59,498 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2535&print=true
+2026-04-03 09:11:59,499 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2535&print=true (Attempt 1)
+2026-04-03 09:12:02,752 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2535&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:03,644 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2535
+2026-04-03 09:12:03,722 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2535
+2026-04-03 09:12:03,722 [INFO] myneta_scraper: DynamoDB update successful for candidate 2535 (2021)
+2026-04-03 09:12:04,726 [INFO] myneta_scraper: Processing 899/2577: Candidate 2536
+2026-04-03 09:12:04,741 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2536&print=true
+2026-04-03 09:12:04,741 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2536&print=true (Attempt 1)
+2026-04-03 09:12:08,020 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2536&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:08,893 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2536
+2026-04-03 09:12:08,965 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2536
+2026-04-03 09:12:08,965 [INFO] myneta_scraper: DynamoDB update successful for candidate 2536 (2021)
+2026-04-03 09:12:09,969 [INFO] myneta_scraper: Processing 900/2577: Candidate 2537
+2026-04-03 09:12:09,982 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2537&print=true
+2026-04-03 09:12:09,982 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2537&print=true (Attempt 1)
+2026-04-03 09:12:13,211 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2537&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:14,027 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2537
+2026-04-03 09:12:14,149 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2537
+2026-04-03 09:12:14,149 [INFO] myneta_scraper: DynamoDB update successful for candidate 2537 (2021)
+2026-04-03 09:12:15,153 [INFO] myneta_scraper: Processing 901/2577: Candidate 2538
+2026-04-03 09:12:15,169 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2538&print=true
+2026-04-03 09:12:15,170 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2538&print=true (Attempt 1)
+2026-04-03 09:12:18,428 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2538&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:19,244 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2538
+2026-04-03 09:12:19,390 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2538
+2026-04-03 09:12:19,390 [INFO] myneta_scraper: DynamoDB update successful for candidate 2538 (2021)
+2026-04-03 09:12:20,394 [INFO] myneta_scraper: Processing 902/2577: Candidate 2539
+2026-04-03 09:12:20,409 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2539&print=true
+2026-04-03 09:12:20,410 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2539&print=true (Attempt 1)
+2026-04-03 09:12:23,667 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2539&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:24,504 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2539
+2026-04-03 09:12:24,624 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2539
+2026-04-03 09:12:24,625 [INFO] myneta_scraper: DynamoDB update successful for candidate 2539 (2021)
+2026-04-03 09:12:25,630 [INFO] myneta_scraper: Processing 903/2577: Candidate 2540
+2026-04-03 09:12:25,644 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2540&print=true
+2026-04-03 09:12:25,644 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2540&print=true (Attempt 1)
+2026-04-03 09:12:28,906 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2540&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:29,939 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2540
+2026-04-03 09:12:30,026 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2540
+2026-04-03 09:12:30,026 [INFO] myneta_scraper: DynamoDB update successful for candidate 2540 (2021)
+2026-04-03 09:12:31,030 [INFO] myneta_scraper: Processing 904/2577: Candidate 2541
+2026-04-03 09:12:31,038 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2541&print=true
+2026-04-03 09:12:31,038 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2541&print=true (Attempt 1)
+2026-04-03 09:12:34,338 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2541&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:35,176 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2541
+2026-04-03 09:12:35,273 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2541
+2026-04-03 09:12:35,273 [INFO] myneta_scraper: DynamoDB update successful for candidate 2541 (2021)
+2026-04-03 09:12:36,278 [INFO] myneta_scraper: Processing 905/2577: Candidate 2542
+2026-04-03 09:12:36,289 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2542&print=true
+2026-04-03 09:12:36,289 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2542&print=true (Attempt 1)
+2026-04-03 09:12:39,578 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2542&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:41,556 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2542
+2026-04-03 09:12:41,647 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2542
+2026-04-03 09:12:41,647 [INFO] myneta_scraper: DynamoDB update successful for candidate 2542 (2021)
+2026-04-03 09:12:42,649 [INFO] myneta_scraper: Processing 906/2577: Candidate 2543
+2026-04-03 09:12:42,658 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2543&print=true
+2026-04-03 09:12:42,659 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2543&print=true (Attempt 1)
+2026-04-03 09:12:45,889 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2543&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:46,707 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2543
+2026-04-03 09:12:46,791 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2543
+2026-04-03 09:12:46,791 [INFO] myneta_scraper: DynamoDB update successful for candidate 2543 (2021)
+2026-04-03 09:12:47,795 [INFO] myneta_scraper: Processing 907/2577: Candidate 2544
+2026-04-03 09:12:47,805 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2544&print=true
+2026-04-03 09:12:47,805 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2544&print=true (Attempt 1)
+2026-04-03 09:12:51,083 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2544&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:51,898 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2544
+2026-04-03 09:12:51,974 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2544
+2026-04-03 09:12:51,974 [INFO] myneta_scraper: DynamoDB update successful for candidate 2544 (2021)
+2026-04-03 09:12:52,978 [INFO] myneta_scraper: Processing 908/2577: Candidate 2545
+2026-04-03 09:12:52,990 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2545&print=true
+2026-04-03 09:12:52,990 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2545&print=true (Attempt 1)
+2026-04-03 09:12:56,208 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2545&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:12:57,013 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2545
+2026-04-03 09:12:57,135 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2545
+2026-04-03 09:12:57,135 [INFO] myneta_scraper: DynamoDB update successful for candidate 2545 (2021)
+2026-04-03 09:12:58,140 [INFO] myneta_scraper: Processing 909/2577: Candidate 2546
+2026-04-03 09:12:58,154 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2546&print=true
+2026-04-03 09:12:58,154 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2546&print=true (Attempt 1)
+2026-04-03 09:13:01,418 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2546&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:02,226 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2546
+2026-04-03 09:13:02,389 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2546
+2026-04-03 09:13:02,390 [INFO] myneta_scraper: DynamoDB update successful for candidate 2546 (2021)
+2026-04-03 09:13:03,396 [INFO] myneta_scraper: Processing 910/2577: Candidate 2547
+2026-04-03 09:13:03,411 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2547&print=true
+2026-04-03 09:13:03,411 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2547&print=true (Attempt 1)
+2026-04-03 09:13:06,664 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2547&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:07,478 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2547
+2026-04-03 09:13:07,618 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2547
+2026-04-03 09:13:07,618 [INFO] myneta_scraper: DynamoDB update successful for candidate 2547 (2021)
+2026-04-03 09:13:08,624 [INFO] myneta_scraper: Processing 911/2577: Candidate 2548
+2026-04-03 09:13:08,638 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2548&print=true
+2026-04-03 09:13:08,639 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2548&print=true (Attempt 1)
+2026-04-03 09:13:11,898 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2548&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:12,695 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2548
+2026-04-03 09:13:12,854 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2548
+2026-04-03 09:13:12,854 [INFO] myneta_scraper: DynamoDB update successful for candidate 2548 (2021)
+2026-04-03 09:13:13,860 [INFO] myneta_scraper: Processing 912/2577: Candidate 2549
+2026-04-03 09:13:13,874 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2549&print=true
+2026-04-03 09:13:13,874 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2549&print=true (Attempt 1)
+2026-04-03 09:13:17,146 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2549&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:17,956 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2549
+2026-04-03 09:13:18,124 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2549
+2026-04-03 09:13:18,124 [INFO] myneta_scraper: DynamoDB update successful for candidate 2549 (2021)
+2026-04-03 09:13:19,129 [INFO] myneta_scraper: Processing 913/2577: Candidate 2551
+2026-04-03 09:13:19,143 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2551&print=true
+2026-04-03 09:13:19,143 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2551&print=true (Attempt 1)
+2026-04-03 09:13:22,409 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2551&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:23,327 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2551
+2026-04-03 09:13:23,400 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2551
+2026-04-03 09:13:23,400 [INFO] myneta_scraper: DynamoDB update successful for candidate 2551 (2021)
+2026-04-03 09:13:24,405 [INFO] myneta_scraper: Processing 914/2577: Candidate 2552
+2026-04-03 09:13:24,419 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2552&print=true
+2026-04-03 09:13:24,419 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2552&print=true (Attempt 1)
+2026-04-03 09:13:27,637 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2552&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:28,430 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2552
+2026-04-03 09:13:28,595 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2552
+2026-04-03 09:13:28,596 [INFO] myneta_scraper: DynamoDB update successful for candidate 2552 (2021)
+2026-04-03 09:13:29,600 [INFO] myneta_scraper: Processing 915/2577: Candidate 2553
+2026-04-03 09:13:29,611 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2553&print=true
+2026-04-03 09:13:29,611 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2553&print=true (Attempt 1)
+2026-04-03 09:13:32,884 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2553&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:33,688 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2553
+2026-04-03 09:13:33,846 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2553
+2026-04-03 09:13:33,846 [INFO] myneta_scraper: DynamoDB update successful for candidate 2553 (2021)
+2026-04-03 09:13:34,852 [INFO] myneta_scraper: Processing 916/2577: Candidate 2554
+2026-04-03 09:13:34,867 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2554&print=true
+2026-04-03 09:13:34,867 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2554&print=true (Attempt 1)
+2026-04-03 09:13:38,110 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2554&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:38,960 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2554
+2026-04-03 09:13:39,070 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2554
+2026-04-03 09:13:39,070 [INFO] myneta_scraper: DynamoDB update successful for candidate 2554 (2021)
+2026-04-03 09:13:40,076 [INFO] myneta_scraper: Processing 917/2577: Candidate 2555
+2026-04-03 09:13:40,084 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2555&print=true
+2026-04-03 09:13:40,085 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2555&print=true (Attempt 1)
+2026-04-03 09:13:43,461 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2555&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:44,311 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2555
+2026-04-03 09:13:44,381 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2555
+2026-04-03 09:13:44,381 [INFO] myneta_scraper: DynamoDB update successful for candidate 2555 (2021)
+2026-04-03 09:13:45,384 [INFO] myneta_scraper: Processing 918/2577: Candidate 2556
+2026-04-03 09:13:45,393 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2556&print=true
+2026-04-03 09:13:45,394 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2556&print=true (Attempt 1)
+2026-04-03 09:13:48,619 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2556&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:49,436 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2556
+2026-04-03 09:13:49,584 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2556
+2026-04-03 09:13:49,584 [INFO] myneta_scraper: DynamoDB update successful for candidate 2556 (2021)
+2026-04-03 09:13:50,589 [INFO] myneta_scraper: Processing 919/2577: Candidate 2557
+2026-04-03 09:13:50,604 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2557&print=true
+2026-04-03 09:13:50,605 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2557&print=true (Attempt 1)
+2026-04-03 09:13:53,846 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2557&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:54,657 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2557
+2026-04-03 09:13:54,807 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2557
+2026-04-03 09:13:54,807 [INFO] myneta_scraper: DynamoDB update successful for candidate 2557 (2021)
+2026-04-03 09:13:55,813 [INFO] myneta_scraper: Processing 920/2577: Candidate 2558
+2026-04-03 09:13:55,823 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2558&print=true
+2026-04-03 09:13:55,823 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2558&print=true (Attempt 1)
+2026-04-03 09:13:59,089 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2558&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:13:59,896 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2558
+2026-04-03 09:14:00,051 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2558
+2026-04-03 09:14:00,051 [INFO] myneta_scraper: DynamoDB update successful for candidate 2558 (2021)
+2026-04-03 09:14:01,057 [INFO] myneta_scraper: Processing 921/2577: Candidate 2559
+2026-04-03 09:14:01,070 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2559&print=true
+2026-04-03 09:14:01,071 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2559&print=true (Attempt 1)
+2026-04-03 09:14:04,343 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2559&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:05,151 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2559
+2026-04-03 09:14:05,305 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2559
+2026-04-03 09:14:05,305 [INFO] myneta_scraper: DynamoDB update successful for candidate 2559 (2021)
+2026-04-03 09:14:06,311 [INFO] myneta_scraper: Processing 922/2577: Candidate 2560
+2026-04-03 09:14:06,324 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2560&print=true
+2026-04-03 09:14:06,325 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2560&print=true (Attempt 1)
+2026-04-03 09:14:09,650 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2560&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:10,526 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2560
+2026-04-03 09:14:10,606 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2560
+2026-04-03 09:14:10,606 [INFO] myneta_scraper: DynamoDB update successful for candidate 2560 (2021)
+2026-04-03 09:14:11,610 [INFO] myneta_scraper: Processing 923/2577: Candidate 2561
+2026-04-03 09:14:11,624 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2561&print=true
+2026-04-03 09:14:11,624 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2561&print=true (Attempt 1)
+2026-04-03 09:14:14,877 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2561&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:15,759 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2561
+2026-04-03 09:14:15,838 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2561
+2026-04-03 09:14:15,838 [INFO] myneta_scraper: DynamoDB update successful for candidate 2561 (2021)
+2026-04-03 09:14:16,843 [INFO] myneta_scraper: Processing 924/2577: Candidate 2562
+2026-04-03 09:14:16,856 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2562&print=true
+2026-04-03 09:14:16,856 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2562&print=true (Attempt 1)
+2026-04-03 09:14:20,061 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2562&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:20,857 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2562
+2026-04-03 09:14:21,029 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2562
+2026-04-03 09:14:21,030 [INFO] myneta_scraper: DynamoDB update successful for candidate 2562 (2021)
+2026-04-03 09:14:22,034 [INFO] myneta_scraper: Processing 925/2577: Candidate 2564
+2026-04-03 09:14:22,044 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2564&print=true
+2026-04-03 09:14:22,045 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2564&print=true (Attempt 1)
+2026-04-03 09:14:25,313 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2564&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:26,134 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2564
+2026-04-03 09:14:26,261 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2564
+2026-04-03 09:14:26,261 [INFO] myneta_scraper: DynamoDB update successful for candidate 2564 (2021)
+2026-04-03 09:14:27,267 [INFO] myneta_scraper: Processing 926/2577: Candidate 2566
+2026-04-03 09:14:27,276 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2566&print=true
+2026-04-03 09:14:27,276 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2566&print=true (Attempt 1)
+2026-04-03 09:14:30,566 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2566&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:31,367 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2566
+2026-04-03 09:14:31,502 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2566
+2026-04-03 09:14:31,503 [INFO] myneta_scraper: DynamoDB update successful for candidate 2566 (2021)
+2026-04-03 09:14:32,508 [INFO] myneta_scraper: Processing 927/2577: Candidate 2567
+2026-04-03 09:14:32,517 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2567&print=true
+2026-04-03 09:14:32,517 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2567&print=true (Attempt 1)
+2026-04-03 09:14:35,792 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2567&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:36,589 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2567
+2026-04-03 09:14:36,768 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2567
+2026-04-03 09:14:36,769 [INFO] myneta_scraper: DynamoDB update successful for candidate 2567 (2021)
+2026-04-03 09:14:37,774 [INFO] myneta_scraper: Processing 928/2577: Candidate 2568
+2026-04-03 09:14:37,784 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2568&print=true
+2026-04-03 09:14:37,784 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2568&print=true (Attempt 1)
+2026-04-03 09:14:41,079 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2568&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:41,960 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2568
+2026-04-03 09:14:42,035 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2568
+2026-04-03 09:14:42,036 [INFO] myneta_scraper: DynamoDB update successful for candidate 2568 (2021)
+2026-04-03 09:14:43,038 [INFO] myneta_scraper: Processing 929/2577: Candidate 2569
+2026-04-03 09:14:43,041 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2569&print=true
+2026-04-03 09:14:43,041 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2569&print=true (Attempt 1)
+2026-04-03 09:14:46,335 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2569&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:47,497 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2569
+2026-04-03 09:14:47,573 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2569
+2026-04-03 09:14:47,573 [INFO] myneta_scraper: DynamoDB update successful for candidate 2569 (2021)
+2026-04-03 09:14:48,576 [INFO] myneta_scraper: Processing 930/2577: Candidate 2570
+2026-04-03 09:14:48,583 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2570&print=true
+2026-04-03 09:14:48,583 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2570&print=true (Attempt 1)
+2026-04-03 09:14:51,883 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2570&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:52,705 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2570
+2026-04-03 09:14:52,793 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2570
+2026-04-03 09:14:52,793 [INFO] myneta_scraper: DynamoDB update successful for candidate 2570 (2021)
+2026-04-03 09:14:53,796 [INFO] myneta_scraper: Processing 931/2577: Candidate 2571
+2026-04-03 09:14:53,803 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2571&print=true
+2026-04-03 09:14:53,803 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2571&print=true (Attempt 1)
+2026-04-03 09:14:57,126 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2571&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:14:57,948 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2571
+2026-04-03 09:14:58,030 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2571
+2026-04-03 09:14:58,030 [INFO] myneta_scraper: DynamoDB update successful for candidate 2571 (2021)
+2026-04-03 09:14:59,032 [INFO] myneta_scraper: Processing 932/2577: Candidate 2572
+2026-04-03 09:14:59,041 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2572&print=true
+2026-04-03 09:14:59,041 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2572&print=true (Attempt 1)
+2026-04-03 09:15:02,368 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2572&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:03,182 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2572
+2026-04-03 09:15:03,263 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2572
+2026-04-03 09:15:03,263 [INFO] myneta_scraper: DynamoDB update successful for candidate 2572 (2021)
+2026-04-03 09:15:04,265 [INFO] myneta_scraper: Processing 933/2577: Candidate 2573
+2026-04-03 09:15:04,273 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2573&print=true
+2026-04-03 09:15:04,273 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2573&print=true (Attempt 1)
+2026-04-03 09:15:07,614 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2573&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:08,832 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2573
+2026-04-03 09:15:08,917 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2573
+2026-04-03 09:15:08,917 [INFO] myneta_scraper: DynamoDB update successful for candidate 2573 (2021)
+2026-04-03 09:15:09,919 [INFO] myneta_scraper: Processing 934/2577: Candidate 2575
+2026-04-03 09:15:09,928 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2575&print=true
+2026-04-03 09:15:09,928 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2575&print=true (Attempt 1)
+2026-04-03 09:15:13,176 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2575&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:13,978 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2575
+2026-04-03 09:15:14,054 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2575
+2026-04-03 09:15:14,054 [INFO] myneta_scraper: DynamoDB update successful for candidate 2575 (2021)
+2026-04-03 09:15:15,058 [INFO] myneta_scraper: Processing 935/2577: Candidate 2576
+2026-04-03 09:15:15,068 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2576&print=true
+2026-04-03 09:15:15,069 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2576&print=true (Attempt 1)
+2026-04-03 09:15:18,648 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2576&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:19,417 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2576
+2026-04-03 09:15:19,497 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2576
+2026-04-03 09:15:19,498 [INFO] myneta_scraper: DynamoDB update successful for candidate 2576 (2021)
+2026-04-03 09:15:20,502 [INFO] myneta_scraper: Processing 936/2577: Candidate 2577
+2026-04-03 09:15:20,509 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2577&print=true
+2026-04-03 09:15:20,510 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2577&print=true (Attempt 1)
+2026-04-03 09:15:23,866 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2577&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:24,726 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2577
+2026-04-03 09:15:24,798 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2577
+2026-04-03 09:15:24,799 [INFO] myneta_scraper: DynamoDB update successful for candidate 2577 (2021)
+2026-04-03 09:15:25,802 [INFO] myneta_scraper: Processing 937/2577: Candidate 2578
+2026-04-03 09:15:25,812 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2578&print=true
+2026-04-03 09:15:25,812 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2578&print=true (Attempt 1)
+2026-04-03 09:15:29,116 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2578&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:29,965 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2578
+2026-04-03 09:15:30,033 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2578
+2026-04-03 09:15:30,033 [INFO] myneta_scraper: DynamoDB update successful for candidate 2578 (2021)
+2026-04-03 09:15:31,036 [INFO] myneta_scraper: Processing 938/2577: Candidate 2579
+2026-04-03 09:15:31,045 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2579&print=true
+2026-04-03 09:15:31,045 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2579&print=true (Attempt 1)
+2026-04-03 09:15:34,351 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2579&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:35,137 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2579
+2026-04-03 09:15:35,212 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2579
+2026-04-03 09:15:35,212 [INFO] myneta_scraper: DynamoDB update successful for candidate 2579 (2021)
+2026-04-03 09:15:36,215 [INFO] myneta_scraper: Processing 939/2577: Candidate 2581
+2026-04-03 09:15:36,227 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2581&print=true
+2026-04-03 09:15:36,227 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2581&print=true (Attempt 1)
+2026-04-03 09:15:39,593 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2581&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:40,391 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2581
+2026-04-03 09:15:40,475 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2581
+2026-04-03 09:15:40,475 [INFO] myneta_scraper: DynamoDB update successful for candidate 2581 (2021)
+2026-04-03 09:15:41,478 [INFO] myneta_scraper: Processing 940/2577: Candidate 2582
+2026-04-03 09:15:41,492 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2582&print=true
+2026-04-03 09:15:41,492 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2582&print=true (Attempt 1)
+2026-04-03 09:15:44,836 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2582&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:45,830 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2582
+2026-04-03 09:15:46,079 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2582
+2026-04-03 09:15:46,080 [INFO] myneta_scraper: DynamoDB update successful for candidate 2582 (2021)
+2026-04-03 09:15:47,082 [INFO] myneta_scraper: Processing 941/2577: Candidate 2583
+2026-04-03 09:15:47,092 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2583&print=true
+2026-04-03 09:15:47,092 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2583&print=true (Attempt 1)
+2026-04-03 09:15:50,391 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2583&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:51,204 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2583
+2026-04-03 09:15:51,292 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2583
+2026-04-03 09:15:51,292 [INFO] myneta_scraper: DynamoDB update successful for candidate 2583 (2021)
+2026-04-03 09:15:52,298 [INFO] myneta_scraper: Processing 942/2577: Candidate 2584
+2026-04-03 09:15:52,314 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2584&print=true
+2026-04-03 09:15:52,314 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2584&print=true (Attempt 1)
+2026-04-03 09:15:55,672 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2584&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:15:56,499 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2584
+2026-04-03 09:15:56,580 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2584
+2026-04-03 09:15:56,580 [INFO] myneta_scraper: DynamoDB update successful for candidate 2584 (2021)
+2026-04-03 09:15:57,583 [INFO] myneta_scraper: Processing 943/2577: Candidate 2585
+2026-04-03 09:15:57,590 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2585&print=true
+2026-04-03 09:15:57,590 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2585&print=true (Attempt 1)
+2026-04-03 09:16:00,886 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2585&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:01,774 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2585
+2026-04-03 09:16:01,855 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2585
+2026-04-03 09:16:01,855 [INFO] myneta_scraper: DynamoDB update successful for candidate 2585 (2021)
+2026-04-03 09:16:02,859 [INFO] myneta_scraper: Processing 944/2577: Candidate 2586
+2026-04-03 09:16:02,888 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2586&print=true
+2026-04-03 09:16:02,888 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2586&print=true (Attempt 1)
+2026-04-03 09:16:06,139 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2586&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:07,696 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2586
+2026-04-03 09:16:07,785 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2586
+2026-04-03 09:16:07,786 [INFO] myneta_scraper: DynamoDB update successful for candidate 2586 (2021)
+2026-04-03 09:16:08,823 [INFO] myneta_scraper: Processing 945/2577: Candidate 2587
+2026-04-03 09:16:08,837 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2587&print=true
+2026-04-03 09:16:08,843 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2587&print=true (Attempt 1)
+2026-04-03 09:16:12,104 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2587&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:12,899 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2587
+2026-04-03 09:16:12,976 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2587
+2026-04-03 09:16:12,976 [INFO] myneta_scraper: DynamoDB update successful for candidate 2587 (2021)
+2026-04-03 09:16:13,979 [INFO] myneta_scraper: Processing 946/2577: Candidate 2588
+2026-04-03 09:16:13,986 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2588&print=true
+2026-04-03 09:16:13,986 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2588&print=true (Attempt 1)
+2026-04-03 09:16:17,341 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2588&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:18,126 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2588
+2026-04-03 09:16:18,202 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2588
+2026-04-03 09:16:18,203 [INFO] myneta_scraper: DynamoDB update successful for candidate 2588 (2021)
+2026-04-03 09:16:19,206 [INFO] myneta_scraper: Processing 947/2577: Candidate 2589
+2026-04-03 09:16:19,216 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2589&print=true
+2026-04-03 09:16:19,216 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2589&print=true (Attempt 1)
+2026-04-03 09:16:22,585 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2589&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:23,373 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2589
+2026-04-03 09:16:23,439 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2589
+2026-04-03 09:16:23,439 [INFO] myneta_scraper: DynamoDB update successful for candidate 2589 (2021)
+2026-04-03 09:16:24,442 [INFO] myneta_scraper: Processing 948/2577: Candidate 2590
+2026-04-03 09:16:24,452 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2590&print=true
+2026-04-03 09:16:24,452 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2590&print=true (Attempt 1)
+2026-04-03 09:16:27,829 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2590&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:28,651 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2590
+2026-04-03 09:16:28,736 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2590
+2026-04-03 09:16:28,737 [INFO] myneta_scraper: DynamoDB update successful for candidate 2590 (2021)
+2026-04-03 09:16:29,739 [INFO] myneta_scraper: Processing 949/2577: Candidate 2591
+2026-04-03 09:16:29,755 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2591&print=true
+2026-04-03 09:16:29,755 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2591&print=true (Attempt 1)
+2026-04-03 09:16:33,070 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2591&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:33,861 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2591
+2026-04-03 09:16:33,932 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2591
+2026-04-03 09:16:33,932 [INFO] myneta_scraper: DynamoDB update successful for candidate 2591 (2021)
+2026-04-03 09:16:34,935 [INFO] myneta_scraper: Processing 950/2577: Candidate 2593
+2026-04-03 09:16:34,948 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2593&print=true
+2026-04-03 09:16:34,948 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2593&print=true (Attempt 1)
+2026-04-03 09:16:38,315 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2593&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:39,104 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2593
+2026-04-03 09:16:39,175 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2593
+2026-04-03 09:16:39,175 [INFO] myneta_scraper: DynamoDB update successful for candidate 2593 (2021)
+2026-04-03 09:16:40,178 [INFO] myneta_scraper: Processing 951/2577: Candidate 2596
+2026-04-03 09:16:40,189 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2596&print=true
+2026-04-03 09:16:40,189 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2596&print=true (Attempt 1)
+2026-04-03 09:16:43,558 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2596&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:44,357 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2596
+2026-04-03 09:16:44,437 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2596
+2026-04-03 09:16:44,438 [INFO] myneta_scraper: DynamoDB update successful for candidate 2596 (2021)
+2026-04-03 09:16:45,442 [INFO] myneta_scraper: Processing 952/2577: Candidate 2597
+2026-04-03 09:16:45,455 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2597&print=true
+2026-04-03 09:16:45,456 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2597&print=true (Attempt 1)
+2026-04-03 09:16:48,799 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2597&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:49,630 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2597
+2026-04-03 09:16:49,705 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2597
+2026-04-03 09:16:49,705 [INFO] myneta_scraper: DynamoDB update successful for candidate 2597 (2021)
+2026-04-03 09:16:50,709 [INFO] myneta_scraper: Processing 953/2577: Candidate 2598
+2026-04-03 09:16:50,723 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2598&print=true
+2026-04-03 09:16:50,723 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2598&print=true (Attempt 1)
+2026-04-03 09:16:54,043 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2598&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:16:54,858 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2598
+2026-04-03 09:16:54,933 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2598
+2026-04-03 09:16:54,934 [INFO] myneta_scraper: DynamoDB update successful for candidate 2598 (2021)
+2026-04-03 09:16:55,936 [INFO] myneta_scraper: Processing 954/2577: Candidate 2599
+2026-04-03 09:16:55,946 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2599&print=true
+2026-04-03 09:16:55,947 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2599&print=true (Attempt 1)
+2026-04-03 09:16:59,285 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2599&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:00,090 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2599
+2026-04-03 09:17:00,173 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2599
+2026-04-03 09:17:00,173 [INFO] myneta_scraper: DynamoDB update successful for candidate 2599 (2021)
+2026-04-03 09:17:01,177 [INFO] myneta_scraper: Processing 955/2577: Candidate 2600
+2026-04-03 09:17:01,213 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2600&print=true
+2026-04-03 09:17:01,213 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2600&print=true (Attempt 1)
+2026-04-03 09:17:04,527 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2600&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:05,343 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2600
+2026-04-03 09:17:05,419 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2600
+2026-04-03 09:17:05,419 [INFO] myneta_scraper: DynamoDB update successful for candidate 2600 (2021)
+2026-04-03 09:17:06,422 [INFO] myneta_scraper: Processing 956/2577: Candidate 2601
+2026-04-03 09:17:06,430 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2601&print=true
+2026-04-03 09:17:06,430 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2601&print=true (Attempt 1)
+2026-04-03 09:17:09,772 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2601&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:10,595 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2601
+2026-04-03 09:17:10,668 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2601
+2026-04-03 09:17:10,668 [INFO] myneta_scraper: DynamoDB update successful for candidate 2601 (2021)
+2026-04-03 09:17:11,672 [INFO] myneta_scraper: Processing 957/2577: Candidate 2602
+2026-04-03 09:17:11,680 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2602&print=true
+2026-04-03 09:17:11,681 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2602&print=true (Attempt 1)
+2026-04-03 09:17:15,015 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2602&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:15,814 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2602
+2026-04-03 09:17:15,898 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2602
+2026-04-03 09:17:15,899 [INFO] myneta_scraper: DynamoDB update successful for candidate 2602 (2021)
+2026-04-03 09:17:16,902 [INFO] myneta_scraper: Processing 958/2577: Candidate 2603
+2026-04-03 09:17:16,910 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2603&print=true
+2026-04-03 09:17:16,910 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2603&print=true (Attempt 1)
+2026-04-03 09:17:20,256 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2603&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:21,073 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2603
+2026-04-03 09:17:21,150 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2603
+2026-04-03 09:17:21,150 [INFO] myneta_scraper: DynamoDB update successful for candidate 2603 (2021)
+2026-04-03 09:17:22,154 [INFO] myneta_scraper: Processing 959/2577: Candidate 2604
+2026-04-03 09:17:22,164 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2604&print=true
+2026-04-03 09:17:22,164 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2604&print=true (Attempt 1)
+2026-04-03 09:17:25,498 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2604&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:26,281 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2604
+2026-04-03 09:17:26,347 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2604
+2026-04-03 09:17:26,347 [INFO] myneta_scraper: DynamoDB update successful for candidate 2604 (2021)
+2026-04-03 09:17:27,351 [INFO] myneta_scraper: Processing 960/2577: Candidate 2605
+2026-04-03 09:17:27,359 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2605&print=true
+2026-04-03 09:17:27,359 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2605&print=true (Attempt 1)
+2026-04-03 09:17:30,743 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2605&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:31,552 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2605
+2026-04-03 09:17:31,633 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2605
+2026-04-03 09:17:31,633 [INFO] myneta_scraper: DynamoDB update successful for candidate 2605 (2021)
+2026-04-03 09:17:32,637 [INFO] myneta_scraper: Processing 961/2577: Candidate 2606
+2026-04-03 09:17:32,645 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2606&print=true
+2026-04-03 09:17:32,645 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2606&print=true (Attempt 1)
+2026-04-03 09:17:35,986 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2606&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:36,793 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2606
+2026-04-03 09:17:36,862 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2606
+2026-04-03 09:17:36,863 [INFO] myneta_scraper: DynamoDB update successful for candidate 2606 (2021)
+2026-04-03 09:17:37,866 [INFO] myneta_scraper: Processing 962/2577: Candidate 2607
+2026-04-03 09:17:37,876 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2607&print=true
+2026-04-03 09:17:37,876 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2607&print=true (Attempt 1)
+2026-04-03 09:17:41,229 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2607&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:42,019 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2607
+2026-04-03 09:17:42,108 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2607
+2026-04-03 09:17:42,109 [INFO] myneta_scraper: DynamoDB update successful for candidate 2607 (2021)
+2026-04-03 09:17:43,111 [INFO] myneta_scraper: Processing 963/2577: Candidate 2608
+2026-04-03 09:17:43,119 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2608&print=true
+2026-04-03 09:17:43,120 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2608&print=true (Attempt 1)
+2026-04-03 09:17:46,472 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2608&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:47,299 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2608
+2026-04-03 09:17:47,384 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2608
+2026-04-03 09:17:47,384 [INFO] myneta_scraper: DynamoDB update successful for candidate 2608 (2021)
+2026-04-03 09:17:48,387 [INFO] myneta_scraper: Processing 964/2577: Candidate 2609
+2026-04-03 09:17:48,402 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2609&print=true
+2026-04-03 09:17:48,402 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2609&print=true (Attempt 1)
+2026-04-03 09:17:51,713 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2609&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:52,524 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2609
+2026-04-03 09:17:52,598 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2609
+2026-04-03 09:17:52,598 [INFO] myneta_scraper: DynamoDB update successful for candidate 2609 (2021)
+2026-04-03 09:17:53,601 [INFO] myneta_scraper: Processing 965/2577: Candidate 2610
+2026-04-03 09:17:53,614 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2610&print=true
+2026-04-03 09:17:53,614 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2610&print=true (Attempt 1)
+2026-04-03 09:17:56,955 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2610&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:17:57,789 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2610
+2026-04-03 09:17:57,860 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2610
+2026-04-03 09:17:57,861 [INFO] myneta_scraper: DynamoDB update successful for candidate 2610 (2021)
+2026-04-03 09:17:58,865 [INFO] myneta_scraper: Processing 966/2577: Candidate 2611
+2026-04-03 09:17:58,874 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2611&print=true
+2026-04-03 09:17:58,874 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2611&print=true (Attempt 1)
+2026-04-03 09:18:02,199 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2611&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:02,992 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2611
+2026-04-03 09:18:03,074 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2611
+2026-04-03 09:18:03,075 [INFO] myneta_scraper: DynamoDB update successful for candidate 2611 (2021)
+2026-04-03 09:18:04,077 [INFO] myneta_scraper: Processing 967/2577: Candidate 2612
+2026-04-03 09:18:04,084 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2612&print=true
+2026-04-03 09:18:04,084 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2612&print=true (Attempt 1)
+2026-04-03 09:18:07,442 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2612&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:08,279 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2612
+2026-04-03 09:18:08,363 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2612
+2026-04-03 09:18:08,363 [INFO] myneta_scraper: DynamoDB update successful for candidate 2612 (2021)
+2026-04-03 09:18:09,368 [INFO] myneta_scraper: Processing 968/2577: Candidate 2613
+2026-04-03 09:18:09,379 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2613&print=true
+2026-04-03 09:18:09,379 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2613&print=true (Attempt 1)
+2026-04-03 09:18:12,687 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2613&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:13,521 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2613
+2026-04-03 09:18:13,596 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2613
+2026-04-03 09:18:13,597 [INFO] myneta_scraper: DynamoDB update successful for candidate 2613 (2021)
+2026-04-03 09:18:14,600 [INFO] myneta_scraper: Processing 969/2577: Candidate 2614
+2026-04-03 09:18:14,612 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2614&print=true
+2026-04-03 09:18:14,612 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2614&print=true (Attempt 1)
+2026-04-03 09:18:17,929 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2614&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:18,765 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2614
+2026-04-03 09:18:18,852 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2614
+2026-04-03 09:18:18,852 [INFO] myneta_scraper: DynamoDB update successful for candidate 2614 (2021)
+2026-04-03 09:18:19,856 [INFO] myneta_scraper: Processing 970/2577: Candidate 2615
+2026-04-03 09:18:19,870 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2615&print=true
+2026-04-03 09:18:19,870 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2615&print=true (Attempt 1)
+2026-04-03 09:18:23,171 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2615&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:23,975 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2615
+2026-04-03 09:18:24,060 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2615
+2026-04-03 09:18:24,061 [INFO] myneta_scraper: DynamoDB update successful for candidate 2615 (2021)
+2026-04-03 09:18:25,064 [INFO] myneta_scraper: Processing 971/2577: Candidate 2616
+2026-04-03 09:18:25,078 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2616&print=true
+2026-04-03 09:18:25,078 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2616&print=true (Attempt 1)
+2026-04-03 09:18:28,413 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2616&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:29,249 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2616
+2026-04-03 09:18:29,329 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2616
+2026-04-03 09:18:29,329 [INFO] myneta_scraper: DynamoDB update successful for candidate 2616 (2021)
+2026-04-03 09:18:30,333 [INFO] myneta_scraper: Processing 972/2577: Candidate 2617
+2026-04-03 09:18:30,340 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2617&print=true
+2026-04-03 09:18:30,340 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2617&print=true (Attempt 1)
+2026-04-03 09:18:33,657 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2617&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:34,486 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2617
+2026-04-03 09:18:34,569 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2617
+2026-04-03 09:18:34,569 [INFO] myneta_scraper: DynamoDB update successful for candidate 2617 (2021)
+2026-04-03 09:18:35,572 [INFO] myneta_scraper: Processing 973/2577: Candidate 2618
+2026-04-03 09:18:35,581 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2618&print=true
+2026-04-03 09:18:35,581 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2618&print=true (Attempt 1)
+2026-04-03 09:18:38,900 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2618&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:39,733 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2618
+2026-04-03 09:18:39,819 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2618
+2026-04-03 09:18:39,819 [INFO] myneta_scraper: DynamoDB update successful for candidate 2618 (2021)
+2026-04-03 09:18:40,822 [INFO] myneta_scraper: Processing 974/2577: Candidate 2619
+2026-04-03 09:18:40,829 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2619&print=true
+2026-04-03 09:18:40,829 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2619&print=true (Attempt 1)
+2026-04-03 09:18:44,143 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2619&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:44,951 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2619
+2026-04-03 09:18:45,026 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2619
+2026-04-03 09:18:45,026 [INFO] myneta_scraper: DynamoDB update successful for candidate 2619 (2021)
+2026-04-03 09:18:46,029 [INFO] myneta_scraper: Processing 975/2577: Candidate 2620
+2026-04-03 09:18:46,042 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2620&print=true
+2026-04-03 09:18:46,043 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2620&print=true (Attempt 1)
+2026-04-03 09:18:49,384 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2620&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:50,197 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2620
+2026-04-03 09:18:50,278 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2620
+2026-04-03 09:18:50,279 [INFO] myneta_scraper: DynamoDB update successful for candidate 2620 (2021)
+2026-04-03 09:18:51,281 [INFO] myneta_scraper: Processing 976/2577: Candidate 2621
+2026-04-03 09:18:51,289 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2621&print=true
+2026-04-03 09:18:51,289 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2621&print=true (Attempt 1)
+2026-04-03 09:18:54,628 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2621&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:18:55,439 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2621
+2026-04-03 09:18:55,517 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2621
+2026-04-03 09:18:55,518 [INFO] myneta_scraper: DynamoDB update successful for candidate 2621 (2021)
+2026-04-03 09:18:56,520 [INFO] myneta_scraper: Processing 977/2577: Candidate 2622
+2026-04-03 09:18:56,527 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2622&print=true
+2026-04-03 09:18:56,527 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2622&print=true (Attempt 1)
+2026-04-03 09:18:59,871 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2622&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:00,683 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2622
+2026-04-03 09:19:00,761 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2622
+2026-04-03 09:19:00,761 [INFO] myneta_scraper: DynamoDB update successful for candidate 2622 (2021)
+2026-04-03 09:19:01,763 [INFO] myneta_scraper: Processing 978/2577: Candidate 2623
+2026-04-03 09:19:01,771 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2623&print=true
+2026-04-03 09:19:01,771 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2623&print=true (Attempt 1)
+2026-04-03 09:19:05,115 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2623&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:05,984 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2623
+2026-04-03 09:19:06,063 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2623
+2026-04-03 09:19:06,063 [INFO] myneta_scraper: DynamoDB update successful for candidate 2623 (2021)
+2026-04-03 09:19:07,066 [INFO] myneta_scraper: Processing 979/2577: Candidate 2624
+2026-04-03 09:19:07,081 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2624&print=true
+2026-04-03 09:19:07,081 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2624&print=true (Attempt 1)
+2026-04-03 09:19:10,356 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2624&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:11,167 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2624
+2026-04-03 09:19:11,242 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2624
+2026-04-03 09:19:11,242 [INFO] myneta_scraper: DynamoDB update successful for candidate 2624 (2021)
+2026-04-03 09:19:12,245 [INFO] myneta_scraper: Processing 980/2577: Candidate 2625
+2026-04-03 09:19:12,255 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2625&print=true
+2026-04-03 09:19:12,256 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2625&print=true (Attempt 1)
+2026-04-03 09:19:15,614 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2625&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:16,433 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2625
+2026-04-03 09:19:16,518 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2625
+2026-04-03 09:19:16,518 [INFO] myneta_scraper: DynamoDB update successful for candidate 2625 (2021)
+2026-04-03 09:19:17,524 [INFO] myneta_scraper: Processing 981/2577: Candidate 2626
+2026-04-03 09:19:17,533 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2626&print=true
+2026-04-03 09:19:17,533 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2626&print=true (Attempt 1)
+2026-04-03 09:19:20,844 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2626&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:21,951 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2626
+2026-04-03 09:19:22,043 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2626
+2026-04-03 09:19:22,044 [INFO] myneta_scraper: DynamoDB update successful for candidate 2626 (2021)
+2026-04-03 09:19:23,046 [INFO] myneta_scraper: Processing 982/2577: Candidate 2627
+2026-04-03 09:19:23,061 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2627&print=true
+2026-04-03 09:19:23,061 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2627&print=true (Attempt 1)
+2026-04-03 09:19:26,342 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2627&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:27,176 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2627
+2026-04-03 09:19:27,254 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2627
+2026-04-03 09:19:27,255 [INFO] myneta_scraper: DynamoDB update successful for candidate 2627 (2021)
+2026-04-03 09:19:28,262 [INFO] myneta_scraper: Processing 983/2577: Candidate 2628
+2026-04-03 09:19:28,275 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2628&print=true
+2026-04-03 09:19:28,275 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2628&print=true (Attempt 1)
+2026-04-03 09:19:31,503 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2628&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:32,308 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2628
+2026-04-03 09:19:32,453 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2628
+2026-04-03 09:19:32,454 [INFO] myneta_scraper: DynamoDB update successful for candidate 2628 (2021)
+2026-04-03 09:19:33,486 [INFO] myneta_scraper: Processing 984/2577: Candidate 2629
+2026-04-03 09:19:33,498 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2629&print=true
+2026-04-03 09:19:33,499 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2629&print=true (Attempt 1)
+2026-04-03 09:19:36,766 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2629&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:37,678 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2629
+2026-04-03 09:19:37,763 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2629
+2026-04-03 09:19:37,763 [INFO] myneta_scraper: DynamoDB update successful for candidate 2629 (2021)
+2026-04-03 09:19:38,767 [INFO] myneta_scraper: Processing 985/2577: Candidate 2630
+2026-04-03 09:19:38,779 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2630&print=true
+2026-04-03 09:19:38,780 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2630&print=true (Attempt 1)
+2026-04-03 09:19:41,988 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2630&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:42,782 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2630
+2026-04-03 09:19:43,434 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2630
+2026-04-03 09:19:43,434 [INFO] myneta_scraper: DynamoDB update successful for candidate 2630 (2021)
+2026-04-03 09:19:44,440 [INFO] myneta_scraper: Processing 986/2577: Candidate 2631
+2026-04-03 09:19:44,451 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2631&print=true
+2026-04-03 09:19:44,451 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2631&print=true (Attempt 1)
+2026-04-03 09:19:47,812 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2631&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:48,687 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2631
+2026-04-03 09:19:48,777 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2631
+2026-04-03 09:19:48,778 [INFO] myneta_scraper: DynamoDB update successful for candidate 2631 (2021)
+2026-04-03 09:19:49,780 [INFO] myneta_scraper: Processing 987/2577: Candidate 2632
+2026-04-03 09:19:49,791 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2632&print=true
+2026-04-03 09:19:49,791 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2632&print=true (Attempt 1)
+2026-04-03 09:19:53,067 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2632&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:53,931 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2632
+2026-04-03 09:19:54,014 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2632
+2026-04-03 09:19:54,014 [INFO] myneta_scraper: DynamoDB update successful for candidate 2632 (2021)
+2026-04-03 09:19:55,018 [INFO] myneta_scraper: Processing 988/2577: Candidate 2634
+2026-04-03 09:19:55,027 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2634&print=true
+2026-04-03 09:19:55,027 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2634&print=true (Attempt 1)
+2026-04-03 09:19:58,290 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2634&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:19:59,167 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2634
+2026-04-03 09:19:59,249 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2634
+2026-04-03 09:19:59,249 [INFO] myneta_scraper: DynamoDB update successful for candidate 2634 (2021)
+2026-04-03 09:20:00,253 [INFO] myneta_scraper: Processing 989/2577: Candidate 2635
+2026-04-03 09:20:00,261 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2635&print=true
+2026-04-03 09:20:00,261 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2635&print=true (Attempt 1)
+2026-04-03 09:20:03,522 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2635&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:04,410 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2635
+2026-04-03 09:20:04,488 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2635
+2026-04-03 09:20:04,489 [INFO] myneta_scraper: DynamoDB update successful for candidate 2635 (2021)
+2026-04-03 09:20:05,493 [INFO] myneta_scraper: Processing 990/2577: Candidate 2636
+2026-04-03 09:20:05,502 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2636&print=true
+2026-04-03 09:20:05,502 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2636&print=true (Attempt 1)
+2026-04-03 09:20:08,714 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2636&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:09,516 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2636
+2026-04-03 09:20:09,686 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2636
+2026-04-03 09:20:09,686 [INFO] myneta_scraper: DynamoDB update successful for candidate 2636 (2021)
+2026-04-03 09:20:10,691 [INFO] myneta_scraper: Processing 991/2577: Candidate 2637
+2026-04-03 09:20:10,700 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2637&print=true
+2026-04-03 09:20:10,700 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2637&print=true (Attempt 1)
+2026-04-03 09:20:13,946 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2637&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:14,757 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2637
+2026-04-03 09:20:14,916 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2637
+2026-04-03 09:20:14,917 [INFO] myneta_scraper: DynamoDB update successful for candidate 2637 (2021)
+2026-04-03 09:20:15,922 [INFO] myneta_scraper: Processing 992/2577: Candidate 2638
+2026-04-03 09:20:15,934 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2638&print=true
+2026-04-03 09:20:15,934 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2638&print=true (Attempt 1)
+2026-04-03 09:20:19,219 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2638&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:20,030 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2638
+2026-04-03 09:20:20,163 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2638
+2026-04-03 09:20:20,163 [INFO] myneta_scraper: DynamoDB update successful for candidate 2638 (2021)
+2026-04-03 09:20:21,167 [INFO] myneta_scraper: Processing 993/2577: Candidate 2639
+2026-04-03 09:20:21,177 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2639&print=true
+2026-04-03 09:20:21,177 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2639&print=true (Attempt 1)
+2026-04-03 09:20:24,431 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2639&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:25,226 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2639
+2026-04-03 09:20:25,390 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2639
+2026-04-03 09:20:25,391 [INFO] myneta_scraper: DynamoDB update successful for candidate 2639 (2021)
+2026-04-03 09:20:26,394 [INFO] myneta_scraper: Processing 994/2577: Candidate 2640
+2026-04-03 09:20:26,402 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2640&print=true
+2026-04-03 09:20:26,403 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2640&print=true (Attempt 1)
+2026-04-03 09:20:29,717 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2640&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:30,625 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2640
+2026-04-03 09:20:30,707 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2640
+2026-04-03 09:20:30,708 [INFO] myneta_scraper: DynamoDB update successful for candidate 2640 (2021)
+2026-04-03 09:20:31,712 [INFO] myneta_scraper: Processing 995/2577: Candidate 2641
+2026-04-03 09:20:31,728 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2641&print=true
+2026-04-03 09:20:31,728 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2641&print=true (Attempt 1)
+2026-04-03 09:20:35,009 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2641&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:35,855 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2641
+2026-04-03 09:20:35,927 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2641
+2026-04-03 09:20:35,927 [INFO] myneta_scraper: DynamoDB update successful for candidate 2641 (2021)
+2026-04-03 09:20:36,931 [INFO] myneta_scraper: Processing 996/2577: Candidate 2642
+2026-04-03 09:20:36,944 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2642&print=true
+2026-04-03 09:20:36,944 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2642&print=true (Attempt 1)
+2026-04-03 09:20:40,156 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2642&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:40,947 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2642
+2026-04-03 09:20:41,117 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2642
+2026-04-03 09:20:41,118 [INFO] myneta_scraper: DynamoDB update successful for candidate 2642 (2021)
+2026-04-03 09:20:42,124 [INFO] myneta_scraper: Processing 997/2577: Candidate 2643
+2026-04-03 09:20:42,136 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2643&print=true
+2026-04-03 09:20:42,136 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2643&print=true (Attempt 1)
+2026-04-03 09:20:45,406 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2643&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:46,208 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2643
+2026-04-03 09:20:46,377 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2643
+2026-04-03 09:20:46,378 [INFO] myneta_scraper: DynamoDB update successful for candidate 2643 (2021)
+2026-04-03 09:20:47,384 [INFO] myneta_scraper: Processing 998/2577: Candidate 2644
+2026-04-03 09:20:47,397 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2644&print=true
+2026-04-03 09:20:47,397 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2644&print=true (Attempt 1)
+2026-04-03 09:20:50,685 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2644&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:51,550 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2644
+2026-04-03 09:20:51,626 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2644
+2026-04-03 09:20:51,626 [INFO] myneta_scraper: DynamoDB update successful for candidate 2644 (2021)
+2026-04-03 09:20:52,629 [INFO] myneta_scraper: Processing 999/2577: Candidate 2645
+2026-04-03 09:20:52,637 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2645&print=true
+2026-04-03 09:20:52,637 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2645&print=true (Attempt 1)
+2026-04-03 09:20:55,895 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2645&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:20:56,700 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2645
+2026-04-03 09:20:56,869 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2645
+2026-04-03 09:20:56,870 [INFO] myneta_scraper: DynamoDB update successful for candidate 2645 (2021)
+2026-04-03 09:20:57,876 [INFO] myneta_scraper: Processing 1000/2577: Candidate 2646
+2026-04-03 09:20:57,883 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2646&print=true
+2026-04-03 09:20:57,883 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2646&print=true (Attempt 1)
+2026-04-03 09:21:01,174 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2646&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:02,083 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2646
+2026-04-03 09:21:02,156 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2646
+2026-04-03 09:21:02,156 [INFO] myneta_scraper: DynamoDB update successful for candidate 2646 (2021)
+2026-04-03 09:21:03,160 [INFO] myneta_scraper: Processing 1001/2577: Candidate 2647
+2026-04-03 09:21:03,172 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2647&print=true
+2026-04-03 09:21:03,173 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2647&print=true (Attempt 1)
+2026-04-03 09:21:06,418 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2647&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:07,334 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2647
+2026-04-03 09:21:07,412 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2647
+2026-04-03 09:21:07,412 [INFO] myneta_scraper: DynamoDB update successful for candidate 2647 (2021)
+2026-04-03 09:21:08,415 [INFO] myneta_scraper: Processing 1002/2577: Candidate 2648
+2026-04-03 09:21:08,429 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2648&print=true
+2026-04-03 09:21:08,430 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2648&print=true (Attempt 1)
+2026-04-03 09:21:11,637 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2648&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:12,410 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2648
+2026-04-03 09:21:12,571 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2648
+2026-04-03 09:21:12,571 [INFO] myneta_scraper: DynamoDB update successful for candidate 2648 (2021)
+2026-04-03 09:21:13,575 [INFO] myneta_scraper: Processing 1003/2577: Candidate 2649
+2026-04-03 09:21:13,586 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2649&print=true
+2026-04-03 09:21:13,586 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2649&print=true (Attempt 1)
+2026-04-03 09:21:16,886 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2649&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:17,695 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2649
+2026-04-03 09:21:17,827 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2649
+2026-04-03 09:21:17,827 [INFO] myneta_scraper: DynamoDB update successful for candidate 2649 (2021)
+2026-04-03 09:21:18,832 [INFO] myneta_scraper: Processing 1004/2577: Candidate 2650
+2026-04-03 09:21:18,847 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2650&print=true
+2026-04-03 09:21:18,847 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2650&print=true (Attempt 1)
+2026-04-03 09:21:22,164 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2650&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:23,054 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2650
+2026-04-03 09:21:23,138 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2650
+2026-04-03 09:21:23,138 [INFO] myneta_scraper: DynamoDB update successful for candidate 2650 (2021)
+2026-04-03 09:21:24,141 [INFO] myneta_scraper: Processing 1005/2577: Candidate 2651
+2026-04-03 09:21:24,157 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2651&print=true
+2026-04-03 09:21:24,157 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2651&print=true (Attempt 1)
+2026-04-03 09:21:27,388 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2651&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:28,217 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2651
+2026-04-03 09:21:28,324 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2651
+2026-04-03 09:21:28,324 [INFO] myneta_scraper: DynamoDB update successful for candidate 2651 (2021)
+2026-04-03 09:21:29,329 [INFO] myneta_scraper: Processing 1006/2577: Candidate 2652
+2026-04-03 09:21:29,345 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2652&print=true
+2026-04-03 09:21:29,345 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2652&print=true (Attempt 1)
+2026-04-03 09:21:32,589 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2652&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:33,388 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2652
+2026-04-03 09:21:33,548 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2652
+2026-04-03 09:21:33,549 [INFO] myneta_scraper: DynamoDB update successful for candidate 2652 (2021)
+2026-04-03 09:21:34,554 [INFO] myneta_scraper: Processing 1007/2577: Candidate 2653
+2026-04-03 09:21:34,568 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2653&print=true
+2026-04-03 09:21:34,568 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2653&print=true (Attempt 1)
+2026-04-03 09:21:37,828 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2653&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:38,623 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2653
+2026-04-03 09:21:38,791 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2653
+2026-04-03 09:21:38,792 [INFO] myneta_scraper: DynamoDB update successful for candidate 2653 (2021)
+2026-04-03 09:21:39,798 [INFO] myneta_scraper: Processing 1008/2577: Candidate 2654
+2026-04-03 09:21:39,813 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2654&print=true
+2026-04-03 09:21:39,813 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2654&print=true (Attempt 1)
+2026-04-03 09:21:43,089 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2654&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:43,871 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2654
+2026-04-03 09:21:44,032 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2654
+2026-04-03 09:21:44,032 [INFO] myneta_scraper: DynamoDB update successful for candidate 2654 (2021)
+2026-04-03 09:21:45,036 [INFO] myneta_scraper: Processing 1009/2577: Candidate 2655
+2026-04-03 09:21:45,050 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2655&print=true
+2026-04-03 09:21:45,050 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2655&print=true (Attempt 1)
+2026-04-03 09:21:48,381 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2655&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:49,680 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2655
+2026-04-03 09:21:49,808 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2655
+2026-04-03 09:21:49,808 [INFO] myneta_scraper: DynamoDB update successful for candidate 2655 (2021)
+2026-04-03 09:21:50,811 [INFO] myneta_scraper: Processing 1010/2577: Candidate 2656
+2026-04-03 09:21:50,821 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2656&print=true
+2026-04-03 09:21:50,821 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2656&print=true (Attempt 1)
+2026-04-03 09:21:54,138 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2656&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:21:55,040 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2656
+2026-04-03 09:21:55,118 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2656
+2026-04-03 09:21:55,118 [INFO] myneta_scraper: DynamoDB update successful for candidate 2656 (2021)
+2026-04-03 09:21:56,122 [INFO] myneta_scraper: Processing 1011/2577: Candidate 2657
+2026-04-03 09:21:56,134 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2657&print=true
+2026-04-03 09:21:56,134 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2657&print=true (Attempt 1)
+2026-04-03 09:21:59,350 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2657&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:00,159 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2657
+2026-04-03 09:22:00,308 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2657
+2026-04-03 09:22:00,308 [INFO] myneta_scraper: DynamoDB update successful for candidate 2657 (2021)
+2026-04-03 09:22:01,314 [INFO] myneta_scraper: Processing 1012/2577: Candidate 2658
+2026-04-03 09:22:01,326 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2658&print=true
+2026-04-03 09:22:01,326 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2658&print=true (Attempt 1)
+2026-04-03 09:22:04,573 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2658&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:05,373 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2658
+2026-04-03 09:22:05,542 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2658
+2026-04-03 09:22:05,542 [INFO] myneta_scraper: DynamoDB update successful for candidate 2658 (2021)
+2026-04-03 09:22:06,546 [INFO] myneta_scraper: Processing 1013/2577: Candidate 2659
+2026-04-03 09:22:06,562 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2659&print=true
+2026-04-03 09:22:06,562 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2659&print=true (Attempt 1)
+2026-04-03 09:22:09,824 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2659&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:10,656 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2659
+2026-04-03 09:22:10,781 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2659
+2026-04-03 09:22:10,782 [INFO] myneta_scraper: DynamoDB update successful for candidate 2659 (2021)
+2026-04-03 09:22:11,787 [INFO] myneta_scraper: Processing 1014/2577: Candidate 2660
+2026-04-03 09:22:11,842 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2660&print=true
+2026-04-03 09:22:11,845 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2660&print=true (Attempt 1)
+2026-04-03 09:22:15,173 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2660&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:16,005 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2660
+2026-04-03 09:22:16,086 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2660
+2026-04-03 09:22:16,086 [INFO] myneta_scraper: DynamoDB update successful for candidate 2660 (2021)
+2026-04-03 09:22:17,089 [INFO] myneta_scraper: Processing 1015/2577: Candidate 2661
+2026-04-03 09:22:17,099 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2661&print=true
+2026-04-03 09:22:17,099 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2661&print=true (Attempt 1)
+2026-04-03 09:22:20,336 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2661&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:21,529 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2661
+2026-04-03 09:22:21,605 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2661
+2026-04-03 09:22:21,605 [INFO] myneta_scraper: DynamoDB update successful for candidate 2661 (2021)
+2026-04-03 09:22:22,608 [INFO] myneta_scraper: Processing 1016/2577: Candidate 2662
+2026-04-03 09:22:22,624 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2662&print=true
+2026-04-03 09:22:22,624 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2662&print=true (Attempt 1)
+2026-04-03 09:22:25,916 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2662&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:26,718 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2662
+2026-04-03 09:22:26,791 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2662
+2026-04-03 09:22:26,791 [INFO] myneta_scraper: DynamoDB update successful for candidate 2662 (2021)
+2026-04-03 09:22:27,794 [INFO] myneta_scraper: Processing 1017/2577: Candidate 2663
+2026-04-03 09:22:27,804 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2663&print=true
+2026-04-03 09:22:27,805 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2663&print=true (Attempt 1)
+2026-04-03 09:22:31,159 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2663&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:31,954 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2663
+2026-04-03 09:22:32,038 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2663
+2026-04-03 09:22:32,039 [INFO] myneta_scraper: DynamoDB update successful for candidate 2663 (2021)
+2026-04-03 09:22:33,043 [INFO] myneta_scraper: Processing 1018/2577: Candidate 2664
+2026-04-03 09:22:33,058 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2664&print=true
+2026-04-03 09:22:33,058 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2664&print=true (Attempt 1)
+2026-04-03 09:22:36,401 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2664&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:37,201 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2664
+2026-04-03 09:22:37,279 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2664
+2026-04-03 09:22:37,280 [INFO] myneta_scraper: DynamoDB update successful for candidate 2664 (2021)
+2026-04-03 09:22:38,282 [INFO] myneta_scraper: Processing 1019/2577: Candidate 2665
+2026-04-03 09:22:38,292 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2665&print=true
+2026-04-03 09:22:38,292 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2665&print=true (Attempt 1)
+2026-04-03 09:22:41,644 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2665&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:42,447 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2665
+2026-04-03 09:22:42,529 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2665
+2026-04-03 09:22:42,529 [INFO] myneta_scraper: DynamoDB update successful for candidate 2665 (2021)
+2026-04-03 09:22:43,532 [INFO] myneta_scraper: Processing 1020/2577: Candidate 2666
+2026-04-03 09:22:43,542 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2666&print=true
+2026-04-03 09:22:43,542 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2666&print=true (Attempt 1)
+2026-04-03 09:22:46,888 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2666&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:47,693 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2666
+2026-04-03 09:22:47,770 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2666
+2026-04-03 09:22:47,770 [INFO] myneta_scraper: DynamoDB update successful for candidate 2666 (2021)
+2026-04-03 09:22:48,773 [INFO] myneta_scraper: Processing 1021/2577: Candidate 2668
+2026-04-03 09:22:48,786 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2668&print=true
+2026-04-03 09:22:48,786 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2668&print=true (Attempt 1)
+2026-04-03 09:22:52,130 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2668&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:52,960 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2668
+2026-04-03 09:22:53,038 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2668
+2026-04-03 09:22:53,038 [INFO] myneta_scraper: DynamoDB update successful for candidate 2668 (2021)
+2026-04-03 09:22:54,042 [INFO] myneta_scraper: Processing 1022/2577: Candidate 2669
+2026-04-03 09:22:54,056 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2669&print=true
+2026-04-03 09:22:54,056 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2669&print=true (Attempt 1)
+2026-04-03 09:22:57,373 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2669&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:22:58,202 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2669
+2026-04-03 09:22:58,280 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2669
+2026-04-03 09:22:58,280 [INFO] myneta_scraper: DynamoDB update successful for candidate 2669 (2021)
+2026-04-03 09:22:59,284 [INFO] myneta_scraper: Processing 1023/2577: Candidate 2670
+2026-04-03 09:22:59,295 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2670&print=true
+2026-04-03 09:22:59,295 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2670&print=true (Attempt 1)
+2026-04-03 09:23:02,615 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2670&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:03,424 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2670
+2026-04-03 09:23:03,500 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2670
+2026-04-03 09:23:03,500 [INFO] myneta_scraper: DynamoDB update successful for candidate 2670 (2021)
+2026-04-03 09:23:04,502 [INFO] myneta_scraper: Processing 1024/2577: Candidate 2671
+2026-04-03 09:23:04,512 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2671&print=true
+2026-04-03 09:23:04,512 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2671&print=true (Attempt 1)
+2026-04-03 09:23:07,859 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2671&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:08,687 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2671
+2026-04-03 09:23:08,765 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2671
+2026-04-03 09:23:08,765 [INFO] myneta_scraper: DynamoDB update successful for candidate 2671 (2021)
+2026-04-03 09:23:09,773 [INFO] myneta_scraper: Processing 1025/2577: Candidate 2672
+2026-04-03 09:23:09,790 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2672&print=true
+2026-04-03 09:23:09,790 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2672&print=true (Attempt 1)
+2026-04-03 09:23:13,102 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2672&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:13,916 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2672
+2026-04-03 09:23:14,015 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2672
+2026-04-03 09:23:14,015 [INFO] myneta_scraper: DynamoDB update successful for candidate 2672 (2021)
+2026-04-03 09:23:15,037 [INFO] myneta_scraper: Processing 1026/2577: Candidate 2673
+2026-04-03 09:23:15,044 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2673&print=true
+2026-04-03 09:23:15,044 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2673&print=true (Attempt 1)
+2026-04-03 09:23:18,407 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2673&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:19,102 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2673
+2026-04-03 09:23:19,182 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2673
+2026-04-03 09:23:19,182 [INFO] myneta_scraper: DynamoDB update successful for candidate 2673 (2021)
+2026-04-03 09:23:20,184 [INFO] myneta_scraper: Processing 1027/2577: Candidate 2674
+2026-04-03 09:23:20,193 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2674&print=true
+2026-04-03 09:23:20,194 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2674&print=true (Attempt 1)
+2026-04-03 09:23:23,587 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2674&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:24,425 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2674
+2026-04-03 09:23:24,497 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2674
+2026-04-03 09:23:24,497 [INFO] myneta_scraper: DynamoDB update successful for candidate 2674 (2021)
+2026-04-03 09:23:25,500 [INFO] myneta_scraper: Processing 1028/2577: Candidate 2675
+2026-04-03 09:23:25,509 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2675&print=true
+2026-04-03 09:23:25,509 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2675&print=true (Attempt 1)
+2026-04-03 09:23:28,830 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2675&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:29,929 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2675
+2026-04-03 09:23:30,008 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2675
+2026-04-03 09:23:30,008 [INFO] myneta_scraper: DynamoDB update successful for candidate 2675 (2021)
+2026-04-03 09:23:31,011 [INFO] myneta_scraper: Processing 1029/2577: Candidate 2676
+2026-04-03 09:23:31,023 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2676&print=true
+2026-04-03 09:23:31,023 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2676&print=true (Attempt 1)
+2026-04-03 09:23:34,268 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2676&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:35,042 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2676
+2026-04-03 09:23:35,194 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2676
+2026-04-03 09:23:35,194 [INFO] myneta_scraper: DynamoDB update successful for candidate 2676 (2021)
+2026-04-03 09:23:36,197 [INFO] myneta_scraper: Processing 1030/2577: Candidate 2677
+2026-04-03 09:23:36,206 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2677&print=true
+2026-04-03 09:23:36,206 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2677&print=true (Attempt 1)
+2026-04-03 09:23:39,511 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2677&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:40,312 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2677
+2026-04-03 09:23:40,433 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2677
+2026-04-03 09:23:40,434 [INFO] myneta_scraper: DynamoDB update successful for candidate 2677 (2021)
+2026-04-03 09:23:41,439 [INFO] myneta_scraper: Processing 1031/2577: Candidate 2678
+2026-04-03 09:23:41,450 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2678&print=true
+2026-04-03 09:23:41,450 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2678&print=true (Attempt 1)
+2026-04-03 09:23:44,711 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2678&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:45,502 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2678
+2026-04-03 09:23:45,667 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2678
+2026-04-03 09:23:45,668 [INFO] myneta_scraper: DynamoDB update successful for candidate 2678 (2021)
+2026-04-03 09:23:46,672 [INFO] myneta_scraper: Processing 1032/2577: Candidate 2679
+2026-04-03 09:23:46,683 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2679&print=true
+2026-04-03 09:23:46,683 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2679&print=true (Attempt 1)
+2026-04-03 09:23:49,958 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2679&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:50,792 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2679
+2026-04-03 09:23:50,926 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2679
+2026-04-03 09:23:50,926 [INFO] myneta_scraper: DynamoDB update successful for candidate 2679 (2021)
+2026-04-03 09:23:51,930 [INFO] myneta_scraper: Processing 1033/2577: Candidate 2680
+2026-04-03 09:23:51,943 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2680&print=true
+2026-04-03 09:23:51,943 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2680&print=true (Attempt 1)
+2026-04-03 09:23:55,204 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2680&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:23:56,018 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2680
+2026-04-03 09:23:56,166 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2680
+2026-04-03 09:23:56,167 [INFO] myneta_scraper: DynamoDB update successful for candidate 2680 (2021)
+2026-04-03 09:23:57,172 [INFO] myneta_scraper: Processing 1034/2577: Candidate 2681
+2026-04-03 09:23:57,186 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2681&print=true
+2026-04-03 09:23:57,186 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2681&print=true (Attempt 1)
+2026-04-03 09:24:00,445 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2681&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:01,254 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2681
+2026-04-03 09:24:01,406 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2681
+2026-04-03 09:24:01,406 [INFO] myneta_scraper: DynamoDB update successful for candidate 2681 (2021)
+2026-04-03 09:24:02,409 [INFO] myneta_scraper: Processing 1035/2577: Candidate 2682
+2026-04-03 09:24:02,425 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2682&print=true
+2026-04-03 09:24:02,426 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2682&print=true (Attempt 1)
+2026-04-03 09:24:05,724 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2682&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:06,621 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2682
+2026-04-03 09:24:06,708 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2682
+2026-04-03 09:24:06,709 [INFO] myneta_scraper: DynamoDB update successful for candidate 2682 (2021)
+2026-04-03 09:24:07,712 [INFO] myneta_scraper: Processing 1036/2577: Candidate 2683
+2026-04-03 09:24:07,719 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2683&print=true
+2026-04-03 09:24:07,720 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2683&print=true (Attempt 1)
+2026-04-03 09:24:11,007 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2683&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:11,939 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2683
+2026-04-03 09:24:12,013 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2683
+2026-04-03 09:24:12,013 [INFO] myneta_scraper: DynamoDB update successful for candidate 2683 (2021)
+2026-04-03 09:24:13,015 [INFO] myneta_scraper: Processing 1037/2577: Candidate 2684
+2026-04-03 09:24:13,028 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2684&print=true
+2026-04-03 09:24:13,028 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2684&print=true (Attempt 1)
+2026-04-03 09:24:16,332 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2684&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:17,129 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2684
+2026-04-03 09:24:17,206 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2684
+2026-04-03 09:24:17,206 [INFO] myneta_scraper: DynamoDB update successful for candidate 2684 (2021)
+2026-04-03 09:24:18,209 [INFO] myneta_scraper: Processing 1038/2577: Candidate 2685
+2026-04-03 09:24:18,216 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2685&print=true
+2026-04-03 09:24:18,217 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2685&print=true (Attempt 1)
+2026-04-03 09:24:21,424 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2685&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:22,212 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2685
+2026-04-03 09:24:22,386 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2685
+2026-04-03 09:24:22,386 [INFO] myneta_scraper: DynamoDB update successful for candidate 2685 (2021)
+2026-04-03 09:24:23,389 [INFO] myneta_scraper: Processing 1039/2577: Candidate 2686
+2026-04-03 09:24:23,397 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2686&print=true
+2026-04-03 09:24:23,397 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2686&print=true (Attempt 1)
+2026-04-03 09:24:26,692 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2686&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:27,588 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2686
+2026-04-03 09:24:27,666 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2686
+2026-04-03 09:24:27,666 [INFO] myneta_scraper: DynamoDB update successful for candidate 2686 (2021)
+2026-04-03 09:24:28,669 [INFO] myneta_scraper: Processing 1040/2577: Candidate 2687
+2026-04-03 09:24:28,676 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2687&print=true
+2026-04-03 09:24:28,677 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2687&print=true (Attempt 1)
+2026-04-03 09:24:31,893 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2687&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:32,680 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2687
+2026-04-03 09:24:32,838 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2687
+2026-04-03 09:24:32,838 [INFO] myneta_scraper: DynamoDB update successful for candidate 2687 (2021)
+2026-04-03 09:24:33,842 [INFO] myneta_scraper: Processing 1041/2577: Candidate 2688
+2026-04-03 09:24:33,849 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2688&print=true
+2026-04-03 09:24:33,849 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2688&print=true (Attempt 1)
+2026-04-03 09:24:36,832 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2688&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:37,087 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2688
+2026-04-03 09:24:37,156 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2688
+2026-04-03 09:24:37,157 [INFO] myneta_scraper: DynamoDB update successful for candidate 2688 (2021)
+2026-04-03 09:24:38,160 [INFO] myneta_scraper: Processing 1042/2577: Candidate 2689
+2026-04-03 09:24:38,167 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2689&print=true
+2026-04-03 09:24:38,167 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2689&print=true (Attempt 1)
+2026-04-03 09:24:41,377 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2689&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:42,163 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2689
+2026-04-03 09:24:42,297 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2689
+2026-04-03 09:24:42,297 [INFO] myneta_scraper: DynamoDB update successful for candidate 2689 (2021)
+2026-04-03 09:24:43,300 [INFO] myneta_scraper: Processing 1043/2577: Candidate 2690
+2026-04-03 09:24:43,311 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2690&print=true
+2026-04-03 09:24:43,312 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2690&print=true (Attempt 1)
+2026-04-03 09:24:46,586 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2690&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:47,378 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2690
+2026-04-03 09:24:47,530 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2690
+2026-04-03 09:24:47,530 [INFO] myneta_scraper: DynamoDB update successful for candidate 2690 (2021)
+2026-04-03 09:24:48,534 [INFO] myneta_scraper: Processing 1044/2577: Candidate 2691
+2026-04-03 09:24:48,541 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2691&print=true
+2026-04-03 09:24:48,542 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2691&print=true (Attempt 1)
+2026-04-03 09:24:51,529 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2691&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:51,794 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2691
+2026-04-03 09:24:51,869 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2691
+2026-04-03 09:24:51,869 [INFO] myneta_scraper: DynamoDB update successful for candidate 2691 (2021)
+2026-04-03 09:24:52,873 [INFO] myneta_scraper: Processing 1045/2577: Candidate 2692
+2026-04-03 09:24:52,884 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2692&print=true
+2026-04-03 09:24:52,885 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2692&print=true (Attempt 1)
+2026-04-03 09:24:56,169 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2692&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:24:56,959 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2692
+2026-04-03 09:24:57,034 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2692
+2026-04-03 09:24:57,034 [INFO] myneta_scraper: DynamoDB update successful for candidate 2692 (2021)
+2026-04-03 09:24:58,037 [INFO] myneta_scraper: Processing 1046/2577: Candidate 2693
+2026-04-03 09:24:58,047 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2693&print=true
+2026-04-03 09:24:58,048 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2693&print=true (Attempt 1)
+2026-04-03 09:25:01,311 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2693&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:25:02,201 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2693
+2026-04-03 09:25:02,284 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2693
+2026-04-03 09:25:02,284 [INFO] myneta_scraper: DynamoDB update successful for candidate 2693 (2021)
+2026-04-03 09:25:03,289 [INFO] myneta_scraper: Processing 1047/2577: Candidate 2694
+2026-04-03 09:25:03,295 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2694&print=true
+2026-04-03 09:25:03,295 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2694&print=true (Attempt 1)
+2026-04-03 09:25:06,552 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2694&print=true "HTTP/1.1 200 OK"
+2026-04-03 09:25:07,442 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2694
+2026-04-03 09:25:07,526 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2694
+2026-04-03 09:25:07,526 [INFO] myneta_scraper: DynamoDB update successful for candidate 2694 (2021)
+2026-04-03 09:25:08,529 [INFO] myneta_scraper: Processing 1048/2577: Candidate 2695
+2026-04-03 09:25:08,536 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2695&print=true
+2026-04-03 09:25:08,536 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=2695&print=true (Attempt 1)

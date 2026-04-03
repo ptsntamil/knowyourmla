@@ -30,7 +30,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({
 
   if (!imgSrc || hasError) {
     return (
-      <div className={`flex items-center justify-center bg-slate-100 dark:bg-slate-800 font-black text-slate-400 dark:text-slate-500 uppercase tracking-tighter ${className}`}>
+      <div className={`flex items-center justify-center bg-bg-surface font-black text-text-muted uppercase tracking-tighter ${className}`}>
         {getInitials(alt)}
       </div>
     );

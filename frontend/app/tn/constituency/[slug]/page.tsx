@@ -79,7 +79,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
   breadcrumbItems.push({ name: constituencyName, item: `/tn/constituency/${slug}` });
 
   return (
-    <div className="min-h-screen bg-page-bg">
+    <div className="min-h-screen bg-bg-page">
       <BreadcrumbSchema 
         items={breadcrumbItems} 
       />
@@ -88,18 +88,18 @@ export default async function ConstituencyPage({ params }: PageProps) {
         title={`${slug}`} 
         subtitle={`Historical election data and representative details for the ${slug} constituency.`}
       >
-        <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span className="mx-3 text-white/20">/</span>
-          <Link href="/tn" className="hover:text-white transition-colors">TN</Link>
-          <span className="mx-3 text-white/20">/</span>
+        <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-text-muted opacity-80">
+          <Link href="/" className="hover:text-text-primary transition-colors">Home</Link>
+          <span className="mx-3 text-border-subtle">/</span>
+          <Link href="/tn" className="hover:text-text-primary transition-colors">TN</Link>
+          <span className="mx-3 text-border-subtle">/</span>
           {districtName && (
             <>
-              <Link href={`/tn/districts/${districtSlug}`} className="hover:text-white transition-colors">{districtName}</Link>
-              <span className="mx-3 text-white/20">/</span>
+              <Link href={`/tn/districts/${districtSlug}`} className="hover:text-text-primary transition-colors">{districtName}</Link>
+              <span className="mx-3 text-border-subtle">/</span>
             </>
           )}
-          <span className="text-brand-gold">{slug}</span>
+          <span className="text-text-accent">{slug}</span>
         </nav>
       </CoverImage>
 
@@ -119,13 +119,13 @@ export default async function ConstituencyPage({ params }: PageProps) {
         {currentWinner && (
           <section>
             <div className="mb-8">
-                <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">Current Representative</h2>
+                <h2 className="text-3xl font-black text-text-primary uppercase tracking-tighter">Current Representative</h2>
             </div>
             
-            <div className="bg-brand-green rounded-[2.5rem] p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-10 relative overflow-hidden border border-white/10">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full -mr-32 -mt-32 blur-3xl pointer-events-none" />
+            <div className="bg-bg-surface rounded-[2.5rem] p-8 md:p-12 shadow-2xl flex flex-col md:flex-row items-center md:items-start gap-10 relative overflow-hidden border border-border-subtle">
+              <div className="absolute top-0 right-0 w-80 h-80 bg-bg-accent/5 rounded-full -mr-32 -mt-32 blur-3xl pointer-events-none" />
               
-              <div className="w-40 h-40 md:w-48 md:h-48 bg-slate-200 rounded-full flex items-center justify-center overflow-hidden border-8 border-white/10 shadow-2xl flex-shrink-0 z-10">
+              <div className="w-40 h-40 md:w-48 md:h-48 bg-bg-surface rounded-full flex items-center justify-center overflow-hidden border-8 border-border-subtle shadow-2xl flex-shrink-0 z-10">
                 <ProfileImage 
                   src={currentWinner.profile_pic} 
                   alt={currentWinner.winner} 
@@ -135,8 +135,8 @@ export default async function ConstituencyPage({ params }: PageProps) {
 
               <div className="flex-1 text-center md:text-left z-10 space-y-8">
                 <div className="space-y-4">
-                  <div className="text-brand-gold font-black uppercase tracking-[0.3em] text-[10px] mb-2">Incumbent MLA</div>
-                  <h2 className="text-4xl md:text-6xl font-black text-white uppercase tracking-tighter leading-none">{currentWinner.winner}</h2>
+                  <div className="text-text-accent font-black uppercase tracking-[0.3em] text-[10px] mb-2">Incumbent MLA</div>
+                  <h2 className="text-4xl md:text-6xl font-black text-text-primary uppercase tracking-tighter leading-none">{currentWinner.winner}</h2>
                   
                   <div className="flex flex-wrap justify-center md:justify-start gap-4 items-center">
                     <div 
@@ -159,12 +159,12 @@ export default async function ConstituencyPage({ params }: PageProps) {
                         </p>
                       </div>
                     </div>
-                    <div className="bg-white/10 text-white px-5 py-2 rounded-full border border-white/10">
-                      <p className="text-[9px] text-white/50 uppercase font-black leading-none mb-1">Elected</p>
+                     <div className="bg-bg-card text-text-primary px-5 py-2 rounded-full border border-border-subtle">
+                      <p className="text-[9px] text-text-muted uppercase font-black leading-none mb-1">Elected</p>
                       <p className="font-black text-xs uppercase tracking-wider leading-none">{currentWinner.year}</p>
                     </div>
-                    <div className="bg-white/10 text-white px-5 py-2 rounded-full border border-white/10">
-                      <p className="text-[9px] text-white/50 uppercase font-black leading-none mb-1">Margin</p>
+                    <div className="bg-bg-card text-text-primary px-5 py-2 rounded-full border border-border-subtle">
+                      <p className="text-[9px] text-text-muted uppercase font-black leading-none mb-1">Margin</p>
                       <p className="font-black text-xs uppercase tracking-wider leading-none" suppressHydrationWarning>+{currentWinner.margin.toLocaleString()}</p>
                     </div>
                   </div>
@@ -172,7 +172,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
                 
                 <Link
                   href={`/tn/mla/${currentWinner.person_id ? currentWinner.person_id.replace("PERSON#", "") : currentWinner.winner.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')}`}
-                  className="inline-flex items-center gap-3 bg-brand-gold text-white px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-brand-yellow transition-all shadow-2xl transform hover:scale-105"
+                  className="inline-flex items-center gap-3 bg-bg-accent text-text-inverse px-10 py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-xs hover:bg-bg-accent transition-all shadow-2xl transform hover:scale-105"
                 >
                   View Full Profile
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -187,31 +187,31 @@ export default async function ConstituencyPage({ params }: PageProps) {
         {data.stats && data.stats.length > 0 && (
           <section>
             <div className="mb-8">
-                <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">Election Statistics</h2>
+                <h2 className="text-3xl font-black text-text-primary uppercase tracking-tighter">Election Statistics</h2>
             </div>
             <div className="grid lg:grid-cols-3 gap-8 items-start">
-              <div className="lg:col-span-2 bg-white rounded-[3rem] border border-slate-100 overflow-hidden shadow-sm">
-                <div className="px-10 py-8 bg-brand-gold flex justify-between items-center text-white">
+              <div className="lg:col-span-2 bg-bg-card rounded-[3rem] border border-border-subtle overflow-hidden shadow-sm">
+                <div className="px-10 py-8 bg-bg-surface flex justify-between items-center text-text-primary">
                   <h3 className="font-black uppercase tracking-widest text-sm">Voter Turnout & Elector Data</h3>
-                  <span className="text-[10px] font-black text-white/50 uppercase tracking-[0.3em]">Historical Data</span>
+                  <span className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em]">Historical Data</span>
                 </div>
                 <div className="overflow-x-auto">
                   <table className="w-full text-left">
                     <thead>
-                      <tr className="border-b border-slate-50">
-                        <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Year</th>
-                        <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Electors</th>
-                        <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Votes Polled</th>
-                        <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Poll%</th>
+                      <tr className="border-b border-border-subtle">
+                        <th className="px-10 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Year</th>
+                        <th className="px-10 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Total Electors</th>
+                        <th className="px-10 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Votes Polled</th>
+                        <th className="px-10 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest text-right">Poll%</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-50">
+                    <tbody className="divide-y divide-border-subtle">
                       {data.stats.map((stat: any, i: number) => (
-                        <tr key={i} className="hover:bg-slate-50 transition-colors">
-                          <td className="px-10 py-8 font-black text-brand-dark">{stat.year}</td>
-                          <td className="px-10 py-8 font-black text-slate-600" suppressHydrationWarning>{stat.total_electors.toLocaleString()}</td>
-                          <td className="px-10 py-8 font-black text-slate-600" suppressHydrationWarning>{stat.total_votes_polled.toLocaleString()}</td>
-                          <td className="px-10 py-8 text-right font-black text-brand-green">{stat.poll_percentage}%</td>
+                        <tr key={i} className="hover:bg-bg-surface transition-colors">
+                          <td className="px-10 py-8 font-black text-text-primary">{stat.year}</td>
+                          <td className="px-10 py-8 font-black text-text-muted" suppressHydrationWarning>{stat.total_electors.toLocaleString()}</td>
+                          <td className="px-10 py-8 font-black text-text-muted" suppressHydrationWarning>{stat.total_votes_polled.toLocaleString()}</td>
+                          <td className="px-10 py-8 text-right font-black text-text-accent">{stat.poll_percentage}%</td>
                         </tr>
                       ))}
                     </tbody>
@@ -223,21 +223,21 @@ export default async function ConstituencyPage({ params }: PageProps) {
                 (() => {
                   const latest = data.stats[0];
                   return (
-                    <div className="lg:col-span-1 bg-white rounded-[3rem] border border-slate-100 overflow-hidden shadow-sm p-10 space-y-10">
+                    <div className="lg:col-span-1 bg-bg-card rounded-[3rem] border border-border-subtle overflow-hidden shadow-sm p-10 space-y-10">
                       <div className="space-y-2">
-                        <h3 className="font-black text-brand-dark uppercase tracking-widest text-sm">Gender Distribution</h3>
-                        <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Latest Data ({latest.year})</p>
+                        <h3 className="font-black text-text-primary uppercase tracking-widest text-sm">Gender Distribution</h3>
+                        <p className="text-[10px] font-black text-text-muted uppercase tracking-[0.2em]">Latest Data ({latest.year})</p>
                       </div>
                       
                       <div className="space-y-8">
                         <div className="space-y-3">
                           <div className="flex justify-between items-end">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Male</span>
-                            <span className="text-sm font-black text-brand-dark" suppressHydrationWarning>{latest.male?.toLocaleString()}</span>
+                            <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">Male</span>
+                            <span className="text-sm font-black text-text-primary" suppressHydrationWarning>{latest.male?.toLocaleString()}</span>
                           </div>
-                          <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="h-4 bg-bg-surface rounded-full overflow-hidden">
                             <div 
-                              className="h-full bg-brand-dark rounded-full transition-all duration-1000 ease-out"
+                              className="h-full bg-text-primary rounded-full transition-all duration-1000 ease-out"
                               style={{ width: `${((latest.male || 0) / latest.total_electors) * 100}%` }}
                             />
                           </div>
@@ -245,26 +245,26 @@ export default async function ConstituencyPage({ params }: PageProps) {
 
                         <div className="space-y-3">
                           <div className="flex justify-between items-end">
-                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Female</span>
-                            <span className="text-sm font-black text-brand-dark" suppressHydrationWarning>{latest.female?.toLocaleString()}</span>
+                            <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">Female</span>
+                            <span className="text-sm font-black text-text-primary" suppressHydrationWarning>{latest.female?.toLocaleString()}</span>
                           </div>
-                          <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
+                          <div className="h-4 bg-bg-surface rounded-full overflow-hidden">
                             <div 
-                              className="h-full bg-brand-gold rounded-full transition-all duration-1000 ease-out"
+                              className="h-full bg-bg-accent rounded-full transition-all duration-1000 ease-out"
                               style={{ width: `${((latest.female || 0) / latest.total_electors) * 100}%` }}
                             />
                           </div>
                         </div>
 
-                        {latest.third_gender !== undefined && latest.third_gender > 0 && (
+                         {latest.third_gender !== undefined && latest.third_gender > 0 && (
                           <div className="space-y-3">
                             <div className="flex justify-between items-end">
-                              <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Others</span>
-                              <span className="text-sm font-black text-brand-dark" suppressHydrationWarning>{latest.third_gender.toLocaleString()}</span>
+                              <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">Others</span>
+                              <span className="text-sm font-black text-text-primary" suppressHydrationWarning>{latest.third_gender.toLocaleString()}</span>
                             </div>
-                            <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
+                            <div className="h-4 bg-bg-surface rounded-full overflow-hidden">
                               <div 
-                                className="h-full bg-brand-green rounded-full transition-all duration-1000 ease-out"
+                                className="h-full bg-text-accent rounded-full transition-all duration-1000 ease-out"
                                 style={{ width: `${(latest.third_gender / latest.total_electors) * 100}%` }}
                               />
                             </div>
@@ -272,10 +272,10 @@ export default async function ConstituencyPage({ params }: PageProps) {
                         )}
                       </div>
 
-                      <div className="pt-6 border-t border-slate-50">
+                      <div className="pt-6 border-t border-border-subtle">
                         <div className="flex justify-between items-center">
-                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Electors</span>
-                          <span className="text-lg font-black text-brand-green" suppressHydrationWarning>{latest.total_electors.toLocaleString()}</span>
+                          <span className="text-[10px] font-black text-text-muted uppercase tracking-widest">Total Electors</span>
+                          <span className="text-lg font-black text-text-accent" suppressHydrationWarning>{latest.total_electors.toLocaleString()}</span>
                         </div>
                       </div>
                     </div>
@@ -288,37 +288,37 @@ export default async function ConstituencyPage({ params }: PageProps) {
 
         <section>
           <div className="mb-8">
-              <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">Election History</h2>
+              <h2 className="text-3xl font-black text-text-primary uppercase tracking-tighter">Election History</h2>
           </div>
-          <div className="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm">
-            <div className="px-10 py-8 bg-brand-dark flex justify-between items-center text-white">
+          <div className="bg-bg-card rounded-[2.5rem] border border-border-subtle overflow-hidden shadow-sm">
+            <div className="px-10 py-8 bg-bg-surface flex justify-between items-center text-text-primary">
               <h3 className="font-black uppercase tracking-widest text-sm">Past Winners List</h3>
-              <span className="text-[10px] font-black text-white/50 uppercase tracking-[0.3em]">Tamil Nadu Elections</span>
+              <span className="text-[10px] font-black text-text-muted uppercase tracking-[0.3em]">Tamil Nadu Elections</span>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
                 <thead>
-                  <tr className="border-b border-slate-50">
-                    <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Year</th>
-                    <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Winner</th>
-                    <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Party</th>
-                    <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Margin</th>
+                  <tr className="border-b border-border-subtle">
+                    <th className="px-10 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Year</th>
+                    <th className="px-10 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Winner</th>
+                    <th className="px-10 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest">Party</th>
+                    <th className="px-10 py-6 text-[10px] font-black text-text-muted uppercase tracking-widest text-right">Margin</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-50">
-                  {data.history.map((record: any, i: number) => (
-                    <tr key={i} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-10 py-8 font-black text-brand-dark">{record.year}</td>
+                <tbody className="divide-y divide-border-subtle">
+                   {data.history.map((record: any, i: number) => (
+                    <tr key={i} className="hover:bg-bg-surface transition-colors">
+                      <td className="px-10 py-8 font-black text-text-primary">{record.year}</td>
                       <td className="px-10 py-8">
                         {record.person_id || record.slug ? (
                           <Link
                             href={`/tn/mla/${record.person_id ? record.person_id.replace("PERSON#", "") : record.slug}`}
-                            className="font-black text-brand-gold hover:text-brand-green uppercase tracking-tight text-lg"
+                            className="font-black text-text-accent hover:text-text-accent uppercase tracking-tight text-lg"
                           >
                             {record.winner}
                           </Link>
                         ) : (
-                          <span className="font-black text-slate-300 uppercase tracking-tight text-lg italic">
+                          <span className="font-black text-text-muted uppercase tracking-tight text-lg italic">
                             {record.winner}
                           </span>
                         )}
@@ -340,7 +340,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
                           {record.party.short_name || record.party.name}
                         </span>
                       </td>
-                      <td className="px-10 py-8 text-right font-black text-slate-400" suppressHydrationWarning>{record.margin.toLocaleString()}</td>
+                      <td className="px-10 py-8 text-right font-black text-text-muted" suppressHydrationWarning>{record.margin.toLocaleString()}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -349,7 +349,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
           </div>
         </section>
 
-        <section className="pt-16 border-t border-slate-100 dark:border-slate-800">
+        <section className="pt-16 border-t border-border-subtle">
           <FAQSection faqs={faqs} />
         </section>
       </main>
