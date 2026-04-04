@@ -21,12 +21,12 @@ export default function MLAListClient({ initialMLAs }: MLAListClientProps) {
 
   const filteredMLAs = useMemo(() => {
     return initialMLAs.filter((mla) => {
-      const matchesSearch = 
+      const matchesSearch =
         mla.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
         mla.constituency.toLowerCase().includes(searchQuery.toLowerCase());
-      
+
       const matchesParty = selectedParty === "All Parties" || mla.party === selectedParty;
-      
+
       return matchesSearch && matchesParty;
     });
   }, [initialMLAs, searchQuery, selectedParty]);
@@ -44,7 +44,7 @@ export default function MLAListClient({ initialMLAs }: MLAListClientProps) {
             onChange={(e) => setSearchQuery(e.target.value)}
           />
           {searchQuery && (
-            <button 
+            <button
               onClick={() => setSearchQuery("")}
               className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors p-1 hover:bg-slate-100 rounded-full"
             >
@@ -52,7 +52,7 @@ export default function MLAListClient({ initialMLAs }: MLAListClientProps) {
             </button>
           )}
         </div>
-        
+
         <div className="relative md:w-72 group">
           <Filter className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-gold transition-colors" size={18} />
           <select
@@ -74,12 +74,12 @@ export default function MLAListClient({ initialMLAs }: MLAListClientProps) {
 
       <div className="flex justify-between items-center mb-6">
         <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-gold animate-pulse"></span>
-            Showing <span className="text-brand-dark">{filteredMLAs.length}</span> of {initialMLAs.length} MLAs
+          <span className="w-1.5 h-1.5 rounded-full bg-brand-gold animate-pulse"></span>
+          Showing <span className="text-brand-dark">{filteredMLAs.length}</span> of {initialMLAs.length} MLAs
         </p>
         {(searchQuery || selectedParty !== "All Parties") && (
-          <button 
-            onClick={() => {setSearchQuery(""); setSelectedParty("All Parties");}}
+          <button
+            onClick={() => { setSearchQuery(""); setSelectedParty("All Parties"); }}
             className="text-[10px] font-black uppercase tracking-widest text-brand-gold hover:text-brand-dark transition-colors flex items-center gap-2 group"
           >
             <X size={14} className="group-hover:rotate-90 transition-transform" /> Reset Filters
@@ -103,7 +103,7 @@ export default function MLAListClient({ initialMLAs }: MLAListClientProps) {
                 filteredMLAs.map((mla) => (
                   <tr key={mla.constituency_id} className="hover:bg-slate-50/80 transition-colors group">
                     <td className="px-8 py-5">
-                      <Link 
+                      <Link
                         href={`/tn/constituency/${mla.constituency_id.replace("CONSTITUENCY#", "")}`}
                         className="text-sm font-bold text-brand-dark hover:text-brand-gold transition-colors inline-flex items-center group/link"
                       >
@@ -115,7 +115,7 @@ export default function MLAListClient({ initialMLAs }: MLAListClientProps) {
                     </td>
                     <td className="px-8 py-5">
                       {mla.person_id ? (
-                        <Link 
+                        <Link
                           href={`/tn/mla/${mla.person_id.replace("PERSON#", "")}`}
                           className="text-sm font-black text-slate-800 hover:text-brand-gold transition-colors block"
                         >
@@ -126,7 +126,7 @@ export default function MLAListClient({ initialMLAs }: MLAListClientProps) {
                       )}
                     </td>
                     <td className="px-8 py-5">
-                      <span 
+                      <span
                         className="text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-wider flex items-center gap-3 w-fit shadow-sm border whitespace-nowrap transition-all hover:scale-105 active:scale-95"
                         style={{
                           backgroundColor: mla.party_color_bg || '#f8fafc',
@@ -136,12 +136,12 @@ export default function MLAListClient({ initialMLAs }: MLAListClientProps) {
                       >
                         {mla.party_logo_url && (
                           <div className="relative w-8 h-8 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20 shadow-inner">
-                            <Image 
-                              src={mla.party_logo_url} 
-                              alt={mla.party} 
+                            <Image
+                              src={mla.party_logo_url}
+                              alt={mla.party}
                               width={24}
                               height={24}
-                              className="object-contain" 
+                              className="object-contain"
                             />
                           </div>
                         )}
@@ -149,7 +149,7 @@ export default function MLAListClient({ initialMLAs }: MLAListClientProps) {
                       </span>
                     </td>
                     <td className="px-8 py-5">
-                      <span className="text-xs font-bold text-slate-500 tabular-nums bg-slate-100/50 px-3 py-1 rounded-lg">
+                      <span className="text-xs font-bold text-slate-500 tabular-nums bg-slate-100/50 px-3 py-1 rounded-lg dark:bg-slate-900/10 dark:text-slate-900">
                         {mla.period}
                       </span>
                     </td>
@@ -166,8 +166,8 @@ export default function MLAListClient({ initialMLAs }: MLAListClientProps) {
                       <p className="text-xs font-bold text-slate-400 uppercase tracking-widest leading-relaxed">
                         We couldn't find any results for "{searchQuery}" in {selectedParty === "All Parties" ? "all parties" : selectedParty}.
                       </p>
-                      <button 
-                        onClick={() => {setSearchQuery(""); setSelectedParty("All Parties");}}
+                      <button
+                        onClick={() => { setSearchQuery(""); setSelectedParty("All Parties"); }}
                         className="mt-8 px-8 py-3 bg-brand-dark text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-full hover:bg-brand-gold transition-colors shadow-xl"
                       >
                         Clear all filters

@@ -38,11 +38,11 @@ export default function PartyHero({ party, analytics }: PartyHeroProps) {
               <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-gold/10 text-brand-gold text-[10px] font-black rounded-lg uppercase tracking-widest border border-brand-gold/20 mb-2">
                 Political Profile
               </div>
-              
-              <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-brand-dark dark:text-white tracking-tighter leading-[0.9]">
+
+              <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-brand-dark dark:text-brand-green tracking-tighter leading-[0.9]">
                 {party.name}
               </h1>
-              
+
               <div className="flex flex-wrap justify-center md:justify-start items-center gap-3">
                 <p className="text-slate-500 dark:text-slate-400 text-sm sm:text-lg font-medium leading-relaxed">
                   Historical performance and candidate intelligence for {party.name} across Tamil Nadu Assembly Elections.

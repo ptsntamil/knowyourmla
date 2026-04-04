@@ -46,8 +46,8 @@ export default function PartyElectionView({ partySlug, initialYear, years, isGlo
   const filteredAndSortedCandidates = useMemo(() => {
     let result = candidates.filter(c => {
       const matchesSearch = (c.candidate_name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-                            (c.constituency_id || "").toLowerCase().includes(searchTerm.toLowerCase());
-      
+        (c.constituency_id || "").toLowerCase().includes(searchTerm.toLowerCase());
+
       if (resultFilter === "winner") return matchesSearch && c.is_winner;
       if (resultFilter === "contestant") return matchesSearch && !c.is_winner;
       return matchesSearch;
@@ -75,54 +75,54 @@ export default function PartyElectionView({ partySlug, initialYear, years, isGlo
   return (
     <div id="candidates" className="space-y-10 sm:space-y-16">
       <div className="space-y-2">
-        <h2 className="text-3xl sm:text-5xl font-black text-brand-dark dark:text-slate-100 uppercase tracking-tighter">Candidate Directory</h2>
+        <h2 className="text-3xl sm:text-5xl font-black text-brand-dark dark:text-slate-900 uppercase tracking-tighter">Candidate Directory</h2>
         <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">
-            Exploring {filteredAndSortedCandidates.length} profiles {selectedYear ? `from the ${selectedYear} election` : "across all elections"}
+          Exploring {filteredAndSortedCandidates.length} profiles {selectedYear ? `from the ${selectedYear} election` : "across all elections"}
         </p>
       </div>
 
       <div className="space-y-6">
         <div className="sticky top-20 z-20 bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-md py-4 -mx-4 px-4 sm:mx-0 sm:px-0">
           <div className="flex flex-col lg:flex-row gap-4">
-             <div className="relative flex-1">
-                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-                <input
-                    type="text"
-                    placeholder="Search name or constituency..."
-                    className="w-full pl-11 pr-5 py-3.5 bg-white dark:bg-slate-800 rounded-2xl border border-border/50 focus:ring-2 focus:ring-brand-gold/20 outline-none text-xs font-bold uppercase tracking-wider"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                />
-             </div>
-             
-             <div className="flex gap-3 overflow-x-auto no-scrollbar">
-                <div className="relative group min-w-[140px]">
-                    <select 
-                        className="w-full bg-white dark:bg-slate-800 border border-border/50 rounded-2xl px-5 py-3.5 text-[10px] font-black uppercase tracking-widest outline-none appearance-none cursor-pointer"
-                        value={resultFilter}
-                        onChange={(e) => setResultFilter(e.target.value as any)}
-                    >
-                        <option value="all">All Results</option>
-                        <option value="winner">🏆 Winners</option>
-                        <option value="contestant">🗳️ Others</option>
-                    </select>
-                    <Filter className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={12} />
-                </div>
+            <div className="relative flex-1">
+              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+              <input
+                type="text"
+                placeholder="Search name or constituency..."
+                className="w-full pl-11 pr-5 py-3.5 bg-white dark:bg-slate-800 rounded-2xl border border-border/50 focus:ring-2 focus:ring-brand-gold/20 outline-none text-xs font-bold uppercase tracking-wider"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+            </div>
 
-                <div className="relative group min-w-[160px]">
-                    <select 
-                        className="w-full bg-white dark:bg-slate-800 border border-border/50 rounded-2xl px-5 py-3.5 text-[10px] font-black uppercase tracking-widest outline-none appearance-none cursor-pointer"
-                        value={sortBy}
-                        onChange={(e) => setSortBy(e.target.value as any)}
-                    >
-                        <option value="name">Sort by Name</option>
-                        <option value="assets-desc">💰 Highest Assets</option>
-                        <option value="cases-desc">⚖️ Most Cases</option>
-                        <option value="youngest">👶 Youngest</option>
-                    </select>
-                    <ArrowUpDown className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={12} />
-                </div>
-             </div>
+            <div className="flex gap-3 overflow-x-auto no-scrollbar">
+              <div className="relative group min-w-[140px]">
+                <select
+                  className="w-full bg-white dark:bg-slate-800 border border-border/50 rounded-2xl px-5 py-3.5 text-[10px] font-black uppercase tracking-widest outline-none appearance-none cursor-pointer"
+                  value={resultFilter}
+                  onChange={(e) => setResultFilter(e.target.value as any)}
+                >
+                  <option value="all">All Results</option>
+                  <option value="winner">🏆 Winners</option>
+                  <option value="contestant">🗳️ Others</option>
+                </select>
+                <Filter className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={12} />
+              </div>
+
+              <div className="relative group min-w-[160px]">
+                <select
+                  className="w-full bg-white dark:bg-slate-800 border border-border/50 rounded-2xl px-5 py-3.5 text-[10px] font-black uppercase tracking-widest outline-none appearance-none cursor-pointer"
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value as any)}
+                >
+                  <option value="name">Sort by Name</option>
+                  <option value="assets-desc">💰 Highest Assets</option>
+                  <option value="cases-desc">⚖️ Most Cases</option>
+                  <option value="youngest">👶 Youngest</option>
+                </select>
+                <ArrowUpDown className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={12} />
+              </div>
+            </div>
           </div>
         </div>
 
@@ -140,8 +140,8 @@ export default function PartyElectionView({ partySlug, initialYear, years, isGlo
 
             {filteredAndSortedCandidates.length === 0 && (
               <div className="col-span-full py-20 text-center space-y-4">
-                 <p className="text-slate-400 font-black uppercase tracking-widest text-sm italic">No matching candidates found</p>
-                 <button onClick={() => { setSearchTerm(""); setResultFilter("all"); setSortBy("name"); }} className="text-brand-gold font-black text-xs uppercase tracking-[0.2em] underline underline-offset-8">Reset View</button>
+                <p className="text-slate-400 font-black uppercase tracking-widest text-sm italic">No matching candidates found</p>
+                <button onClick={() => { setSearchTerm(""); setResultFilter("all"); setSortBy("name"); }} className="text-brand-gold font-black text-xs uppercase tracking-[0.2em] underline underline-offset-8">Reset View</button>
               </div>
             )}
           </div>
@@ -149,7 +149,7 @@ export default function PartyElectionView({ partySlug, initialYear, years, isGlo
 
         {hasMore && !loading && (
           <div className="pt-12 text-center">
-            <button 
+            <button
               onClick={() => setDisplayCount(prev => prev + 15)}
               className="px-12 py-4 bg-brand-dark dark:bg-slate-800 text-white dark:text-brand-gold rounded-2xl text-[10px] font-black uppercase tracking-[0.3em] hover:scale-105 transition-all shadow-xl"
             >
