@@ -9,6 +9,7 @@ import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import MLASnapshotCard from "@/components/constituency/MLASnapshotCard";
+import ConstituencyInsights from "@/components/constituency/ConstituencyInsights";
 
 export const dynamic = "force-dynamic";
 
@@ -123,6 +124,11 @@ export default async function ConstituencyPage({ params }: PageProps) {
             constituencyName={`${constituencyName} Constituency`}
           />
         )}
+
+        <ConstituencyInsights 
+          history={data.history}
+          stats={data.stats}
+        />
 
         {data.stats && data.stats.length > 0 && (
           <section>

@@ -2,6 +2,7 @@ import { PersonDetail, ElectionHistoryRecord } from "@/types/models";
 import { User, GraduationCap, Briefcase, AlertCircle, Coins, Car, MapPin } from "lucide-react";
 import ProfileImage from "./ProfileImage";
 import ShareButton from "./ShareButton";
+import Badge from "./ui/Badge";
 
 interface MLAHeaderProps {
    person: PersonDetail;
@@ -182,7 +183,8 @@ export default function MLAHeader({
                </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4 hover:shadow-md hover:scale-[1.02] transition-all duration-200 group">
+            <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4 hover:shadow-md hover:scale-[1.02] transition-all duration-200 group relative">
+               <Badge variant="brand" size="xs" className="absolute top-2 right-4">Beta</Badge>
                <div className="p-3 bg-emerald-500/10 text-emerald-500 rounded-2xl flex-shrink-0 group-hover:bg-emerald-500/20 transition-colors">
                   <MapPin size={24} />
                </div>
