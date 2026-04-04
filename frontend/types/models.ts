@@ -51,6 +51,13 @@ export interface WinnerHistoryRecord {
   slug?: string;
   district_name?: string;
   district_id?: string;
+  education?: string;
+  profession?: string;
+  total_assets?: number;
+  criminal_cases?: number;
+  total_contested?: number;
+  total_wins?: number;
+  win_rate?: number;
 }
 
 export interface ConstituencyStatYear {
