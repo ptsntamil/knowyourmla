@@ -10,6 +10,8 @@ import FAQSection from "@/components/seo/FAQSection";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ItemListSchema from "@/components/seo/ItemListSchema";
 import InternalLinks from "@/components/seo/InternalLinks";
+import SectionHeader from "@/components/ui/SectionHeader";
+import Badge from "@/components/ui/Badge";
 
 export const revalidate = 3600;
 
@@ -79,18 +81,16 @@ export default async function MLAListPage() {
           intro="This page provides the complete Tamil Nadu MLA list with constituency, district, party, profile details, and candidate information. View the Tamil Nadu MLA list with photos, constituency details, and party information available on KnowYourMLA."
         />
 
-        <div className="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6">
-            <div>
-                <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Elected Members</h2>
-                <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Displaying all 234 current MLAs by constituency</p>
-            </div>
-            <div className="hidden md:block">
-                <span className="text-[10px] bg-brand-dark text-white font-black px-6 py-3 rounded-full uppercase tracking-[0.2em] border border-white/10 shadow-2xl flex items-center gap-3">
-                    <span className="w-2 h-2 rounded-full bg-brand-gold animate-pulse"></span>
-                    {mlas.length} Active MLAs
-                </span>
-            </div>
-        </div>
+        <SectionHeader 
+          title="Elected Members" 
+          subtitle="Displaying all 234 current MLAs by constituency"
+          badge={
+            <Badge variant="brand" size="md" dot>
+              {mlas.length} Active MLAs
+            </Badge>
+          }
+          className="mb-12"
+        />
 
         <MLAListClient initialMLAs={mlas} />
 
