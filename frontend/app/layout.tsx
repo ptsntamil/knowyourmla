@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import NoteBanner from "@/components/layout/NoteBanner";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -54,15 +55,9 @@ export default function RootLayout({
       <body className={`${inter.className} bg-slate-50 dark:bg-slate-950 min-h-screen text-slate-900 dark:text-slate-100 flex flex-col`}>
         <Navbar />
 
-        <div className="bg-brand-gold/15 dark:bg-brand-gold/10 border-b border-brand-gold/30 dark:border-brand-gold/20 py-3 px-4 shadow-sm transition-colors">
-          <div className="max-w-7xl mx-auto flex items-center gap-3 text-sm text-yellow-900 dark:text-brand-light-gold font-semibold">
-            <span className="flex-shrink-0 bg-brand-gold text-white px-2 py-1 rounded-md text-[10px] font-black uppercase tracking-wider shadow-sm">Note</span>
-            <p className="leading-relaxed">
-              This site currently contains data for only the last 2 elections and may have some issues as we are still updating it.
-              More election data will be added in the coming weeks.
-            </p>
-          </div>
-        </div>
+        <NoteBanner 
+          message="This site currently contains data for only the last 2 elections and may have some issues as we are still updating it. More election data will be added in the coming weeks." 
+        />
 
         <div className="flex-grow">
           {children}
