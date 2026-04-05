@@ -5,6 +5,8 @@ import {
   MLAProfileResponse,
   MLAListResponse,
   DistrictDetailResponse,
+  DistrictInsights,
+  DistrictInsightsResponse,
   PartyObj
 } from "@/types/models";
 
@@ -48,6 +50,20 @@ export async function fetchDistrictDetails(districtId: string): Promise<District
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch district details: ${res.status} ${res.statusText} - ${errorBody}`);
+  }
+  return res.json();
+}
+
+export async function fetchDistrictInsights(districtId: string): Promise<DistrictInsightsResponse> {
+  if (isServer && USE_V2_API) {
+    const { DistrictService } = await import("@/lib/services/district.service");
+    const service = new DistrictService();
+    return service.getDistrictInsights(districtId);
+  }
+  const res = await fetch(`${BASE_URL}/districts/${encodeURIComponent(districtId)}/insights`, { next: { revalidate: 3600 } });
+  if (!res.ok) {
+    const errorBody = await res.text().catch(() => "No error body");
+    throw new Error(`Failed to fetch district insights: ${res.status} ${res.statusText} - ${errorBody}`);
   }
   return res.json();
 }
