@@ -1,29 +1,51 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme {
-  --color-brand-dark: #16232E;
-  --color-brand-green: #164C45;
-  --color-brand-gold: #CC8D1A;
-  --color-brand-light-gold: #E3C75F;
-  --color-brand-yellow: #BDA523;
-  --color-page-bg: #F5EEDC;
-}
-
-:root {
   --background: #F5EEDC;
   --foreground: #16232E;
+  --border: #E2E8F0;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #16232E;
     --foreground: #F5EEDC;
+    --border: #1E293B;
   }
+}
+
+@theme {
+  --color-brand-dark: #16232E;
+  --color-brand-green: #164C45;
+  --color-brand-green-50: #f1f8f7;
+  --color-brand-green-100: #dfedeb;
+  --color-brand-green-200: #c0dbd7;
+  --color-brand-green-300: #a1c8c3;
+  --color-brand-green-400: #62a39b;
+  --color-brand-green-500: #237e72;
+  --color-brand-green-600: #1d695f;
+  --color-brand-green-700: #164c45;
+  --color-brand-green-800: #113c37;
+  --color-brand-green-900: #0d2e2a;
+  --color-brand-green-950: #071917;
+
+  --color-brand-gold: #CC8D1A;
+  --color-brand-gold-50: #fef8ec;
+  --color-brand-gold-100: #fdf1d9;
+  --color-brand-gold-200: #fbe3b3;
+  --color-brand-gold-300: #f9d58d;
+  --color-brand-gold-400: #f5ba41;
+  --color-brand-gold-500: #cc8d1a;
+  --color-brand-gold-600: #b87f17;
+  --color-brand-gold-700: #9a6a13;
+  --color-brand-gold-800: #7b5510;
+  --color-brand-gold-900: #65460d;
+  --color-brand-gold-950: #3b2808;
+
+  --color-brand-light-gold: #E3C75F;
+  --color-brand-yellow: #BDA523;
+  --color-page-bg: #F5EEDC;
+  --color-border: var(--border);
 }
 
 body {

@@ -6,7 +6,7 @@ The project uses **four DynamoDB tables** across two logical layers:
 
 | Layer | Table | Purpose |
 |---|---|---|
-| Legacy / Raw | `tn_political_data` | Original single-table — winners + constituency history |
+<!-- | Legacy / Raw | `tn_political_data` | Original single-table — winners + constituency history | -->
 | Enrichment | `knowyourmla_constituencies` | Master constituency registry |
 | Enrichment | `knowyourmla_persons` | Unique person identity |
 | Enrichment | `knowyourmla_candidates` | Full affidavit data per candidate per election year |
@@ -18,7 +18,7 @@ All tables share a `PK` / `SK` composite primary key convention.
 
 ---
 
-## Table 1 — `tn_political_data` (Legacy Single Table)
+<!-- ## Table 1 — `tn_political_data` (Legacy Single Table)
 
 Stores constituency metadata, year-level stats, and election winners scraped from the raw source.
 
@@ -88,7 +88,7 @@ Stores constituency metadata, year-level stats, and election winners scraped fro
 | GSI2 | `YEAR#{year}` | `CONSTITUENCY#{normalized_name}` | All constituencies for a year |
 | GSI3 | `CONSTITUENCY#{normalized_name}` | `YEAR#{year}` | Constituency timeline |
 
----
+--- -->
 
 ## Table 2 — `knowyourmla_constituencies`
 
@@ -259,6 +259,7 @@ Full affidavit details for every candidate (winner and loser) in every election 
 | `winning_margin` | Number | Margin of victory in votes (for winners) |
 | `margin_percentage` | Number | Margin of victory as percentage (for winners) |
 | `gold_assets` | Map | Categorized gold details (self, spouse, dependents) |
+| `silver_assets` | Map | Categorized silver details (self, spouse, dependents) |
 | `vehicle_assets` | Map | Categorized vehicle details (self, spouse, dependents) |
 | `land_assets` | Map | Categorized land details (self, spouse, dependents) including `entries`, `total`, and `full_text` |
 | `createdtime` | String | ISO 8601 formatted creation timestamp |
@@ -296,6 +297,13 @@ Full affidavit details for every candidate (winner and loser) in every election 
       "gold": "40 Gram",
       "value": "172000",
       "raw_text": "40 Gram Gold\n1,72,000"
+    }
+  },
+  "silver_assets": {
+    "self": {
+      "silver": "2 KG",
+      "value": "130000",
+      "raw_text": "2 KG Silver\n1,30,000"
     }
   },
   "vehicle_assets": {
@@ -346,8 +354,8 @@ Full affidavit details for every candidate (winner and loser) in every election 
 | Requirement | Table | Query |
 |---|---|---|
 | Get constituency profile | `knowyourmla_constituencies` | `PK = CONSTITUENCY#kolathur` + `SK = METADATA` |
-| Get winner for a year | `tn_political_data` | `PK = CONSTITUENCY#kolathur` + `SK = YEAR#2021#WINNER` |
-| Get all winners in a year | `tn_political_data` | GSI2: `YEAR#2021` |
+<!-- | Get winner for a year | `tn_political_data` | `PK = CONSTITUENCY#kolathur` + `SK = YEAR#2021#WINNER` | -->
+<!-- | Get all winners in a year | `tn_political_data` | GSI2: `YEAR#2021` | -->
 | Get person by voter data | `knowyourmla_persons` | `PK = PERSON#{md5_hash}` + `SK = METADATA` |
 | Get person by multi-factor identity | `knowyourmla_persons` | NameIndex: `normalized_name` -> match on relation + birth year |
 | Get person by name | `knowyourmla_persons` | NameIndex: `normalized_name = mkstalin` |

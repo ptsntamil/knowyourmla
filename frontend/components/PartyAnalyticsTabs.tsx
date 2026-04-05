@@ -44,7 +44,7 @@ export default function PartyAnalyticsTabs({ analytics, isYearView }: PartyAnaly
       case "assets":
         return (
           <div className="space-y-8 animate-in fade-in duration-500">
-             <PartyFinancialInsights data={analytics.assets} />
+            <PartyFinancialInsights data={analytics.assets} />
           </div>
         );
       case "criminal":
@@ -82,12 +82,12 @@ export default function PartyAnalyticsTabs({ analytics, isYearView }: PartyAnaly
 
   return (
     <div id="analytics" className="space-y-8">
-       <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4">
         <div className="p-3 bg-brand-dark dark:bg-slate-800 text-brand-gold rounded-2xl shrink-0">
           <Info size={20} />
         </div>
         <div>
-          <h3 className="text-xl sm:text-2xl font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight">Candidate Analytics</h3>
+          <h3 className="text-xl sm:text-2xl font-black text-brand-dark dark:text-slate-900 uppercase tracking-tight">Candidate Analytics</h3>
           <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest">Detailed profile breakdowns</p>
         </div>
       </div>
@@ -101,10 +101,9 @@ export default function PartyAnalyticsTabs({ analytics, isYearView }: PartyAnaly
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
                 className={`flex items-center gap-2 px-6 py-3.5 rounded-2xl text-[10px] font-black uppercase tracking-widest transition-all whitespace-nowrap shadow-sm border
-                  ${
-                    activeTab === tab.id
-                      ? "bg-brand-dark dark:bg-brand-gold text-white dark:text-brand-dark border-brand-dark dark:border-brand-gold"
-                      : "bg-white dark:bg-slate-900 text-slate-500 border-border/50 hover:border-brand-gold/30"
+                  ${activeTab === tab.id
+                    ? "bg-brand-dark dark:bg-brand-gold text-white dark:text-brand-dark border-brand-dark dark:border-brand-gold"
+                    : "bg-white dark:bg-slate-900 text-slate-500 border-border/50 hover:border-brand-gold/30"
                   }`}
               >
                 <Icon size={14} />

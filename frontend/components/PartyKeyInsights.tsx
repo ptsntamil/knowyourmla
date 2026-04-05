@@ -18,6 +18,7 @@ export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
       icon: <UserPlus className="w-5 h-5" />,
       color: "text-indigo-600",
       bg: "bg-indigo-500/5",
+      darkBg: "bg-indigo-900/10"
     },
     {
       label: "Highest Assets",
@@ -27,6 +28,7 @@ export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
       icon: <TrendingUp className="w-5 h-5" />,
       color: "text-emerald-600",
       bg: "bg-emerald-500/5",
+      darkBg: "bg-emerald-900/10"
     },
     {
       label: "Women Rep.",
@@ -35,6 +37,7 @@ export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
       icon: <Users className="w-5 h-5" />,
       color: "text-pink-600",
       bg: "bg-pink-500/5",
+      darkBg: "bg-pink-900/10"
     },
     {
       label: "Criminal Cases",
@@ -44,6 +47,7 @@ export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
       icon: <Shield className="w-5 h-5" />,
       color: "text-rose-600",
       bg: "bg-rose-500/5",
+      darkBg: "bg-rose-900/10"
     },
     {
       label: "Graduates",
@@ -52,6 +56,7 @@ export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
       icon: <GraduationCap className="w-5 h-5" />,
       color: "text-blue-600",
       bg: "bg-blue-500/5",
+      darkBg: "bg-blue-900/10"
     },
     {
       label: "New Faces",
@@ -60,6 +65,7 @@ export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
       icon: <UserPlus className="w-5 h-5" />,
       color: "text-teal-600",
       bg: "bg-teal-500/5",
+      darkBg: "bg-teal-900/10"
     },
   ];
 
@@ -70,7 +76,7 @@ export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
           <Award size={20} />
         </div>
         <div>
-          <h3 className="text-xl sm:text-2xl font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight">Key Insights</h3>
+          <h3 className="text-xl sm:text-2xl font-black text-brand-dark dark:color-brand-green uppercase tracking-tight">Key Insights</h3>
           <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-widest">High-value candidate intelligence</p>
         </div>
       </div>
@@ -79,7 +85,7 @@ export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
         {insights.map((insight: any, idx) => (
           <div
             key={idx}
-            className={`flex flex-col p-5 sm:p-6 rounded-2xl border border-border/50 group transition-all hover:shadow-lg ${insight.bg}`}
+            className={`flex flex-col p-5 sm:p-6 rounded-2xl border border-border/50 group transition-all hover:shadow-lg ${insight.bg} ${insight.darkBg}`}
           >
             <div className={`p-2 rounded-xl w-fit mb-4 ${insight.color} bg-white dark:bg-slate-900 shadow-sm`}>
               {insight.icon}
@@ -89,14 +95,14 @@ export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
                 {insight.label}
               </p>
               {insight.id ? (
-                <Link 
+                <Link
                   href={`/tn/mla/${insight.id}`}
-                  className="text-sm sm:text-base font-black text-brand-dark dark:text-slate-100 uppercase tracking-tight truncate block hover:text-brand-gold transition-colors"
+                  className="text-sm sm:text-base font-black text-brand-dark dark:text-slate-900 uppercase tracking-tight truncate block hover:text-brand-gold transition-colors"
                 >
                   {insight.value}
                 </Link>
               ) : (
-                <p className="text-sm sm:text-base font-black text-brand-dark dark:text-slate-100 uppercase tracking-tight truncate">
+                <p className="text-sm sm:text-base font-black text-brand-dark dark:text-slate-900 uppercase tracking-tight truncate">
                   {insight.value}
                 </p>
               )}

@@ -96,11 +96,11 @@ export default function AssetSummaryWidget({ goldAssets, vehicleAssets, landAsse
                             <MapPin className="w-8 h-8 text-blue-500" />
                         </div>
                         <div className="flex items-baseline gap-2">
-                             <div className="flex flex-col items-center">
+                            <div className="flex flex-col items-center">
                                 <span className="text-4xl font-black text-brand-dark tracking-tighter tabular-nums">{totalAcres}</span>
                                 <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Acres</span>
-                             </div>
-                             {totalCents > 0 && (
+                            </div>
+                            {totalCents > 0 && (
                                 <>
                                     <span className="text-2xl font-black text-slate-200">/</span>
                                     <div className="flex flex-col items-center">
@@ -108,7 +108,7 @@ export default function AssetSummaryWidget({ goldAssets, vehicleAssets, landAsse
                                         <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Cents</span>
                                     </div>
                                 </>
-                             )}
+                            )}
                         </div>
                         <p className="text-[11px] text-slate-500 font-bold uppercase tracking-widest mt-6 opacity-60">Immovable Land Area</p>
                     </div>

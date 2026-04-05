@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { ElectionHistoryRecord } from "@/types/models";
+import { getPartySlug } from "@/lib/utils/party-utils";
 
 interface HistoryTableProps {
   history: ElectionHistoryRecord[];
@@ -23,8 +25,9 @@ export default function HistoryTable({ history }: HistoryTableProps) {
               <td className="px-6 py-4 font-black text-brand-dark text-lg">{record.year}</td>
               <td className="px-6 py-4 text-slate-600 font-medium capitalize">{record.constituency.toLowerCase()}</td>
               <td className="px-6 py-4">
-                <span 
-                  className="px-3 py-1.5 text-[10px] font-black rounded-full uppercase tracking-wider flex items-center gap-2.5 w-fit border shadow-sm transition-colors"
+                <Link 
+                  href={`/parties/${getPartySlug(record.party)}`}
+                  className="px-3 py-1.5 text-[10px] font-black rounded-full uppercase tracking-wider flex items-center gap-2.5 w-fit border shadow-sm transition-all hover:scale-105 active:scale-95"
                   style={{
                     backgroundColor: record.party_color_bg || '#f8fafc',
                     color: record.party_color_text || '#1e293b',
@@ -37,7 +40,7 @@ export default function HistoryTable({ history }: HistoryTableProps) {
                     </div>
                   )}
                   {record.party}
-                </span>
+                </Link>
               </td>
               <td className="px-6 py-4">
                 <span className={`px-4 py-1.5 text-[10px] font-black rounded-lg uppercase tracking-widest ${record.winner

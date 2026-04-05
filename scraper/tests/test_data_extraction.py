@@ -70,7 +70,16 @@ def parse_test_data(file_path):
                     "year": "year",
                     "voter constituency": "voter_constituency",
                     "serial no": "voter_serial_no",
-                    "part no": "voter_part_no"
+                    "part no": "voter_part_no",
+                    "election type": "election_type",
+                    "candidacy_type": "candidacy_type",
+                    "winner": "is_winner",
+                    "profile_pic": "profile_pic",
+                    "education": "education",
+                    "income_itr": "income_itr",
+                    "election_expenses": "election_expenses",
+                    "vehicle_assets": "vehicle_assets",
+                    "gold_assets": "gold_assets"
                 }
                 
                 if key in key_map:
@@ -79,7 +88,7 @@ def parse_test_data(file_path):
                     if mapped_key == "constituency" and "constituency" in data["expected"]:
                         mapped_key = "voter_constituency"
                     
-                    if mapped_key in ["total_assets", "total_liabilities"]:
+                    if mapped_key in ["total_assets", "total_liabilities", "income_itr", "election_expenses"]:
                         # Match Rs pattern to ignore descriptive text like ~2 Crore+
                         v_match = re.search(r'Rs\s*([\d,]+)', value, re.I)
                         if v_match:
@@ -93,6 +102,8 @@ def parse_test_data(file_path):
                         data["expected"][mapped_key] = int(val_match.group(1)) if val_match else 0
                     elif mapped_key == "age":
                         data["expected"][mapped_key] = int(value)
+                    elif mapped_key == "is_winner":
+                        data["expected"][mapped_key] = value.lower() == "true"
                     else:
                         data["expected"][mapped_key] = value
         
@@ -179,22 +190,41 @@ def test_candidate_extraction(test_case):
         validator.assert_constituency_match(extracted.get("voter_constituency"), expected.get("voter_constituency"))
     
     # 4. Numeric fields
-    for field in ["age", "total_assets", "total_liabilities", "criminal_cases"]:
+    for field in ["age", "total_assets", "total_liabilities", "criminal_cases", "income_itr", "election_expenses"]:
         if field in expected:
             assert extracted.get(field) == expected[field], f"Mismatch in {field}: {extracted.get(field)} != {expected[field]}"
             
     # 5. Strings (Exact match where feasible)
-    for field in ["voter_serial_no", "voter_part_no"]:
+    for field in ["voter_serial_no", "voter_part_no", "profile_pic", "election_type", "candidacy_type"]:
         if field in expected:
             assert str(extracted.get(field)) == str(expected[field]), f"Mismatch in {field}: {extracted.get(field)} != {expected[field]}"
 
-    # 6. ITR History
+    # 6. Detailed Assets (Vehicle Count / Gold Grams)
+    if "vehicle_assets" in expected:
+        count_match = re.search(r'count\s*=\s*(\d+)', expected["vehicle_assets"])
+        if count_match:
+            expected_count = int(count_match.group(1))
+            ext_vehicles = extracted.get("vehicle_assets", {})
+            actual_count = sum(len(vlist) for vlist in ext_vehicles.values() if isinstance(vlist, list))
+            assert actual_count == expected_count, f"Mismatch in vehicle count: {actual_count} != {expected_count}"
+
+    if "gold_assets" in expected:
+        grams_match = re.search(r'total grms\s*=\s*([\d.]+)', expected["gold_assets"])
+        if grams_match:
+            expected_grams = float(grams_match.group(1))
+            ext_gold = extracted.get("gold_assets", {})
+            actual_grams = 0.0
+            for key in ["self", "spouse", "dep1"]:
+                if key in ext_gold and "gold" in ext_gold[key]:
+                    actual_grams += float(ext_gold[key]["gold"].replace(',', ''))
+            assert abs(actual_grams - expected_grams) < 1.0, f"Mismatch in gold grams: {actual_grams} != {expected_grams}"
+
+    # 7. ITR History
     if expected_itr:
         ext_itr = extracted.get("itr_history", {})
         for rel, history in expected_itr.items():
             assert rel in ext_itr, f"Relationship '{rel}' missing from extracted ITR history"
             for year, amount in history.items():
-                # We use normalize_name on years/keys if needed, but here simple range match
                 # Some expected ranges might have extra spaces: "2019 - 2020" vs "2019-2020"
                 norm_year = year.replace(" ", "")
                 found = False
@@ -205,8 +235,7 @@ def test_candidate_extraction(test_case):
                         break
                 assert found, f"ITR year {year} not found for {rel} in extracted data: {ext_itr[rel]}"
 
-    # 7. Coverage Check (User request: make sure the test function covers all the data)
-    # Check that keys exist even if not in expected test data
+    # 8. Coverage Check
     mandatory_keys = [
         "profile_pic", "profession", "education", "income_itr", 
         "election_expenses", "constituency_myneta_id", "candidacy_type"
@@ -214,8 +243,13 @@ def test_candidate_extraction(test_case):
     for key in mandatory_keys:
         assert key in extracted, f"Key '{key}' missing from extracted dictionary"
 
-    # Specific check for education and profession if not in test data
-    if "education" not in expected:
+    # Specific check for education and profession
+    if "education" in expected:
+        assert normalize_name(expected["education"]) in normalize_name(extracted.get("education")), f"Mismatch in education: {extracted.get('education')} vs {expected['education']}"
+    else:
         assert extracted.get("education") not in [None, ""], f"Education should not be None/Empty"
-    if "profession" not in expected:
+
+    if "profession" in expected:
+        assert normalize_name(expected["profession"]) in normalize_name(extracted.get("profession")), f"Mismatch in profession: {extracted.get('profession')} vs {expected['profession']}"
+    else:
         assert extracted.get("profession") not in [None, ""], f"Profession should not be None/Empty"

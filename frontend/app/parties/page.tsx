@@ -40,30 +40,30 @@ export default async function PartiesPage() {
 
   return (
     <div className="min-h-screen bg-page-bg">
-      <BreadcrumbSchema 
+      <BreadcrumbSchema
         items={[
           commonBreadcrumbs.home,
           { name: "Parties", item: "/parties" }
-        ]} 
+        ]}
       />
-      <ItemListSchema 
+      <ItemListSchema
         items={parties.slice(0, 10).map((party: any, index: number) => ({
           name: party.name,
           url: `/parties/${party.slug || party.short_name.toLowerCase()}`,
           position: index + 1
-        }))} 
+        }))}
       />
 
-      <SEOHeader 
+      <SEOHeader
         title="Political Parties in Tamil Nadu"
         subtitle="Explore party-wise election history, candidates, performance, and analytics across Tamil Nadu Assembly elections."
       />
 
       <main className="max-w-7xl mx-auto px-4 py-16 space-y-16">
-        <SEOIntro 
+        {/* <SEOIntro 
           h1="Political Parties in Tamil Nadu"
           intro="Explore the complete list of political parties in Tamil Nadu, including their historical performance, current MLAs, and candidate details across various assembly elections."
-        />
+        /> */}
 
         <PartyFilters initialParties={parties} />
 
