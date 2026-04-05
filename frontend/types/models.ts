@@ -110,6 +110,7 @@ export interface WinnerHistoryRecord {
   total_contested?: number;
   total_wins?: number;
   win_rate?: number;
+  age?: number;
 }
 
 export interface ConstituencyStatYear {
@@ -152,6 +153,7 @@ export interface ElectionHistoryRecord {
   district_name?: string;
   margin?: number | null;
   margin_percent?: number | null;
+  assets?: string | number;
 }
 
 export interface WinRate {

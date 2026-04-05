@@ -5,9 +5,10 @@ import Card from "@/components/ui/Card";
 
 interface DistrictInsightsProps {
   insights: DistrictInsightsType;
+  mlas: DistrictMLA[];
 }
 
-export default function DistrictInsights({ insights }: DistrictInsightsProps) {
+export default function DistrictInsights({ insights, mlas }: DistrictInsightsProps) {
   if (!insights) return null;
 
   const {
@@ -20,6 +21,10 @@ export default function DistrictInsights({ insights }: DistrictInsightsProps) {
     educationSummary,
     fresherVsRepeat
   } = insights;
+
+  const dominantPartyMeta = dominantParty 
+    ? mlas.find(m => m.party === dominantParty.party) || mlas.find(m => m.partyShort === dominantParty.party)
+    : null;
 
   const statCards = [
     {
@@ -36,7 +41,8 @@ export default function DistrictInsights({ insights }: DistrictInsightsProps) {
       helper: dominantParty ? `${dominantParty.seats} / ${dominantParty.totalSeats} seats` : "No majority",
       icon: Shield,
       color: "text-brand-gold",
-      bg: "bg-brand-gold/10"
+      bg: "bg-brand-gold/10",
+      partyMeta: dominantPartyMeta
     },
     {
       label: "Gender Split",
@@ -60,15 +66,38 @@ export default function DistrictInsights({ insights }: DistrictInsightsProps) {
     <div className="space-y-8">
       {/* Metrics Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {statCards.map((card) => (
+        {statCards.map((card: any) => (
           <div key={card.label} className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-4">
             <div className={`w-10 h-10 rounded-xl ${card.bg} ${card.color} flex items-center justify-center`}>
               <card.icon size={20} />
             </div>
             <div>
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{card.label}</p>
-              <h4 className="text-xl font-black text-brand-dark tracking-tight leading-tight">{card.value}</h4>
-              <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-2">{card.helper}</p>
+              {card.label === "Dominant Party" && card.partyMeta ? (
+                <div className="space-y-3">
+                  <div 
+                    className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-wider shadow-sm"
+                    style={{ 
+                      backgroundColor: card.partyMeta.partyColor || '#f8fafc',
+                      color: card.partyMeta.partyColorText || '#1e293b',
+                      borderColor: card.partyMeta.partyColorBorder || '#e2e8f0'
+                    }}
+                  >
+                    {card.partyMeta.partyLogoUrl && (
+                      <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center overflow-hidden border border-white/20">
+                        <img src={card.partyMeta.partyLogoUrl} alt={card.partyMeta.partyShort} className="w-3 h-3 object-contain" />
+                      </div>
+                    )}
+                    {card.partyMeta.partyShort}
+                  </div>
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider">{card.helper}</p>
+                </div>
+              ) : (
+                <>
+                  <h4 className="text-xl font-black text-brand-dark tracking-tight leading-tight">{card.value}</h4>
+                  <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-2">{card.helper}</p>
+                </>
+              )}
             </div>
           </div>
         ))}
@@ -128,12 +157,14 @@ function MLASmCard({ title, mla, icon: Icon, color, isRichest = false }: { title
         </div>
       </div>
       <div>
-        <h4 className="text-lg font-black text-brand-dark tracking-tight leading-tight mb-1">{mla.name}</h4>
+        <Link href={`/tn/mla/${mla.slug}`} className="block group">
+          <h4 className="text-lg font-black text-brand-dark group-hover:text-brand-gold transition-colors tracking-tight leading-tight mb-1">{mla.name}</h4>
+        </Link>
         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
           {isRichest ? mla.formattedAssets : `${mla.age} yrs`} <span className="mx-1 text-slate-200">·</span> {mla.constituency}
         </p>
       </div>
-      <div className="pt-3 border-t border-slate-50 flex items-center justify-between">
+      <div className="pt-3 border-t border-slate-50 flex items-center">
         <div 
           className="px-3 py-1.5 text-[9px] font-black rounded-full uppercase tracking-wider border flex items-center gap-2 shadow-sm"
           style={{ 
@@ -149,12 +180,6 @@ function MLASmCard({ title, mla, icon: Icon, color, isRichest = false }: { title
           )}
           {mla.partyShort}
         </div>
-        <Link 
-          href={`/tn/mla/${mla.slug}`}
-          className="text-[9px] font-black text-brand-gold uppercase tracking-[0.2em] hover:text-brand-green transition-colors"
-        >
-          View Profile →
-        </Link>
       </div>
     </div>
   );

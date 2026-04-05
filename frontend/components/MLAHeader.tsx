@@ -103,6 +103,11 @@ export default function MLAHeader({
                         <span className="px-5 py-2 bg-white/10 text-white text-[10px] font-black rounded-full uppercase tracking-widest border border-white/10">
                            {latestHistory?.constituency} Constituency
                         </span>
+                        {person.age && (
+                           <span className="px-5 py-2 bg-white/10 text-white text-[10px] font-black rounded-full uppercase tracking-widest border border-white/10">
+                              {person.age} Years Old
+                           </span>
+                        )}
                         <ShareButton
                            title={`${person.name} ${personalTitle} Profile`}
                            text={`Check out ${person.name}'s ${personalTitle} profile on KnowYourMLA.`}
