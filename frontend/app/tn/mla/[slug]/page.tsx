@@ -42,7 +42,6 @@ export async function generateMetadata({ params }: PageProps) {
       title: `${name} ${titleSuffix} | Assets, Income, Criminal Cases`,
       description: seoDescription,
       path: `/tn/mla/${slug}`,
-      image: profile.person.image_url,
       keywords: [`${name}`, `${constituency} ${isCurrent ? 'MLA' : 'Candidate'}`, `${party}`, "Tamil Nadu Politics", "MLA Assets", "Criminal Cases"]
     });
   } catch (error) {

@@ -84,6 +84,7 @@ export interface PersonDetail {
   image_url?: string;
   education?: string;
   profession?: string;
+  age?: number;
 }
 
 export interface ElectionHistoryRecord {
