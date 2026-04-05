@@ -1,7 +1,10 @@
 import Link from "next/link";
-import { fetchConstituencies, fetchDistrictDetails } from "@/services/api";
+import { fetchConstituencies, fetchDistrictDetails, fetchDistrictInsights } from "@/services/api";
 import ConstituencyList from "@/components/ConstituencyList";
 import CoverImage from "@/components/CoverImage";
+import DistrictInsights from "@/components/district/DistrictInsights";
+import DistrictElectorate from "@/components/district/DistrictElectorate";
+import SectionHeader from "@/components/ui/SectionHeader";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import SEOIntro from "@/components/seo/SEOIntro";
@@ -40,10 +43,13 @@ export default async function DistrictPage({ params }: PageProps) {
   const districtId = `DISTRICT#${normalizedSlug}`;
   const districtNameDisplay = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
 
-  const [constituencies, districtDetails] = await Promise.all([
+  const [constituencies, districtDetails, insightsResponse] = await Promise.all([
     fetchConstituencies(districtId),
-    fetchDistrictDetails(districtId)
+    fetchDistrictDetails(districtId),
+    fetchDistrictInsights(districtId)
   ]);
+
+  const { insights, mlas } = insightsResponse;
 
   const latestStats = districtDetails.stats && districtDetails.stats.length > 0 ? districtDetails.stats[0] : null;
 
@@ -112,79 +118,41 @@ export default async function DistrictPage({ params }: PageProps) {
           answer={`${districtNameDisplay} district has ${constituencies.length} Assembly constituencies in Tamil Nadu, and each constituency elects one MLA. ${latestStats ? `The total electorate in the district is ${latestStats.total_electors.toLocaleString()} voters based on the ${latestStats.year} data.` : ''}`}
         />
 
-        <div className="grid lg:grid-cols-3 gap-12 items-start">
-          <div className="lg:col-span-2 space-y-12">
-            <div>
-              <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Constituencies</h2>
-              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Legislative segments within {slug} district</p>
+        {/* District Insights & Electorate Section */}
+        <section className="space-y-12">
+          <SectionHeader 
+            title="District Insights"
+            subtitle="Quick political and representative insights from the current MLAs and electorate of this district."
+          />
+          <div className="grid lg:grid-cols-10 gap-12 items-start">
+            <div className="lg:col-span-7">
+              <DistrictInsights insights={insights} mlas={mlas} />
             </div>
-            <ConstituencyList constituencies={constituencies} />
+            <div className="lg:col-span-3 h-full">
+              {latestStats && (latestStats.male !== undefined || latestStats.total_electors > 0) ? (
+                <DistrictElectorate 
+                  year={latestStats.year}
+                  total_electors={latestStats.total_electors}
+                  male={latestStats.male}
+                  female={latestStats.female}
+                  third_gender={latestStats.third_gender}
+                />
+              ) : (
+                <div className="bg-white rounded-[3rem] border border-slate-100 p-10 flex flex-col items-center justify-center text-center opacity-50 h-full">
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Electorate data unavailable</p>
+                </div>
+              )}
+            </div>
           </div>
+        </section>
 
-          {latestStats && (latestStats.male !== undefined || latestStats.total_electors > 0) && (
-            <div className="lg:col-span-1 bg-white rounded-[3rem] border border-slate-100 overflow-hidden shadow-sm p-10 space-y-10 lg:sticky lg:top-8">
-              <div className="space-y-2">
-                <h3 className="font-black text-brand-dark uppercase tracking-widest text-sm">District Electorate</h3>
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Aggregated Data ({latestStats.year})</p>
-              </div>
-
-              <div className="space-y-8">
-                <div className="space-y-3">
-                  <div className="flex justify-between items-end">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Male</span>
-                    <span className="text-sm font-black text-brand-dark" suppressHydrationWarning>{latestStats.male?.toLocaleString()}</span>
-                  </div>
-                  <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-brand-dark rounded-full transition-all duration-1000 ease-out"
-                      style={{ width: `${((latestStats.male || 0) / latestStats.total_electors) * 100}%` }}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-3">
-                  <div className="flex justify-between items-end">
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Female</span>
-                    <span className="text-sm font-black text-brand-dark" suppressHydrationWarning>{latestStats.female?.toLocaleString()}</span>
-                  </div>
-                  <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
-                    <div
-                      className="h-full bg-brand-gold rounded-full transition-all duration-1000 ease-out"
-                      style={{ width: `${((latestStats.female || 0) / latestStats.total_electors) * 100}%` }}
-                    />
-                  </div>
-                </div>
-
-                {latestStats.third_gender !== undefined && latestStats.third_gender > 0 && (
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-end">
-                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Others</span>
-                      <span className="text-sm font-black text-brand-dark" suppressHydrationWarning>{latestStats.third_gender.toLocaleString()}</span>
-                    </div>
-                    <div className="h-4 bg-slate-100 rounded-full overflow-hidden">
-                      <div
-                        className="h-full bg-brand-green rounded-full transition-all duration-1000 ease-out"
-                        style={{ width: `${(latestStats.third_gender / latestStats.total_electors) * 100}%` }}
-                      />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="pt-6 border-t border-slate-50">
-                <div className="flex justify-between items-center">
-                  <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Electors</span>
-                  <span className="text-lg font-black text-brand-green" suppressHydrationWarning>{latestStats.total_electors.toLocaleString()}</span>
-                </div>
-              </div>
-
-              <div className="bg-slate-50 rounded-2xl p-6">
-                <p className="text-[9px] font-bold text-slate-400 uppercase leading-relaxed text-center">
-                  This chart represents the combined voter population across all {constituencies.length} constituencies in the district.
-                </p>
-              </div>
-            </div>
-          )}
+        {/* Constituencies Section */}
+        <div className="pt-24 border-t border-slate-100 dark:border-slate-800 space-y-12">
+          <div>
+            <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Constituencies</h2>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Legislative segments within {slug} district</p>
+          </div>
+          <ConstituencyList constituencies={constituencies} mlas={mlas} />
         </div>
 
         <div className="pt-16 border-t border-slate-100 dark:border-slate-800">

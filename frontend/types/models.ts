@@ -23,6 +23,58 @@ export interface DistrictDetailResponse {
   stats: DistrictStatYear[];
 }
 
+export interface DistrictMLA {
+  name: string;
+  age: number | null;
+  slug: string;
+  constituency: string;
+  constituencyId: string;
+  party: string;
+  partyShort: string;
+  partyColor?: string;
+  partyColorText?: string;
+  partyColorBorder?: string;
+  partyLogoUrl?: string;
+  assets: number | null;
+  formattedAssets: string;
+  image_url?: string;
+  isFresher?: boolean;
+}
+
+export interface DistrictInsights {
+  averageAge: number | null;
+  youngestMla: DistrictMLA | null;
+  oldestMla: DistrictMLA | null;
+  richestMla: DistrictMLA | null;
+  dominantParty: {
+    party: string | null;
+    seats: number;
+    totalSeats: number;
+    tied?: boolean;
+  } | null;
+  genderSplit: {
+    male: number;
+    female: number;
+    other: number;
+    unknown: number;
+  };
+  educationSummary: {
+    topCategory: string | null;
+    count: number;
+    breakdown: { label: string; count: number }[];
+  } | null;
+  fresherVsRepeat: {
+    fresher: number;
+    repeat: number;
+    unknown: number;
+  };
+}
+
+export interface DistrictInsightsResponse {
+  insights: DistrictInsights;
+  mlas: DistrictMLA[];
+}
+
 export interface ConstituencyResponse {
   id: string;
   name: string;
@@ -58,6 +110,7 @@ export interface WinnerHistoryRecord {
   total_contested?: number;
   total_wins?: number;
   win_rate?: number;
+  age?: number;
 }
 
 export interface ConstituencyStatYear {
@@ -85,6 +138,7 @@ export interface PersonDetail {
   education?: string;
   profession?: string;
   age?: number;
+  gender?: string;
 }
 
 export interface ElectionHistoryRecord {
@@ -99,6 +153,7 @@ export interface ElectionHistoryRecord {
   district_name?: string;
   margin?: number | null;
   margin_percent?: number | null;
+  assets?: string | number;
 }
 
 export interface WinRate {
