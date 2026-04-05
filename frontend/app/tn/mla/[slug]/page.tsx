@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: PageProps) {
     const party = latestElection?.party || "Independent";
 
     const titleSuffix = isCurrent ? "MLA Profile" : "Candidate Profile";
-    const seoDescription = isCurrent 
+    const seoDescription = isCurrent
       ? `View ${name} MLA profile from ${constituency} constituency including election history, asset growth, vote share trends and criminal records on KnowYourMLA.`
       : `View ${name} political profile and election history from ${constituency} constituency. Explore asset declarations, vote share trends and criminal records on KnowYourMLA.`;
 
@@ -42,7 +42,6 @@ export async function generateMetadata({ params }: PageProps) {
       title: `${name} ${titleSuffix} | Assets, Income, Criminal Cases`,
       description: seoDescription,
       path: `/tn/mla/${slug}`,
-      image: profile.person.image_url,
       keywords: [`${name}`, `${constituency} ${isCurrent ? 'MLA' : 'Candidate'}`, `${party}`, "Tamil Nadu Politics", "MLA Assets", "Criminal Cases"]
     });
   } catch (error) {
@@ -63,7 +62,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
   const isFormer = !isCurrent && profile.history.some((h: any) => h.winner === true);
 
   const personalTitle = isCurrent ? "MLA" : (isFormer ? "Former MLA" : "Candidate");
-  
+
   const criminalCases = profile.analytics?.criminal_case_trend?.length > 0
     ? profile.analytics.criminal_case_trend[profile.analytics.criminal_case_trend.length - 1].cases
     : 0;
@@ -79,7 +78,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
   const faqs = [
     {
       question: isCurrent ? `Who is the current MLA of ${constituency}?` : `Who contested from ${constituency} in ${latestElection?.year}?`,
-      answer: isCurrent 
+      answer: isCurrent
         ? `${profile.person.name} is the current MLA of ${constituency} constituency.`
         : `${profile.person.name} contested from the ${constituency} constituency in the ${latestElection?.year} elections.`
     },
@@ -121,16 +120,16 @@ export default async function MLAProfilePage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-page-bg">
-      <BreadcrumbSchema 
-        items={breadcrumbItems} 
+      <BreadcrumbSchema
+        items={breadcrumbItems}
       />
-      <JsonLd 
+      <JsonLd
         data={generatePersonSchema({
           name: profile.person.name,
           party: party,
           constituency: constituency,
           image: profile.person.image_url
-        })} 
+        })}
       />
 
       <main className="max-w-7xl mx-auto px-4 py-10 space-y-12">
@@ -164,14 +163,14 @@ export default async function MLAProfilePage({ params }: PageProps) {
         </div>
 
         <div className="space-y-8">
-          <SEOIntro 
+          <SEOIntro
             h1={`${profile.person.name} ${personalTitle} Profile - ${constituency}`}
             intro={`${profile.person.name} ${isCurrent ? 'is the current representative for' : (isFormer ? 'is a former MLA who contested for' : 'was a candidate for')} the ${constituency} Assembly constituency in Tamil Nadu. This page provides a comprehensive look at their political career, election history, assets, income details, and performance metrics.`}
           />
-          
-          <AnswerSnippet 
+
+          <AnswerSnippet
             question={isCurrent ? `Who is the current MLA of ${constituency}?` : `Who is ${profile.person.name}?`}
-            answer={isCurrent 
+            answer={isCurrent
               ? `${profile.person.name} is the incumbent MLA of ${constituency} constituency, representing the ${party} party.`
               : `${profile.person.name} is a political candidate who represented ${party} in the ${constituency} constituency.`}
           />
@@ -292,13 +291,13 @@ export default async function MLAProfilePage({ params }: PageProps) {
                   <h3 className="text-brand-dark font-black uppercase tracking-[0.2em] text-[10px] mb-6">Internal Links</h3>
                   <ul className="space-y-6">
                     <li>
-                      <a href={`/tn/constituency/${latestElection?.constituency.toLowerCase()}`} className="text-brand-dark dark:text-slate-200 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
+                      <a href={`/tn/constituency/${latestElection?.constituency.toLowerCase()}`} className="text-brand-dark dark:text-slate-600 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
                         <span className="w-1.5 h-1.5 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
                         View {latestElection?.constituency} history
                       </a>
                     </li>
                     <li>
-                      <a href={`/parties/${party.toLowerCase()}`} className="text-brand-dark dark:text-slate-200 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
+                      <a href={`/parties/${party.toLowerCase()}`} className="text-brand-dark dark:text-slate-600 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
                         <span className="w-1.5 h-1.5 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
                         View all {party} MLAs
                       </a>
@@ -310,7 +309,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
           </aside>
         </div>
 
-        <section className="mt-32 pt-16 border-t border-slate-100 dark:border-slate-800">
+        <section className="mt-18 pt-16 border-t border-slate-100 dark:border-slate-800">
           <FAQSection faqs={faqs} />
         </section>
       </main>

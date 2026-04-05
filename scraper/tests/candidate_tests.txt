@@ -189,3 +189,25 @@ spouse
 2017 - 2018 ** Rs 23,40,290 ~ 23 Lacs+
 2016 - 2017 ** Rs 12,20,880 ~ 12 Lacs+
 2015 - 2016 ** Rs 7,03,750 ~ 7 Lacs+
+
+https://www.myneta.info/TamilNadu2021/candidate.php?candidate_id=222
+Year: 2021
+District: DINDIGUL
+Constituency: ODDANCHATRAM
+candidacy_type: General
+Election Type: Assembly
+Winner: True
+Name: SAKKARAPANI R
+Party:DMK
+Last name: Rangasamy Gounder
+Age: 59
+Profession: Agriculture ,Indian Oil Corporation Ltd., Retailer
+Education: Graduate, B.A.,Economics
+Assets: Rs 9,48,67,797
+Liabilities: Rs 7,15,43,943
+Number of Criminal Cases: 6
+income_itr: 4003187
+election_expenses: 1274760
+profile_pic: https://myneta.info/images_candidate/TamilNadu2021/968f55962263ecae956acafde5a9f50b5b040a87.jpg
+vehicle_assets: count = 5
+gold_assets: total grms = 714.48

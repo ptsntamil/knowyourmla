@@ -1,7 +1,10 @@
+import Link from "next/link";
 import { PersonDetail, ElectionHistoryRecord } from "@/types/models";
 import { User, GraduationCap, Briefcase, AlertCircle, Coins, Car, MapPin } from "lucide-react";
 import ProfileImage from "./ProfileImage";
 import ShareButton from "./ShareButton";
+import Badge from "./ui/Badge";
+import { getPartySlug } from "@/lib/utils/party-utils";
 
 interface MLAHeaderProps {
    person: PersonDetail;
@@ -81,8 +84,9 @@ export default function MLAHeader({
                      </h1>
 
                      <div className="flex flex-wrap justify-center md:justify-start gap-3 items-center">
-                        <span
-                           className="px-6 py-3 text-xs font-black rounded-full uppercase tracking-widest shadow-lg flex items-center gap-3 border transition-colors"
+                        <Link
+                           href={`/parties/${getPartySlug(latestHistory?.party)}`}
+                           className="px-6 py-3 text-xs font-black rounded-full uppercase tracking-widest shadow-lg flex items-center gap-3 border transition-all hover:scale-105 active:scale-95"
                            style={{
                               backgroundColor: latestHistory?.party_color_bg || '#D4AF37',
                               color: latestHistory?.party_color_text || '#FFFFFF',
@@ -95,7 +99,7 @@ export default function MLAHeader({
                               </div>
                            )}
                            {latestHistory?.party || "NA"}
-                        </span>
+                        </Link>
                         <span className="px-5 py-2 bg-white/10 text-white text-[10px] font-black rounded-full uppercase tracking-widest border border-white/10">
                            {latestHistory?.constituency} Constituency
                         </span>
@@ -122,9 +126,9 @@ export default function MLAHeader({
                   <div className="p-3 bg-brand-yellow/10 text-brand-yellow rounded-2xl flex-shrink-0 group-hover:bg-brand-yellow/20 transition-colors">
                      <GraduationCap size={24} />
                   </div>
-                  <div className="flex flex-col overflow-hidden">
+                  <div className="flex flex-col">
                      <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-black tracking-widest mb-1">Education</span>
-                     <span className="text-sm font-black text-brand-dark dark:text-slate-200 uppercase truncate">{person.education?.includes("Category:") ? person.education.split(":")[1].trim().split(" ")[0].replace(/,/g, "") : (person.education || "Graduate")}</span>
+                     <span className="text-sm font-black text-brand-dark dark:text-slate-200 uppercase" title={person.education || "Graduate"}>{person.education?.includes("Category:") ? person.education.split(":")[1].trim().split(" ")[0].replace(/,/g, "") : (person.education || "Graduate")}</span>
                   </div>
                </div>
 
@@ -132,9 +136,9 @@ export default function MLAHeader({
                   <div className="p-3 bg-brand-green/10 text-brand-green rounded-2xl flex-shrink-0 group-hover:bg-brand-green/20 transition-colors">
                      <Briefcase size={24} />
                   </div>
-                  <div className="flex flex-col overflow-hidden">
+                  <div className="flex flex-col">
                      <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-black tracking-widest mb-1">Profession</span>
-                     <span className="text-sm font-black text-brand-dark dark:text-slate-200 uppercase truncate">{person.profession || "Social Service"}</span>
+                     <span className="text-sm font-black text-brand-dark dark:text-slate-200 uppercase" title={person.profession || "Social Service"}>{person.profession || "Social Service"}</span>
                   </div>
                </div>
 
@@ -142,9 +146,9 @@ export default function MLAHeader({
                   <div className="p-3 bg-brand-gold/10 text-brand-gold rounded-2xl flex-shrink-0 group-hover:bg-brand-gold/20 transition-colors">
                      <User size={24} />
                   </div>
-                  <div className="flex flex-col overflow-hidden">
+                  <div className="flex flex-col">
                      <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-black tracking-widest mb-1">Assets</span>
-                     <span className="text-sm font-black text-brand-dark dark:text-slate-200 uppercase truncate">{totalAssets || "₹ 0.00 Cr"}</span>
+                     <span className="text-sm font-black text-brand-dark dark:text-slate-200 uppercase" title={totalAssets || "₹ 0.00 Cr"}>{totalAssets || "₹ 0.00 Cr"}</span>
                   </div>
                </div>
             </div>
@@ -182,7 +186,8 @@ export default function MLAHeader({
                </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4 hover:shadow-md hover:scale-[1.02] transition-all duration-200 group">
+            <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4 hover:shadow-md hover:scale-[1.02] transition-all duration-200 group relative">
+               <Badge variant="brand" size="xs" className="absolute top-2 right-4">Beta</Badge>
                <div className="p-3 bg-emerald-500/10 text-emerald-500 rounded-2xl flex-shrink-0 group-hover:bg-emerald-500/20 transition-colors">
                   <MapPin size={24} />
                </div>

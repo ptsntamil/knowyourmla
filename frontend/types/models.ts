@@ -1,6 +1,7 @@
 export interface DistrictResponse {
   id: string;
   name: string;
+  slug?: string;
   total_constituencies?: number;
   image_url?: string;
 }
@@ -25,6 +26,7 @@ export interface DistrictDetailResponse {
 export interface ConstituencyResponse {
   id: string;
   name: string;
+  slug?: string;
   district_id: string;
   type: string;
 }
@@ -49,6 +51,13 @@ export interface WinnerHistoryRecord {
   slug?: string;
   district_name?: string;
   district_id?: string;
+  education?: string;
+  profession?: string;
+  total_assets?: number;
+  criminal_cases?: number;
+  total_contested?: number;
+  total_wins?: number;
+  win_rate?: number;
 }
 
 export interface ConstituencyStatYear {
@@ -75,6 +84,7 @@ export interface PersonDetail {
   image_url?: string;
   education?: string;
   profession?: string;
+  age?: number;
 }
 
 export interface ElectionHistoryRecord {

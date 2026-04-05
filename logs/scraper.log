@@ -115885,3 +115885,141 @@ botocore.exceptions.ClientError: An error occurred (ExpiredTokenException) when 
 2026-04-03 09:04:13,885 [INFO] asset_db_updater: Updating assets for AFFIDAVIT#2021#2402
 2026-04-03 09:04:13,957 [INFO] asset_db_updater: Successfully updated assets for AFFIDAVIT#2021#2402
 2026-04-03 09:04:13,957 [INFO] myneta_scraper: DynamoDB update successful for candidate 2402 (2021)
+2026-04-05 11:09:16,528 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true
+2026-04-05 11:09:16,528 [INFO] myneta_scraper: Fetching: https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true (Attempt 1)
+2026-04-05 11:09:19,885 [INFO] httpx: HTTP Request: GET https://www.myneta.info/tamilnadu2021/candidate.php?candidate_id=504&print=true "HTTP/1.1 200 OK"
+2026-04-05 11:09:21,560 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-04-05 11:09:21,598 [INFO] asset_db_updater: [DRY RUN] Updating assets for AFFIDAVIT#2021#504
+2026-04-05 11:09:21,598 [INFO] asset_db_updater: Update Expression: SET gold_assets = :gold, silver_assets = :silver, vehicle_assets = :veh, land_assets = :land
+2026-04-05 11:09:21,598 [INFO] asset_db_updater: Attribute Values: {
+  ":gold": {
+    "self": {
+      "gold": "0",
+      "value": "0",
+      "raw_text": "Nil"
+    },
+    "spouse": {
+      "gold": "720",
+      "value": "2,400,000",
+      "raw_text": "720 grms24,77,00024\u00a0Lacs+"
+    },
+    "dep1": {
+      "gold": "0",
+      "value": "0",
+      "raw_text": "Nil"
+    }
+  },
+  ":silver": {
+    "self": {
+      "silver": "0",
+      "value": "0"
+    },
+    "spouse": {
+      "silver": "0",
+      "value": "0"
+    },
+    "dep1": {
+      "silver": "0",
+      "value": "0"
+    }
+  },
+  ":veh": {
+    "self": [],
+    "spouse": [],
+    "dep1": []
+  },
+  ":land": {
+    "self": {
+      "full_text": "Agarathirunallur village, thanjai district, survey NO:30/2 & 31/2A\nTotal Area\n2.86 acres\nBuilt Up Area\nWhether Inherited\nY\nPurchase Date\n0000-00-00\nPurchase Cost\n0.00\nDevelopment Cost\n0.00\n2,17,490\n2\u00a0Lacs+\nthiruvarur District, Koradachery panchayat, vondriam kattur panchayat, kattur village, survey NO:81/1, 81/17, 81/20, 81/7A2, 81/8, 81/15, 81/16, 81/18, 81/7B\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2019-10-03\nPurchase Cost\n11280324.00\nDevelopment Cost\n0.00\n1,12,80,324\n1\u00a0Crore+\n1,38,46,283\n1\u00a0Crore+",
+      "entries": [
+        {
+          "village": "Unknown",
+          "survey_no": "81/1",
+          "raw_area": "0",
+          "acres": "0.0",
+          "cents": "0.0",
+          "purchase_cost": "11280324.0",
+          "confidence": "low",
+          "correction_applied": false,
+          "raw_text": "village, survey NO:81/1, 81/17, 81/20, 81/7A2, 81/8, 81/15, 81/16, 81/18, 81/7B\nTotal Area\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2019-10-03\nPurchase Cost\n11280324.00\nDevelopment Cost\n0.00\n1,12,80,324\n1\u00a0Crore+\n1,38,46,283\n1\u00a0Crore+",
+          "name": "Unknown (S.No: 81/1)",
+          "area": "0",
+          "value": "11,280,324"
+        }
+      ],
+      "total": {
+        "calculated": {
+          "acres": "0.0",
+          "cents": "0.0"
+        },
+        "declared": {
+          "acres": "2.0",
+          "cents": "86.0"
+        },
+        "total_purchase_cost": "11280324.0",
+        "mismatch": true
+      }
+    },
+    "spouse": {
+      "full_text": "Nil\nThiruvallur District, Nandiyambakkam village, Survey NO. 107/5,6,7. Plot NO.241, 242\nTotal Area\n3680 Sq.ft\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n1999-02-23\nPurchase Cost\n67000.00\nDevelopment Cost\n0.00\n8,61,120\n8\u00a0Lacs+\nNagapattinam District, Thiruvenkaddu Village, Vellakula street, Survey NO: 291/9\nTotal Area\n1140 Sq.ft\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2019-10-17\nPurchase Cost\n60067.00\nDevelopment Cost\n0.00\n60,067\n60\u00a0Thou+\nNil",
+      "entries": [
+        {
+          "village": "Unknown",
+          "survey_no": ". 107/5",
+          "raw_area": "0",
+          "acres": "0.0",
+          "cents": "0.0",
+          "purchase_cost": "67000.0",
+          "confidence": "low",
+          "correction_applied": false,
+          "raw_text": "village, Survey NO. 107/5,6,7. Plot NO.241, 242\nTotal Area\n3680 Sq.ft\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n1999-02-23\nPurchase Cost\n67000.00\nDevelopment Cost\n0.00\n8,61,120\n8\u00a0Lacs+",
+          "name": "Unknown (S.No: . 107/5)",
+          "area": "0",
+          "value": "67,000"
+        },
+        {
+          "village": "Unknown",
+          "survey_no": "291/9",
+          "raw_area": "0",
+          "acres": "0.0",
+          "cents": "0.0",
+          "purchase_cost": "60067.0",
+          "confidence": "low",
+          "correction_applied": false,
+          "raw_text": "Village, Vellakula street, Survey NO: 291/9\nTotal Area\n1140 Sq.ft\nBuilt Up Area\nWhether Inherited\nN\nPurchase Date\n2019-10-17\nPurchase Cost\n60067.00\nDevelopment Cost\n0.00\n60,067\n60\u00a0Thou+\nNil",
+          "name": "Unknown (S.No: 291/9)",
+          "area": "0",
+          "value": "60,067"
+        }
+      ],
+      "total": {
+        "calculated": {
+          "acres": "0.0",
+          "cents": "0.0"
+        },
+        "declared": {
+          "acres": "0.0",
+          "cents": "0.0"
+        },
+        "total_purchase_cost": "127067.0",
+        "mismatch": false
+      }
+    },
+    "dep1": {
+      "entries": [],
+      "total": {
+        "calculated": {
+          "acres": "0.0",
+          "cents": "0.0"
+        },
+        "declared": {
+          "acres": "0.0",
+          "cents": "0.0"
+        },
+        "total_purchase_cost": "0.0",
+        "mismatch": false
+      }
+    }
+  }
+}
+2026-04-05 11:09:21,598 [INFO] myneta_scraper: DynamoDB update successful for candidate 504 (2021)

@@ -12,7 +12,7 @@ export default function AnswerSnippet({ question, answer, className = "" }: Answ
       <h2 className="text-sm font-black text-brand-dark dark:text-brand-gold uppercase tracking-widest mb-2">
         {question}
       </h2>
-      <p className="text-lg md:text-xl font-bold text-brand-dark dark:text-slate-200 leading-snug">
+      <p className="text-lg text-brand-dark dark:text-slate-400 leading-snug">
         {answer}
       </p>
     </div>

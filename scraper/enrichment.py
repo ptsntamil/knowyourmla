@@ -120,6 +120,7 @@ class AffidavitData:
     error: Optional[bool] = None
     message: Optional[str] = None
     year: Optional[int] = None
+    election_type: str = "Assembly"
     gold_assets: Dict[str, Any] = field(default_factory=dict)
     vehicle_assets: Dict[str, Any] = field(default_factory=dict)
     land_assets: Dict[str, Any] = field(default_factory=dict)
@@ -288,7 +289,6 @@ class EnrichmentPipeline:
             "PK": pk, "SK": "DETAILS", "person_id": person_id, "constituency_id": constituency_id,
             "is_winner": is_winner, "profile_url": f"{BASE_URL}/{slug}/candidate.php?candidate_id={cid}",
             "createdtime": datetime.now(timezone.utc).isoformat(),
-            "election_type": "Lok Sabha" if any(x in slug.lower() for x in ["loksabha", "ls"]) else "Assembly",
             "other_elections_summary": [asdict(e) for e in details.other_elections],
             **details.to_dict()
         }
@@ -734,6 +734,7 @@ class MyNetaParser:
             return AffidavitData(error=True, message=f"Network error: {str(e)}")
 
         data = AffidavitData()
+        data.election_type = "Lok Sabha" if any(x in url.lower() for x in ["loksabha", "ls"]) else "Assembly"
         self._parse_basic_info(soup, data, resolver)
         self._parse_voter_info(soup, data)
         self._parse_financials(soup, data)
@@ -754,7 +755,7 @@ class MyNetaParser:
                 parser = AssetParser(print_soup)
                 assets = parser.parse_all()
                 data.gold_assets = assets.get("gold", {})
-                data.vehicle_assets = assets.get("vehicles", {})
+                data.vehicle_assets = assets.get("vehicle", {})
                 data.land_assets = assets.get("land", {})
         except Exception as e:
             logger.warning(f"Error parsing detailed assets from {print_url}: {e}")

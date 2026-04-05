@@ -95,12 +95,12 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
 
   return (
     <div className="min-h-screen bg-page-bg selection:bg-brand-gold/20">
-      <BreadcrumbSchema 
+      <BreadcrumbSchema
         items={[
           commonBreadcrumbs.home,
           commonBreadcrumbs.parties,
           { name: party.name, item: `/parties/${slug}` }
-        ]} 
+        ]}
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-5">
@@ -114,19 +114,19 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
       </div>
 
       <PartyHero party={party} analytics={analytics} />
-      
+
       <ElectionFilter options={availableElections || []} />
-      
+
       <SectionNav />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 mt-8 sm:mt-12">
         <div className="space-y-12 mb-16">
-          <SEOIntro 
-            h1={`${party.name} (${party.short_name}) MLA List in Tamil Nadu`}
+          <SEOIntro
+            h1={`${party.short_name} MLA List in Tamil Nadu`}
             intro={`This page provides a comprehensive overview of ${party.name} (${party.short_name}) in Tamil Nadu. Explore their election performance, currently listed MLAs, candidates, and detailed demographic and financial analytics.`}
           />
-          
-          <AnswerSnippet 
+
+          <AnswerSnippet
             question={`How many MLAs / candidates does ${party.short_name} have?`}
             answer={`${party.name} currently has ${analytics?.stats?.totalCandidates || 'multiple'} candidates and MLAs listed in KnowYourMLA across various election cycles.`}
           />
@@ -135,17 +135,17 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
         <div className="space-y-20 sm:space-y-32">
           <section id="overview" className="space-y-8">
             <div className="space-y-1">
-              <h2 className="text-2xl sm:text-5xl font-black text-brand-dark dark:text-slate-100 uppercase tracking-tighter">Performance Overview</h2>
+              <h2 className="text-2xl sm:text-5xl font-black text-brand-dark dark:text-slate-800 uppercase tracking-tighter">Performance Overview</h2>
               <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">
                 {isAllElections ? "Historical statistics across all elections" : `Aggregated metrics for the ${election} cycle`}
               </p>
             </div>
-            <PartySummaryStats 
+            <PartySummaryStats
               stats={{
                 ...analytics?.stats,
                 totalElections: analytics?.stats?.totalElections || availableElections?.length || 0
-              }} 
-              isYearView={!isAllElections} 
+              }}
+              isYearView={!isAllElections}
             />
           </section>
 
@@ -155,7 +155,7 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
 
           <section id="trends" className="space-y-8">
             <div className="space-y-1">
-              <h2 className="text-2xl sm:text-5xl font-black text-brand-dark dark:text-slate-100 uppercase tracking-tighter">
+              <h2 className="text-2xl sm:text-5xl font-black text-brand-dark dark:text-slate-900 uppercase tracking-tighter">
                 {isAllElections ? "Historical Trends" : `${election} Distributions`}
               </h2>
               <p className="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-[0.2em]">
@@ -177,17 +177,17 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
 
           <section id="candidates">
             <PartyElectionView
-                partySlug={slug}
-                initialYear={isAllElections ? undefined : selectedYear!}
-                years={analytics?.elections || []}
-                isGlobalFilter={true}
+              partySlug={slug}
+              initialYear={isAllElections ? undefined : selectedYear!}
+              years={analytics?.elections || []}
+              isGlobalFilter={true}
             />
           </section>
 
           <div className="grid lg:grid-cols-2 gap-12 pt-12 border-t border-slate-100 dark:border-slate-800">
             {analytics.education && (
               <div className="space-y-4">
-                <h3 className="text-lg font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight">Education Profile</h3>
+                <h3 className="text-lg font-black text-brand-dark dark:text-slate-900 uppercase tracking-tight">Education Profile</h3>
                 <p className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed">
                   In terms of educational qualifications, {party.short_name} has fielded a total of {analytics.education.graduateCount} graduates and post-graduates.
                   The most prevalent education level observed is "{analytics.education.mostCommon}".
@@ -196,7 +196,7 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
             )}
             {analytics.assets && (
               <div className="space-y-4">
-                <h3 className="text-lg font-black text-brand-dark dark:text-slate-200 uppercase tracking-tight">Financial Profile</h3>
+                <h3 className="text-lg font-black text-brand-dark dark:text-slate-900 uppercase tracking-tight">Financial Profile</h3>
                 <p className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed">
                   The median asset declaration is {analytics.assets.median.toLocaleString('en-IN', { style: 'currency', currency: 'INR', maximumFractionDigits: 0 })}.
                   Approximately {analytics.assets.crorepatiPercentage}% of the candidates are crorepatis.
@@ -206,7 +206,7 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
           </div>
         </div>
 
-        <section className="mt-32 pt-16 border-t border-slate-100 dark:border-slate-800">
+        <section className="mt-18 pt-16 border-t border-slate-100 dark:border-slate-800">
           <FAQSection faqs={faqs} />
         </section>
       </main>
