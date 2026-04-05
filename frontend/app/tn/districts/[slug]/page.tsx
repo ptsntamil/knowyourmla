@@ -126,7 +126,7 @@ export default async function DistrictPage({ params }: PageProps) {
           />
           <div className="grid lg:grid-cols-10 gap-12 items-start">
             <div className="lg:col-span-7">
-              <DistrictInsights insights={insights} />
+              <DistrictInsights insights={insights} mlas={mlas} />
             </div>
             <div className="lg:col-span-3 h-full">
               {latestStats && (latestStats.male !== undefined || latestStats.total_electors > 0) ? (

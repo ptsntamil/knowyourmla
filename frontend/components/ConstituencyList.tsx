@@ -43,9 +43,11 @@ export default function ConstituencyList({ constituencies, mlas = [] }: Constitu
                 <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Current MLA</p>
                 {mla ? (
                   <div className="space-y-3">
-                    <h5 className="text-lg font-black text-brand-dark tracking-tight leading-tight">
-                      {mla.name}
-                    </h5>
+                    <Link href={`/tn/mla/${mla.slug}`} className="block group">
+                      <h5 className="text-lg font-black text-brand-dark group-hover:text-brand-gold transition-colors tracking-tight leading-tight">
+                        {mla.name}
+                      </h5>
+                    </Link>
                     <div 
                       className="px-3 py-1.5 text-[9px] font-black rounded-full uppercase tracking-wider border flex items-center gap-2 w-fit shadow-sm transition-transform hover:scale-105 active:scale-95"
                       style={{ 
@@ -69,7 +71,7 @@ export default function ConstituencyList({ constituencies, mlas = [] }: Constitu
             </div>
 
             {/* Bottom Area: CTAs */}
-            <div className="flex items-center justify-between pt-6 border-t border-slate-50 gap-4">
+            <div className="pt-6 border-t border-slate-50">
               <Link 
                 href={`/tn/constituency/${slug}`}
                 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] hover:text-brand-gold transition-colors flex items-center group/btn whitespace-nowrap"
@@ -80,17 +82,6 @@ export default function ConstituencyList({ constituencies, mlas = [] }: Constitu
                 </svg>
               </Link>
 
-              {mla && (
-                <Link 
-                  href={`/tn/mla/${mla.slug}`}
-                  className="text-[10px] font-black text-brand-gold uppercase tracking-[0.2em] hover:text-brand-green transition-colors flex items-center group/btn whitespace-nowrap"
-                >
-                  View Profile
-                  <svg className="ml-2 w-3 h-3 group-hover/btn:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="9 5l7 7-7 7" />
-                  </svg>
-                </Link>
-              )}
             </div>
           </div>
         );

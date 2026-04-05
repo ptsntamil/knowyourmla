@@ -10,7 +10,8 @@ import {
   TrendingUp,
   Target,
   Coins,
-  ChevronRight
+  ChevronRight,
+  User
 } from "lucide-react";
 
 interface MLASnapshotCardProps {
@@ -143,6 +144,11 @@ export default function MLASnapshotCard({ mla, constituencyName }: MLASnapshotCa
                     <div className="bg-white/10 text-white px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-wider">
                       Elected {mla.year}
                     </div>
+                    {mla.age && (
+                      <div className="bg-white/10 text-white px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-wider">
+                        {mla.age} Years Old
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

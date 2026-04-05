@@ -1,28 +1,36 @@
 import { ImageResponse } from 'next/og'
 import { MLAService } from '@/lib/services/mla.service'
 import { generateMLACard, OG_SIZE } from '@/lib/seo/og-templates'
+import { fetchConstituencyWinners } from '@/services/api'
 
-export const alt = 'MLA Profile'
+export const alt = 'Constituency MLA Profile'
 export const size = OG_SIZE
 export const contentType = 'image/png'
 
 export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
   const decodedSlug = decodeURIComponent(slug)
-  const service = new MLAService()
-
+  const constituencyId = `CONSTITUENCY#${decodedSlug}`
+  
   try {
-    const profile = await service.getMLAProfile(decodedSlug)
-    console.log(`[OG-GEN] Resolved profile for ${decodedSlug}:`, {
-      name: profile.person.name,
-      historyCount: profile.history?.length,
-      latestParty: profile.history?.[0]?.party,
-      latestYear: profile.history?.[0]?.year
-    })
+    // 1. Fetch constituency winners to find the current MLA
+    const data = await fetchConstituencyWinners(constituencyId).catch(() => ({ history: [] }))
+    const currentWinner = data.history[0]
+    
+    if (!currentWinner) {
+      throw new Error("No current MLA found for this constituency")
+    }
+
+    // 2. Fetch the full MLA profile to get refined data (age, education, assets)
+    const mlaIdentifier = currentWinner.person_id ? currentWinner.person_id.replace("PERSON#", "") : currentWinner.slug
+    const service = new MLAService()
+    const profile = await service.getMLAProfile(mlaIdentifier)
+
+    // 3. Generate the premium card
     return new ImageResponse(generateMLACard(profile), { ...size })
   } catch (error) {
-    console.error('Error generating OG image:', error)
-    // Minimal fallback card just in case
+    console.error('Error generating Constituency OG image:', error)
+    // Fallback card
     return new ImageResponse(
       (
         <div style={{
@@ -36,7 +44,7 @@ export default async function Image({ params }: { params: Promise<{ slug: string
           fontFamily: 'sans-serif',
         }}>
           <h1 style={{ fontSize: '64px', fontWeight: 900, color: '#0f172a', marginBottom: '20px' }}>
-            MLA Profile
+            {decodedSlug.toUpperCase()}
           </h1>
           <p style={{ fontSize: '24px', color: '#64748b', fontWeight: 700 }}>
             KnowYourMLA
