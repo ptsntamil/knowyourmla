@@ -27,9 +27,9 @@ async def extract_candidate_assets(candidate_id: int, year: int = 2021, update_d
         updater = AssetDBUpdater()
         pk = f"AFFIDAVIT#{year}#{candidate_id}"
         try:
-            resp = updater.table.get_item(Key={"PK": pk, "SK": "DETAILS"}, ProjectionExpression="gold_assets, vehicle_assets, land_assets")
+            resp = updater.table.get_item(Key={"PK": pk, "SK": "DETAILS"}, ProjectionExpression="gold_assets, silver_assets, vehicle_assets, land_assets")
             item = resp.get("Item", {})
-            if item.get("gold_assets") and item.get("vehicle_assets") and item.get("land_assets"):
+            if item.get("gold_assets") and item.get("silver_assets") and item.get("vehicle_assets") and item.get("land_assets"):
                 logger.info(f"Skipping candidate {candidate_id} ({year}) as assets already exist.")
                 return
         except Exception as e:

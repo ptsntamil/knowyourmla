@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Search } from "lucide-react";
 import { MLAListItem } from "@/types/models";
+import { getPartySlug } from "@/lib/utils/party-utils";
 
 interface MLATableProps {
   mlas: MLAListItem[];
@@ -75,7 +76,8 @@ export default function MLATable({ mlas, searchQuery, selectedParty, onReset }: 
                   )}
                 </td>
                 <td className="px-8 py-5">
-                  <span
+                  <Link
+                    href={`/parties/${getPartySlug(mla.party)}`}
                     className="text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-wider flex items-center gap-3 w-fit shadow-sm border whitespace-nowrap transition-all hover:scale-105 active:scale-95"
                     style={{
                       backgroundColor: mla.party_color_bg || '#f8fafc',
@@ -95,7 +97,7 @@ export default function MLATable({ mlas, searchQuery, selectedParty, onReset }: 
                       </div>
                     )}
                     {mla.party}
-                  </span>
+                  </Link>
                 </td>
                 <td className="px-8 py-5">
                   <span className="text-xs font-bold text-slate-500 tabular-nums bg-slate-100/50 px-3 py-1 rounded-lg dark:bg-slate-900/10 dark:text-slate-900">
