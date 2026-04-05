@@ -2,6 +2,7 @@ import Link from "next/link";
 import { WinnerHistoryRecord } from "@/types/models";
 import ProfileImage from "@/components/ProfileImage";
 import Badge from "@/components/ui/Badge";
+import { getPartySlug } from "@/lib/utils/party-utils";
 import {
   GraduationCap,
   Briefcase,
@@ -33,7 +34,7 @@ export default function MLASnapshotCard({ mla, constituencyName }: MLASnapshotCa
 
   const truncateProfession = (prof?: string) => {
     if (!prof) return "Not Available";
-    return prof.length > 25 ? `${prof.substring(0, 22)}...` : prof;
+    return prof;
   };
 
   const cleanEducation = (edu?: string) => {
@@ -121,8 +122,9 @@ export default function MLASnapshotCard({ mla, constituencyName }: MLASnapshotCa
                     {mla.winner}
                   </h3>
                   <div className="flex flex-wrap justify-center md:justify-start gap-2 items-center">
-                    <div
-                      className="px-4 py-1.5 rounded-full border shadow-sm flex items-center gap-2"
+                    <Link
+                      href={`/parties/${getPartySlug(mla.party)}`}
+                      className="px-4 py-1.5 rounded-full border shadow-sm flex items-center gap-2 hover:scale-105 active:scale-95 transition-all"
                       style={{
                         backgroundColor: mla.party.color_bg || '#D4AF37',
                         color: mla.party.color_text || '#FFFFFF',
@@ -137,7 +139,7 @@ export default function MLASnapshotCard({ mla, constituencyName }: MLASnapshotCa
                       <span className="font-black text-[10px] uppercase tracking-wider">
                         {mla.party.short_name || mla.party.name}
                       </span>
-                    </div>
+                    </Link>
                     <div className="bg-white/10 text-white px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-wider">
                       Elected {mla.year}
                     </div>
@@ -172,7 +174,10 @@ export default function MLASnapshotCard({ mla, constituencyName }: MLASnapshotCa
                     <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest leading-none">
                       {metric.label}
                     </p>
-                    <p className={`text-sm font-black uppercase tracking-tight truncate ${metric.label === 'Criminal Cases' && (mla.criminal_cases ?? 0) > 0 ? 'text-red-500' : 'text-brand-dark'}`}>
+                    <p 
+                      className={`text-sm font-black uppercase tracking-tight ${metric.label === 'Profession' ? '' : 'truncate'} ${metric.label === 'Criminal Cases' && (mla.criminal_cases ?? 0) > 0 ? 'text-red-500' : 'text-brand-dark'}`}
+                      title={String(metric.value)}
+                    >
                       {metric.value}
                     </p>
                   </div>

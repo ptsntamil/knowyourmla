@@ -1,15 +1,16 @@
 import Link from "next/link";
 import { fetchConstituencyWinners } from "@/services/api";
 import CoverImage from "@/components/CoverImage";
-import ProfileImage from "@/components/ProfileImage";
+// import ProfileImage from "@/components/ProfileImage";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
-import SEOIntro from "@/components/seo/SEOIntro";
-import AnswerSnippet from "@/components/seo/AnswerSnippet";
+// import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
+// import SEOIntro from "@/components/seo/SEOIntro";
+// import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import MLASnapshotCard from "@/components/constituency/MLASnapshotCard";
 import ConstituencyInsights from "@/components/constituency/ConstituencyInsights";
+import { getPartySlug } from "@/lib/utils/party-utils";
 
 export const dynamic = "force-dynamic";
 
@@ -41,6 +42,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
   const constituencyName = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
   const data = await fetchConstituencyWinners(constituencyId);
   const currentWinner = data.history[0]; // Assuming sorted descending by year
+  const latestVoterTurnout = data.stats?.find((stat: any) => parseFloat(stat.poll_percentage) > 0);
 
   const faqs = [
     {
@@ -55,8 +57,8 @@ export default async function ConstituencyPage({ params }: PageProps) {
     },
     {
       question: `What is the voter turnout in ${constituencyName}?`,
-      answer: data.stats && data.stats.length > 0
-        ? `In the latest elections, the voter turnout in ${constituencyName} was ${data.stats[0].poll_percentage}%.`
+      answer: latestVoterTurnout
+        ? `In the ${latestVoterTurnout.year} elections, the voter turnout in ${constituencyName} was ${latestVoterTurnout.poll_percentage}%.`
         : `Historical voter turnout data for ${constituencyName} is available in the statistics section above.`
     },
     {
@@ -125,7 +127,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
           />
         )}
 
-        <ConstituencyInsights 
+        <ConstituencyInsights
           history={data.history}
           stats={data.stats}
         />
@@ -270,8 +272,9 @@ export default async function ConstituencyPage({ params }: PageProps) {
                         )}
                       </td>
                       <td className="px-10 py-8">
-                        <span
-                          className="px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2.5 w-fit border shadow-sm transition-colors"
+                        <Link
+                          href={`/parties/${getPartySlug(record.party)}`}
+                          className="px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2.5 w-fit border shadow-sm transition-all hover:scale-105 active:scale-95"
                           style={{
                             backgroundColor: record.party.color_bg || 'rgba(15, 23, 42, 0.05)',
                             color: record.party.color_text || '#0F172A',
@@ -284,7 +287,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
                             </div>
                           )}
                           {record.party.short_name || record.party.name}
-                        </span>
+                        </Link>
                       </td>
                       <td className="px-10 py-8 text-right font-black text-slate-400" suppressHydrationWarning>{record.margin.toLocaleString()}</td>
                     </tr>

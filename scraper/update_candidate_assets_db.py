@@ -46,9 +46,10 @@ class AssetDBUpdater:
         decimal_assets = convert_floats_to_decimals(assets)
         
         # Prepare the update expression
-        update_expr = "SET gold_assets = :gold, vehicle_assets = :veh, land_assets = :land"
+        update_expr = "SET gold_assets = :gold, silver_assets = :silver, vehicle_assets = :veh, land_assets = :land"
         attr_values = {
             ":gold": decimal_assets.get("gold", {}),
+            ":silver": decimal_assets.get("silver", {}),
             ":veh": decimal_assets.get("vehicle", {}),
             ":land": decimal_assets.get("land", {})
         }
@@ -102,7 +103,7 @@ class AssetDBUpdater:
             # Logic: We want to process if at least one is missing (OR attribute_not_exists)
             # Or if the user meant "if ANY asset value is there, skip", then it's AND attribute_not_exists for all.
             # Usually, "if assets value already there" means the enrichment was already done.
-            filter_expr += " AND attribute_not_exists(gold_assets) AND attribute_not_exists(vehicle_assets) AND attribute_not_exists(land_assets)"
+            filter_expr += " AND attribute_not_exists(gold_assets) AND attribute_not_exists(silver_assets) AND attribute_not_exists(vehicle_assets) AND attribute_not_exists(land_assets)"
             logger.info(f"Scanning for candidates in {year} missing ALL asset data...")
         
         try:
