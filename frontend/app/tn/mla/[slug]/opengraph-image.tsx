@@ -13,12 +13,6 @@ export default async function Image({ params }: { params: Promise<{ slug: string
 
   try {
     const profile = await service.getMLAProfile(decodedSlug)
-    console.log(`[OG-GEN] Resolved profile for ${decodedSlug}:`, {
-      name: profile.person.name,
-      historyCount: profile.history?.length,
-      latestParty: profile.history?.[0]?.party,
-      latestYear: profile.history?.[0]?.year
-    })
     return new ImageResponse(generateMLACard(profile), { ...size })
   } catch (error) {
     console.error('Error generating OG image:', error)
