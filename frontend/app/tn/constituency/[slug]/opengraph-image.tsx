@@ -22,7 +22,14 @@ export default async function Image({ params }: { params: Promise<{ slug: string
     }
 
     // 2. Fetch the full MLA profile to get refined data (age, education, assets)
-    const mlaIdentifier = currentWinner.person_id ? currentWinner.person_id.replace("PERSON#", "") : currentWinner.slug
+    const mlaIdentifier = currentWinner.person_id 
+      ? currentWinner.person_id.replace("PERSON#", "") 
+      : currentWinner.slug;
+
+    if (!mlaIdentifier) {
+      throw new Error("No MLA identifier found for this constituency")
+    }
+
     const service = new MLAService()
     const profile = await service.getMLAProfile(mlaIdentifier)
 
