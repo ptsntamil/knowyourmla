@@ -426,6 +426,8 @@ Master registry of political parties.
 | `full_address` | String | Headquarters address |
 | `pincode` | String | Pincode of the address |
 | `myneta_url` | String | Source URL on myneta.info |
+| `vote_share` | Map | Historical vote share and total votes by election (e.g. `{"assembly": {"2021": {"votes": 17427615, "vote_share_percent": 38.0}}}`) |
+| `updated_at` | Number | Unix timestamp of last update |
 
 ### Sample Record
 
