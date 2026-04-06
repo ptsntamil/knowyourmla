@@ -98,7 +98,7 @@ export default async function MLAListPage() {
           <div className="space-y-12">
             <InternalLinks 
               title="Browse MLAs by District"
-              items={districts.map((d: any) => ({
+              items={districts.filter((d: any) => d.name).map((d: any) => ({
                 name: d.name,
                 href: `/tn/districts/${d.name.toLowerCase().replace(/\s+/g, '-')}`
               }))}
@@ -106,10 +106,12 @@ export default async function MLAListPage() {
             
             <InternalLinks 
               title="Browse MLAs by Party"
-              items={parties.map((p: any) => ({
-                name: p.short_name || p.name,
-                href: `/parties/${(p.slug || p.short_name || p.name).toLowerCase().replace(/\s+/g, '-')}`
-              }))}
+              items={parties
+                .filter((p: any) => p.slug || p.short_name || p.name)
+                .map((p: any) => ({
+                  name: p.short_name || p.name,
+                  href: `/parties/${(p.slug || p.short_name || p.name).toLowerCase().replace(/\s+/g, '-')}`
+                }))}
             />
           </div>
 
