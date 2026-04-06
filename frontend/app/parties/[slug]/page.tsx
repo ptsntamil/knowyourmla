@@ -14,6 +14,7 @@ import SEOIntro from "@/components/seo/SEOIntro";
 import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import VoteShareByElectionSection from "@/components/party/VoteShareByElectionSection";
 
 export const dynamic = "force-dynamic";
 
@@ -30,10 +31,10 @@ export async function generateMetadata({ params }: PageProps) {
     const shortName = data.party?.short_name || partyName;
 
     return buildMetadata({
-      title: `${partyName} (${shortName}) MLA List in Tamil Nadu | Election Analytics`,
-      description: `View the current ${partyName} MLA list in Tamil Nadu with constituency, district, and profile details. Explore ${shortName} election performance and candidate analytics on KnowYourMLA.`,
+      title: `${partyName} (${shortName}) in Tamil Nadu: MLAs, Vote Share, Election Performance`,
+      description: `Explore ${partyName} (${shortName}) performance in Tamil Nadu including current MLAs, vote share across assembly elections, seats won, election trends, and political insights on KnowYourMLA.`,
       path: `/parties/${slug}`,
-      keywords: [`${partyName} Party`, "Tamil Nadu Politics", "Election Analytics", "MLA Candidates", "Political Party Analysis"]
+      keywords: [`${partyName} Party`, "Tamil Nadu Politics", "Election Analytics", "Vote Share Trends", "MLA Candidates", "Political Party Analysis"]
     });
   } catch (error) {
     return buildMetadata({
@@ -90,6 +91,14 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
     {
       question: `Where can I view the current ${party.short_name} MLA list?`,
       answer: `The complete and current list of ${party.short_name} MLAs, along with their photos, assets, and election history, is available here on KnowYourMLA.`
+    },
+    {
+      question: `What was ${party.short_name}'s vote share in the latest Tamil Nadu Assembly election?`,
+      answer: `${party.name} received a vote share of ${analytics?.vote_share?.latest?.vote_share_percent || 'significant percentage'}% in the most recent election it contested. Detailed year-by-year vote share data is available in the "Vote Share Across Elections" section.`
+    },
+    {
+      question: `How has ${party.short_name}'s voter support changed over time?`,
+      answer: `Voter support for ${party.short_name}, measured by total votes and vote share percentage, has evolved across different assembly cycles. You can track these trends through our interactive charts documenting their performance since 2011.`
     }
   ];
 
@@ -122,13 +131,13 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-32 mt-8 sm:mt-12">
         <div className="space-y-12 mb-16">
           <SEOIntro
-            h1={`${party.short_name} MLA List in Tamil Nadu`}
-            intro={`This page provides a comprehensive overview of ${party.name} (${party.short_name}) in Tamil Nadu. Explore their election performance, currently listed MLAs, candidates, and detailed demographic and financial analytics.`}
+            h1={`${party.short_name} Election Performance and Vote Share in Tamil Nadu`}
+            intro={`This page provides a comprehensive overview of ${party.name} (${party.short_name || party.name}) in Tamil Nadu. Explore their election performance through seats won and vote share trends across assembly elections, along with detailed candidate analytics and financial profiles.`}
           />
 
           <AnswerSnippet
-            question={`How many MLAs / candidates does ${party.short_name} have?`}
-            answer={`${party.name} currently has ${analytics?.stats?.totalCandidates || analytics?.stats?.totalContested || 'multiple'} candidates and MLAs listed in KnowYourMLA across various election cycles.`}
+            question={`What is the election performance of ${party.short_name} in Tamil Nadu?`}
+            answer={`${party.name} has contested multiple assembly elections in Tamil Nadu. The party's voter support is reflected in its vote share percentage and total votes received across various election cycles, as detailed in the analytics below.`}
           />
         </div>
 
@@ -170,6 +179,8 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
               </div>
             )}
           </section>
+          
+          <VoteShareByElectionSection voteShare={party.vote_share} selectedYear={selectedYear} />
 
           <section id="analytics">
             <PartyAnalyticsTabs analytics={analytics} isYearView={!isAllElections} />
