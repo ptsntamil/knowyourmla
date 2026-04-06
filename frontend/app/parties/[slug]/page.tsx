@@ -128,7 +128,7 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
 
           <AnswerSnippet
             question={`How many MLAs / candidates does ${party.short_name} have?`}
-            answer={`${party.name} currently has ${analytics?.stats?.totalCandidates || 'multiple'} candidates and MLAs listed in KnowYourMLA across various election cycles.`}
+            answer={`${party.name} currently has ${analytics?.stats?.totalCandidates || analytics?.stats?.totalContested || 'multiple'} candidates and MLAs listed in KnowYourMLA across various election cycles.`}
           />
         </div>
 
@@ -185,7 +185,7 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
           </section>
 
           <div className="grid lg:grid-cols-2 gap-12 pt-12 border-t border-slate-100 dark:border-slate-800">
-            {analytics.education && (
+            {analytics?.education?.graduateCount !== undefined && analytics.education.graduateCount > 0 && (
               <div className="space-y-4">
                 <h3 className="text-lg font-black text-brand-dark dark:text-slate-900 uppercase tracking-tight">Education Profile</h3>
                 <p className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed">
@@ -194,7 +194,7 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
                 </p>
               </div>
             )}
-            {analytics.assets && (
+            {analytics?.assets?.median !== undefined && (
               <div className="space-y-4">
                 <h3 className="text-lg font-black text-brand-dark dark:text-slate-900 uppercase tracking-tight">Financial Profile</h3>
                 <p className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed">
