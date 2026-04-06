@@ -171,7 +171,17 @@ export async function fetchPartyDetails(slug: string, year?: string): Promise<an
 
     return {
       party,
-      analytics: analytics || { stats: {}, age: {}, assets: {}, elections: [], timeline: [] },
+      analytics: analytics || { 
+        stats: { totalContested: 0, totalWins: 0, winRate: 0, newCandidates: 0, repeatCandidates: 0 }, 
+        age: { youngest: null, eldest: null }, 
+        assets: { average: 0, median: 0, crorepatiCount: 0, crorepatiPercentage: 0, distribution: [] }, 
+        education: { distribution: [], graduateCount: 0, mostCommon: "N/A", total: 0 }, 
+        criminal: { total: 0, percentage: 0, max: 0 }, 
+        gender: { male: 0, female: 0, femalePercentage: 0 }, 
+        occupation: { distribution: [], top: [] }, 
+        elections: [], 
+        timeline: [] 
+      },
       availableElections: elections
     };
   }
