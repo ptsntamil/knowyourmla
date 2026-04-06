@@ -1,0 +1,1446 @@
+[
+  {
+    "party_name": "Dravida Munnetra Kazhagam",
+    "short_name": "dmk",
+    "assembly": {
+      "2001": {
+        "votes": 8669864,
+        "vote_share_percent": 30.9
+      },
+      "2006": {
+        "votes": 8728716,
+        "vote_share_percent": 26.5
+      },
+      "2011": {
+        "votes": 8249985,
+        "vote_share_percent": 22.4
+      },
+      "2016": {
+        "votes": 13670511,
+        "vote_share_percent": 32.1
+      },
+      "2021": {
+        "votes": 17427615,
+        "vote_share_percent": 38.0
+      }
+    }
+  },
+  {
+    "party_name": "All India Anna Dravida Munnetra Kazhagam",
+    "short_name": "aiadmk",
+    "assembly": {
+      "2001": {
+        "votes": 8816387,
+        "vote_share_percent": 31.4
+      },
+      "2006": {
+        "votes": 10768559,
+        "vote_share_percent": 32.6
+      },
+      "2011": {
+        "votes": 14149681,
+        "vote_share_percent": 38.4
+      },
+      "2016": {
+        "votes": 17617000,
+        "vote_share_percent": 41.3
+      },
+      "2021": {
+        "votes": 15329659,
+        "vote_share_percent": 33.5
+      }
+    }
+  },
+  {
+    "party_name": "Indian National Congress",
+    "short_name": "inc",
+    "assembly": {
+      "2001": {
+        "votes": 696205,
+        "vote_share_percent": 2.5
+      },
+      "2006": {
+        "votes": 2765768,
+        "vote_share_percent": 8.4
+      },
+      "2011": {
+        "votes": 3426247,
+        "vote_share_percent": 9.3
+      },
+      "2016": {
+        "votes": 2747075,
+        "vote_share_percent": 6.5
+      },
+      "2021": {
+        "votes": 1976527,
+        "vote_share_percent": 4.3
+      }
+    }
+  },
+  {
+    "party_name": "Pattali Makkal Katchi",
+    "short_name": "pmk",
+    "assembly": {
+      "2001": {
+        "votes": 1557500,
+        "vote_share_percent": 5.6
+      },
+      "2006": {
+        "votes": 1863749,
+        "vote_share_percent": 5.6
+      },
+      "2011": {
+        "votes": 1927260,
+        "vote_share_percent": 5.2
+      },
+      "2016": {
+        "votes": 2300775,
+        "vote_share_percent": 5.4
+      },
+      "2021": {
+        "votes": 1759774,
+        "vote_share_percent": 3.8
+      }
+    }
+  },
+  {
+    "party_name": "Communist Party of India",
+    "short_name": "cpi",
+    "assembly": {
+      "2001": {
+        "votes": 444710,
+        "vote_share_percent": 1.6
+      },
+      "2006": {
+        "votes": 531740,
+        "vote_share_percent": 1.6
+      },
+      "2011": {
+        "votes": 727394,
+        "vote_share_percent": 2.0
+      },
+      "2016": {
+        "votes": 340290,
+        "vote_share_percent": 0.8
+      },
+      "2021": {
+        "votes": 504537,
+        "vote_share_percent": 1.1
+      }
+    }
+  },
+  {
+    "party_name": "Communist Party of India (Marxist)",
+    "short_name": "cpim",
+    "assembly": {
+      "2001": {
+        "votes": 470736,
+        "vote_share_percent": 1.7
+      },
+      "2006": {
+        "votes": 872674,
+        "vote_share_percent": 2.6
+      },
+      "2011": {
+        "votes": 888364,
+        "vote_share_percent": 2.4
+      },
+      "2016": {
+        "votes": 307323,
+        "vote_share_percent": 0.7
+      },
+      "2021": {
+        "votes": 390819,
+        "vote_share_percent": 0.9
+      }
+    }
+  },
+  {
+    "party_name": "Bharatiya Janata Party",
+    "short_name": "bjp",
+    "assembly": {
+      "2001": {
+        "votes": 895352,
+        "vote_share_percent": 3.2
+      },
+      "2011": {
+        "votes": 819530,
+        "vote_share_percent": 2.2
+      },
+      "2016": {
+        "votes": 1228692,
+        "vote_share_percent": 2.9
+      },
+      "2021": {
+        "votes": 1213510,
+        "vote_share_percent": 2.8
+      }
+    }
+  },
+  {
+    "party_name": "Independent",
+    "short_name": "IND",
+    "assembly": {
+      "2001": {
+        "votes": 1728440,
+        "vote_share_percent": 6.2
+      },
+      "2006": {
+        "votes": 995345,
+        "vote_share_percent": 3.0
+      },
+      "2011": {
+        "votes": 1638038,
+        "vote_share_percent": 4.4
+      },
+      "2016": {
+        "votes": 617907,
+        "vote_share_percent": 1.4
+      },
+      "2021": {
+        "votes": 643812,
+        "vote_share_percent": 1.4
+      }
+    }
+  },
+  {
+    "party_name": "Marumalarchi Dravida Munnetra Kazhagam",
+    "short_name": "mdmk",
+    "assembly": {
+      "2001": {
+        "votes": 1304469,
+        "vote_share_percent": 4.7
+      },
+      "2006": {
+        "votes": 1971565,
+        "vote_share_percent": 6.0
+      },
+      "2016": {
+        "votes": 373713,
+        "vote_share_percent": 0.9
+      }
+    }
+  },
+  {
+    "party_name": "Desiya Murpokku Dravida Kazhagam",
+    "short_name": "dmdk",
+    "assembly": {
+      "2006": {
+        "votes": 2764223,
+        "vote_share_percent": 8.4
+      },
+      "2011": {
+        "votes": 2902813,
+        "vote_share_percent": 7.9
+      },
+      "2016": {
+        "votes": 1034384,
+        "vote_share_percent": 2.4
+      }
+    }
+  },
+  {
+    "party_name": "Naam Tamilar Katchi",
+    "short_name": "ntk",
+    "assembly": {
+      "2016": {
+        "votes": 458104,
+        "vote_share_percent": 1.1
+      },
+      "2021": {
+        "votes": 3041717,
+        "vote_share_percent": 6.6
+      }
+    }
+  },
+  {
+    "party_name": "Amma Makkal Munnetra Kazhagam",
+    "short_name": "ammk",
+    "assembly": {
+      "2021": {
+        "votes": 1096946,
+        "vote_share_percent": 2.4
+      }
+    }
+  },
+  {
+    "party_name": "Makkal Needhi Maiam",
+    "short_name": "mnm",
+    "assembly": {
+      "2021": {
+        "votes": 1210002,
+        "vote_share_percent": 2.6
+      }
+    }
+  },
+  {
+    "party_name": "Tamil Maanila Congress (Moopanar)",
+    "short_name": "tmcm",
+    "assembly": {
+      "2001": {
+        "votes": 1885726,
+        "vote_share_percent": 6.7
+      }
+    }
+  },
+  {
+    "party_name": "Viduthalai Chiruthaigal Katchi",
+    "short_name": "vck",
+    "assembly": {
+      "2006": {
+        "votes": 426321,
+        "vote_share_percent": 1.3
+      },
+      "2011": {
+        "votes": 555965,
+        "vote_share_percent": 1.5
+      },
+      "2016": {
+        "votes": 331849,
+        "vote_share_percent": 0.8
+      },
+      "2021": {
+        "votes": 457763,
+        "vote_share_percent": 1.0
+      }
+    }
+  },
+  {
+    "party_name": "M.G.R. Anna D.M.Kazhagam",
+    "short_name": "mgr_admk",
+    "assembly": {
+      "2001": {
+        "votes": 129474,
+        "vote_share_percent": 0.5
+      }
+    }
+  },
+  {
+    "party_name": "All India Forward Bloc",
+    "short_name": "aifb",
+    "assembly": {
+      "2001": {
+        "votes": 39248,
+        "vote_share_percent": 0.1
+      },
+      "2006": {
+        "votes": 103369,
+        "vote_share_percent": 0.3
+      },
+      "2011": {
+        "votes": 88253,
+        "vote_share_percent": 0.2
+      },
+      "2016": {
+        "votes": 44235,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Puthiya Tamilagam",
+    "short_name": "pt",
+    "assembly": {
+      "2001": {
+        "votes": 355171,
+        "vote_share_percent": 1.3
+      },
+      "2006": {
+        "votes": 5618,
+        "vote_share_percent": 0.0
+      },
+      "2016": {
+        "votes": 219830,
+        "vote_share_percent": 0.5
+      }
+    }
+  },
+  {
+    "party_name": "Makkal Tamil Desam",
+    "short_name": "mtd",
+    "assembly": {
+      "2001": {
+        "votes": 257126,
+        "vote_share_percent": 0.9
+      }
+    }
+  },
+  {
+    "party_name": "Puthiya Needhi Katchi",
+    "short_name": "pnk",
+    "assembly": {
+      "2001": {
+        "votes": 196740,
+        "vote_share_percent": 0.7
+      },
+      "2006": {
+        "votes": 5300,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "M.G.R. Kazhagam",
+    "short_name": "mgrk",
+    "assembly": {
+      "2001": {
+        "votes": 136916,
+        "vote_share_percent": 0.5
+      }
+    }
+  },
+  {
+    "party_name": "Puratchi Bharatham",
+    "short_name": "puratchi_bharatham",
+    "assembly": {
+      "2001": {
+        "votes": 71161,
+        "vote_share_percent": 0.3
+      },
+      "2011": {
+        "votes": 63747,
+        "vote_share_percent": 0.2
+      }
+    }
+  },
+  {
+    "party_name": "Janata Dal (Secular)",
+    "short_name": "jds",
+    "assembly": {
+      "2001": {
+        "votes": 64468,
+        "vote_share_percent": 0.2
+      },
+      "2006": {
+        "votes": 23628,
+        "vote_share_percent": 0.1
+      },
+      "2021": {
+        "votes": 1189,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Thamilar Bhoomi",
+    "short_name": "thamilar_bhoomi",
+    "assembly": {
+      "2001": {
+        "votes": 45002,
+        "vote_share_percent": 0.2
+      }
+    }
+  },
+  {
+    "party_name": "Kongunadu Makkal Katchi",
+    "short_name": "kmk",
+    "assembly": {
+      "2001": {
+        "votes": 40421,
+        "vote_share_percent": 0.1
+      },
+      "2011": {
+        "votes": 37004,
+        "vote_share_percent": 1.0
+      },
+      "2016": {
+        "votes": 167560,
+        "vote_share_percent": 0.4
+      }
+    }
+  },
+  {
+    "party_name": "Makkal Nalurimaik Kazhagam (People's Liberal Party)",
+    "short_name": "mnk_plp",
+    "assembly": {
+      "2001": {
+        "votes": 35271,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Muslim League Kerala State Committee",
+    "short_name": "mlksc",
+    "assembly": {
+      "2001": {
+        "votes": 30497,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Jharkhand Party",
+    "short_name": "jharkhand_party",
+    "assembly": {
+      "2001": {
+        "votes": 25389,
+        "vote_share_percent": 0.1
+      },
+      "2006": {
+        "votes": 5300,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Samajwadi Party",
+    "short_name": "sp",
+    "assembly": {
+      "2001": {
+        "votes": 21307,
+        "vote_share_percent": 0.1
+      },
+      "2006": {
+        "votes": 67968,
+        "vote_share_percent": 0.2
+      },
+      "2016": {
+        "votes": 4464,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Bahujan Samaj Party",
+    "short_name": "bsp",
+    "assembly": {
+      "2001": {
+        "votes": 19648,
+        "vote_share_percent": 0.1
+      },
+      "2006": {
+        "votes": 259336,
+        "vote_share_percent": 0.8
+      },
+      "2011": {
+        "votes": 198180,
+        "vote_share_percent": 0.5
+      },
+      "2016": {
+        "votes": 97823,
+        "vote_share_percent": 0.2
+      },
+      "2021": {
+        "votes": 222263,
+        "vote_share_percent": 0.5
+      }
+    }
+  },
+  {
+    "party_name": "Communist Party of India (Marxist-Leninist) (Liberation)",
+    "short_name": "cpiml_liberation",
+    "assembly": {
+      "2001": {
+        "votes": 14040,
+        "vote_share_percent": 0.1
+      },
+      "2006": {
+        "votes": 8095,
+        "vote_share_percent": 0.0
+      },
+      "2011": {
+        "votes": 8477,
+        "vote_share_percent": 0.0
+      },
+      "2016": {
+        "votes": 4972,
+        "vote_share_percent": 0.0
+      },
+      "2021": {
+        "votes": 5136,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Thaayaga Makkal Katchi",
+    "short_name": "tmk",
+    "assembly": {
+      "2001": {
+        "votes": 14007,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Janata Dal (United)",
+    "short_name": "jdu",
+    "assembly": {
+      "2001": {
+        "votes": 13978,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Nationalist Congress Party",
+    "short_name": "ncp",
+    "assembly": {
+      "2001": {
+        "votes": 12053,
+        "vote_share_percent": 0.0
+      },
+      "2006": {
+        "votes": 22955,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Tamil Desiyak Katchi",
+    "short_name": "tdk",
+    "assembly": {
+      "2001": {
+        "votes": 9412,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Lok Jan Shakti Party",
+    "short_name": "ljsp",
+    "assembly": {
+      "2001": {
+        "votes": 9340,
+        "vote_share_percent": 0.0
+      },
+      "2006": {
+        "votes": 10979,
+        "vote_share_percent": 0.0
+      },
+      "2011": {
+        "votes": 12148,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "United Communist Party of India",
+    "short_name": "ucpi",
+    "assembly": {
+      "2001": {
+        "votes": 7080,
+        "vote_share_percent": 0.0
+      },
+      "2006": {
+        "votes": 921,
+        "vote_share_percent": 0.0
+      },
+      "2011": {
+        "votes": 2325,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Democratic Forward Bloc",
+    "short_name": "dfb",
+    "assembly": {
+      "2001": {
+        "votes": 3720,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Rashtriya Lok Dal",
+    "short_name": "rld",
+    "assembly": {
+      "2001": {
+        "votes": 2850,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Republican Party of India",
+    "short_name": "rpi",
+    "assembly": {
+      "2001": {
+        "votes": 1849,
+        "vote_share_percent": 0.0
+      },
+      "2011": {
+        "votes": 2254,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Akhil Bharat Hindu Mahasabha",
+    "short_name": "abhm",
+    "assembly": {
+      "2001": {
+        "votes": 580,
+        "vote_share_percent": 0.0
+      },
+      "2006": {
+        "votes": 3855,
+        "vote_share_percent": 0.0
+      },
+      "2011": {
+        "votes": 8862,
+        "vote_share_percent": 0.0
+      },
+      "2021": {
+        "votes": 1930,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Uzhaippalar Katchi",
+    "short_name": "uzhaippalar_katchi",
+    "assembly": {
+      "2001": {
+        "votes": 698,
+        "vote_share_percent": 0.0
+      },
+      "2011": {
+        "votes": 25157,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Loktantrik Jan Samta Party",
+    "short_name": "ljsp_alt",
+    "assembly": {
+      "2001": {
+        "votes": 598,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Dravida Munetra Kazhagam",
+    "short_name": "dmk_alt_ocr",
+    "assembly": {
+      "2006": {
+        "votes": 8728716,
+        "vote_share_percent": 26.5
+      }
+    }
+  },
+  {
+    "party_name": "Marmularchi Dravida Munetra Kazhagam",
+    "short_name": "mdmk_alt_ocr",
+    "assembly": {
+      "2006": {
+        "votes": 1971565,
+        "vote_share_percent": 6.0
+      }
+    }
+  },
+  {
+    "party_name": "Viduthalai Chiruthaigal Katchi",
+    "short_name": "vck_alt",
+    "assembly": {
+      "2006": {
+        "votes": 426321,
+        "vote_share_percent": 1.3
+      }
+    }
+  },
+  {
+    "party_name": "Bahujan Samaj Party",
+    "short_name": "bsp_alt",
+    "assembly": {
+      "2006": {
+        "votes": 259336,
+        "vote_share_percent": 0.8
+      }
+    }
+  },
+  {
+    "party_name": "Lok Paritran",
+    "short_name": "lok_paritran",
+    "assembly": {
+      "2006": {
+        "votes": 37325,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Indians Victory Party",
+    "short_name": "ivp",
+    "assembly": {
+      "2006": {
+        "votes": 31609,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Tamil Nadu Jananayaka Congress",
+    "short_name": "tnjc",
+    "assembly": {
+      "2006": {
+        "votes": 8814,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Maharashtrawadi Gomantak",
+    "short_name": "mgp",
+    "assembly": {
+      "2006": {
+        "votes": 3874,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Akila India Vallalar Peravai",
+    "short_name": "aivp",
+    "assembly": {
+      "2006": {
+        "votes": 1868,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Revolutionary Socialist Party",
+    "short_name": "rsp",
+    "assembly": {
+      "2006": {
+        "votes": 1744,
+        "vote_share_percent": 0.0
+      },
+      "2011": {
+        "votes": 945,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Indian Justice Party",
+    "short_name": "ijp",
+    "assembly": {
+      "2006": {
+        "votes": 1469,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Bharathiya Dravida Makkal Katchi",
+    "short_name": "bdmk",
+    "assembly": {
+      "2006": {
+        "votes": 1129,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "All India Forward Bloc (Subhasist)",
+    "short_name": "aifb_subhasist",
+    "assembly": {
+      "2006": {
+        "votes": 616,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Jebamani Janata",
+    "short_name": "jebamani_janata",
+    "assembly": {
+      "2006": {
+        "votes": 592,
+        "vote_share_percent": 0.0
+      },
+      "2011": {
+        "votes": 167,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Desiya Murpokku Dravida Kazhagam",
+    "short_name": "dmdk_full",
+    "assembly": {
+      "2011": {
+        "votes": 2902813,
+        "vote_share_percent": 7.9
+      },
+      "2021": {
+        "votes": 220010,
+        "vote_share_percent": 0.4
+      }
+    }
+  },
+  {
+    "party_name": "Manithaneya Makkal Katchi",
+    "short_name": "mmk",
+    "assembly": {
+      "2011": {
+        "votes": 181180,
+        "vote_share_percent": 0.5
+      },
+      "2016": {
+        "votes": 197150,
+        "vote_share_percent": 0.5
+      }
+    }
+  },
+  {
+    "party_name": "Puthiya Tamizhagam",
+    "short_name": "puthiya_tamizhagam",
+    "assembly": {
+      "2011": {
+        "votes": 146454,
+        "vote_share_percent": 0.4
+      }
+    }
+  },
+  {
+    "party_name": "India Jananayaka Katchi",
+    "short_name": "ijk",
+    "assembly": {
+      "2011": {
+        "votes": 218859,
+        "vote_share_percent": 0.6
+      },
+      "2016": {
+        "votes": 36125,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Jharkhand Mukti Morcha",
+    "short_name": "jmm",
+    "assembly": {
+      "2011": {
+        "votes": 88482,
+        "vote_share_percent": 0.2
+      }
+    }
+  },
+  {
+    "party_name": "Tamilaga Makkal Munnetra Kazhagam",
+    "short_name": "tmmkz",
+    "assembly": {
+      "2011": {
+        "votes": 32949,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Lok Satta Party",
+    "short_name": "lok_satta",
+    "assembly": {
+      "2011": {
+        "votes": 28509,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Social Democratic Party of India",
+    "short_name": "sdpi",
+    "assembly": {
+      "2011": {
+        "votes": 19034,
+        "vote_share_percent": 0.1
+      },
+      "2016": {
+        "votes": 65978,
+        "vote_share_percent": 0.2
+      }
+    }
+  },
+  {
+    "party_name": "Akhila India Jananayaka Makkal Katchi (Dr. Isaac)",
+    "short_name": "aijmk",
+    "assembly": {
+      "2011": {
+        "votes": 11045,
+        "vote_share_percent": 0.0
+      },
+      "2016": {
+        "votes": 963,
+        "vote_share_percent": 0.0
+      },
+      "2021": {
+        "votes": 168,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Makkal Manadu Katchi",
+    "short_name": "mmk_alt",
+    "assembly": {
+      "2011": {
+        "votes": 10175,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "People's Party of India (Secular)",
+    "short_name": "ppi_sec",
+    "assembly": {
+      "2011": {
+        "votes": 6446,
+        "vote_share_percent": 0.0
+      },
+      "2016": {
+        "votes": 4841,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Indian National League",
+    "short_name": "inl",
+    "assembly": {
+      "2011": {
+        "votes": 5851,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "All India Party for the Protection of Civil Rights",
+    "short_name": "aippcr",
+    "assembly": {
+      "2011": {
+        "votes": 4033,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Indian Democratic Party",
+    "short_name": "idp",
+    "assembly": {
+      "2011": {
+        "votes": 3919,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Ambedkar People's Movement",
+    "short_name": "apm",
+    "assembly": {
+      "2011": {
+        "votes": 2549,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Mgr Thonderkal Katchi",
+    "short_name": "mgr_thonderkal",
+    "assembly": {
+      "2011": {
+        "votes": 2157,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Anaithindia Dravidar Samudaya Munnetra Kazhagam",
+    "short_name": "adsmk",
+    "assembly": {
+      "2011": {
+        "votes": 1748,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "All India Minorities Front",
+    "short_name": "aimf",
+    "assembly": {
+      "2011": {
+        "votes": 1303,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Jharkhand Mukti Morcha (Ulgulan)",
+    "short_name": "jmm_ulgulan",
+    "assembly": {
+      "2011": {
+        "votes": 855,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Youth and Students Party",
+    "short_name": "ysp",
+    "assembly": {
+      "2011": {
+        "votes": 763,
+        "vote_share_percent": 0.0
+      },
+      "2016": {
+        "votes": 10361,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Socialist Unity Centre of India (Communist)",
+    "short_name": "suci_c",
+    "assembly": {
+      "2011": {
+        "votes": 744,
+        "vote_share_percent": 0.0
+      },
+      "2021": {
+        "votes": 856,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Makkal Sakthi Katchi",
+    "short_name": "msk",
+    "assembly": {
+      "2011": {
+        "votes": 567,
+        "vote_share_percent": 0.0
+      },
+      "2021": {
+        "votes": 1478,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Lenin Communist Party",
+    "short_name": "lcp",
+    "assembly": {
+      "2011": {
+        "votes": 553,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Republican Party of India (A)",
+    "short_name": "rpi_a",
+    "assembly": {
+      "2011": {
+        "votes": 458,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "J & K National Panthers Party",
+    "short_name": "jknpp",
+    "assembly": {
+      "2011": {
+        "votes": 444,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Shiv Sena",
+    "short_name": "shiv_sena",
+    "assembly": {
+      "2011": {
+        "votes": 237,
+        "vote_share_percent": 0.0
+      },
+      "2016": {
+        "votes": 13640,
+        "vote_share_percent": 0.0
+      },
+      "2021": {
+        "votes": 1206,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Tamil Manila Congress (Moopanar)",
+    "short_name": "tmc",
+    "assembly": {
+      "2016": {
+        "votes": 230711,
+        "vote_share_percent": 0.5
+      }
+    }
+  },
+  {
+    "party_name": "Tamilaga Vazhvurimai Katchi",
+    "short_name": "tvk_old",
+    "assembly": {
+      "2016": {
+        "votes": 34012,
+        "vote_share_percent": 0.1
+      }
+    }
+  },
+  {
+    "party_name": "Tamilaga Makkal Munnetra Kazhagam",
+    "short_name": "tmmk",
+    "assembly": {
+      "2016": {
+        "votes": 28655,
+        "vote_share_percent": 0.1
+      },
+      "2021": {
+        "votes": 2690,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Welfare Party of India",
+    "short_name": "wpi",
+    "assembly": {
+      "2016": {
+        "votes": 5231,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Ganasangam Party of India",
+    "short_name": "gpi",
+    "assembly": {
+      "2016": {
+        "votes": 1840,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Samuga Makkal Katchi",
+    "short_name": "smk",
+    "assembly": {
+      "2016": {
+        "votes": 1695,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Democratic Congress Labour Party",
+    "short_name": "dclp",
+    "assembly": {
+      "2016": {
+        "votes": 1411,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "The Future India Party",
+    "short_name": "tfip",
+    "assembly": {
+      "2016": {
+        "votes": 1359,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "All India Pattali Makkal Katchi",
+    "short_name": "aipmk",
+    "assembly": {
+      "2016": {
+        "votes": 1321,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Makkal Katchi",
+    "short_name": "makkal_katchi",
+    "assembly": {
+      "2016": {
+        "votes": 2372,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Revolutionary Party of India (A)",
+    "short_name": "rpi_a_alt",
+    "assembly": {
+      "2016": {
+        "votes": 2280,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Socialistic Democratic Party",
+    "short_name": "sdp",
+    "assembly": {
+      "2016": {
+        "votes": 2210,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Janta Dal (United)",
+    "short_name": "jdu_alt",
+    "assembly": {
+      "2016": {
+        "votes": 2074,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Tamil Makkal Congress",
+    "short_name": "tmc_minor",
+    "assembly": {
+      "2016": {
+        "votes": 331,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Makkal Needhi Maiam",
+    "short_name": "mnm_alt",
+    "assembly": {
+      "2021": {
+        "votes": 1210002,
+        "vote_share_percent": 2.6
+      }
+    }
+  },
+  {
+    "party_name": "Tamil Maanila Congress",
+    "short_name": "tmc_2021",
+    "assembly": {
+      "2021": {
+        "votes": 3041717,
+        "vote_share_percent": 6.6
+      }
+    }
+  },
+  {
+    "party_name": "India Janaanayaka Katchi",
+    "short_name": "ijk_alt",
+    "assembly": {
+      "2021": {
+        "votes": 1016546,
+        "vote_share_percent": 2.2
+      }
+    }
+  },
+  {
+    "party_name": "Desiya Jananayaka Makkal Kazhagam",
+    "short_name": "djmk",
+    "assembly": {
+      "2021": {
+        "votes": 3532,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Anaithu Makkal Arasiyal Katchi",
+    "short_name": "amak",
+    "assembly": {
+      "2021": {
+        "votes": 3256,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Samathuva Makkal Party",
+    "short_name": "smp",
+    "assembly": {
+      "2021": {
+        "votes": 3246,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Anaa Mgr Dravida Makkal Kazhagam",
+    "short_name": "amdmk",
+    "assembly": {
+      "2021": {
+        "votes": 3156,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "All India Majlis-E-Ittehadul Muslimeen",
+    "short_name": "aimim",
+    "assembly": {
+      "2021": {
+        "votes": 3149,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Ahimsa Socialist Party",
+    "short_name": "ahimsa_sp",
+    "assembly": {
+      "2021": {
+        "votes": 2716,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Republican Party of India (Athawale)",
+    "short_name": "rpi_a_thawale",
+    "assembly": {
+      "2021": {
+        "votes": 2509,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "All India Janaanayaka Makkal Kazhagam",
+    "short_name": "aijmk_alt",
+    "assembly": {
+      "2021": {
+        "votes": 2337,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "Idu Sujlan Party",
+    "short_name": "isu_party",
+    "assembly": {
+      "2021": {
+        "votes": 2050,
+        "vote_share_percent": 0.0
+      }
+    }
+  },
+  {
+    "party_name": "United States of India Party",
+    "short_name": "usip",
+    "assembly": {
+      "2021": {
+        "votes": 1980,
+        "vote_share_percent": 0.0
+      }
+    }
+  }
+]
