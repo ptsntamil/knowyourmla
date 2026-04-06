@@ -39,6 +39,10 @@ export interface DistrictMLA {
   formattedAssets: string;
   image_url?: string;
   isFresher?: boolean;
+  gender?: string;
+  education?: string;
+  margin?: number | null;
+  votes?: number | null;
 }
 
 export interface DistrictInsights {
@@ -46,6 +50,8 @@ export interface DistrictInsights {
   youngestMla: DistrictMLA | null;
   oldestMla: DistrictMLA | null;
   richestMla: DistrictMLA | null;
+  highestMarginMla: DistrictMLA | null;
+  highestVotesMla: DistrictMLA | null;
   dominantParty: {
     party: string | null;
     seats: number;
@@ -69,6 +75,7 @@ export interface DistrictInsights {
     unknown: number;
   };
 }
+
 
 export interface DistrictInsightsResponse {
   insights: DistrictInsights;
