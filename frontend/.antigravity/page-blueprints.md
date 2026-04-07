@@ -63,7 +63,23 @@ This document defines the recommended structure and composition for the primary 
     - `ElectorateStats` (Gender-wise breakdown).
 5.  **FAQSection:** Seat-specific questions.
 
-## 5. General SEO Page Blueprint
+## 5. Election Results Page Blueprint
+**Purpose:** Provide analytics and seat-wise results for a specific election year.
+
+### Required Structure:
+1.  **Metadata:** `generateMetadata` (Year, Summary, Party results).
+2.  **BreadcrumbSchema:** Context-aware path (Home > TN > Elections > [Year]).
+3.  **CoverImage (Hero):** 
+    - `title`: `${stateName} Election ${year}`
+    - `subtitle`: `summarySentence` (fetched from service).
+    - `children`: `ElectionHero` (rendering ONLY breadcrumbs).
+4.  **Main Content:**
+    - `ElectionSnapshotCards`: Row of cards with major outcomes.
+    - `Charts Section`: `SeatsByPartyChart` and `VoteShareChart` in a 2-column grid.
+    - `Results Table`: `ConstituencyResultsTable` (searchable/sortable).
+5.  **FAQSection:** Election-specific questions.
+
+## 6. General SEO Page Blueprint
 **Purpose:** Use for any new indexable content pages.
 
 ### Template:
@@ -72,7 +88,9 @@ export default async function GenericPage() {
   return (
     <div className="min-h-screen bg-page-bg">
       <BreadcrumbSchema items={...} />
-      < कवर इमेज />
+      <CoverImage title="..." subtitle="..." >
+         <Breadcrumbs />
+      </CoverImage>
       <main className="max-w-7xl mx-auto px-4 py-16 space-y-16">
         <SEOIntro h1="..." intro="..." />
         <AnswerSnippet question="..." answer="..." />
@@ -85,3 +103,11 @@ export default async function GenericPage() {
   )
 }
 ```
+
+## 7. Hero & Header Standards (Critical)
+To avoid vertical spacing breakage between the navbar, hero, and main content:
+
+- **Use `CoverImage` props for text**: Always pass the primary page title to `title` and the summary to `subtitle`.
+- **Reserve `children` for overlays**: Use the `children` slot *only* for secondary UI elements like breadcrumbs, stats pills, or tags.
+- **NEVER duplicate titles**: Avoid rendering a separate `h1` or summary paragraph inside the `children` of `CoverImage` if they are already provided via props.
+- **Padding consistency**: Use `main.max-w-7xl.mx-auto.px-4.py-20.space-y-32` for the main content area immediately following a hero to ensure balanced negative space.

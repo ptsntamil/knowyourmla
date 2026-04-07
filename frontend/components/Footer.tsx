@@ -23,14 +23,17 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap justify-center gap-6 md:gap-12 text-sm font-medium">
-            <Link href="/terms" className="hover:text-white transition-colors">
-              Terms of Service
-            </Link>
-            <Link href="/privacy" className="hover:text-white transition-colors">
-              Privacy
+            <Link href="/tn/elections/2021" className="hover:text-white transition-colors">
+              Elections
             </Link>
             <Link href="/about" className="hover:text-white transition-colors">
               About Us
+            </Link>
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms
+            </Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">
+              Privacy
             </Link>
           </div>
 

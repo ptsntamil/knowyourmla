@@ -234,9 +234,27 @@ export default async function ConstituencyPage({ params }: PageProps) {
           </section>
         )}
 
-        <section>
-          <div className="mb-8">
-            <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">Election History</h2>
+        <section className="space-y-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div>
+              <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Election History</h2>
+              <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Past winners and performance in {slug}</p>
+            </div>
+            
+            <Link 
+              href="/tn/elections/2021/insights"
+              className="group flex items-center gap-4 bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-95"
+            >
+              <div className="w-10 h-10 bg-brand-gold/10 rounded-xl flex items-center justify-center text-brand-gold">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-5 h-5">
+                  <path d="M12 20v-6M6 20V10M18 20V4" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
+              <div className="text-left">
+                <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none mb-1">Statewide Context</p>
+                <p className="text-xs font-black text-brand-dark uppercase tracking-tight group-hover:text-brand-gold transition-colors">Explore 2021 Insights</p>
+              </div>
+            </Link>
           </div>
           <div className="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm">
             <div className="px-10 py-8 bg-brand-dark flex justify-between items-center text-white">

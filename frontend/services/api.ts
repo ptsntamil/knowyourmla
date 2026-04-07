@@ -19,7 +19,7 @@ const getSiteUrl = () => {
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
   return "http://localhost:3000";
 };
-
+const REVALIDATE_TIME = Number(process.env.REVALIDATE_TIME) || 3600;
 const SITE_URL = getSiteUrl();
 
 const BASE_URL = USE_V2_API
@@ -105,7 +105,7 @@ export async function fetchMLAProfile(identifier: string): Promise<MLAProfileRes
     const service = new MLAService();
     return service.getMLAProfile(identifier);
   }
-  const res = await fetch(`${BASE_URL}/mlas/${encodeURIComponent(identifier)}/profile`, { next: { revalidate: 0 } });
+  const res = await fetch(`${BASE_URL}/mlas/${encodeURIComponent(identifier)}/profile`, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch MLA profile: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -171,16 +171,16 @@ export async function fetchPartyDetails(slug: string, year?: string): Promise<an
 
     return {
       party,
-      analytics: analytics || { 
-        stats: { totalContested: 0, totalWins: 0, winRate: 0, newCandidates: 0, repeatCandidates: 0 }, 
-        age: { youngest: null, eldest: null }, 
-        assets: { average: 0, median: 0, crorepatiCount: 0, crorepatiPercentage: 0, distribution: [] }, 
-        education: { distribution: [], graduateCount: 0, mostCommon: "N/A", total: 0 }, 
-        criminal: { total: 0, percentage: 0, max: 0 }, 
-        gender: { male: 0, female: 0, femalePercentage: 0 }, 
-        occupation: { distribution: [], top: [] }, 
-        elections: [], 
-        timeline: [] 
+      analytics: analytics || {
+        stats: { totalContested: 0, totalWins: 0, winRate: 0, newCandidates: 0, repeatCandidates: 0 },
+        age: { youngest: null, eldest: null },
+        assets: { average: 0, median: 0, crorepatiCount: 0, crorepatiPercentage: 0, distribution: [] },
+        education: { distribution: [], graduateCount: 0, mostCommon: "N/A", total: 0 },
+        criminal: { total: 0, percentage: 0, max: 0 },
+        gender: { male: 0, female: 0, femalePercentage: 0 },
+        occupation: { distribution: [], top: [] },
+        elections: [],
+        timeline: []
       },
       availableElections: elections
     };
@@ -188,7 +188,7 @@ export async function fetchPartyDetails(slug: string, year?: string): Promise<an
   const url = year && year !== "all"
     ? `${BASE_URL}/parties/${encodeURIComponent(slug)}?year=${year}`
     : `${BASE_URL}/parties/${encodeURIComponent(slug)}`;
-  const res = await fetch(url, { next: { revalidate: 0 } });
+  const res = await fetch(url, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch party details: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -204,10 +204,10 @@ export async function fetchPartyCandidates(slug: string, year?: number): Promise
     if (!party) throw new Error("Party not found");
     return service.getPartyCandidatesForYear(party.PK, year);
   }
-  const url = year 
+  const url = year
     ? `${BASE_URL}/parties/${encodeURIComponent(slug)}/candidates?year=${year}`
     : `${BASE_URL}/parties/${encodeURIComponent(slug)}/candidates`;
-  const res = await fetch(url, { next: { revalidate: 0 } });
+  const res = await fetch(url, { next: { revalidate: 3600 } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch party candidates: ${res.status} ${res.statusText} - ${errorBody}`);
