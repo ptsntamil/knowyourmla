@@ -6,7 +6,7 @@ import { Map, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
 import { DistrictStrength } from '@/lib/services/election-analytics.service';
 import Badge from '@/components/ui/Badge';
-import { getPartySlug } from '@/lib/utils/party-utils';
+import PartyBadge from '@/components/ui/PartyBadge';
 
 interface DistrictStrongholdsProps {
   data: DistrictStrength[];
@@ -49,28 +49,13 @@ export default function DistrictStrongholds({ data, limit = 8 }: DistrictStrongh
 
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <Link 
-                    href={`/parties/${getPartySlug(district.leadPartyId)}`}
-                    className="text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-2.5 w-fit shadow-sm border whitespace-nowrap transition-all hover:scale-105 active:scale-95"
-                    style={{
-                      backgroundColor: district.colorBg || '#f8fafc',
-                      color: district.colorText || '#1e293b',
-                      borderColor: district.colorBorder || '#e2e8f0'
-                    }}
-                  >
-                    {district.leadPartyLogoUrl && (
-                      <div className="relative w-5 h-5 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20 shadow-inner">
-                        <Image
-                          src={district.leadPartyLogoUrl}
-                          alt={district.leadPartyShort}
-                          width={14}
-                          height={14}
-                          className="object-contain"
-                        />
-                      </div>
-                    )}
-                    {district.leadPartyShort}
-                  </Link>
+                  <PartyBadge
+                    party={district.leadPartyShort}
+                    logoUrl={district.leadPartyLogoUrl}
+                    colorBg={district.colorBg || '#f8fafc'}
+                    colorText={district.colorText || '#1e293b'}
+                    colorBorder={district.colorBorder || '#e2e8f0'}
+                  />
 
                   <div className="text-right">
                     <span className="text-sm font-black text-brand-dark">{district.seatsWon}</span>

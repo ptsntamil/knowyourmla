@@ -28,6 +28,7 @@ The project follows a strict hierarchical URL structure to optimize for crawlabi
 - **Dynamic Fetching:** Use `export const dynamic = "force-dynamic"` for pages requiring real-time or frequently updated data (like profiles or filtered lists).
 - **Metadata Handling:** Every page MUST implement `generateMetadata()` using the `buildMetadata` helper from `@/lib/seo/metadata`.
 - **Composition:** Pages should be composed of high-level section components rather than deep JSX nesting.
+- **Error Boundaries & Fallback UI:** Every dynamic route (e.g., `[slug]`) must implement route-segment-level `loading.tsx` and `error.tsx` boundaries. If data is completely missing, explicitly trigger Next.js's `notFound()` function to ensure correct 404 HTTP status codes for search engines.
 
 ## 4. Component Architecture Rules
 Components are organized by responsibility:
@@ -39,8 +40,11 @@ Components are organized by responsibility:
 
 ### Guidelines:
 - **Consistency:** Reuse `Badge` and `Card` primitives for all data displays.
+- **Party Display Template:** Always use the `PartyBadge` component from `components/ui/PartyBadge` when displaying a party name with its logo. Do not inline the styling or the `Link` tag for party display. This ensures consistent URL routing, branding colors, and logo handling.
 - **Density:** Favor "High-Density" layouts for profile pages (vertical sidebars within cards).
 - **Interactive:** Keep "use client" components as small as possible (e.g., `FeedbackModal`, `ShareButton`).
+- **State Management & Filtering (SEO-First):** Prefer URL Search Parameters over React Local State (`useState`) for filtering (e.g., `?party=dmk&year=2021`). This ensures specific views remain shareable and crawlable.
+- **Component Extraction (Rule of Three):** If a JSX layout, data formatting utility, or specific Tailwind styling block is repeated three times across the repository, it MUST be extracted into `components/ui/` or `lib/utils/`.
 
 ## 5. SEO & Structured Data Rules
 SEO is a first-class citizen in this codebase:
@@ -53,9 +57,15 @@ SEO is a first-class citizen in this codebase:
   - `FAQSchema` (where applicable)
 - **Content:** Use `SEOIntro` for `h1` and introductory text. Use `AnswerSnippet` for "Featured Snippet" optimization.
 
-## 6. Data Fetching Rules
-- **Centralized API:** All external data fetching must go through `services/api.ts`.
-- **V2 API Pattern:** The project is migrating to a "V2 API" which uses direct service imports (`@/lib/services/...`) on the server side.
+## 6. Data Fetching & Backend Access Rules (Full-stack Next.js)
+- **Strict Three-Tier Isolation:** UI Server Components (`page.tsx`) must NEVER import from `lib/repositories/` or connect to the database directly. They must *only* interact with `lib/services/` (e.g., `MLAService`).
+- **Data Source of Truth (Database Normalization):** When fetching aggregated data, always prioritize the primary master tables for core traits to avoid denormalization sync issues. *Example: always fetch `district_name` from the `Constituency` table, and fetch `age/birth_year` and `sex/gender` from the `Person` table, rather than relying on stale copies in the `Candidate` history table.*
+- **No Internal Fetching:** Server Components MUST NOT perform internal HTTP fetches (e.g., `fetch('/api/...')`). They must fetch data by directly calling internal Service methods, saving HTTP wrapper overhead. Reserve `fetch()` for external endpoints or Client Components.
+- **Server Actions vs. Route Handlers:** Use Next.js Server Actions (`"use server"`) for internal client mutations and form submissions. Use API Route Handlers (`app/api/route.ts`) *only* when exposing data to an external webhook or client app.
+- **Prop Drilling & Payload Optimization:** Never pass massive raw database records (e.g., entire DynamoDB responses) down to Client Components. Only pass exactly the fields required by the UI to prevent serializing multi-megabyte payloads over the network.
+- **Environment Variable Safety:** Database credentials and backend secret tokens must never be prefixed with `NEXT_PUBLIC_` to prevent security leaks into the client bundle.
+- **Centralized External API:** All third-party external data fetching must go through `services/api.ts` or structured adapters.
+- **Strict TypeScript (Zero `any` Policy):** All data structures fetched from the DB must strictly conform to interfaces defined in `types/models.ts`. Avoid `any`.
 - **Validation:** Handle missing data gracefully with fallbacks and "Not Found" states (use `not-found.tsx`).
 
 ## 7. Analytics & Data Visualization
@@ -64,7 +74,8 @@ Analytics sections (Youngest/Oldest candidate, Assets, etc.) follow a specific p
 - **Metric Widgets:** Use `MetricWidgets.tsx` for standalone KPI cards (e.g., Attendance, Questions).
 - **Party Insights:** Group complex demographic data into "Insights" sections (e.g., `PartyKeyInsights`).
 
-## 8. Styling Rules (Tailwind CSS)
+## 8. Styling & Media Rules (Tailwind CSS)
+- **Image Optimization:** All images must use Next.js `<Image />` component with strict `width` and `height` dimensions to prevent Cumulative Layout Shift (CLS). Implement fallback logic for broken or missing candidate portraits.
 - **Color Palette:**
   - `brand-dark`: Primary dark theme / text.
   - `brand-gold`: Accent / highlight.

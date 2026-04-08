@@ -6,7 +6,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { ConstituencyResult } from '@/lib/services/election-analytics.service';
 import Badge from '@/components/ui/Badge';
-import { getPartySlug } from '@/lib/utils/party-utils';
+import PartyBadge from '@/components/ui/PartyBadge';
 
 interface ConstituencyResultsExplorerProps {
   results: ConstituencyResult[];
@@ -180,28 +180,13 @@ export default function ConstituencyResultsExplorer({ results, year }: Constitue
                           <p className="font-black text-brand-dark text-sm leading-tight">{result.winnerName}</p>
                         )}
                       </div>
-                      <Link 
-                        href={`/parties/${getPartySlug(result.winnerParty)}`}
-                        className="text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-2.5 w-fit shadow-sm border whitespace-nowrap transition-all hover:scale-105 active:scale-95"
-                        style={{
-                          backgroundColor: result.winnerPartyColorBg || '#f8fafc',
-                          color: result.winnerPartyColorText || '#1e293b',
-                          borderColor: result.winnerPartyColorBorder || '#e2e8f0'
-                        }}
-                      >
-                        {result.winnerPartyLogoUrl && (
-                          <div className="relative w-6 h-6 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20 shadow-inner">
-                            <Image
-                              src={result.winnerPartyLogoUrl}
-                              alt={result.winnerPartyShort}
-                              width={18}
-                              height={18}
-                              className="object-contain"
-                            />
-                          </div>
-                        )}
-                        {result.winnerPartyShort}
-                      </Link>
+                      <PartyBadge
+                        party={result.winnerPartyShort}
+                        logoUrl={result.winnerPartyLogoUrl}
+                        colorBg={result.winnerPartyColorBg || '#f8fafc'}
+                        colorText={result.winnerPartyColorText || '#1e293b'}
+                        colorBorder={result.winnerPartyColorBorder || '#e2e8f0'}
+                      />
                     </div>
                   </td>
                   <td className="px-10 py-7">
@@ -219,28 +204,13 @@ export default function ConstituencyResultsExplorer({ results, year }: Constitue
                           <p className="font-bold text-slate-600 text-sm leading-tight">{result.runnerUpName}</p>
                         )}
                       </div>
-                      <Link 
-                        href={`/parties/${getPartySlug(result.runnerUpParty)}`}
-                        className="text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-2.5 w-fit shadow-sm border whitespace-nowrap transition-all hover:scale-105 active:scale-95"
-                        style={{
-                          backgroundColor: result.runnerUpPartyColorBg || '#f8fafc',
-                          color: result.runnerUpPartyColorText || '#1e293b',
-                          borderColor: result.runnerUpPartyColorBorder || '#e2e8f0'
-                        }}
-                      >
-                        {result.runnerUpPartyLogoUrl && (
-                          <div className="relative w-6 h-6 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20 shadow-inner">
-                            <Image
-                              src={result.runnerUpPartyLogoUrl}
-                              alt={result.runnerUpPartyShort}
-                              width={18}
-                              height={18}
-                              className="object-contain"
-                            />
-                          </div>
-                        )}
-                        {result.runnerUpPartyShort}
-                      </Link>
+                      <PartyBadge
+                        party={result.runnerUpPartyShort}
+                        logoUrl={result.runnerUpPartyLogoUrl}
+                        colorBg={result.runnerUpPartyColorBg || '#f8fafc'}
+                        colorText={result.runnerUpPartyColorText || '#1e293b'}
+                        colorBorder={result.runnerUpPartyColorBorder || '#e2e8f0'}
+                      />
                     </div>
                   </td>
                   <td className="px-10 py-7">
@@ -345,28 +315,13 @@ export default function ConstituencyResultsExplorer({ results, year }: Constitue
                   ) : (
                     <p className="font-black text-brand-dark text-base">{result.winnerName}</p>
                   )}
-                  <Link 
-                    href={`/parties/${getPartySlug(result.winnerParty)}`}
-                    className="text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-2.5 w-fit shadow-sm border whitespace-nowrap"
-                    style={{
-                      backgroundColor: result.winnerPartyColorBg || '#f8fafc',
-                      color: result.winnerPartyColorText || '#1e293b',
-                      borderColor: result.winnerPartyColorBorder || '#e2e8f0'
-                    }}
-                  >
-                    {result.winnerPartyLogoUrl && (
-                      <div className="relative w-6 h-6 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20 shadow-inner">
-                        <Image
-                          src={result.winnerPartyLogoUrl}
-                          alt={result.winnerPartyShort}
-                          width={18}
-                          height={18}
-                          className="object-contain"
-                        />
-                      </div>
-                    )}
-                    {result.winnerPartyShort}
-                  </Link>
+                  <PartyBadge
+                    party={result.winnerPartyShort}
+                    logoUrl={result.winnerPartyLogoUrl}
+                    colorBg={result.winnerPartyColorBg || '#f8fafc'}
+                    colorText={result.winnerPartyColorText || '#1e293b'}
+                    colorBorder={result.winnerPartyColorBorder || '#e2e8f0'}
+                  />
                 </div>
               </div>
 
@@ -386,28 +341,13 @@ export default function ConstituencyResultsExplorer({ results, year }: Constitue
                   ) : (
                     <p className="font-bold text-slate-600 text-base">{result.runnerUpName}</p>
                   )}
-                  <Link 
-                    href={`/parties/${getPartySlug(result.runnerUpParty)}`}
-                    className="text-[10px] font-black px-3 py-1.5 rounded-full uppercase tracking-wider flex items-center gap-2.5 w-fit shadow-sm border whitespace-nowrap"
-                    style={{
-                      backgroundColor: result.runnerUpPartyColorBg || '#f8fafc',
-                      color: result.runnerUpPartyColorText || '#1e293b',
-                      borderColor: result.runnerUpPartyColorBorder || '#e2e8f0'
-                    }}
-                  >
-                    {result.runnerUpPartyLogoUrl && (
-                      <div className="relative w-6 h-6 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20 shadow-inner">
-                        <Image
-                          src={result.runnerUpPartyLogoUrl}
-                          alt={result.runnerUpPartyShort}
-                          width={18}
-                          height={18}
-                          className="object-contain"
-                        />
-                      </div>
-                    )}
-                    {result.runnerUpPartyShort}
-                  </Link>
+                  <PartyBadge
+                    party={result.runnerUpPartyShort}
+                    logoUrl={result.runnerUpPartyLogoUrl}
+                    colorBg={result.runnerUpPartyColorBg || '#f8fafc'}
+                    colorText={result.runnerUpPartyColorText || '#1e293b'}
+                    colorBorder={result.runnerUpPartyColorBorder || '#e2e8f0'}
+                  />
                 </div>
               </div>
             </div>

@@ -8,6 +8,7 @@ import ElectionInsights from '@/components/election/insights/ElectionInsights';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { commonBreadcrumbs } from '@/lib/seo/breadcrumbs';
 import { buildMetadata } from '@/lib/seo/metadata';
+import { AVAILABLE_ELECTION_YEARS } from '@/lib/constants/elections';
 
 interface PageProps {
   params: Promise<{ year: string }>;
@@ -15,7 +16,6 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps) {
   const { year } = await params;
-  const yearNum = parseInt(year);
 
   return buildMetadata({
     title: `Tamil Nadu Election ${year} Results Insights | Analysis, Stats & Highlights`,
@@ -33,11 +33,7 @@ export async function generateMetadata({ params }: PageProps) {
 }
 
 export async function generateStaticParams() {
-  return [
-    { year: '2021' },
-    { year: '2016' },
-    { year: '2011' }
-  ];
+  return AVAILABLE_ELECTION_YEARS.map(year => ({ year }));
 }
 
 export default async function ElectionInsightsPage({ params }: PageProps) {

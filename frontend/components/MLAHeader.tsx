@@ -4,7 +4,7 @@ import { User, GraduationCap, Briefcase, AlertCircle, Coins, Car, MapPin } from 
 import ProfileImage from "./ProfileImage";
 import ShareButton from "./ShareButton";
 import Badge from "./ui/Badge";
-import { getPartySlug } from "@/lib/utils/party-utils";
+import PartyBadge from "./ui/PartyBadge";
 
 interface MLAHeaderProps {
    person: PersonDetail;
@@ -84,22 +84,14 @@ export default function MLAHeader({
                      </h1>
 
                      <div className="flex flex-wrap justify-center md:justify-start gap-3 items-center">
-                        <Link
-                           href={`/parties/${getPartySlug(latestHistory?.party)}`}
-                           className="px-6 py-3 text-xs font-black rounded-full uppercase tracking-widest shadow-lg flex items-center gap-3 border transition-all hover:scale-105 active:scale-95"
-                           style={{
-                              backgroundColor: latestHistory?.party_color_bg || '#D4AF37',
-                              color: latestHistory?.party_color_text || '#FFFFFF',
-                              borderColor: latestHistory?.party_color_border || 'rgba(0,0,0,0.1)'
-                           }}
-                        >
-                           {latestHistory?.party_logo_url && (
-                              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 shadow-inner">
-                                 <img src={latestHistory.party_logo_url} alt={latestHistory.party} className="w-6 h-6 object-contain" />
-                              </div>
-                           )}
-                           {latestHistory?.party || "NA"}
-                        </Link>
+                        <PartyBadge
+                           party={latestHistory?.party || "NA"}
+                           logoUrl={latestHistory?.party_logo_url}
+                           colorBg={latestHistory?.party_color_bg || '#D4AF37'}
+                           colorText={latestHistory?.party_color_text || '#FFFFFF'}
+                           colorBorder={latestHistory?.party_color_border || 'rgba(0,0,0,0.1)'}
+                           className="px-6 py-3 text-xs shadow-lg"
+                        />
                         <span className="px-5 py-2 bg-white/10 text-white text-[10px] font-black rounded-full uppercase tracking-widest border border-white/10">
                            {latestHistory?.constituency} Constituency
                         </span>

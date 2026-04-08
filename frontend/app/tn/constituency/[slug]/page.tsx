@@ -11,6 +11,7 @@ import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import MLASnapshotCard from "@/components/constituency/MLASnapshotCard";
 import ConstituencyInsights from "@/components/constituency/ConstituencyInsights";
 import { getPartySlug } from "@/lib/utils/party-utils";
+import PartyBadge from "@/components/ui/PartyBadge";
 
 export const dynamic = "force-dynamic";
 
@@ -290,22 +291,13 @@ export default async function ConstituencyPage({ params }: PageProps) {
                         )}
                       </td>
                       <td className="px-10 py-8">
-                        <Link
-                          href={`/parties/${getPartySlug(record.party)}`}
-                          className="px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2.5 w-fit border shadow-sm transition-all hover:scale-105 active:scale-95"
-                          style={{
-                            backgroundColor: record.party.color_bg || 'rgba(15, 23, 42, 0.05)',
-                            color: record.party.color_text || '#0F172A',
-                            borderColor: record.party.color_border || 'rgba(15, 23, 42, 0.1)'
-                          }}
-                        >
-                          {record.party.logo_url && (
-                            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-slate-100 shadow-inner">
-                              <img src={record.party.logo_url} alt={record.party.name || ""} className="w-6 h-6 object-contain" />
-                            </div>
-                          )}
-                          {record.party.short_name || record.party.name}
-                        </Link>
+                        <PartyBadge
+                          party={record.party.short_name || record.party.name}
+                          logoUrl={record.party.logo_url}
+                          colorBg={record.party.color_bg || 'rgba(15, 23, 42, 0.05)'}
+                          colorText={record.party.color_text || '#0F172A'}
+                          colorBorder={record.party.color_border || 'rgba(15, 23, 42, 0.1)'}
+                        />
                       </td>
                       <td className="px-10 py-8 text-right font-black text-slate-400" suppressHydrationWarning>{record.margin.toLocaleString()}</td>
                     </tr>
