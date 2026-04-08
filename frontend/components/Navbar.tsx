@@ -78,12 +78,12 @@ export default function Navbar({ elections = [] }: NavbarProps) {
                 KnowYour<span className="text-brand-gold">MLA</span>
               </span>
             </Link>
-            <Link 
+            {/* <Link 
               href="/tn" 
               className={`text-slate-400 hover:text-white focus-visible:text-white text-[10px] md:text-xs font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-brand-gold px-2 py-1 rounded ${isActive("/tn") ? "text-brand-gold" : ""}`}
             >
               Home
-            </Link>
+            </Link> */}
           </div>
 
           {/* Desktop Menu */}
@@ -112,7 +112,7 @@ export default function Navbar({ elections = [] }: NavbarProps) {
               </button>
 
               {isElectionsDropdownOpen && (
-                <div 
+                <div
                   className="absolute top-full left-0 mt-1 w-48 bg-brand-dark border border-white/10 rounded-2xl shadow-2xl py-3 animate-in fade-in slide-in-from-top-2 duration-200"
                   onMouseLeave={() => setIsElectionsDropdownOpen(false)}
                   role="menu"
@@ -189,7 +189,7 @@ export default function Navbar({ elections = [] }: NavbarProps) {
                 Elections
                 <ChevronDown size={16} className={`transition-transform duration-200 ${isMobileElectionsOpen ? "rotate-180" : ""}`} />
               </button>
-              
+
               {isMobileElectionsOpen && (
                 <div className="pl-4 space-y-2 animate-in slide-in-from-top-1 duration-200">
                   {currentElections.map((election: ElectionItem) => (

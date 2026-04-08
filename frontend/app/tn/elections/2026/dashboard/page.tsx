@@ -62,10 +62,12 @@ export default async function PreElectionDashboardPage() {
 
         {/* 2. Candidate Directory */}
         <section id="directory">
-          <CandidateDirectory
-            initialCandidates={candidates}
-            filterOptions={filters}
-          />
+          <React.Suspense fallback={<div className="h-96 w-full animate-pulse bg-slate-100 rounded-[2.5rem]" />}>
+            <CandidateDirectory
+              initialCandidates={candidates}
+              filterOptions={filters}
+            />
+          </React.Suspense>
         </section>
 
         {/* 3. Constituency Contest Explorer */}

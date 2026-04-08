@@ -1,3 +1,4 @@
+import React from "react";
 import { fetchPartyDetails } from "@/services/api";
 import PartyHero from "@/components/PartyHero";
 import PartyAnalyticsTabs from "@/components/PartyAnalyticsTabs";
@@ -23,17 +24,22 @@ interface PageProps {
   searchParams: Promise<{ election?: string }>;
 }
 
-export async function generateMetadata({ params }: PageProps) {
+export async function generateMetadata({ params, searchParams }: PageProps) {
   const { slug } = await params;
+  const { election } = await searchParams;
   try {
     const data = await fetchPartyDetails(slug).catch(() => ({ party: null }));
     const partyName = data.party?.name || slug.toUpperCase();
     const shortName = data.party?.short_name || partyName;
 
+    const year = election || 'all';
+    const ogImage = `/og/party/${slug.toLowerCase()}/${year}/stats`;
+
     return buildMetadata({
       title: `${partyName} (${shortName}) in Tamil Nadu: MLAs, Vote Share, Election Performance`,
       description: `Explore ${partyName} (${shortName}) performance in Tamil Nadu including current MLAs, vote share across assembly elections, seats won, election trends, and political insights on KnowYourMLA.`,
       path: `/parties/${slug}`,
+      image: ogImage,
       keywords: [`${partyName} Party`, "Tamil Nadu Politics", "Election Analytics", "Vote Share Trends", "MLA Candidates", "Political Party Analysis"]
     });
   } catch (error) {
@@ -124,7 +130,9 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
 
       <PartyHero party={party} analytics={analytics} />
 
-      <ElectionFilter options={availableElections || []} />
+      <React.Suspense fallback={<div className="h-12 w-full bg-white animate-pulse" />}>
+        <ElectionFilter options={availableElections || []} />
+      </React.Suspense>
 
       <SectionNav />
 
@@ -156,23 +164,6 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
               }}
               isYearView={!isAllElections}
             />
-
-            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 p-10 bg-brand-dark rounded-[3rem] relative overflow-hidden group shadow-2xl shadow-brand-dark/20 mt-12">
-              <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/5 rounded-full -mr-40 -mt-40 blur-3xl pointer-events-none" />
-              <div className="space-y-3 relative z-10">
-                <h3 className="text-2xl font-black text-white uppercase tracking-tight">Electoral Context</h3>
-                <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
-                  How did {party.short_name} perform relative to the state-level benchmarks? 
-                  Explore the full {election && election !== 'all' ? election : '2021'} assembly insights to see winning margins, vote share distributions, and analytical breakdowns.
-                </p>
-              </div>
-              <Link 
-                href={`/tn/elections/${election && election !== 'all' ? election : '2021'}/insights`}
-                className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all relative z-10 shadow-xl shadow-black/20 shrink-0"
-              >
-                Explore {election && election !== 'all' ? election : '2021'} Analysis
-              </Link>
-            </div>
           </section>
 
           <section id="insights">
@@ -232,6 +223,24 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
               </div>
             )}
           </div>
+        </div>
+
+
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8 p-10 bg-brand-dark rounded-[3rem] relative overflow-hidden group shadow-2xl shadow-brand-dark/20 mt-20 mb-20">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/5 rounded-full -mr-40 -mt-40 blur-3xl pointer-events-none" />
+          <div className="space-y-3 relative z-10">
+            <h3 className="text-2xl font-black text-white uppercase tracking-tight">Electoral Context</h3>
+            <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
+              How did {party.short_name} perform relative to the state-level benchmarks? 
+              Explore the full {election && election !== 'all' ? election : '2021'} assembly insights to see winning margins, vote share distributions, and analytical breakdowns.
+            </p>
+          </div>
+          <Link 
+            href={`/tn/elections/${election && election !== 'all' ? election : '2021'}/insights`}
+            className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all relative z-10 shadow-xl shadow-black/20 shrink-0"
+          >
+            Explore {election && election !== 'all' ? election : '2021'} Analysis
+          </Link>
         </div>
 
         <section className="mt-18 pt-16 border-t border-slate-100 dark:border-slate-800">
