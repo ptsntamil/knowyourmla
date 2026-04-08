@@ -14,6 +14,9 @@ export async function GET() {
     { url: `${domain}/parties`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
     { url: `${tnBaseUrl}/news/tamil-nadu-mlas-100-percent-attendance-2021-2026`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${tnBaseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${tnBaseUrl}/elections/2021`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${tnBaseUrl}/elections/2016`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${tnBaseUrl}/elections/2011`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
     { url: `${tnBaseUrl}/terms`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
     { url: `${tnBaseUrl}/privacy`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.3 },
   ];

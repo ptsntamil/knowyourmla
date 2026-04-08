@@ -2,7 +2,7 @@ import Link from "next/link";
 import { WinnerHistoryRecord } from "@/types/models";
 import ProfileImage from "@/components/ProfileImage";
 import Badge from "@/components/ui/Badge";
-import { getPartySlug } from "@/lib/utils/party-utils";
+import PartyBadge from "@/components/ui/PartyBadge";
 import {
   GraduationCap,
   Briefcase,
@@ -123,24 +123,13 @@ export default function MLASnapshotCard({ mla, constituencyName }: MLASnapshotCa
                     {mla.winner}
                   </h3>
                   <div className="flex flex-wrap justify-center md:justify-start gap-2 items-center">
-                    <Link
-                      href={`/parties/${getPartySlug(mla.party)}`}
-                      className="px-4 py-1.5 rounded-full border shadow-sm flex items-center gap-2 hover:scale-105 active:scale-95 transition-all"
-                      style={{
-                        backgroundColor: mla.party.color_bg || '#D4AF37',
-                        color: mla.party.color_text || '#FFFFFF',
-                        borderColor: mla.party.color_border || 'rgba(255,255,255,0.1)'
-                      }}
-                    >
-                      {mla.party.logo_url && (
-                        <div className="w-6 h-6 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 shadow-inner">
-                          <img src={mla.party.logo_url} alt={mla.party.name || ""} className="w-4 h-4 object-contain" />
-                        </div>
-                      )}
-                      <span className="font-black text-[10px] uppercase tracking-wider">
-                        {mla.party.short_name || mla.party.name}
-                      </span>
-                    </Link>
+                    <PartyBadge
+                      party={mla.party.short_name || mla.party.name || ""}
+                      logoUrl={mla.party.logo_url}
+                      colorBg={mla.party.color_bg || '#D4AF37'}
+                      colorText={mla.party.color_text || '#FFFFFF'}
+                      colorBorder={mla.party.color_border || 'rgba(255,255,255,0.1)'}
+                    />
                     <div className="bg-white/10 text-white px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-black uppercase tracking-wider">
                       Elected {mla.year}
                     </div>

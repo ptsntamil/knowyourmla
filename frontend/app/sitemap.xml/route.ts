@@ -10,7 +10,8 @@ export async function GET() {
     'sitemap-districts.xml',
     'sitemap-parties.xml',
     'sitemap-constituencies.xml',
-    'sitemap-mlas.xml'
+    'sitemap-mlas.xml',
+    'sitemap-elections.xml'
   ];
 
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
