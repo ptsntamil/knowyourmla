@@ -2,10 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { Search } from "lucide-react";
 import { MLAListItem } from "@/types/models";
-import { getPartySlug } from "@/lib/utils/party-utils";
+import PartyBadge from "@/components/ui/PartyBadge";
 
 interface MLATableProps {
   mlas: MLAListItem[];
@@ -76,28 +75,13 @@ export default function MLATable({ mlas, searchQuery, selectedParty, onReset }: 
                   )}
                 </td>
                 <td className="px-8 py-5">
-                  <Link
-                    href={`/parties/${getPartySlug(mla.party)}`}
-                    className="text-[10px] font-black px-4 py-2 rounded-full uppercase tracking-wider flex items-center gap-3 w-fit shadow-sm border whitespace-nowrap transition-all hover:scale-105 active:scale-95"
-                    style={{
-                      backgroundColor: mla.party_color_bg || '#f8fafc',
-                      color: mla.party_color_text || '#1e293b',
-                      borderColor: mla.party_color_border || '#e2e8f0'
-                    }}
-                  >
-                    {mla.party_logo_url && (
-                      <div className="relative w-8 h-8 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20 shadow-inner">
-                        <Image
-                          src={mla.party_logo_url}
-                          alt={mla.party}
-                          width={24}
-                          height={24}
-                          className="object-contain"
-                        />
-                      </div>
-                    )}
-                    {mla.party}
-                  </Link>
+                  <PartyBadge
+                    party={mla.party}
+                    logoUrl={mla.party_logo_url}
+                    colorBg={mla.party_color_bg}
+                    colorText={mla.party_color_text}
+                    colorBorder={mla.party_color_border}
+                  />
                 </td>
                 <td className="px-8 py-5">
                   <span className="text-xs font-bold text-slate-500 tabular-nums bg-slate-100/50 px-3 py-1 rounded-lg dark:bg-slate-900/10 dark:text-slate-900">

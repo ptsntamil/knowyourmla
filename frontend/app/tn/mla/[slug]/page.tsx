@@ -297,7 +297,13 @@ export default async function MLAProfilePage({ params }: PageProps) {
                       </a>
                     </li>
                     <li>
-                      <a href={`/parties/${party.toLowerCase()}`} className="text-brand-dark dark:text-slate-600 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
+                      <a href={`/tn/elections/${latestElection?.year || 2021}/insights`} className="text-brand-dark dark:text-slate-600 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
+                        <span className="w-1.5 h-1.5 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
+                        Explore {latestElection?.year || 2021} Insights
+                      </a>
+                    </li>
+                    <li>
+                      <a href={`/parties/${partySlug}`} className="text-brand-dark dark:text-slate-600 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
                         <span className="w-1.5 h-1.5 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
                         View all {party} MLAs
                       </a>

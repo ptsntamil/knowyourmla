@@ -89,63 +89,83 @@ class ElectionCSVImporter:
         except (ValueError, TypeError, Exception):
             return None
 
-    def process_row(self, row: Dict, dry_run: bool = False, row_index: int = -1):
+    def process_row(self, row: Dict, dry_run: bool = False, row_index: int = -1, processed_constituencies: Optional[set] = None):
         year = str(row.get('Year'))
         if not year or year == 'Year': return
 
         candidate_name = self.clean_val(row.get('Candidate', ''))
         if not candidate_name: return
         
-        # Skip "None Of The Above" or "NOTA" candidates
-        if candidate_name.lower() in ["none of the above", "nota"]:
-            logger.info(f"Skipping NOTA candidate in {row.get('Constituency_Name')}")
-            return
-
-        logger.info(f"Processing candidate {candidate_name} ({row.get('Constituency_Name')})")
-
-        # 1. Resolve Location & Party
         constituency_name = row.get('Constituency_Name')
         party_name = row.get('Party')
+
+        # Handle NOTA candidate specially
+        is_nota = candidate_name.lower() in ["none of the above", "nota", "none of the above (nota)"]
+        
+        if is_nota:
+            candidate_name = "None Of The Above"
+            person_id = "PERSON#nota"
+            party_id = "PARTY#nota"
+            logger.info(f"Processing NOTA for {constituency_name} ({year})")
+        else:
+            logger.info(f"Processing candidate {candidate_name} ({constituency_name})")
+
+        # 1. Resolve Location & Party
         district_name = row.get('District_Name')
 
         const_id = self.resolver.get_or_create_constituency(constituency_name, dry_run=dry_run)
         if not self._validate_constituency(const_id, constituency_name, candidate_name, row_index):
             return
 
-        party_id = self.resolver.resolve_party_id(party_name)
+        if not is_nota:
+            party_id = self.resolver.resolve_party_id(party_name)
+        
         dist_id = self.resolver.resolve_district_id(district_name)
 
         # 2. Prepare Metadata for Resolver
         details = self._prepare_affidavit_details(row, candidate_name, constituency_name, party_id, dist_id)
 
-        # 3. Match candidate
-        match_result = self._find_matching_candidate(details, year, const_id, party_id, dry_run)
-        pk = match_result['pk']
-        person_id = match_result['person_id']
-        is_update = match_result['is_update']
+        # 3. Match candidate (skip resolution for NOTA)
+        if is_nota:
+            # For NOTA, we generate a stable PK based on constituency and year
+            pk = f"AFFIDAVIT#{year}#NOTA#{const_id.split('#')[-1]}"
+            is_update = False
+            # Check if this NOTA record already exists
+            try:
+                resp = self.candidates_table.get_item(Key={'PK': pk, 'SK': 'DETAILS'})
+                if 'Item' in resp: is_update = True
+            except ClientError: pass
+        else:
+            match_result = self._find_matching_candidate(details, year, const_id, party_id, dry_run)
+            pk = match_result['pk']
+            person_id = match_result['person_id']
+            is_update = match_result['is_update']
 
         if dry_run:
-            if not person_id:
+            if not person_id and not is_nota:
                 person_id = self.resolver.get_or_create_person(details, year, cid=0, dry_run=dry_run)
             self._log_dry_run_action(candidate_name, constituency_name, year, person_id, pk, is_update)
             return "updated" if is_update else "created"
 
-        # 4. Resolve Person (if not already found via matching)
-        if not person_id:
-            person_id = self.resolver.get_or_create_person(details, year, cid=0, dry_run=dry_run)
-        else:
-            self.resolver.get_or_create_person(details, year, cid=0, dry_run=dry_run, person_id_override=person_id)
+        # 4. Resolve Person (if not already found via matching and not NOTA)
+        if not is_nota:
+            if not person_id:
+                person_id = self.resolver.get_or_create_person(details, year, cid=0, dry_run=dry_run)
+            else:
+                self.resolver.get_or_create_person(details, year, cid=0, dry_run=dry_run, person_id_override=person_id)
 
-        # 5. Update Constituency Statistics
-        ac_valid_votes = self.parse_int(row.get('Valid_Votes'))
-        if ac_valid_votes:
-            self._update_constituency_stats(const_id, year, ac_valid_votes)
+        # 5. Update Constituency Statistics (only once per AC)
+        if processed_constituencies is not None and const_id not in processed_constituencies:
+            ac_valid_votes = self.parse_int(row.get('Valid_Votes'))
+            if ac_valid_votes:
+                self._update_constituency_stats(const_id, year, ac_valid_votes)
+                processed_constituencies.add(const_id)
 
         # 6. Save/Update Candidate
+        label = "winner stats" if details.position == 1 else "stats"
         action = "Updating" if is_update else "Creating"
-        logger.info(f"  [{action}] Candidate {candidate_name} ({pk}) for Person {person_id}")
+        logger.info(f"  [{action}] {label} for {candidate_name} ({pk})")
         
-        # Resolve party_id again (or use the one from above)
         self._update_candidate(pk, person_id, const_id, dist_id, party_id, details, year)
         return "updated" if is_update else "created"
 
@@ -223,13 +243,17 @@ class ElectionCSVImporter:
             # print(f"Party id: {party_id} ----- {same_year_pool[0].get('party_id')}")
             # A.a Multiple Candidates with same name party match for same-year updates
             same_year_record = next((c for c in same_year_pool if c.get('party_id') == party_id ), None)
-            # print(f"Same year record after party: {same_year_record}")
             if same_year_record:
                 pk = same_year_record['PK']
                 person_id = same_year_record.get('person_id')
                 is_update = True
                 logger.debug(f"    Matched existing candidate {pk} ({same_year_record.get('candidate_name')}) for contest year {year}")
                 return {'pk': pk, 'person_id': person_id, 'is_update': is_update}
+            elif same_year_pool:
+                # Same name candidate exists in this year but with DIFFERENT party
+                # Force new person creation for this candidate to be safe
+                logger.info(f"    Name similarity found in {year} but Party ({party_id}) does not match existing records. Forcing new identity.")
+                return {'pk': pk, 'person_id': None, 'is_update': False}
 
             # B. Cross-Year Handle (Link case)
             if cross_year_pool:
@@ -415,10 +439,13 @@ class ElectionCSVImporter:
         except ClientError as e:
             logger.error(f"    Failed to update candidate {pk}: {e}")
 
-    def import_csv(self, csv_path: str, dry_run: bool = False, start_index: int = 0, limit: Optional[int] = None):
+    def import_csv(self, csv_path: str, dry_run: bool = False, start_index: int = 0, limit: Optional[int] = None, target_constituency: Optional[str] = None):
         if not os.path.exists(csv_path):
             logger.error(f"File not found: {csv_path}")
             return
+
+        target_const_norm = normalize_name(target_constituency) if target_constituency else None
+        processed_constituencies = set()
 
         with open(csv_path, 'r', encoding='utf-8') as f:
             reader = list(csv.DictReader(f))
@@ -430,15 +457,21 @@ class ElectionCSVImporter:
                 end_index = min(start_index + limit, total_rows)
             
             rows_to_process = reader[start_index:end_index]
-            logger.info(f"Processing rows {start_index} to {end_index-1} (Total: {len(rows_to_process)})")
+            
+            if target_const_norm:
+                logger.info(f"Filtering for constituency: {target_constituency} ({target_const_norm})")
 
             count = 0
             created_count = 0
             updated_count = 0
             for row in rows_to_process:
                 try:
+                    ac_name = row.get('Constituency_Name')
+                    if target_const_norm and normalize_name(ac_name or "") != target_const_norm:
+                        continue
+                    
                     # +2 since start_index is 0-based and CSV has a header row
-                    status = self.process_row(row, dry_run, row_index=start_index + count + 2)
+                    status = self.process_row(row, dry_run, row_index=start_index + count + 2, processed_constituencies=processed_constituencies)
                     if status == "created":
                         created_count += 1
                     elif status == "updated":
@@ -452,7 +485,7 @@ class ElectionCSVImporter:
                 except Exception as e:
                     logger.error(f"Error processing row {start_index + count}: {e}")
             
-            logger.info(f"Finished. Created: {created_count}, Updated: {updated_count}. Successfully processed {count} records.")
+            logger.info(f"Finished. Created: {created_count}, Updated: {updated_count}. Successfully processed {count} records across {len(processed_constituencies)} constituencies.")
 
 def main():
     parser = argparse.ArgumentParser(description="Import Election Data CSV (OpenCity/TCPD) into DynamoDB.")
@@ -460,10 +493,11 @@ def main():
     parser.add_argument("--dryrun", action="store_true", help="Perform dry run without writing to DB")
     parser.add_argument("--start", type=int, default=0, help="Start row index (0-based)")
     parser.add_argument("--limit", type=int, default=None, help="Maximum number of rows to process")
+    parser.add_argument("--constituency", "-c", help="Specific constituency to process (optional)")
     args = parser.parse_args()
 
     importer = ElectionCSVImporter()
-    importer.import_csv(args.csv, dry_run=args.dryrun, start_index=args.start, limit=args.limit)
+    importer.import_csv(args.csv, dry_run=args.dryrun, start_index=args.start, limit=args.limit, target_constituency=args.constituency)
 
 if __name__ == "__main__":
     main()
