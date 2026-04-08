@@ -60,6 +60,7 @@ export default function PartyHero({ party, analytics }: PartyHeroProps) {
                   title={`${party.name} Election History & Analytics`}
                   text={`Check out ${party.name}'s election performance and candidate analytics on KnowYourMLA.`}
                   url={`/parties/${party.normalized_name || party.PK?.replace("PARTY#", "").toLowerCase()}`}
+                  label="Share"
                 />
               </div>
             </div>

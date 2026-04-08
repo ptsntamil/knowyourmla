@@ -113,7 +113,7 @@ export default function ConstituencyContestExplorer({ contests }: ConstituencyCo
                      <History size={14} className="text-slate-400" />
                      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">2021 Winner</span>
                    </div>
-                   {contest.lastMargin !== null && (
+                   {typeof contest.lastMargin === 'number' && (
                      <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${
                        contest.lastMargin < 5000 ? 'bg-rose-50 text-rose-500' : 'bg-slate-100 text-slate-500'
                      }`}>
@@ -131,7 +131,6 @@ export default function ConstituencyContestExplorer({ contests }: ConstituencyCo
                       </div>
                       <PartyBadge 
                         party={contest.lastWinnerPartyShort || "IND"} 
-                        size="sm"
                       />
                     </>
                   ) : (

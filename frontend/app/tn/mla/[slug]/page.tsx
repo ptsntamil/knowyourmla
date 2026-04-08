@@ -1,5 +1,6 @@
 import { fetchMLAProfile } from "@/services/api";
 import { headers } from "next/headers";
+import Link from "next/link";
 import MLAHeader from "@/components/MLAHeader";
 import HistoryTable from "@/components/HistoryTable";
 import { AssetChart, VoteTrendChart, MarginTrendChart } from "@/components/AnalyticsCharts";
@@ -313,6 +314,26 @@ export default async function MLAProfilePage({ params }: PageProps) {
               </div>
             </section>
           </aside>
+        </div>
+
+
+        <div className="bg-brand-dark rounded-[3rem] p-10 mt-20 mb-20 relative overflow-hidden group shadow-2xl shadow-brand-dark/20 text-center sm:text-left">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/5 rounded-full -mr-40 -mt-40 blur-3xl pointer-events-none" />
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
+            <div className="space-y-3">
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
+              <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
+                How does {profile.person.name}'s performance compare to the statewide benchmarks? 
+                Explore the full 2021 assembly election analysis to see detailed insights across all constituencies.
+              </p>
+            </div>
+            <Link 
+              href="/tn/elections/2021/insights"
+              className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
+            >
+              Explore 2021 Insights
+            </Link>
+          </div>
         </div>
 
         <section className="mt-18 pt-16 border-t border-slate-100 dark:border-slate-800">
