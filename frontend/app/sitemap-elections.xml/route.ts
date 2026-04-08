@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import { AVAILABLE_ELECTION_YEARS } from '@/lib/constants/elections';
 
 export const dynamic = 'force-dynamic';
 
@@ -6,7 +7,7 @@ export async function GET() {
   const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
   
   // Available election years in the system
-  const years = [2021, 2016, 2011];
+  const years = AVAILABLE_ELECTION_YEARS;
   
   const electionPages = [
     // Main Elections Landing (Future-proofing)

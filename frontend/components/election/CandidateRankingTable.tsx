@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Award, Medal, User } from "lucide-react";
 import { CandidateResultRow } from "@/lib/services/election-analytics.service";
 import ProfileImage from "@/components/ProfileImage";
-import { getPartySlug } from "@/lib/utils/party-utils";
+import PartyBadge from "@/components/ui/PartyBadge";
 
 interface CandidateRankingTableProps {
   candidates: CandidateResultRow[];
@@ -95,22 +95,13 @@ export default function CandidateRankingTable({
                     </div>
                   </td>
                   <td className="px-10 py-8">
-                     <Link
-                        href={`/parties/${getPartySlug(candidate.partyShort)}`}
-                        className="px-4 py-2 rounded-xl border shadow-sm text-[10px] font-black uppercase tracking-widest flex items-center gap-2.5 w-fit transition-all hover:scale-105 active:scale-95 group-hover:shadow-md"
-                        style={{
-                          backgroundColor: candidate.partyColorBg || 'rgba(15, 23, 42, 0.03)',
-                          color: candidate.partyColorText || '#0F172A',
-                          borderColor: candidate.partyColorBorder || 'rgba(15, 23, 42, 0.08)'
-                        }}
-                      >
-                        {candidate.partyLogoUrl && (
-                          <div className="w-7 h-7 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-slate-100 shadow-inner">
-                            <img src={candidate.partyLogoUrl} alt={candidate.partyShort} className="w-5 h-5 object-contain" />
-                          </div>
-                        )}
-                        {candidate.partyShort}
-                      </Link>
+                     <PartyBadge
+                        party={candidate.partyShort}
+                        logoUrl={candidate.partyLogoUrl}
+                        colorBg={candidate.partyColorBg || 'rgba(15, 23, 42, 0.03)'}
+                        colorText={candidate.partyColorText || '#0F172A'}
+                        colorBorder={candidate.partyColorBorder || 'rgba(15, 23, 42, 0.08)'}
+                     />
                   </td>
                   <td className="px-10 py-8">
                     <div className="flex flex-col">

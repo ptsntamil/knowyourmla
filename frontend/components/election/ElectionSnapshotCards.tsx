@@ -1,6 +1,7 @@
 import React from 'react';
 import { Target, Users, Shield, TrendingUp, PieChart, Layers, UserCheck } from 'lucide-react';
 import { ElectionSummary } from '@/lib/services/election-analytics.service';
+import PartyBadge from '@/components/ui/PartyBadge';
 
 interface ElectionSnapshotCardsProps {
   summary: ElectionSummary;
@@ -87,7 +88,19 @@ export default function ElectionSnapshotCards({ summary }: ElectionSnapshotCards
           </div>
           <div>
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-1">{card.label}</p>
-            <h4 className="text-xl font-black text-brand-dark tracking-tight leading-tight whitespace-nowrap overflow-hidden text-ellipsis">{card.value}</h4>
+            {card.label === 'Winning Party' && summary.winningParty && summary.winningParty !== 'N/A' ? (
+              <div className="mt-2 mb-1">
+                <PartyBadge
+                  party={summary.winningPartyShort || summary.winningParty}
+                  logoUrl={summary.winningPartyLogoUrl}
+                  colorBg={summary.winningPartyColorBg}
+                  colorText={summary.winningPartyColorText}
+                  colorBorder={summary.winningPartyColorBorder}
+                />
+              </div>
+            ) : (
+              <h4 className="text-xl font-black text-brand-dark tracking-tight leading-tight whitespace-nowrap overflow-hidden text-ellipsis">{card.value}</h4>
+            )}
             <p className="text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-2">{card.helper}</p>
           </div>
         </div>
