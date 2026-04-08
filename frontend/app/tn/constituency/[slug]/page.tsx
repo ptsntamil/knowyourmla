@@ -1,17 +1,14 @@
 import Link from "next/link";
 import { fetchConstituencyWinners } from "@/services/api";
 import CoverImage from "@/components/CoverImage";
-// import ProfileImage from "@/components/ProfileImage";
 import { buildMetadata } from "@/lib/seo/metadata";
-// import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
-// import SEOIntro from "@/components/seo/SEOIntro";
-// import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import MLASnapshotCard from "@/components/constituency/MLASnapshotCard";
 import ConstituencyInsights from "@/components/constituency/ConstituencyInsights";
-import { getPartySlug } from "@/lib/utils/party-utils";
 import PartyBadge from "@/components/ui/PartyBadge";
+import { getConstituencyPreElectionOverlayData } from "@/lib/elections/preElectionDashboard/getConstituencyPreElectionOverlayData";
+import ConstituencyPreElectionOverlay from "@/components/election/dashboard/ConstituencyPreElectionOverlay";
 
 export const dynamic = "force-dynamic";
 
@@ -24,16 +21,40 @@ export async function generateMetadata({ params }: PageProps) {
   const constituencyId = `CONSTITUENCY#${slug}`;
   const constituencyName = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
 
-  // Fetch to get the current winner for the meta description
-  const data = await fetchConstituencyWinners(constituencyId).catch(() => ({ history: [] }));
+  const showPreElection = process.env.NEXT_PUBLIC_ENABLE_2026_PRE_ELECTION === "true";
+
+  // Fetch both historical and pre-election data for SEO
+  const [data, overlay] = await Promise.all([
+    fetchConstituencyWinners(constituencyId).catch(() => ({ history: [] })),
+    showPreElection ? getConstituencyPreElectionOverlayData(slug) : Promise.resolve(null)
+  ]);
+
   const currentWinner = data.history[0];
   const mlaInfo = currentWinner ? `currently represented by ${currentWinner.winner} (${currentWinner.party.short_name || currentWinner.party.name})` : "check current MLA and candidates";
 
+  let title = `${constituencyName} MLA | Current MLA, Candidates & Election Details`;
+  let description = `Check the current MLA of ${constituencyName}, ${mlaInfo}, candidate list, party details, and constituency information on KnowYourMLA.`;
+  let keywords = [`${constituencyName} Constituency`, "Election History", "Tamil Nadu MLA", "Election Results", "Tamil Nadu Politics"];
+
+  if (showPreElection) {
+    const electionContext = overlay?.has2026Candidates
+      ? `${overlay.candidateCount} candidates announced for 2026 election.`
+      : "2026 election candidate announcements expected soon.";
+
+    title = `${constituencyName} MLA | 2026 Candidates, Current MLA & Election Details`;
+    description = `Check the current MLA of ${constituencyName}, ${mlaInfo}. ${electionContext} Explore 2026 candidate list, party details, and constituency information on KnowYourMLA.`;
+    keywords = [
+      ...keywords,
+      `${constituencyName} 2026 candidates`,
+      "Election Results 2026"
+    ];
+  }
+
   return buildMetadata({
-    title: `${constituencyName} MLA | Current MLA, Candidates & Election Details`,
-    description: `Check the current MLA of ${constituencyName}, ${mlaInfo}, candidate list, party details, and constituency information on KnowYourMLA.`,
+    title,
+    description,
     path: `/tn/constituency/${slug}`,
-    keywords: [`${constituencyName} Constituency`, "Election History", "Tamil Nadu MLA", "Election Results", "Tamil Nadu Politics"]
+    keywords
   });
 }
 
@@ -41,11 +62,19 @@ export default async function ConstituencyPage({ params }: PageProps) {
   const { slug } = await params;
   const constituencyId = `CONSTITUENCY#${slug}`;
   const constituencyName = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
-  const data = await fetchConstituencyWinners(constituencyId);
+
+  // Parallel fetch for history and pre-election overlay (if enabled)
+  const showPreElection = process.env.NEXT_PUBLIC_ENABLE_2026_PRE_ELECTION === "true";
+
+  const [data, overlayData] = await Promise.all([
+    fetchConstituencyWinners(constituencyId),
+    showPreElection ? getConstituencyPreElectionOverlayData(slug) : Promise.resolve(null)
+  ]);
+
   const currentWinner = data.history[0]; // Assuming sorted descending by year
   const latestVoterTurnout = data.stats?.find((stat: any) => parseFloat(stat.poll_percentage) > 0);
 
-  const faqs = [
+  const standardFaqs = [
     {
       question: `Who is the current MLA of ${constituencyName}?`,
       answer: currentWinner
@@ -53,20 +82,31 @@ export default async function ConstituencyPage({ params }: PageProps) {
         : `Information about the current MLA of ${constituencyName} is being updated.`
     },
     {
-      question: `Which district is ${constituencyName} in?`,
-      answer: `${constituencyName} is a legislative assembly constituency in Tamil Nadu.`
-    },
-    {
       question: `What is the voter turnout in ${constituencyName}?`,
       answer: latestVoterTurnout
         ? `In the ${latestVoterTurnout.year} elections, the voter turnout in ${constituencyName} was ${latestVoterTurnout.poll_percentage}%.`
         : `Historical voter turnout data for ${constituencyName} is available in the statistics section above.`
-    },
-    {
-      question: `Where can I find the election history of ${constituencyName}?`,
-      answer: `The complete election history, including past winners and party performance for ${constituencyName}, is listed on this page.`
     }
   ];
+
+  const electionFaqs = showPreElection ? [
+    {
+      question: `Who are the 2026 candidates in ${constituencyName}?`,
+      answer: overlayData?.has2026Candidates
+        ? `There are ${overlayData.candidateCount} candidates announced for ${constituencyName} in the 2026 Tamil Nadu Election, including nominees from ${overlayData.insights.majorParties.join(', ')}.`
+        : `Candidate announcements for the 2026 Tamil Nadu Assembly Election in ${constituencyName} are currently awaited. Party nominations are expected to be released soon.`
+    },
+    {
+      question: `Is the current MLA contesting again in ${constituencyName}?`,
+      answer: overlayData?.overlayStatus === 'live'
+        ? (overlayData.contestSummary?.isIncumbentRecontest
+          ? `Yes, the incumbent MLA from ${constituencyName} is re-contesting in the 2026 election.`
+          : `No, based on current announcements, the incumbent MLA is not in the candidate lineup for ${constituencyName} in 2026.`)
+        : `Whether the current MLA is re-contesting in ${constituencyName} will be confirmed once all party candidate lists for 2026 are released.`
+    }
+  ] : [];
+
+  const faqs = [...standardFaqs, ...electionFaqs];
 
   const districtName = data.district_name;
   const districtSlug = data.district_id?.replace("DISTRICT#", "").toLowerCase() ||
@@ -108,24 +148,24 @@ export default async function ConstituencyPage({ params }: PageProps) {
         </nav>
       </CoverImage>
 
-      <main className="max-w-7xl mx-auto px-4 py-16 space-y-16">
-        {/* <SEOIntro 
-          h1={`${constituencyName} Assembly Constituency`}
-          intro={`${constituencyName} is a Tamil Nadu Assembly constituency. This page includes the current MLA, candidate list, party details, election-related information, and constituency profile.`}
-        />
+      <main className="max-w-7xl mx-auto px-4 py-8 space-y-16">
+        {/* Section 0: 2026 Pre-Election Overlay */}
+        {overlayData && (
+          <section className="scroll-mt-32" id="pre-election-2026">
+            <ConstituencyPreElectionOverlay data={overlayData} />
+          </section>
+        )}
 
         {currentWinner && (
-          <AnswerSnippet 
-            question={`Who is the current MLA of ${constituencyName}?`}
-            answer={`${currentWinner.winner} is the current MLA of ${constituencyName} constituency, elected in the ${currentWinner.year} Tamil Nadu Assembly elections.`}
-          />
-        )} */}
-
-        {currentWinner && (
-          <MLASnapshotCard
-            mla={currentWinner}
-            constituencyName={`${constituencyName} Constituency`}
-          />
+          <div className="pt-16 border-t border-slate-100">
+            {/* <div className="mb-10">
+              <h2 className="text-2xl font-black text-brand-dark uppercase tracking-tight italic">Current Representation</h2>
+            </div> */}
+            <MLASnapshotCard
+              mla={currentWinner}
+              constituencyName={`${constituencyName} Constituency`}
+            />
+          </div>
         )}
 
         <ConstituencyInsights
@@ -241,14 +281,14 @@ export default async function ConstituencyPage({ params }: PageProps) {
               <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Election History</h2>
               <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Past winners and performance in {slug}</p>
             </div>
-            
-            <Link 
+
+            <Link
               href="/tn/elections/2021/insights"
               className="group flex items-center gap-4 bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-95"
             >
               <div className="w-10 h-10 bg-brand-gold/10 rounded-xl flex items-center justify-center text-brand-gold">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-5 h-5">
-                  <path d="M12 20v-6M6 20V10M18 20V4" strokeLinecap="round" strokeLinejoin="round"/>
+                  <path d="M12 20v-6M6 20V10M18 20V4" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </div>
               <div className="text-left">
