@@ -9,6 +9,7 @@ import ConstituencyInsights from "@/components/constituency/ConstituencyInsights
 import PartyBadge from "@/components/ui/PartyBadge";
 import { getConstituencyPreElectionOverlayData } from "@/lib/elections/preElectionDashboard/getConstituencyPreElectionOverlayData";
 import ConstituencyPreElectionOverlay from "@/components/election/dashboard/ConstituencyPreElectionOverlay";
+import ShareButton from "@/components/ShareButton";
 
 export const dynamic = "force-dynamic";
 
@@ -133,19 +134,32 @@ export default async function ConstituencyPage({ params }: PageProps) {
         title={`${slug}`}
         subtitle={`Historical election data and representative details for the ${slug} constituency.`}
       >
-        <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span className="mx-3 text-white/20">/</span>
-          <Link href="/tn" className="hover:text-white transition-colors">TN</Link>
-          <span className="mx-3 text-white/20">/</span>
-          {districtName && (
-            <>
-              <Link href={`/tn/districts/${districtSlug}`} className="hover:text-white transition-colors">{districtName}</Link>
-              <span className="mx-3 text-white/20">/</span>
-            </>
-          )}
-          <span className="text-brand-gold">{slug}</span>
-        </nav>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span className="mx-3 text-white/20">/</span>
+            <Link href="/tn" className="hover:text-white transition-colors">TN</Link>
+            <span className="mx-3 text-white/20">/</span>
+            {districtName && (
+              <>
+                <Link href={`/tn/districts/${districtSlug}`} className="hover:text-white transition-colors">{districtName}</Link>
+                <span className="mx-3 text-white/20">/</span>
+              </>
+            )}
+            <span className="text-brand-gold">{slug}</span>
+          </nav>
+
+          <div className="flex items-center justify-end gap-4">
+            <ShareButton
+              title={`${constituencyName} Constituency Profile | KnowYourMLA`}
+              text={currentWinner 
+                ? `Explore ${constituencyName} constituency, current MLA ${currentWinner.winner} (${currentWinner.party.short_name}), election history, and candidates on KnowYourMLA.`
+                : `Explore ${constituencyName} constituency election history, candidate details, and political insights on KnowYourMLA.`}
+              url={`/tn/constituency/${slug}`}
+              label="Share"
+            />
+          </div>
+        </div>
       </CoverImage>
 
       <main className="max-w-7xl mx-auto px-4 py-8 space-y-16">

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ShareButton from "./ShareButton";
+import { getPartyLogo } from "@/lib/utils/party-utils";
 
 interface PartyHeroProps {
   party: any;
@@ -18,9 +19,9 @@ export default function PartyHero({ party, analytics }: PartyHeroProps) {
         <div className="flex flex-col md:flex-row items-center md:items-center gap-8 sm:gap-12 text-center md:text-left">
           {/* Logo Container */}
           <div className="relative w-32 h-32 sm:w-40 sm:h-40 md:w-56 md:h-56 shrink-0 bg-white dark:bg-slate-900 rounded-[2.5rem] p-6 shadow-2xl shadow-black/5 flex items-center justify-center overflow-hidden border border-border/50 ring-8 ring-slate-50 dark:ring-slate-800/50">
-            {party.logo_url ? (
+            {getPartyLogo(party.short_name) || party.logo_url ? (
               <Image
-                src={party.logo_url}
+                src={getPartyLogo(party.short_name) || party.logo_url}
                 alt={party.name}
                 fill
                 className="object-contain p-6 md:p-8"

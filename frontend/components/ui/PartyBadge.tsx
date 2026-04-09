@@ -1,10 +1,11 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { getPartySlug } from "@/lib/utils/party-utils";
+import { getPartySlug, getPartyLogo } from "@/lib/utils/party-utils";
 
 interface PartyBadgeProps {
   party: string;
+  shortName?: string | null;
   logoUrl?: string | null;
   colorBg?: string | null;
   colorText?: string | null;
@@ -14,12 +15,16 @@ interface PartyBadgeProps {
 
 export default function PartyBadge({
   party,
+  shortName,
   logoUrl,
   colorBg,
   colorText,
   colorBorder,
   className = "",
 }: PartyBadgeProps) {
+  // Prioritize local logo if shortName is available
+  const effectiveLogoUrl = getPartyLogo(shortName || party) || logoUrl;
+
   return (
     <Link
       href={`/parties/${getPartySlug(party)}`}
@@ -30,10 +35,10 @@ export default function PartyBadge({
         borderColor: colorBorder || "#e2e8f0",
       }}
     >
-      {logoUrl && (
+      {effectiveLogoUrl && (
         <div className="relative w-8 h-8 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20 shadow-inner">
           <Image
-            src={logoUrl}
+            src={effectiveLogoUrl}
             alt={party}
             width={24}
             height={24}

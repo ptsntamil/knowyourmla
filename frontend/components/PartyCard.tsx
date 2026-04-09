@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Card from "@/components/ui/Card";
 import { ChevronRight } from "lucide-react";
+import { getPartyLogo } from "@/lib/utils/party-utils";
 
 interface PartyCardProps {
   party: any;
@@ -13,9 +14,9 @@ export default function PartyCard({ party }: PartyCardProps) {
   return (
     <Card href={`/parties/${slug}`} className="flex flex-col items-center text-center space-y-6">
       <div className="relative h-24 w-24 rounded-2xl overflow-hidden bg-slate-50 flex items-center justify-center p-4">
-        {party.logo_url ? (
+        {getPartyLogo(party.short_name) || party.logo_url ? (
           <Image
-            src={party.logo_url}
+            src={getPartyLogo(party.short_name) || party.logo_url}
             alt={party.name || "Party Logo"}
             fill
             className="object-contain p-2 group-hover:scale-110 transition-transform duration-500"

@@ -7,6 +7,7 @@ import ConstituencyResultMetrics from "@/components/election/ConstituencyResultM
 import CandidateRankingTable from "@/components/election/CandidateRankingTable";
 import ResultSummaryEditorial from "@/components/election/ResultSummaryEditorial";
 import FAQSection from "@/components/seo/FAQSection";
+import ShareButton from "@/components/ShareButton";
 
 export const dynamic = "force-dynamic";
 
@@ -94,7 +95,14 @@ export default async function ConstituencyElectionResultPage({ params }: PagePro
         year={result.year}
         summarySentence={result.summarySentence}
         breadcrumbItems={breadcrumbItems}
-      />
+      >
+        <ShareButton
+          title={`${result.constituencyName} Election Result ${year} | KnowYourMLA`}
+          text={`Check out the ${year} election result for ${result.constituencyName} constituency. ${result.winner.name} from ${result.winner.party} won with a margin of ${result.margin.toLocaleString()} votes.`}
+          url={`/tn/constituency/${slug}/election/${year}`}
+          label="Share Result"
+        />
+      </ConstituencyElectionHero>
 
       <main className="mx-auto max-w-7xl px-4 py-16 space-y-24">
         {/* Metric Snapshot */}

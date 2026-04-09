@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const districtName = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
   const districtId = `DISTRICT#${slug.toLowerCase()}`;
-  
+
   // Fetch for dynamic data in metadata (e.g. constituency count)
   // Next.js dedupes this call with the one in the component
   const constituencies = await fetchConstituencies(districtId).catch(() => []);
@@ -87,14 +87,14 @@ export default async function DistrictPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-page-bg">
-      <BreadcrumbSchema 
+      <BreadcrumbSchema
         items={[
           { name: "Home", item: "/" },
           { name: "TN", item: "/tn" },
           { name: districtNameDisplay, item: `/tn/districts/${slug}` }
-        ]} 
+        ]}
       />
-      <ItemListSchema 
+      <ItemListSchema
         items={constituencies.map((c) => ({
           name: c.name,
           url: `/tn/constituency/${c.id.replace('CONSTITUENCY#', '').toLowerCase()}`
@@ -113,9 +113,9 @@ export default async function DistrictPage({ params }: PageProps) {
             <span className="mx-3 text-white/20">/</span>
             <span className="text-brand-gold">{slug}</span>
           </nav>
-          
-          <div className="flex items-center gap-4">
-            <ShareButton 
+
+          <div className="flex items-center justify-end gap-4">
+            <ShareButton
               title={`${districtNameDisplay} District Political Profile | KnowYourMLA`}
               text={`Explore ${districtNameDisplay} district political profile, MLA insights, dominant party, women representation and more on KnowYourMLA.`}
               url={`/tn/districts/${slug}`}
@@ -138,7 +138,7 @@ export default async function DistrictPage({ params }: PageProps) {
 
         {/* District Insights & Electorate Section */}
         <section className="space-y-12">
-          <SectionHeader 
+          <SectionHeader
             title="District Insights"
             subtitle="Quick political and representative insights from the current MLAs and electorate of this district."
           />
@@ -148,7 +148,7 @@ export default async function DistrictPage({ params }: PageProps) {
             </div>
             <div className="lg:col-span-3 h-full">
               {latestStats && (latestStats.male !== undefined || latestStats.total_electors > 0) ? (
-                <DistrictElectorate 
+                <DistrictElectorate
                   year={latestStats.year}
                   total_electors={latestStats.total_electors}
                   male={latestStats.male}
@@ -179,11 +179,11 @@ export default async function DistrictPage({ params }: PageProps) {
             <div className="space-y-3">
               <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
               <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
-                How does {slug} compare to the rest of Tamil Nadu? 
+                How does {slug} compare to the rest of Tamil Nadu?
                 Explore the full 2021 assembly election analysis to see district-level strongholds, competitive battles, and participation trends.
               </p>
             </div>
-            <Link 
+            <Link
               href="/tn/elections/2021/insights"
               className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
             >

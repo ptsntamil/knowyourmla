@@ -125,6 +125,7 @@ export default function MLASnapshotCard({ mla, constituencyName }: MLASnapshotCa
                   <div className="flex flex-wrap justify-center md:justify-start gap-2 items-center">
                     <PartyBadge
                       party={mla.party.short_name || mla.party.name || ""}
+                      shortName={mla.party.short_name}
                       logoUrl={mla.party.logo_url}
                       colorBg={mla.party.color_bg || '#D4AF37'}
                       colorText={mla.party.color_text || '#FFFFFF'}

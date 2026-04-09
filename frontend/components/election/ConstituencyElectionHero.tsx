@@ -12,6 +12,7 @@ interface ConstituencyElectionHeroProps {
   year: number;
   summarySentence: string;
   breadcrumbItems: BreadcrumbItem[];
+  children?: React.ReactNode;
 }
 
 export default function ConstituencyElectionHero({
@@ -19,7 +20,8 @@ export default function ConstituencyElectionHero({
   districtName,
   year,
   summarySentence,
-  breadcrumbItems
+  breadcrumbItems,
+  children
 }: ConstituencyElectionHeroProps) {
   return (
     <div className="relative overflow-hidden bg-brand-dark pb-24 pt-12 md:pb-32 md:pt-16">
@@ -31,20 +33,28 @@ export default function ConstituencyElectionHero({
 
       <div className="relative z-10 mx-auto max-w-7xl px-4">
         {/* Breadcrumbs */}
-        <nav className="mb-8 flex items-center flex-wrap gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/40">
-          {breadcrumbItems.map((item, index) => (
-            <div key={item.item} className="flex items-center">
-              {index > 0 && <ChevronRight className="mx-2 h-3 w-3 opacity-20" />}
-              {index === breadcrumbItems.length - 1 ? (
-                <span className="text-brand-gold">{item.name}</span>
-              ) : (
-                <Link href={item.item} className="hover:text-white transition-colors">
-                  {item.name}
-                </Link>
-              )}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+          <nav className="flex items-center flex-wrap gap-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/40">
+            {breadcrumbItems.map((item, index) => (
+              <div key={item.item} className="flex items-center">
+                {index > 0 && <ChevronRight className="mx-2 h-3 w-3 opacity-20" />}
+                {index === breadcrumbItems.length - 1 ? (
+                  <span className="text-brand-gold">{item.name}</span>
+                ) : (
+                  <Link href={item.item} className="hover:text-white transition-colors">
+                    {item.name}
+                  </Link>
+                )}
+              </div>
+            ))}
+          </nav>
+          
+          {children && (
+            <div className="flex items-center justify-end gap-4">
+              {children}
             </div>
-          ))}
-        </nav>
+          )}
+        </div>
 
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
           <div className="space-y-6 max-w-3xl">
