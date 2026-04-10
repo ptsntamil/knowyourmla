@@ -17,7 +17,7 @@ import { AttendanceWidget, QuestionsWidget } from "@/components/MetricWidgets";
 import IncomeDetailsTable from "@/components/IncomeDetailsTable";
 import ElectionExpensesWidget from "@/components/ElectionExpensesWidget";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
