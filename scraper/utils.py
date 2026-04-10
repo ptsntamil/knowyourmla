@@ -2,7 +2,8 @@ import re
 import json
 import os
 import logging
-from typing import Optional, Dict, List
+from typing import Optional, Dict, List, Any, Union
+from decimal import Decimal
 
 logger = logging.getLogger(__name__)
 
@@ -245,3 +246,22 @@ def names_are_similar(name1: str, name2: str) -> bool:
             if s2[i:] == s1 or s2[:-i] == s1: return True
             
     return False
+def convert_floats_to_decimal(obj: Any) -> Any:
+    """Recursively convert all float values in a dictionary or list to Decimal.
+    
+    DynamoDB's boto3 client does not support Python's float type.
+    
+    Args:
+        obj: The object (dict, list, or primitive) to convert.
+        
+    Returns:
+        The object with all floats converted to Decimal.
+    """
+    if isinstance(obj, float):
+        # Convert to string first to avoid precision issues like Decimal(0.1)
+        return Decimal(str(obj))
+    elif isinstance(obj, dict):
+        return {k: convert_floats_to_decimal(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_floats_to_decimal(v) for v in obj]
+    return obj

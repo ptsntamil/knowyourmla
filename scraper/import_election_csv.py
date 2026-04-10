@@ -73,21 +73,21 @@ class ElectionCSVImporter:
         if not val: return False
         return val.lower() in ["true", "yes", "1", "incumbent"]
 
-    def parse_int(self, val: str) -> Optional[int]:
-        if not val: return None
+    def parse_int(self, val: str) -> int:
+        if not val: return 0
         try:
             return int(float(val))
         except (ValueError, TypeError):
-            return None
+            return 0
 
-    def parse_decimal(self, val: str) -> Optional[Decimal]:
-        if not val: return None
+    def parse_decimal(self, val: str) -> Decimal:
+        if not val: return Decimal('0')
         try:
             # Clean up percentage signs or commas if present
             clean_val = str(val).replace('%', '').replace(',', '').strip()
             return Decimal(clean_val)
         except (ValueError, TypeError, Exception):
-            return None
+            return Decimal('0')
 
     def process_row(self, row: Dict, dry_run: bool = False, row_index: int = -1, processed_constituencies: Optional[set] = None):
         year = str(row.get('Year'))

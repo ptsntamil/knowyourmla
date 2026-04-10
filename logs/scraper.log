@@ -120175,3 +120175,146 @@ TypeError: Float types are not supported. Use Decimal types instead.
 2026-04-08 22:13:37,099 [INFO] enrichment_pipeline:     [Updating] Person PERSON#072368bed64ca1c01aca66d713a004f0 metadata: sex: None -> M, tcpd_pid: None -> AETN273195
 2026-04-08 22:13:37,124 [INFO] election_importer:   [Updating] stats for VENKATESH (AFFIDAVIT#2021#2305)
 2026-04-08 22:13:37,149 [INFO] election_importer: Finished. Created: 6, Updated: 18. Successfully processed 24 records across 1 constituencies.
+2026-04-09 19:32:49,150 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-04-09 19:32:49,188 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-04-09 19:32:49,321 [INFO] enrichment_pipeline: Loaded 126 parties (363 lookup keys)
+2026-04-09 19:32:49,321 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-04-09 19:32:49,346 [INFO] enrichment_pipeline: Loaded 38 districts (39 lookup keys)
+2026-04-09 19:32:49,346 [INFO] enrichment_pipeline: Starting expansion run for 2006 (IDs 123 to 123) with 10 threads
+2026-04-09 19:32:49,375 [INFO] enrichment_pipeline: Found 0 winners for 2006
+2026-04-09 19:32:49,375 [INFO] enrichment_pipeline: Processing candidate 123 (2006) with PK: AFFIDAVIT#2006#123
+2026-04-09 19:32:57,186 [INFO] enrichment_pipeline: Linked candidate 123 to person PERSON#bc4715f936db79d8ba9ea883a89b4a6b
+2026-04-09 19:32:57,209 [ERROR] enrichment_pipeline: Error processing candidate 123 (2006): Float types are not supported. Use Decimal types instead.
+Traceback (most recent call last):
+  File "/Users/ideas2it/Projects/personal/knowyourmla/scraper/enrichment.py", line 217, in process_candidate
+    self._save_new_candidate(pk, cid, year, year_slug, details, person_id, winners_map)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/scraper/enrichment.py", line 303, in _save_new_candidate
+    self.candidates_table.put_item(Item=item)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/resources/factory.py", line 581, in do_action
+    response = action(self, *args, **kwargs)
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/resources/action.py", line 88, in __call__
+    response = getattr(parent.meta.client, operation_name)(*args, **params)
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/client.py", line 602, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/client.py", line 1019, in _make_api_call
+    api_params = self._emit_api_params(
+        api_params=api_params,
+        operation_model=operation_model,
+        context=request_context,
+    )
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/client.py", line 1138, in _emit_api_params
+    self.meta.events.emit(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        f'before-parameter-build.{service_id}.{operation_name}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        context=context,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 217, in inject_attribute_value_input
+    self._transformer.transform(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        params,
+        ^^^^^^^
+    ...<2 lines>...
+        'AttributeValue',
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 289, in transform
+    self._transform_parameters(model, params, transformation, target_shape)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 296, in _transform_parameters
+    getattr(self, f'_transform_{type_name}')(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model, params, transformation, target_shape
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 312, in _transform_structure
+    self._transform_parameters(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        member_model,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        target_shape,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 296, in _transform_parameters
+    getattr(self, f'_transform_{type_name}')(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model, params, transformation, target_shape
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 326, in _transform_map
+    params[key] = transformation(value)
+                  ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 116, in serialize
+    return {dynamodb_type: serializer(value)}
+                           ~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 240, in _serialize_m
+    return {k: self.serialize(v) for k, v in value.items()}
+               ~~~~~~~~~~~~~~^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 116, in serialize
+    return {dynamodb_type: serializer(value)}
+                           ~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 240, in _serialize_m
+    return {k: self.serialize(v) for k, v in value.items()}
+               ~~~~~~~~~~~~~~^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 116, in serialize
+    return {dynamodb_type: serializer(value)}
+                           ~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 240, in _serialize_m
+    return {k: self.serialize(v) for k, v in value.items()}
+               ~~~~~~~~~~~~~~^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 116, in serialize
+    return {dynamodb_type: serializer(value)}
+                           ~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 240, in _serialize_m
+    return {k: self.serialize(v) for k, v in value.items()}
+               ~~~~~~~~~~~~~~^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 114, in serialize
+    dynamodb_type = self._get_dynamodb_type(value)
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 127, in _get_dynamodb_type
+    elif self._is_number(value):
+         ~~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 171, in _is_number
+    raise TypeError(
+        'Float types are not supported. Use Decimal types instead.'
+    )
+TypeError: Float types are not supported. Use Decimal types instead.
+2026-04-09 19:37:40,274 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-04-09 19:37:40,311 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-04-09 19:37:40,441 [INFO] enrichment_pipeline: Loaded 126 parties (363 lookup keys)
+2026-04-09 19:37:40,441 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-04-09 19:37:40,466 [INFO] enrichment_pipeline: Loaded 38 districts (39 lookup keys)
+2026-04-09 19:37:40,466 [INFO] enrichment_pipeline: Starting expansion run for 2006 (IDs 123 to 123) with 10 threads
+2026-04-09 19:37:40,495 [INFO] enrichment_pipeline: Found 0 winners for 2006
+2026-04-09 19:37:40,496 [INFO] enrichment_pipeline: Processing candidate 123 (2006) with PK: AFFIDAVIT#2006#123
+2026-04-09 19:37:47,364 [WARNING] enrichment_pipeline: Error parsing detailed assets from https://www.myneta.info/tn2006/candidate.php?candidate_id=123&print=true: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-04-09 19:37:47,514 [INFO] enrichment_pipeline: Linked candidate 123 to person PERSON#bc4715f936db79d8ba9ea883a89b4a6b
+2026-04-09 19:41:29,349 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-04-09 19:41:29,458 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-04-09 19:41:29,586 [INFO] enrichment_pipeline: Loaded 126 parties (363 lookup keys)
+2026-04-09 19:41:29,586 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-04-09 19:41:29,611 [INFO] enrichment_pipeline: Loaded 38 districts (39 lookup keys)
+2026-04-09 19:41:29,611 [INFO] enrichment_pipeline: Starting expansion run for 2006 (IDs 131 to 131) with 10 threads
+2026-04-09 19:41:29,641 [INFO] enrichment_pipeline: Found 0 winners for 2006
+2026-04-09 19:41:29,641 [INFO] enrichment_pipeline: Processing candidate 131 (2006) with PK: AFFIDAVIT#2006#131
+2026-04-09 19:41:37,080 [INFO] enrichment_pipeline: Linked candidate 131 to person PERSON#parasam_arolapasara
