@@ -6,7 +6,6 @@ import DistrictInsights from "@/components/district/DistrictInsights";
 import DistrictElectorate from "@/components/district/DistrictElectorate";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import SEOIntro from "@/components/seo/SEOIntro";
 import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
@@ -14,7 +13,7 @@ import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ItemListSchema from "@/components/seo/ItemListSchema";
 import ShareButton from "@/components/ShareButton";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ slug: string }>;

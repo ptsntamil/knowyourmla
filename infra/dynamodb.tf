@@ -136,6 +136,21 @@ resource "aws_dynamodb_table" "knowyourmla_candidates" {
     type = "S"
   }
 
+  attribute {
+    name = "year"
+    type = "N"
+  }
+
+  attribute {
+    name = "is_winner_flag"
+    type = "S"
+  }
+
+  attribute {
+    name = "party_id"
+    type = "S"
+  }
+
   # GSI to find all candidates for a specific person
   global_secondary_index {
     name            = "PersonIndex"
@@ -164,6 +179,54 @@ resource "aws_dynamodb_table" "knowyourmla_candidates" {
 
     key_schema {
       attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to find all candidates for a specific year
+  global_secondary_index {
+    name            = "YearIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "year"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "constituency_id"
+      key_type       = "RANGE"
+    }
+  }
+
+  # Sparse GSI for winners
+  global_secondary_index {
+    name            = "WinnerYearIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "is_winner_flag"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "year"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to find all candidates for a specific party
+  global_secondary_index {
+    name            = "PartyIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "party_id"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "year"
       key_type       = "RANGE"
     }
   }
@@ -271,6 +334,11 @@ resource "aws_dynamodb_table" "knowyourmla_constituencies" {
     type = "S"
   }
 
+  attribute {
+    name = "district_id"
+    type = "S"
+  }
+
   # GSI for searching constituencies by normalized name
   global_secondary_index {
     name            = "NameIndex"
@@ -278,6 +346,38 @@ resource "aws_dynamodb_table" "knowyourmla_constituencies" {
 
     key_schema {
       attribute_name = "normalized_name"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to quickly list all METADATA records across all constituencies
+  global_secondary_index {
+    name            = "MetadataIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "SK"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to find all constituencies in a specific district
+  global_secondary_index {
+    name            = "DistrictIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "district_id"
       key_type       = "HASH"
     }
 
@@ -329,6 +429,22 @@ resource "aws_dynamodb_table" "knowyourmla_political_parties" {
 
     key_schema {
       attribute_name = "normalized_name"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to quickly list all METADATA records across all parties
+  global_secondary_index {
+    name            = "MetadataIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "SK"
       key_type       = "HASH"
     }
 
@@ -427,6 +543,22 @@ resource "aws_dynamodb_table" "knowyourmla_districts" {
 
     key_schema {
       attribute_name = "normalized_name"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to quickly list all METADATA records across all districts
+  global_secondary_index {
+    name            = "MetadataIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "SK"
       key_type       = "HASH"
     }
 
