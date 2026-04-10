@@ -173,8 +173,15 @@ def test_dry_run_isolation(mock_importer):
 def test_decimal_parsing(mock_importer):
     assert mock_importer.parse_decimal("65.5 %") == Decimal("65.5")
     assert mock_importer.parse_decimal("1,234.56") == Decimal("1234.56")
-    assert mock_importer.parse_decimal(None) is None
-    assert mock_importer.parse_decimal("") is None
+    assert mock_importer.parse_decimal(None) == Decimal("0")
+    assert mock_importer.parse_decimal("") == Decimal("0")
+
+def test_int_parsing(mock_importer):
+    assert mock_importer.parse_int("123") == 123
+    assert mock_importer.parse_int("123.45") == 123
+    assert mock_importer.parse_int(None) == 0
+    assert mock_importer.parse_int("") == 0
+    assert mock_importer.parse_int("invalid") == 0
 
 def test_bool_parsing(mock_importer):
     assert mock_importer.parse_bool("Yes") is True

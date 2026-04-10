@@ -61,6 +61,7 @@ from utils import (
     clean_currency_to_int,
     clean_constituency,
     get_all_aliases,
+    convert_floats_to_decimal
     )
 
 # Constants
@@ -105,10 +106,10 @@ class AffidavitData:
     age: Optional[int] = None
     sex: Optional[str] = None
     tcpd_pid: Optional[str] = None
-    total_votes: Optional[int] = None
-    winning_margin: Optional[int] = None
-    margin_percentage: Optional[Decimal] = None
-    position: Optional[int] = None
+    total_votes: int = 0
+    winning_margin: int = 0
+    margin_percentage: Decimal = field(default_factory=lambda: Decimal('0'))
+    position: int = 0
     is_incumbent: Optional[bool] = None
     is_turncoat: Optional[bool] = None
     no_terms: Optional[int] = None
@@ -272,6 +273,7 @@ class EnrichmentPipeline:
             "createdtime": datetime.now(timezone.utc).isoformat(),
             "last_tried": datetime.now(timezone.utc).isoformat()
         }
+        item = convert_floats_to_decimal(item)
         self.candidates_table.put_item(Item=item)
         logger.info(f"Saved error record for candidate {cid} ({year})")
 
@@ -300,6 +302,7 @@ class EnrichmentPipeline:
         for f in ["voter_constituency", "voter_serial_no", "voter_part_no", "constituency", "constituency_myneta_id", "age", "other_elections", "sex", "tcpd_pid"]:
             item.pop(f, None)
             
+        item = convert_floats_to_decimal(item)
         self.candidates_table.put_item(Item=item)
         logger.debug(f"Saved candidate {cid} ({year})")
 
@@ -341,6 +344,7 @@ class EnrichmentPipeline:
             if "#yr" in kwargs["UpdateExpression"]:
                 kwargs["ExpressionAttributeNames"] = {"#yr": "year"}
                 
+            kwargs["ExpressionAttributeValues"] = convert_floats_to_decimal(kwargs["ExpressionAttributeValues"])
             self.candidates_table.update_item(**kwargs)
 
     def _discover_and_recurse(self, cid: int, year: str, slug: str, person_id: str, history: List[Any], group_id: Optional[str]):
