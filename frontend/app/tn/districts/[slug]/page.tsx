@@ -115,7 +115,7 @@ export default async function DistrictPage({ params }: PageProps) {
 
           <div className="flex items-center justify-end gap-4">
             <ShareButton
-              title={`${districtNameDisplay} District Political Profile | KnowYourMLA`}
+              title={`${districtNameDisplay} District Political Profile`}
               text={`Explore ${districtNameDisplay} district political profile, MLA insights, dominant party, women representation and more on KnowYourMLA.`}
               url={`/tn/districts/${slug}`}
               label="Share"

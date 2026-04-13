@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { AVAILABLE_ELECTION_YEARS } from '@/lib/constants/elections';
+import { fetchParties } from '@/services/api';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,16 +10,39 @@ export async function GET() {
   // Available election years in the system
   const years = AVAILABLE_ELECTION_YEARS;
   
-  const electionPages = [
+  const electionPages: { loc: string, priority: string, changefreq: string }[] = [
     // Main Elections Landing (Future-proofing)
     { loc: `${domain}/tn/elections`, priority: '0.9', changefreq: 'monthly' },
-    
-    // Year-specific pages
-    ...years.flatMap(year => [
-      { loc: `${domain}/tn/elections/${year}`, priority: '0.8', changefreq: 'yearly' },
-      { loc: `${domain}/tn/elections/${year}/insights`, priority: '0.7', changefreq: 'yearly' }
-    ])
   ];
+
+  // Add 2021, 2016, 2011 standard pages
+  const legacyYears = ['2021', '2016', '2011'];
+  legacyYears.forEach(year => {
+    electionPages.push({ loc: `${domain}/tn/elections/${year}`, priority: '0.8', changefreq: 'yearly' });
+    electionPages.push({ loc: `${domain}/tn/elections/${year}/insights`, priority: '0.7', changefreq: 'yearly' });
+  });
+
+  // Adding 2026 Dashboard
+  electionPages.push({ loc: `${domain}/tn/elections/2026/dashboard`, priority: '1.0', changefreq: 'daily' });
+
+  // Adding 2026 Party Filter Pages
+  try {
+    const parties = await fetchParties();
+    if (parties && parties.length > 0) {
+      parties.forEach((p: any) => {
+        const partyShort = p.short_name || p.PK?.replace('PARTY#', '');
+        if (partyShort) {
+          electionPages.push({ 
+            loc: `${domain}/tn/elections/2026/dashboard?party=${partyShort}`, 
+            priority: '0.6', 
+            changefreq: 'daily' 
+          });
+        }
+      });
+    }
+  } catch (error) {
+    console.error('Error fetching parties for elections sitemap:', error);
+  }
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">

@@ -14,10 +14,17 @@ const ProfileImage: React.FC<ProfileImageProps> = ({
   className = "w-full h-full object-cover",
 }) => {
   const [hasError, setHasError] = useState(false);
-  const [imgSrc, setImgSrc] = useState<string | null>(src || null);
+  const [imgSrc, setImgSrc] = useState<string | null>(() => {
+    if (!src) return null;
+    return src.replace(/^assets\/\d{4}\/photos\//, '/candidate/2026/photos/');
+  });
 
   useEffect(() => {
-    setImgSrc(src || null);
+    let normalizedSrc = src || null;
+    if (normalizedSrc) {
+      normalizedSrc = normalizedSrc.replace(/^assets\/\d{4}\/photos\//, '/candidate/2026/photos');
+    }
+    setImgSrc(normalizedSrc);
     setHasError(false);
   }, [src]);
 

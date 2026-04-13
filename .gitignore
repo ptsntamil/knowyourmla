@@ -105,3 +105,4 @@ infra/.terraform.lock.hcl
 infra/package/**
 infra/backend.zip
 scraper/__pycache__/
+scraper/assets/2026/*

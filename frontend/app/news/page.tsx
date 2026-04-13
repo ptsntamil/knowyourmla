@@ -8,7 +8,7 @@ import { Calendar, Clock, ArrowRight, BookOpen } from 'lucide-react';
 
 export async function generateMetadata() {
   return buildMetadata({
-    title: "News & Analysis | KnowYourMLA",
+    title: "News & Analysis",
     description: "Deep dives into Tamil Nadu's political data, legislative performance, and constituency insights.",
     path: "/news",
     keywords: ["Tamil Nadu Politics News", "MLA Analysis", "Legislative Performance", "Political Data"]

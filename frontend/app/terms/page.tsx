@@ -3,7 +3,7 @@ import React from 'react';
 
 export async function generateMetadata() {
   return buildMetadata({
-    title: "Terms of Service | KnowYourMLA",
+    title: "Terms of Service",
     description: "Our terms of service outline the rules and regulations for using the KnowYourMLA platform.",
     path: "/terms",
     keywords: ["Terms of Service", "User Agreement", "KnowYourMLA Terms", "Usage Policy"]

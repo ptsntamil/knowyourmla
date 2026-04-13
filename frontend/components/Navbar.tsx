@@ -88,6 +88,17 @@ export default function Navbar({ elections = [] }: NavbarProps) {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8 items-center">
+            {/* 2026 Dashboard Link */}
+            <Link
+              href="/tn/elections/2026/dashboard"
+              className={`relative ${linkClasses(isActive("/tn/elections/2026/dashboard"))}`}
+            >
+              2026 Dashboard
+              <span className="absolute -top-3 -right-4 bg-brand-gold text-brand-dark text-[8px] font-black px-1.5 py-0.5 rounded shadow-lg animate-pulse">
+                NEW
+              </span>
+            </Link>
+
             {/* MLAs Link */}
             <Link href="/tn/mla/list" className={linkClasses(isActive("/tn/mla/list"))}>
               MLAs
@@ -147,14 +158,25 @@ export default function Navbar({ elections = [] }: NavbarProps) {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-4">
+          {/* Mobile Menu Button & Quick Links */}
+          <div className="flex md:hidden items-center gap-2">
+            <Link
+              href="/tn/elections/2026/dashboard"
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 transition-all
+                ${isActive("/tn/elections/2026/dashboard")
+                  ? "bg-brand-gold text-brand-dark"
+                  : "bg-brand-gold/10 text-brand-gold border border-brand-gold/20"}
+              `}
+            >
+              2026
+              <span className={`w-1 h-1 rounded-full animate-pulse ${isActive("/tn/elections/2026/dashboard") ? "bg-brand-dark" : "bg-brand-gold"}`}></span>
+            </Link>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white p-3 hover:bg-white/10 active:scale-90 rounded-lg transition-all outline-none focus-visible:ring-2 focus-visible:ring-white min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className="text-white p-2 hover:bg-white/10 active:scale-90 rounded-lg transition-all outline-none focus-visible:ring-2 focus-visible:ring-white min-w-[40px] min-h-[40px] flex items-center justify-center"
               aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
@@ -162,6 +184,18 @@ export default function Navbar({ elections = [] }: NavbarProps) {
         {/* Mobile Navigation Content */}
         {isMenuOpen && (
           <div className="md:hidden bg-brand-dark border-t border-white/5 px-4 py-6 space-y-4 animate-in slide-in-from-top duration-300">
+            {/* 2026 Dashboard */}
+            <Link
+              href="/tn/elections/2026/dashboard"
+              onClick={() => setIsMenuOpen(false)}
+              className={`relative block w-full text-slate-400 hover:text-white px-5 py-4 rounded-xl transition-all text-xs font-black uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${isActive("/tn/elections/2026/dashboard") ? "bg-white/5 text-brand-gold" : ""}`}
+            >
+              2026 Dashboard
+              <span className="ml-2 bg-brand-gold text-brand-dark text-[8px] font-black px-1.5 py-0.5 rounded shadow-lg">
+                NEW
+              </span>
+            </Link>
+
             {/* MLAs */}
             <Link
               href="/tn/mla/list"

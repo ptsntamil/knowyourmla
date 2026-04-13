@@ -151,7 +151,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
 
           <div className="flex items-center justify-end gap-4">
             <ShareButton
-              title={`${constituencyName} Constituency Profile | KnowYourMLA`}
+              title={`${constituencyName} Constituency Profile`}
               text={currentWinner 
                 ? `Explore ${constituencyName} constituency, current MLA ${currentWinner.winner} (${currentWinner.party.short_name}), election history, and candidates on KnowYourMLA.`
                 : `Explore ${constituencyName} constituency election history, candidate details, and political insights on KnowYourMLA.`}

@@ -61,9 +61,9 @@ export default function ConstituencyContestExplorer({ contests }: ConstituencyCo
           <div className="flex flex-col gap-1.5">
              <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 px-1">Pattern</label>
              <div className="flex bg-slate-100 p-1 rounded-xl">
-               {tags.slice(0, 4).map(tag => (
+               {tags.slice(0, 4).map((tag, idx) => (
                  <button
-                    key={tag}
+                    key={`${tag}-${idx}`}
                     onClick={() => setFilterTag(tag)}
                     className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${
                       filterTag === tag ? 'bg-white text-brand-dark shadow-sm' : 'text-slate-400 hover:text-slate-600'
@@ -78,8 +78,8 @@ export default function ConstituencyContestExplorer({ contests }: ConstituencyCo
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {filteredContests.slice(0, 18).map(contest => (
-          <div key={contest.constituencyId} className="group flex flex-col bg-white border border-slate-100 rounded-[2.5rem] p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-gold/10 hover:-translate-y-1 relative overflow-hidden">
+        {filteredContests.slice(0, 18).map((contest, idx) => (
+          <div key={`${contest.constituencyId}-${idx}`} className="group flex flex-col bg-white border border-slate-100 rounded-[2.5rem] p-8 transition-all duration-500 hover:shadow-2xl hover:shadow-brand-gold/10 hover:-translate-y-1 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
             
             <div className="relative z-10 flex flex-col h-full space-y-8">
@@ -98,8 +98,8 @@ export default function ConstituencyContestExplorer({ contests }: ConstituencyCo
                 </div>
                 
                 <div className="flex flex-col items-end gap-1.5 min-w-[100px]">
-                   {contest.tags.map(t => (
-                     <span key={t} className="text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-lg bg-brand-gold/10 text-brand-gold border border-brand-gold/10 shadow-sm whitespace-nowrap">
+                   {contest.tags.map((t, idx) => (
+                     <span key={`${t}-${idx}`} className="text-[9px] font-black uppercase tracking-widest px-3 py-1 rounded-lg bg-brand-gold/10 text-brand-gold border border-brand-gold/10 shadow-sm whitespace-nowrap">
                        {t}
                      </span>
                    ))}
@@ -153,8 +153,8 @@ export default function ConstituencyContestExplorer({ contests }: ConstituencyCo
                   {contest.candidates.length > 0 ? (
                     <>
                       <div className="space-y-2">
-                        {contest.candidates.slice(0, 3).map(cand => (
-                          <div key={cand.id} className="flex items-center justify-between group/row p-2 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
+                        {contest.candidates.slice(0, 3).map((cand, idx) => (
+                          <div key={`${cand.id}-${idx}`} className="flex items-center justify-between group/row p-2 rounded-2xl hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-100">
                              <div className="flex items-center gap-3">
                                <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center shrink-0">
                                  {cand.partyLogoUrl ? (
@@ -164,7 +164,12 @@ export default function ConstituencyContestExplorer({ contests }: ConstituencyCo
                                  )}
                                </div>
                                <div className="space-y-0.5">
-                                 <p className="font-bold text-brand-dark text-sm leading-none">{cand.name}</p>
+                                 <Link 
+                                   href={`/tn/mla/${cand.personId}`}
+                                   className="font-bold text-brand-dark text-sm leading-none hover:text-brand-gold transition-colors block"
+                                 >
+                                   {cand.name}
+                                 </Link>
                                  {cand.isIncumbent && <p className="text-[9px] font-black text-brand-gold uppercase tracking-widest italic">Defending MLA</p>}
                                </div>
                              </div>
