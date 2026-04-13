@@ -97,7 +97,7 @@ export default async function ConstituencyElectionResultPage({ params }: PagePro
         breadcrumbItems={breadcrumbItems}
       >
         <ShareButton
-          title={`${result.constituencyName} Election Result ${year} | KnowYourMLA`}
+          title={`${result.constituencyName} Election Result ${year}`}
           text={`Check out the ${year} election result for ${result.constituencyName} constituency. ${result.winner.name} from ${result.winner.party} won with a margin of ${result.margin.toLocaleString()} votes.`}
           url={`/tn/constituency/${slug}/election/${year}`}
           label="Share Result"

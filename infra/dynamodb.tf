@@ -269,6 +269,11 @@ resource "aws_dynamodb_table" "knowyourmla_persons" {
     type = "S"
   }
 
+  attribute {
+    name = "pan_number"
+    type = "S"
+  }
+
   # GSI for searching persons by name
   global_secondary_index {
     name            = "NameIndex"
@@ -298,6 +303,17 @@ resource "aws_dynamodb_table" "knowyourmla_persons" {
     key_schema {
       attribute_name = "PK"
       key_type       = "RANGE"
+    }
+  }
+
+  # GSI for searching persons by PAN number
+  global_secondary_index {
+    name            = "PanIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "pan_number"
+      key_type       = "HASH"
     }
   }
 

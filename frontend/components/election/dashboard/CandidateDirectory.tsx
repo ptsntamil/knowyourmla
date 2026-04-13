@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { DashboardCandidate, DashboardFilterOptions } from '@/lib/elections/preElectionDashboard/dashboard.types';
 import PartyBadge from '@/components/ui/PartyBadge';
 import { Search, Filter, X, ChevronDown, User, IndianRupee, Gavel, GraduationCap } from 'lucide-react';
@@ -93,8 +94,8 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
           onChange={(e) => onChange(e.target.value)}
         >
           <option value="All">All {label}</option>
-          {options.map(opt => (
-            <option key={opt.value} value={opt.value}>
+          {options.map((opt, idx) => (
+            <option key={`${opt.value}-${idx}`} value={opt.value}>
               {opt.label} {opt.count !== undefined ? `(${opt.count})` : ''}
             </option>
           ))}
@@ -216,28 +217,33 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-50">
-            {filteredCandidates.length > 0 ? filteredCandidates.slice(0, 50).map(c => (
-              <tr key={c.id} className="group hover:bg-slate-50/50 transition-colors">
+            {filteredCandidates.length > 0 ? filteredCandidates.slice(0, 50).map((c, idx) => (
+              <tr key={`${c.id}-${idx}`} className="group hover:bg-slate-50/50 transition-colors">
                 <td className="py-6 px-8">
                   <div className="flex items-center gap-4">
-                    <div className="relative">
+                    <Link href={`/tn/mla/${c.personId}`} className="relative block shrink-0">
                       {c.profilePic ? (
                         <img 
                           src={c.profilePic} 
                           alt={c.name} 
-                          className="w-12 h-12 rounded-2xl object-cover bg-slate-100 border border-slate-100 group-hover:scale-110 transition-transform shadow-sm"
+                          className="w-12 h-12 rounded-2xl object-cover bg-slate-100 border border-slate-100 hover:scale-110 transition-transform shadow-sm"
                         />
                       ) : (
-                        <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:scale-110 transition-transform">
+                        <div className="w-12 h-12 rounded-2xl bg-slate-100 border border-slate-100 flex items-center justify-center text-slate-400 hover:scale-110 transition-transform">
                           <User size={20} />
                         </div>
                       )}
                       {c.isIncumbent && (
                         <div className="absolute -top-1 -right-1 w-4 h-4 bg-brand-gold rounded-full border-2 border-white" title="Incumbent"></div>
                       )}
-                    </div>
+                    </Link>
                     <div className="space-y-0.5">
-                      <p className="font-black text-brand-dark uppercase tracking-tight italic">{c.name}</p>
+                      <Link 
+                        href={`/tn/mla/${c.personId}`}
+                        className="font-black text-brand-dark uppercase tracking-tight italic hover:text-brand-gold transition-colors block"
+                      >
+                        {c.name}
+                      </Link>
                       <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                         <span>{c.age ? `${c.age} Yrs` : 'Age N/A'}</span>
                         {c.gender && (
@@ -328,19 +334,24 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
 
       {/* Mobile view Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:hidden">
-        {filteredCandidates.slice(0, 30).map(c => (
-          <div key={c.id} className="bg-white border border-slate-100 rounded-[2rem] p-6 shadow-xl shadow-slate-200/50 space-y-6">
+        {filteredCandidates.slice(0, 30).map((c, idx) => (
+          <div key={`${c.id}-${idx}`} className="bg-white border border-slate-100 rounded-[2rem] p-6 shadow-xl shadow-slate-200/50 space-y-6">
              <div className="flex justify-between items-start">
                <div className="flex gap-4">
-                 <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 shrink-0">
+                 <Link href={`/tn/mla/${c.personId}`} className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 shrink-0 overflow-hidden hover:opacity-80 transition-opacity">
                     {c.profilePic ? (
-                      <img src={c.profilePic} className="w-full h-full rounded-2xl object-cover" alt={c.name} />
+                      <img src={c.profilePic} className="w-full h-full object-cover" alt={c.name} />
                     ) : (
                       <User size={20} />
                     )}
-                 </div>
+                 </Link>
                  <div className="space-y-0.5">
-                   <h4 className="font-black text-brand-dark uppercase italic tracking-tight">{c.name}</h4>
+                   <Link 
+                     href={`/tn/mla/${c.personId}`}
+                     className="font-black text-brand-dark uppercase italic tracking-tight hover:text-brand-gold transition-colors block"
+                   >
+                     {c.name}
+                   </Link>
                    <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{c.constituencyName}</p>
                  </div>
                </div>

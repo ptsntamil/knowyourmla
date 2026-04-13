@@ -196,6 +196,7 @@ If no logical match is found, a new deterministic ID is generated:
 | `voter_part_no` | String | Part number on electoral roll |
 | `created_at` | Number | Unix timestamp |
 | `createdtime` | String | ISO 8601 formatted creation timestamp |
+| `pan_number` | String | PAN number of the candidate(Can be used as unique identifier) |
 
 ### Sample Record
 
@@ -211,6 +212,7 @@ If no logical match is found, a new deterministic ID is generated:
   "voter_part_no": "132",
   "created_at": 1771825000,
   "createdtime": "2026-02-26T11:12:06.000000+00:00"
+  "pan_number": "ABCDE1234F"
 }
 ```
 
