@@ -17,7 +17,7 @@ class AffidavitExtractor:
 
     def __init__(self, api_key: str):
         self.client = genai.Client(api_key=api_key)
-        self.model_id = "models/gemini-2.5-flash"  # Verified active ID
+        self.model_id = "models/gemini-2.5-flash-lite"  # Verified active ID
 
     def upload_pdf(self, file_path: str) -> Any:
         """Uploads PDF to Google AI File API using the new SDK."""
@@ -40,28 +40,42 @@ class AffidavitExtractor:
     def extract_data(self, file: Any) -> Dict[str, Any]:
         """Extracts structured data using the new SDK's generate_content."""
         prompt = """
-        Extract candidate details from the provided Form 26 Indian Election Affidavit in JSON:
+        You are an expert Data Extraction agent specializing in Indian Election Affidavits (Form 26). 
+        Your task is to deeply parse the provided PDF and extract structured information into JSON.
+        
+        ### EXTRACTION STRATEGY:
+        1. **Locate Sections**: Find Section 7 (Movable Assets), Section 8 (Immovable Assets), Section 9 (Liabilities), and the Summary Abstract (usually Item 11 at the end).
+        2. **Family Columns**: Most tables have columns for Self, Spouse, Dependent-1, Dependent-2, etc. You MUST extract data for ALL columns.
+        3. **ITR History**: Look at Item 4 or the Summary Table for the last 5 years of Income Tax Return filings and reported income.
+        
+        ### DATA FIELDS TO EXTRACT:
         1. pan_number
-        2. education: qualification, year, and institution
+        2. education: {qualification, year, institution}
         3. profession
         4. party_name
         5. constituency_name
         6. voter_details: {constituency, serial_no, part_no}
         7. contact_details: {email, facebook, twitter_x, instagram}
-        8. total_assets: {self, spouse, dependents} - GRAND TOTAL of movable + immovable.
+        8. total_assets: {self, spouse, dependents} - Grand total of Movable + Immovable.
         9. total_liabilities: {self, spouse, dependents}
         10. criminal_cases_count
         11. income_tax_details: {self, spouse, dependents}
-        12. itr_history: {self, spouse, dependents} - A dictionary for each, where keys are financial years (e.g., "2023-2024") and values are the numeric income amounts (INR) as stated in the ITR table.
-        13. vehicle_details: {self, spouse, dependents} list of {name, registration_no, value}
+        12. itr_history: {self, spouse, dependents} - Map financial years (e.g., "2023-24") to numeric income amounts.
+        13. vehicle_assets: {self, spouse, dependents} list of {name, registration_no, value}
         14. gold_details: {self, spouse, dependents} {weight_grms, value}
         15. silver_details: {self, spouse, dependents} {weight_grms, value}
-        16. land_assets: Dictionary with keys 'self', 'spouse', 'dependents'. Each must be an object: {"raw_text_block": "translated English text from tables", "parsed_entries": [{village, survey_no, area, unit, purchase_cost, current_market_value}]}
-        
-        RULES: 
-        - UNIVERSAL TRANSLATION: You MUST translate ALL Tamil text to English (names, addresses, professions, parties, constituencies, etc.). The JSON output must contain English values only.
-        - DO NOT round monetary values.
-        - Missing fields = null or 0.
+        16. land_assets: Dictionary with keys 'self', 'spouse', 'dependents'.
+            Each member must be an object: 
+            {
+              "raw_text_block": "Deeply summarized English description of all land entries including Village, Survey No, Area, and Purchase Cost",
+              "parsed_entries": [{village, survey_no, area, unit, purchase_cost, current_market_value}]
+            }
+
+        ### CRITICAL RULES:
+        - **UNIVERSAL TRANSLATION**: Translate ALL Tamil text (names, villages, parties) to English.
+        - **NUMERIC PRECISION**: Do NOT round or approximate monetary values. Use exact figures from the PDF.
+        - **THINK STEP-BY-STEP**: Analyze the table headers and row labels in Sections 7 and 8 carefully before outputting.
+        - **NULL HANDLING**: Use null for missing text and 0 for missing numeric values.
         """
         # Note for Land Assets: parsed_entries must be populated if data exists. raw_text_block must be translated to English.
         # Note: raw_text_block in land_assets should follow format: [number]) [village] Village: Survey No: [numbers], [value] [unit], Cost of Purchase: [value].
@@ -72,7 +86,8 @@ class AffidavitExtractor:
             contents=[file, prompt],
             config={
                 'temperature': 0.1,
-                'response_mime_type': 'application/json'
+                'response_mime_type': 'application/json',
+                'max_output_tokens': 8192
             }
         )
         
@@ -202,7 +217,7 @@ class AffidavitExtractor:
                 "criminal_cases": raw_data.get("criminal_cases_count", 0),
                 "income_itr": raw_data.get("income_tax_details"),
                 "itr_history": raw_data.get("itr_history"),
-                "vehicle_assets": raw_data.get("vehicle_details"),
+                "vehicle_assets": raw_data.get("vehicle_assets"),
                 "gold_assets": map_precious_metal(raw_data.get("gold_details")),
                 "silver_assets": map_precious_metal(raw_data.get("silver_details")),
                 "land_assets": land_assets

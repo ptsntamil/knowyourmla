@@ -66,7 +66,7 @@ export function AssetChart({ data }: AssetChartProps) {
 }
 
 interface VoteTrendChartProps {
-  data: { year: number | string; votes: number }[];
+  data: { year: number | string; votes: number; vote_percent: number | null }[];
 }
 
 export function VoteTrendChart({ data }: VoteTrendChartProps) {
@@ -99,7 +99,19 @@ export function VoteTrendChart({ data }: VoteTrendChartProps) {
           <Tooltip
             cursor={{ fill: '#F1F5F9' }}
             contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', padding: '12px' }}
-            formatter={(value: any) => [Number(value).toLocaleString('en-IN'), "Votes"]}
+            formatter={(value: any, name: any, props: any) => {
+              if (name === "votes") {
+                const voteShare = props.payload.vote_percent;
+                return [
+                  <div key="votes" className="flex flex-col">
+                    <span className="font-black text-brand-dark">{Number(value).toLocaleString('en-IN')} Votes</span>
+                    {voteShare && <span className="text-[10px] text-brand-gold uppercase tracking-wider font-bold">{voteShare}% Vote share</span>}
+                  </div>,
+                  ""
+                ];
+              }
+              return [value, name];
+            }}
           />
           <Bar dataKey="votes" fill="#E3C75F" radius={[4, 4, 0, 0]}>
             {data.map((entry, index) => (

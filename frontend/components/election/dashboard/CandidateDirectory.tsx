@@ -285,7 +285,7 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
                     </div>
                     <div className="flex items-center gap-1.5 text-slate-500">
                       <GraduationCap size={12} />
-                      <span className="text-[10px] font-bold truncate max-w-[120px]">{c.education || 'N/A'}</span>
+                      <span className="text-[10px] font-bold truncate max-w-[120px]" title={c.education || 'N/A'}>{c.education || 'N/A'}</span>
                     </div>
                   </div>
                 </td>
@@ -367,7 +367,7 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
              <div className="grid grid-cols-2 gap-4 pt-4 border-t border-slate-50">
                <div className="space-y-1">
                   <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Education</p>
-                  <p className="text-xs font-bold text-slate-700 truncate">{c.education || 'N/A'}</p>
+                  <p className="text-xs font-bold text-slate-700 truncate" title={c.education || 'N/A'}>{c.education || 'N/A'}</p>
                </div>
                <div className="space-y-1">
                   <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Assets</p>

@@ -26,21 +26,38 @@ export default function MLAHeader({
    let totalGold = 0;
    if (goldAssets) {
       Object.values(goldAssets).forEach((item: any) => {
-         const gramMatch = (item?.gold || "").match(/^([\d.]+)\s*(gram|Gram|Grams|grams|grm|gm|G)?$/i);
-         const sovereignMatch = (item?.gold || "").match(/^([\d.]+)\s*(Sovereign|Sovereigns|sovereign|sovereigns)$/i);
+         const weight = item?.gold || item?.weight || item?.weight_grms || "";
+         const gramMatch = String(weight).match(/^([\d.]+)\s*(gram|Gram|Grams|grams|grm|gm|G)?$/i);
+         const sovereignMatch = String(weight).match(/^([\d.]+)\s*(sovereign|Sovereign|Sovereigns|Savaran|Savarans|Pavan|Pavans|Pawn|Pawns)?$/i);
 
          if (gramMatch) {
             totalGold += parseFloat(gramMatch[1]);
-         } else if (sovereignMatch) {
-            totalGold += parseFloat(sovereignMatch[1]) * 8;
+         } else {
+            if (sovereignMatch) {
+               totalGold += parseFloat(sovereignMatch[1]) * 8;
+            }
          }
       });
    }
 
    let vehicleCount = 0;
-   if (vehicleAssets) {
-      Object.values(vehicleAssets).forEach((list: any) => {
-         if (Array.isArray(list)) vehicleCount += list.length;
+   if (vehicleAssets && typeof vehicleAssets === 'object') {
+      Object.values(vehicleAssets).forEach((val: any) => {
+         if (Array.isArray(val)) {
+            const validVehicles = val.filter(v => {
+               if (!v) return false;
+               const text = typeof v === 'string' ? v : (v?.name || v?.raw_text || '');
+               // If it's an object with a name or value, it's a valid vehicle
+               if (typeof v === 'object' && (v.name || v.registration_no || v.value)) return true;
+               return text && text.toLowerCase() !== 'nil' && text.toLowerCase() !== 'none';
+            });
+            vehicleCount += validVehicles.length;
+         } else if (typeof val === 'string' && val.trim() && val.toLowerCase() !== 'nil' && val.toLowerCase() !== 'none') {
+            vehicleCount += 1;
+         } else if (val && typeof val === 'object' && (val.name || val.registration_no || val.value)) {
+            // Handle cases where family member has a single vehicle object instead of array
+            vehicleCount += 1;
+         }
       });
    }
 

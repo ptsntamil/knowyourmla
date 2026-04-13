@@ -199,7 +199,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
             <div className="bg-white rounded-3xl p-8 shadow-2xl flex flex-col h-full border border-white/50">
               <h3 className="text-xl font-black text-brand-dark mb-8 uppercase tracking-tight">Vote Share</h3>
               <div className="flex-1">
-                <VoteTrendChart data={profile.analytics.vote_trend.map((v) => ({ year: v.year, votes: v.votes }))} />
+                 <VoteTrendChart data={profile.analytics.vote_trend.map((v) => ({ year: v.year, votes: v.votes, vote_percent: v.vote_percent }))} />
               </div>
               <p className="text-[11px] text-slate-500 font-bold mt-8 leading-relaxed opacity-70">
                 Tracking the popularity and support received by the candidate in various elections.
