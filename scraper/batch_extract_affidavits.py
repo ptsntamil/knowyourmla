@@ -30,13 +30,7 @@ def save_json_atomic(data: List[Dict[str, Any]], file_path: str):
 def batch_process(limit: int = None, input_file: str = "tn_2026_candidates.json"):
     """Processes candidates from the JSON file and extracts affidavit details."""
     load_dotenv(dotenv_path=".env.local")
-    #ptsn - AIzaSyAWyaQlLwajtuyZIHJwQQ78HYfLJHpoq5s
-    #ptsn1 - AIzaSyDhDmtVkNG0O6nHdC9y8XpZOwAX_2lEI4A
-    #krishnaa - AIzaSyCUP-kQRftEP_B9ZKj19HwH6l54mbBHH-U
-    #krishnakani - AIzaSyA0vGkr-O73AQsJRt9f6u-S8LNwrWLF8bw
-    #adhi101 - AIzaSyDeVY7LZD7ksT3hCYaMpQwSgmOPISwZblE
-    # api_key = os.environ.get("GOOGLE_GEMINI_API_KEY", "AIzaSyBEVH77dAIyxjjNRXwpIAFFscpuqvV5_qU")
-    api_key = "AIzaSyDhDmtVkNG0O6nHdC9y8XpZOwAX_2lEI4A"
+    api_key = os.environ.get("GOOGLE_GEMINI_API_KEY")
     if not api_key:
         logger.error("GOOGLE_GEMINI_API_KEY not found in .env.local ")
         return

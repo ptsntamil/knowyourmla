@@ -66,6 +66,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
 
   // Parallel fetch for history and pre-election overlay (if enabled)
   const showPreElection = process.env.NEXT_PUBLIC_ENABLE_2026_PRE_ELECTION === "true";
+  console.log("showPreElection", showPreElection);
 
   const [data, overlayData] = await Promise.all([
     fetchConstituencyWinners(constituencyId),
@@ -152,7 +153,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
           <div className="flex items-center justify-end gap-4">
             <ShareButton
               title={`${constituencyName} Constituency Profile`}
-              text={currentWinner 
+              text={currentWinner
                 ? `Explore ${constituencyName} constituency, current MLA ${currentWinner.winner} (${currentWinner.party.short_name}), election history, and candidates on KnowYourMLA.`
                 : `Explore ${constituencyName} constituency election history, candidate details, and political insights on KnowYourMLA.`}
               url={`/tn/constituency/${slug}`}
@@ -354,11 +355,11 @@ export default async function ConstituencyPage({ params }: PageProps) {
             <div className="space-y-3">
               <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
               <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
-                How does {slug} compare to the statewide trends? 
+                How does {slug} compare to the statewide trends?
                 Explore the full 2021 assembly election analysis to see performance across all 234 seats, regional patterns, and candidate analytics.
               </p>
             </div>
-            <Link 
+            <Link
               href="/tn/elections/2021/insights"
               className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
             >
