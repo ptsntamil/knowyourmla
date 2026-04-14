@@ -17,20 +17,26 @@ def clean_name(name: str) -> str:
 def clean_currency_to_int(currency_str: str) -> int:
     """Convert currency strings like 'Rs 1,23,456' to integer 123456.
     
-    Robustness: Isolates only the FIRST sequence of digits/commas to avoid
-    accidentally merging trailing digits from unit labels like '21 Lacs+'.
+    Robustness: Handles decimals (.00) and typos (. instead of ,).
+    Examples:
+    - '14,994,050.0' -> 14994050
+    - '5.6,25,530' -> 5625530
     """
-    if not currency_str or currency_str.lower() == 'nil':
+    if not currency_str or currency_str.lower() in ['nil', 'n/a', 'none']:
         return 0
     
-    # Isolate the first sequence of digits and commas
-    match = re.search(r'([\d,]+)', currency_str)
-    if not match:
-        return 0
-        
-    num_str = match.group(1)
-    # Remove everything except digits
-    clean_str = re.sub(r'[^\d]', '', num_str)
+    # Remove commas and non-numeric/non-dot chars
+    clean_str = re.sub(r'[^\d.]', '', currency_str.replace(",", ""))
+    
+    if "." in clean_str:
+        parts = clean_str.split(".")
+        # If the last part looks like cents/paise (0-2 digits), discard it
+        if len(parts[-1]) <= 2:
+            clean_str = "".join(parts[:-1])
+        else:
+            # Otherwise treat dots as typos for commas
+            clean_str = "".join(parts)
+            
     return int(clean_str) if clean_str else 0
 
 def clean_percentage_to_float(percent_str: str) -> float:

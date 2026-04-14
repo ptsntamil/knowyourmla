@@ -17,7 +17,7 @@ import {
 } from "recharts";
 
 interface AssetChartProps {
-  data: { year: number | string; assets: number }[];
+  data: { year: number | string; assets: number; growth_percent: number | null }[];
 }
 
 export function AssetChart({ data }: AssetChartProps) {
@@ -49,7 +49,20 @@ export function AssetChart({ data }: AssetChartProps) {
           />
           <Tooltip
             contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', padding: '12px' }}
-            formatter={(value: any) => [`₹${Number(value).toLocaleString('en-IN')}`, "Assets"]}
+            formatter={(value: any, name: any, props: any) => {
+              const growth = props.payload.growth_percent;
+              return [
+                <div key="assets" className="flex flex-col">
+                  <span className="font-black text-brand-dark">₹{Number(value).toLocaleString('en-IN')}</span>
+                  {growth !== null && (
+                    <span className={`text-[10px] uppercase tracking-wider font-bold ${growth >= 0 ? 'text-emerald-600' : 'text-rose-600'}`}>
+                      {growth >= 0 ? '↑' : '↓'} {Math.abs(growth)}% Growth
+                    </span>
+                  )}
+                </div>,
+                "Assets"
+              ];
+            }}
           />
           <Line
             type="monotone"

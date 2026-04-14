@@ -58,9 +58,9 @@ class AffidavitExtractor:
         7. contact_details: {email, facebook, twitter_x, instagram}
         8. total_assets: {self, spouse, dependents} - Grand total of Movable + Immovable.
         9. total_liabilities: {self, spouse, dependents}
-        10. criminal_cases_count
+        10. criminal_cases: {count, sections}
         11. income_tax_details: {self, spouse, dependents}
-        12. itr_history: {self, spouse, dependents} - Map financial years (e.g., "2023-24") to numeric income amounts.
+        12. itr_history: {self, spouse, dependents} - Map financial years (e.g.,{"2023-24":738000}) to numeric income amounts.
         13. vehicle_assets: {self, spouse, dependents} list of {name, registration_no, value}
         14. gold_details: {self, spouse, dependents} {weight_grms, value}
         15. silver_details: {self, spouse, dependents} {weight_grms, value}
@@ -214,7 +214,7 @@ class AffidavitExtractor:
                 "total_liabilities": get_grand_total(raw_data.get("total_liabilities", 0)),
                 "total_assets_details": raw_data.get("total_assets"),
                 "total_liabilities_details": raw_data.get("total_liabilities"),
-                "criminal_cases": raw_data.get("criminal_cases_count", 0),
+                "criminal_cases": raw_data.get("criminal_cases", {}).get("count", 0) if isinstance(raw_data.get("criminal_cases"), dict) else raw_data.get("criminal_cases", 0),
                 "income_itr": raw_data.get("income_tax_details"),
                 "itr_history": raw_data.get("itr_history"),
                 "vehicle_assets": raw_data.get("vehicle_assets"),

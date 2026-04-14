@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { PersonDetail, ElectionHistoryRecord } from "@/types/models";
 import { User, GraduationCap, Briefcase, AlertCircle, Coins, Car, MapPin } from "lucide-react";
 import ProfileImage from "./ProfileImage";
@@ -26,19 +25,22 @@ export default function MLAHeader({
    let totalGold = 0;
    if (goldAssets) {
       Object.values(goldAssets).forEach((item: any) => {
-         const weight = item?.gold || item?.weight || item?.weight_grms || "";
-         const gramMatch = String(weight).match(/^([\d.]+)\s*(gram|Gram|Grams|grams|grm|gm|G)?$/i);
-         const sovereignMatch = String(weight).match(/^([\d.]+)\s*(sovereign|Sovereign|Sovereigns|Savaran|Savarans|Pavan|Pavans|Pawn|Pawns)?$/i);
-
-         if (gramMatch) {
-            totalGold += parseFloat(gramMatch[1]);
+         if (typeof item?.weight_grms === 'number') {
+            totalGold += item.weight_grms;
          } else {
-            if (sovereignMatch) {
+            const weight = item?.gold || item?.weight || item?.weight_grms || "";
+            const gramMatch = String(weight).match(/^([\d.]+)\s*(gram|Gram|Grams|grams|grm|grms|gm|G)?$/i);
+            const sovereignMatch = String(weight).match(/^([\d.]+)\s*(sovereign|Sovereign|Sovereigns|Savaran|Savarans|Pavan|Pavans|Pawn|Pawns)?$/i);
+
+            if (gramMatch) {
+               totalGold += parseFloat(gramMatch[1]);
+            } else if (sovereignMatch) {
                totalGold += parseFloat(sovereignMatch[1]) * 8;
             }
          }
       });
    }
+
 
    let vehicleCount = 0;
    if (vehicleAssets && typeof vehicleAssets === 'object') {
@@ -77,7 +79,6 @@ export default function MLAHeader({
       totalCents = parseFloat((totalCents % 100).toFixed(2));
    }
    const landStr = `${totalAcres}A ${totalCents > 0 ? `${totalCents}C` : ""}`.trim();
-
    return (
       <div className="space-y-6">
          {/* Top Section: Profile and Sidebar */}

@@ -19,8 +19,10 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ASSETS_DIR = os.path.join(SCRIPT_DIR, "assets/2026/affidavits")
 PHOTOS_DIR = os.path.join(SCRIPT_DIR, "assets/2026/photos")
 METADATA_FILE = os.path.join(SCRIPT_DIR, "tn_2026_candidates.json")
+CHECKPOINT_FILE = os.path.join(SCRIPT_DIR, "crawl_checkpoint.json")
 USER_DATA_DIR = os.path.join(tempfile.gettempdir(), "eci_playwright_profile")
 file_lock = threading.Lock()
+checkpoint_lock = threading.Lock()
 
 # Logging setup
 logging.basicConfig(
@@ -73,7 +75,7 @@ def init_browser(p, headless=True, proxy=None):
         "--disable-infobars",
         "--window-size=1920,1080",
         "--no-sandbox",
-        "--disable-dev-shm-usage",
+        "--disable-dev-shm-usage"
     ]
 
     context = p.chromium.launch_persistent_context(
@@ -194,108 +196,96 @@ def extract_candidates_from_page(page):
             logger.warning(f"Error parsing candidate card: {e}")
     return candidates
 
-def download_candidate_pdf(candidate, headless=True, proxy=None):
-    """Enriches candidate data, downloads the affidavit and profile picture."""
-    with sync_playwright() as p:
-        context = None
-        temp_dir = None
+# Function modifies candidate dict in-place to preserve existing fields like person_id
+def download_candidate_pdf(page, candidate, skip_pdf=False):
+    """Enriches candidate data, downloads the affidavit and profile picture using an existing page."""
+    try:
+        # 1. Navigate to Profile
+        page.goto(candidate['profile_url'], wait_until="load", timeout=45000)
+        time.sleep(random.uniform(2, 4))
+        
+        # 2. Dynamic Metadata extraction (Preserves person_id by modifying in-place)
         try:
-            context, page, temp_dir = init_browser(p, headless=headless, proxy=proxy)
-            page.goto(candidate['profile_url'], wait_until="load", timeout=45000)
-            time.sleep(random.uniform(2, 4))
-            
-            # Metadata extraction
-            try:
-                candidate["Father's / Husband's Name"] = page.inner_text("div.detail-person .form-group:nth-of-type(1) div").strip()
-                candidate["address"] = page.inner_text("div.detail-person .form-group:nth-of-type(5) div").strip()
-                candidate["sex"] = page.inner_text("div.detail-person .form-group:nth-of-type(6) div").strip()
-                candidate["age"] = page.inner_text("div.detail-person .form-group:nth-of-type(7) div").strip()
-            except Exception as e:
-                logger.warning(f"Metadata extraction failed for {candidate['name']}: {e}")
-
-            # Profile Picture Extraction
-            try:
-                # Use user-suggested selector div.imagePreview img
-                photo_el = page.query_selector("div.imagePreview img")
-                logger.info(f"Photo element found: {photo_el is not None}")
-                if photo_el:
-                    photo_src = photo_el.get_attribute("src")
-                    if photo_src:
-                        photo_url = urljoin(BASE_URL, photo_src)
-                        photo_filename = f"{sanitize_filename(candidate['constituency'])}_{sanitize_filename(candidate['name'])}.jpg"
-                        photo_path = os.path.join(PHOTOS_DIR, photo_filename)
+            groups = page.query_selector_all("div.detail-person .form-group")
+            for group in groups:
+                label_el = group.query_selector("label")
+                value_el = group.query_selector("div")
+                if label_el and value_el:
+                    label = label_el.inner_text().strip().replace(":", "").strip()
+                    if not label:
+                        continue
                         
-                        response = page.request.get(photo_url)
-                        if response.status == 200:
-                            with open(photo_path, "wb") as f:
-                                f.write(response.body())
-                            candidate["photo_path"] = f"assets/2026/photos/{photo_filename}"
-                            logger.info(f"[📷] Photo saved: {photo_filename}")
-            except Exception as e:
-                logger.warning(f"Photo download failed for {candidate['name']}: {e}")
+                    value = value_el.inner_text().strip()
+                    
+                    # Prevent duplicate 'name' keys and clean up labels
+                    clean_label = label
+                    if clean_label.lower() == "name":
+                        if "name" not in candidate:
+                            candidate["name"] = value
+                        continue
+                    
+                    candidate[clean_label] = value
+            logger.info(f"Extracted metadata fields for {candidate.get('name')}")
+        except Exception as e:
+            logger.warning(f"Metadata extraction failed for {candidate.get('name', 'Unknown')}: {e}")
 
-            # Affidavit Download
-            download_btn = page.wait_for_selector("div.aside-af div.info.info-wrap:last-of-type a", timeout=15000)
+        # 3. Profile Picture Extraction
+        try:
+            # Support both class and ID selectors for maximum compatibility
+            photo_el = page.query_selector("div#imagePreview img") or page.query_selector("div.imagePreview img")
+            if photo_el:
+                photo_src = photo_el.get_attribute("src")
+                if photo_src:
+                    photo_url = urljoin(BASE_URL, photo_src)
+                    photo_filename = f"{sanitize_filename(candidate['constituency'])}_{sanitize_filename(candidate['name'])}.jpg"
+                    photo_path = os.path.join(PHOTOS_DIR, photo_filename)
+                    
+                    response = page.request.get(photo_url)
+                    if response.status == 200:
+                        with open(photo_path, "wb") as f:
+                            f.write(response.body())
+                        candidate["photo_path"] = f"assets/2026/photos/{photo_filename}"
+                        logger.info(f"[📷] Photo saved: {photo_filename}")
+        except Exception as e:
+            logger.warning(f"Photo download failed for {candidate['name']}: {e}")
+
+        # 4. Affidavit Download (Native Download Handler)
+        if not skip_pdf:
+            download_btn = page.query_selector("a:has-text('Affidavit')") or page.query_selector("div.aside-af a")
+            
             if download_btn:
                 logger.info(f"[↓] Downloading: {candidate['name']}")
                 
-                download = None
-                popup_page = None
-                
                 try:
-                    # Combined approach: listen for both download and popup events
-                    with page.context.expect_page(timeout=10000) as page_info: # New tab/popup
-                        with page.expect_download(timeout=10000) as download_info: # Direct download
-                            download_btn.click()
+                    # Use Playwright's native download listener
+                    with page.expect_download(timeout=60000) as download_info:
+                        # Multi-method click to ensure trigger
+                        try:
+                            page.evaluate("el => el.click()", download_btn)
+                        except:
+                            download_btn.click(force=True, timeout=10000)
                     
-                    # If we got here, it means one of the events triggered. 
-                    # Playwright events are tricky to wait for in parallel like this if they don't both happen.
-                    # We'll check which one we got.
                     download = download_info.value
-                except Exception:
-                    # If direct download didn't trigger, check for popup
-                    try:
-                        popup_page = page_info.value
-                    except Exception:
-                        pass
-
-                # Case 1: Standard Download Event
-                if download:
                     original_filename = download.suggested_filename
                     unique_name = f"{sanitize_filename(candidate['constituency'])}_{sanitize_filename(candidate['name'])}_{original_filename}"
                     local_path = os.path.join(ASSETS_DIR, unique_name)
+                    
+                    # Native save_as (Handles moving from temp dir)
                     download.save_as(local_path)
                     candidate["affidavite_file_location"] = f"assets/2026/affidavits/{unique_name}"
-                    logger.info(f"[✔] Saved (Direct): {unique_name}")
-                
-                # Case 2: Opened in New Tab
-                elif popup_page:
-                    popup_page.wait_for_load_state("load")
-                    pdf_url = popup_page.url
-                    logger.info(f"PDF opened in new tab: {pdf_url}")
+                    logger.info(f"[✔] Downloaded: {unique_name}")
                     
-                    response = page.request.get(pdf_url)
-                    if response.status == 200:
-                        filename = f"{sanitize_filename(candidate['constituency'])}_{sanitize_filename(candidate['name'])}_Affidavit.pdf"
-                        local_path = os.path.join(ASSETS_DIR, filename)
-                        with open(local_path, "wb") as f:
-                            f.write(response.body())
-                        candidate["affidavite_file_location"] = f"assets/2026/affidavits/{filename}"
-                        logger.info(f"[✔] Saved (Popup): {filename}")
-                    popup_page.close()
-                else:
-                    logger.error(f"Failed to capture download or popup for {candidate['name']}")
+                except Exception as e:
+                    logger.error(f"Failed to capture download for {candidate['name']} after 60s: {e}")
             else:
                 logger.warning(f"Affidavit download button not found for {candidate['name']}")
+        else:
+            logger.info(f"Skipping affidavit download for {candidate['name']} as requested.")
 
-            return candidate
-        except Exception as e:
-            logger.error(f"[!] Error processing {candidate['name']}: {e}")
-            return candidate
-        finally:
-            if context: context.close()
-            if temp_dir and os.path.exists(temp_dir):
-                shutil.rmtree(temp_dir, ignore_errors=True)
+        return candidate
+    except Exception as e:
+        logger.error(f"[!] Error processing {candidate['name']}: {e}")
+        return candidate
 
 def main():
     parser = argparse.ArgumentParser(description="ECI Affidavit Scraper 2026")
@@ -305,6 +295,7 @@ def main():
     parser.add_argument("--limit", type=int, default=None, help="Maximum candidates to process")
     parser.add_argument("--start-page", type=int, default=1, help="Page number to start crawling from")
     parser.add_argument("--proxy", type=str, default=None, help="Proxy URL")
+    parser.add_argument("--skip-file-download", action="store_true", help="Skip affidavit PDF download")
     args = parser.parse_args()
 
     headless_bool = args.headless.lower() == "true"
@@ -336,6 +327,18 @@ def main():
                 context, page, temp_main_dir = init_browser(p, headless=headless_bool, proxy=proxy_dict)
                 
                 page_num = args.start_page
+                
+                # Check for checkpoint if starting from default page 1
+                if page_num == 1 and args.mode in ["full", "crawl"]:
+                    if os.path.exists(CHECKPOINT_FILE):
+                        try:
+                            with open(CHECKPOINT_FILE, "r") as f:
+                                checkpoint = json.load(f)
+                                page_num = checkpoint.get("last_page", 1)
+                                logger.info(f"Resuming crawl from checkpoint: page {page_num}")
+                        except Exception as e:
+                            logger.warning(f"Failed to read checkpoint: {e}")
+
                 if page_num > 1:
                     # Hardcoded URL as requested for jumping
                     jump_url = f"https://affidavit.eci.gov.in/CandidateCustomFilter?electionType=32-AC-GENERAL-3-60&election=32-AC-GENERAL-3-60&states=S22&phase=2&submitName=100&page={page_num}"
@@ -386,7 +389,17 @@ def main():
                             recovery_url = f"https://affidavit.eci.gov.in/CandidateCustomFilter?electionType=32-AC-GENERAL-3-60&election=32-AC-GENERAL-3-60&states=S22&phase=2&submitName=100&page={page_num}"
                             logger.info(f"Attempting recovery by navigating to: {recovery_url}")
                             page.goto(recovery_url, wait_until="load", timeout=60000)
-                    else: break
+                    
+                    # Save checkpoint after each page
+                    with checkpoint_lock:
+                        try:
+                            with open(CHECKPOINT_FILE, "w") as f:
+                                json.dump({"last_page": page_num}, f)
+                        except Exception as e:
+                            logger.warning(f"Failed to save checkpoint: {e}")
+                            
+                    if not next_btn or not next_btn.is_visible():
+                        break
             except Exception as e:
                 logger.error(f"Critical error during crawl: {e}")
                 if args.mode == "full": raise
@@ -412,41 +425,63 @@ def main():
     if args.mode in ["full", "enrich"]:
         logger.info("Starting Enrich Phase...")
         
+        # Determine candidates that need processing (missing affidavit or missing photo)
         candidates_to_enrich = []
         if args.mode == "full":
-            # In full mode, only enrich candidates found in the current run
-            candidates_to_enrich = all_candidates
+            candidates_to_enrich = [c for c in all_candidates if not c.get("photo_path") or not c.get("affidavite_file_location")]
         else:
-            # In enrich mode, pick existing entries missing affidavits
-            candidates_to_enrich = [c for c in processed_results if not c.get("affidavite_file_location")]
-            if args.limit:
-                candidates_to_enrich = candidates_to_enrich[:args.limit]
+            candidates_to_enrich = [c for c in processed_results if not c.get("photo_path")]
+            
+        if args.limit:
+            candidates_to_enrich = candidates_to_enrich[:args.limit]
         
         if not candidates_to_enrich:
             logger.info("No candidates identified for enrichment in this run.")
         else:
-            logger.info(f"Processing {len(candidates_to_enrich)} candidates for enrichment.")
+            logger.info(f"Processing {len(candidates_to_enrich)} candidates for enrichment using {args.max_workers} threads.")
             
-            with ThreadPoolExecutor(max_workers=args.max_workers) as executor:
-                def process_with_retry(cand):
-                    res = None
-                    for i in range(2):
-                        res = download_candidate_pdf(cand, headless=headless_bool, proxy=proxy_dict)
-                        if res.get("affidavite_file_location"): 
-                            break
-                        time.sleep(random.uniform(5, 10))
-                    
-                    # Incremental save with thread safety
-                    if res:
+            def enrich_worker(candidate):
+                """Worker function for threading."""
+                with sync_playwright() as p:
+                    context = None
+                    temp_dir = None
+                    try:
+                        context, page, temp_dir = init_browser(p, headless=headless_bool, proxy=proxy_dict)
+                        
+                        logger.info(f"--- Processing {candidate.get('name', 'Unknown')} ---")
+                        success = False
+                        for attempt in range(2):
+                            try:
+                                res = download_candidate_pdf(page, candidate, skip_pdf=args.skip_file_download)
+                                if (args.skip_file_download or candidate.get("affidavite_file_location")) and candidate.get("photo_path"):
+                                    success = True
+                                    break
+                            except Exception as e:
+                                logger.error(f"Attempt {attempt + 1} failed for {candidate.get('name', 'Unknown')}: {e}")
+                                time.sleep(random.uniform(2, 5))
+                        
+                        # Incremental save after each candidate (Thread-safe)
                         with file_lock:
                             try:
+                                # Reload and update to avoid overwriting other threads' progress if multiple files were used
+                                # But here we are updating the objects in the shared processed_results list
                                 with open(METADATA_FILE, "w", encoding="utf-8") as f:
                                     json.dump(processed_results, f, indent=4, ensure_ascii=False)
                             except Exception as e:
                                 logger.error(f"Error saving updated metadata: {e}")
-                    return res
+                                
+                        if not success:
+                            logger.warning(f"Failed to fully enrich {candidate.get('name', 'Unknown')} after 2 attempts.")
+                            
+                    except Exception as e:
+                        logger.error(f"Critical error in worker for {candidate.get('name', 'Unknown')}: {e}")
+                    finally:
+                        if context: context.close()
+                        if temp_dir and os.path.exists(temp_dir):
+                            shutil.rmtree(temp_dir, ignore_errors=True)
 
-                list(executor.map(process_with_retry, candidates_to_enrich))
+            with ThreadPoolExecutor(max_workers=args.max_workers) as executor:
+                executor.map(enrich_worker, candidates_to_enrich)
     
     logger.info(f"Scraping complete in mode '{args.mode}'. Total candidates in database: {len(processed_results)}")
 

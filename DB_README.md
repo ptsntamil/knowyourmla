@@ -247,8 +247,8 @@ Full affidavit details for every candidate (winner and loser) in every election 
 | `total_assets` | Number | Total assets in INR |
 | `total_liabilities` | Number | Total liabilities in INR |
 | `criminal_cases` | Number | Number of declared criminal cases |
-| `income_itr` | Number | Latest self ITR income in INR |
-| `itr_history` | Map | Year-range → amount map per relation (self, spouse, etc.) |
+| `income_itr` | Map | Latest ITR income for all family members (self, spouse, dependent1...) |
+| `itr_history` | Map | Year-range → amount map per relation (self, spouse, dependent1...) |
 | `election_expenses` | Number | Declared election expenses in INR |
 | `profile_pic` | String | URL to candidate photo (may be `null`) |
 | `district_id` | String | FK → `knowyourmla_districts` PK |
