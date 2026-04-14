@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { ElectionHistoryRecord } from "@/types/models";
 import PartyBadge from "@/components/ui/PartyBadge";
 
@@ -20,32 +19,42 @@ export default function HistoryTable({ history }: HistoryTableProps) {
           </tr>
         </thead>
         <tbody className="divide-y divide-slate-100">
-          {history.map((record, index) => (
-            <tr key={index} className="hover:bg-slate-50/30 transition-colors">
-              <td className="px-6 py-4 font-black text-brand-dark text-lg">{record.year}</td>
-              <td className="px-6 py-4 text-slate-600 font-medium capitalize">{record.constituency.toLowerCase()}</td>
-              <td className="px-6 py-4">
-                <PartyBadge
-                  party={record.party}
-                  logoUrl={record.party_logo_url}
-                  colorBg={record.party_color_bg}
-                  colorText={record.party_color_text}
-                  colorBorder={record.party_color_border}
-                />
-              </td>
-              <td className="px-6 py-4">
-                <span className={`px-4 py-1.5 text-[10px] font-black rounded-lg uppercase tracking-widest ${record.winner
-                  ? 'bg-brand-gold text-white shadow-md'
-                  : 'bg-slate-200 text-slate-500'
-                  }`}>
-                  {record.winner ? 'WON' : 'LOST'}
-                </span>
-              </td>
-               <td className="px-6 py-4 font-bold text-slate-600">
-                  {record.margin ? record.margin.toLocaleString() : (record.margin_percent ? `${record.margin_percent}%` : '-')}
-               </td>
-            </tr>
-          ))}
+          {history.map((record, index) => {
+            const isUpcomingElection = record.year >= 2026 && record.results_declared === false;
+            const resultLabel = isUpcomingElection ? "CONTESTANT" : (record.winner ? "WON" : "LOST");
+            const resultClass = isUpcomingElection
+              ? "bg-blue-100 text-blue-700"
+              : record.winner
+                ? "bg-brand-gold text-white shadow-md"
+                : "bg-slate-200 text-slate-500";
+            const marginLabel = isUpcomingElection
+              ? "UPCOMING"
+              : (record.margin ? record.margin.toLocaleString() : (record.margin_percent ? `${record.margin_percent}%` : "-"));
+
+            return (
+              <tr key={index} className="hover:bg-slate-50/30 transition-colors">
+                <td className="px-6 py-4 font-black text-brand-dark text-lg">{record.year}</td>
+                <td className="px-6 py-4 text-slate-600 font-medium capitalize">{record.constituency.toLowerCase()}</td>
+                <td className="px-6 py-4">
+                  <PartyBadge
+                    party={record.party}
+                    logoUrl={record.party_logo_url}
+                    colorBg={record.party_color_bg}
+                    colorText={record.party_color_text}
+                    colorBorder={record.party_color_border}
+                  />
+                </td>
+                <td className="px-6 py-4">
+                  <span className={`px-4 py-1.5 text-[10px] font-black rounded-lg uppercase tracking-widest whitespace-nowrap ${resultClass}`}>
+                    {resultLabel}
+                  </span>
+                </td>
+                <td className="px-6 py-4 font-bold text-slate-600">
+                  {marginLabel}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

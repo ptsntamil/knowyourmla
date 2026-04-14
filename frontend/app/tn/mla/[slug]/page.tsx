@@ -189,7 +189,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
             <div className="bg-white rounded-3xl p-8 shadow-2xl flex flex-col h-full border border-white/50">
               <h3 className="text-xl font-black text-brand-dark mb-8 uppercase tracking-tight">Asset Growth</h3>
               <div className="flex-1">
-                <AssetChart data={profile.analytics.asset_growth.map((a) => ({ year: a.year, assets: a.assets }))} />
+                <AssetChart data={profile.analytics.asset_growth.map((a) => ({ year: a.year, assets: a.assets, growth_percent: a.growth_percent }))} />
               </div>
               <p className="text-[11px] text-slate-500 font-bold mt-8 leading-relaxed opacity-70">
                 Visualize the growth of assets declared by {profile.person.name} across different election cycles.
@@ -199,7 +199,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
             <div className="bg-white rounded-3xl p-8 shadow-2xl flex flex-col h-full border border-white/50">
               <h3 className="text-xl font-black text-brand-dark mb-8 uppercase tracking-tight">Vote Share</h3>
               <div className="flex-1">
-                 <VoteTrendChart data={profile.analytics.vote_trend.map((v) => ({ year: v.year, votes: v.votes, vote_percent: v.vote_percent }))} />
+                <VoteTrendChart data={profile.analytics.vote_trend.map((v) => ({ year: v.year, votes: v.votes, vote_percent: v.vote_percent }))} />
               </div>
               <p className="text-[11px] text-slate-500 font-bold mt-8 leading-relaxed opacity-70">
                 Tracking the popularity and support received by the candidate in various elections.
@@ -323,11 +323,11 @@ export default async function MLAProfilePage({ params }: PageProps) {
             <div className="space-y-3">
               <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
               <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
-                How does {profile.person.name}'s performance compare to the statewide benchmarks? 
+                How does {profile.person.name}'s performance compare to the statewide benchmarks?
                 Explore the full 2021 assembly election analysis to see detailed insights across all constituencies.
               </p>
             </div>
-            <Link 
+            <Link
               href="/tn/elections/2021/insights"
               className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
             >

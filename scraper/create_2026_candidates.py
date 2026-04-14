@@ -51,8 +51,60 @@ from scraper.utils import (
     normalize_name,
     clean_constituency,
     canonicalize_constituency,
-    convert_floats_to_decimal
+    convert_floats_to_decimal,
+    clean_currency_to_int
 )
+
+
+def normalize_education(education: Any) -> str:
+    """Normalize varied education payloads into a display-safe string."""
+    if not education:
+        return "Not Specified"
+    if isinstance(education, str):
+        return education.strip() or "Not Specified"
+    if isinstance(education, list):
+        for item in education:
+            normalized = normalize_education(item)
+            if normalized != "Not Specified":
+                return normalized
+        return "Not Specified"
+    if isinstance(education, dict):
+        if isinstance(education.get("qualification"), str) and education.get("qualification").strip():
+            return education.get("qualification").strip()
+        if education.get("self"):
+            normalized_self = normalize_education(education.get("self"))
+            if normalized_self != "Not Specified":
+                return normalized_self
+        degree = str(education.get("degree", "")).strip() if education.get("degree") else ""
+        institution = str(education.get("institution", "")).strip() if education.get("institution") else ""
+        year = str(education.get("year", "")).strip() if education.get("year") else ""
+        combined = ", ".join([part for part in [degree, institution, year] if part])
+        if combined:
+            return combined
+    return "Not Specified"
+
+
+def normalize_profession(profession: Any) -> str:
+    """Normalize varied profession payloads into a display-safe string."""
+    if not profession:
+        return "Not Specified"
+    if isinstance(profession, str):
+        return profession.strip() or "Not Specified"
+    if isinstance(profession, list):
+        for item in profession:
+            normalized = normalize_profession(item)
+            if normalized != "Not Specified":
+                return normalized
+        return "Not Specified"
+    if isinstance(profession, dict):
+        if isinstance(profession.get("self"), str) and profession.get("self").strip():
+            return profession.get("self").strip()
+        if isinstance(profession.get("profession"), str) and profession.get("profession").strip():
+            return profession.get("profession").strip()
+        for value in profession.values():
+            if isinstance(value, str) and value.strip():
+                return value.strip()
+    return "Not Specified"
 
 class PersonResolver2026:
     def __init__(self, dynamodb_resource):
@@ -90,10 +142,26 @@ class PersonResolver2026:
         return self.party_lookup.get(norm) or f"PARTY#{norm}"
 
     def get_pan_from_extracted(self, extracted_data: Dict) -> Optional[str]:
+        # 1. Direct pan_number
         pan = extracted_data.get("pan_number")
         if isinstance(pan, dict):
-            return pan.get("self")
-        return pan if pan and pan.upper() != "NIL" else None
+            pan = pan.get("self")
+        
+        # 2. Fallback to income_itr.pan_number
+        if not pan or (isinstance(pan, str) and pan.upper() in ["NIL", "NONE"]):
+            income_itr = extracted_data.get("income_itr") or {}
+            pan = income_itr.get("pan_number")
+            if isinstance(pan, dict):
+                pan = pan.get("self")
+                
+        # 3. Fallback to income_itr.self.pan_number
+        if not pan or (isinstance(pan, str) and pan.upper() in ["NIL", "NONE"]):
+            income_itr = extracted_data.get("income_itr") or {}
+            self_itr = income_itr.get("self") or {}
+            if isinstance(self_itr, dict):
+                pan = self_itr.get("pan_number")
+
+        return pan if pan and isinstance(pan, str) and pan.upper() not in ["NIL", "NONE"] else None
 
     def find_person_by_pan(self, pan: str) -> Optional[str]:
         """Lookup person by PAN using GSI Query (high performance)."""
@@ -165,21 +233,28 @@ class PersonResolver2026:
         name = cand_data.get("name", "")
         last_name = cand_data.get("Father's / Husband's Name", "")
         age = int(cand_data.get("age", 0))
-        extracted = cand_data.get("extracted_data", {})
+        extracted = cand_data.get("extracted_data") or {}
         pan = self.get_pan_from_extracted(extracted)
 
-        # 1. Try PAN lookup
-        person_id = self.find_person_by_pan(pan)
-        if person_id:
-            logger.info(f"Resolved person {person_id} via PAN {pan}")
-        else:
-            # 2. Try Name fallback
-            person_id = self.find_person_by_name_heuristic(name, last_name, age, 2026)
+        # 0. Priority: Use existing person_id if already present in JSON (manual or previous run)
+        person_id = cand_data.get("person_id") or cand_data.get("db_person_id")
+        
+        if not person_id:
+            # 1. Try PAN lookup
+            person_id = self.find_person_by_pan(pan)
             if person_id:
-                logger.info(f"Resolved person {person_id} via name/relation/age")
+                logger.info(f"Resolved person {person_id} via PAN {pan}")
+            else:
+                # 2. Try Name fallback
+                person_id = self.find_person_by_name_heuristic(name, last_name, age, 2026)
+                if person_id:
+                    logger.info(f"Resolved person {person_id} via name/relation/age")
+        else:
+            logger.info(f"Using provided person_id {person_id} for {name}")
 
-        # Prepare social profiles
-        contact = extracted.get("contact_details", {})
+
+        # Prepare social profiles with null-safety
+        contact = extracted.get("contact_details") or {}
         social_profiles = {k: v for k, v in {
             "email": contact.get("email"),
             "facebook": contact.get("facebook"),
@@ -187,13 +262,13 @@ class PersonResolver2026:
             "instagram": contact.get("instagram")
         }.items() if v}
 
-        # Prepare latest voter details
-        voter = extracted.get("voter_details", {})
-        v_norm = canonicalize_constituency(voter.get("constituency"))
+        # Prepare latest voter details with null-safety
+        voter = extracted.get("voter_details") or {}
+        v_norm = canonicalize_constituency(voter.get("constituency", ""))
         voter_update = {k: v for k, v in {
             "voter_constituency_id": f"CONSTITUENCY#{v_norm}" if v_norm else None,
-            "voter_serial_no": str(voter.get("serial_no")) if voter.get("serial_no") else None,
-            "voter_part_no": str(voter.get("part_no")) if voter.get("part_no") else None
+            "voter_serial_no": str(voter.get("serial_no", "")) if voter.get("serial_no") else None,
+            "voter_part_no": str(voter.get("part_no", "")) if voter.get("part_no") else None
         }.items() if v}
 
         if person_id:
@@ -235,7 +310,7 @@ class PersonResolver2026:
             "normalized_name": short_name,
             "birth_year": 2026 - age,
             "sex": cand_data.get("sex"),
-            "pan_number": pan.upper() if pan else None,
+            "pan_number": pan.upper() if pan else final_id.split("#")[-1],
             "social_profiles": social_profiles if social_profiles else None,
             "address": cand_data.get("address"),
             "created_at": int(time.time()),
@@ -347,6 +422,44 @@ def process_land_assets(land_data: Dict) -> Dict:
     
     return processed
 
+def flatten_itr_history(itr_history: Any) -> Dict[str, Any]:
+    """Flatten itr_history structure for DynamoDB."""
+    if not isinstance(itr_history, dict):
+        return {}
+
+    flattened = {}
+    for key in ["self", "spouse", "huf"]:
+        if key in itr_history and isinstance(itr_history[key], dict):
+            cleaned_hist = {y: clean_currency_to_int(str(a)) for y, a in itr_history[key].items()}
+            flattened[key] = cleaned_hist
+        else:
+            flattened[key] = {}
+
+    dependents_data = itr_history.get("dependents", [])
+    if isinstance(dependents_data, list):
+        for i, dep in enumerate(dependents_data):
+            if not isinstance(dep, dict): continue
+            income_details = dep.get("income_tax_details")
+            if not isinstance(income_details, dict): continue
+            flattened[f"dependent{i+1}"] = {y: clean_currency_to_int(str(a)) for y, a in income_details.items()}
+    elif isinstance(dependents_data, dict):
+        for k, v in dependents_data.items():
+            if isinstance(v, dict):
+                 flattened[f"dependent_{k}" if not k.startswith("dependent") else k] = {y: clean_currency_to_int(str(a)) for y, a in v.items()}
+
+    return flattened
+
+def get_latest_income_map(flattened_itr: Dict[str, Any]) -> Dict[str, int]:
+    """Extract latest income for each member as a map."""
+    income_map = {}
+    for member, history in flattened_itr.items():
+        if not history:
+            income_map[member] = 0
+            continue
+        years = sorted(history.keys(), reverse=True)
+        income_map[member] = history[years[0]] if years else 0
+    return income_map
+
 def process_simple_assets(asset_data: Any, asset_type: str) -> Dict:
     """Processes gold, silver, vehicle assets with preference logic.
     Handles both dict-of-relations and flat list formats.
@@ -406,17 +519,14 @@ def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_ru
 
     for i in range(start, end):
         item = data[i]
-        
-        # Only process if extracted_data is available
-        if not item.get("extracted_data"):
-            continue
-            
-        # Resumption: Skip if already succeeded (unless dry run)
-        if item.get("db_status") == "success" and not dry_run:
-            continue
-
         name = item.get("name")
         constituency = item.get("constituency")
+        
+        # Resumption: Skip if already succeeded (unless dry run)
+        if item.get("db_status") == "success" and not dry_run:
+            # logger.info(f"[{i+1}/{total}] Skipping {name} ({constituency}) Already success")
+            continue
+
         logger.info(f"[{i+1}/{total}] Processing {name} ({constituency})")
 
         try:
@@ -433,7 +543,8 @@ def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_ru
             
             # 3. Prepare Candidate Record
             pk = f"AFFIDAVIT#2026#{i+1}"
-            extracted = item["extracted_data"]
+            extracted = item.get("extracted_data") or {}
+            has_extraction = bool(item.get("extracted_data"))
             
             candidate_item = {
                 "PK": pk,
@@ -447,16 +558,18 @@ def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_ru
                 "total_assets": extracted.get("total_assets", 0),
                 "total_liabilities": extracted.get("total_liabilities", 0),
                 "criminal_cases": extracted.get("criminal_cases", 0),
-                "education": extracted.get("education", "Not Specified"),
-                "profession": extracted.get("profession", "Not Specified"),
+                "education": normalize_education(extracted.get("education")),
+                "profession": normalize_profession(extracted.get("profession")),
                 "profile_pic": item.get("photo_path"),
                 "profile_url": item.get("profile_url"),
-                "itr_history": extracted.get("income_itr", {}),
+                "itr_history": flatten_itr_history(extracted.get("itr_history", {})),
                 "gold_assets": process_simple_assets(extracted.get("gold_assets", {}), "gold"),
                 "silver_assets": process_simple_assets(extracted.get("silver_assets", {}), "silver"),
                 "vehicle_assets": process_simple_assets(extracted.get("vehicle_assets", {}), "vehicle"),
                 "land_assets": process_land_assets(extracted.get("land_assets", {})),
+                "income_itr": get_latest_income_map(flatten_itr_history(extracted.get("itr_history", {}))),
                 "group_id": group_id,
+                "extraction_status": "complete" if has_extraction else "missing",
                 "createdtime": datetime.now(timezone.utc).isoformat()
             }
             

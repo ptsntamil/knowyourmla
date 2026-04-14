@@ -66,7 +66,6 @@ export default async function ConstituencyPage({ params }: PageProps) {
 
   // Parallel fetch for history and pre-election overlay (if enabled)
   const showPreElection = process.env.NEXT_PUBLIC_ENABLE_2026_PRE_ELECTION === "true";
-  console.log("showPreElection", showPreElection);
 
   const [data, overlayData] = await Promise.all([
     fetchConstituencyWinners(constituencyId),
