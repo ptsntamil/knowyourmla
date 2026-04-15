@@ -157,6 +157,7 @@ export interface ElectionHistoryRecord {
   party_color_text?: string;
   party_color_border?: string;
   winner: boolean;
+  results_declared?: boolean;
   district_name?: string;
   margin?: number | null;
   margin_percent?: number | null;

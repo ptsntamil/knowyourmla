@@ -86,6 +86,7 @@ export interface ElectionInsightCandidate {
   value: number | string;
   formattedValue: string;
   partyLogoUrl?: string | null;
+  profilePic?: string | null;
   personId?: string | null;
 }
 

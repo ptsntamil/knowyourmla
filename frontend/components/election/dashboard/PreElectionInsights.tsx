@@ -29,11 +29,23 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
   const renderCandidateItem = (c: ElectionInsightCandidate, idx: number) => (
     <div key={`${c.name}-${idx}`} className="group p-6 flex items-center justify-between hover:bg-slate-50/50 transition-all">
       <div className="flex items-center gap-4">
-        <div className="w-10 h-10 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-[10px] font-black text-slate-300 group-hover:bg-brand-gold group-hover:text-brand-dark group-hover:border-brand-gold transition-all italic">
-          #{idx + 1}
-        </div>
+        <Link 
+          href={`/tn/mla/${c.personId}`}
+          className="w-10 h-10 rounded-2xl border border-brand-gold bg-slate-50 overflow-hidden flex items-center justify-center text-[10px] font-black text-brand-gold hover:opacity-80 transition-all italic relative shrink-0"
+        >
+          {c.profilePic ? (
+            <img src={c.profilePic} alt={c.name} className="w-full h-full object-cover" />
+          ) : (
+            <span>#{idx + 1}</span>
+          )}
+        </Link>
         <div>
-          <p className="font-black text-brand-dark text-sm uppercase italic tracking-tight leading-none mb-1.5">{c.name}</p>
+          <Link 
+            href={`/tn/mla/${c.personId}`}
+            className="font-black text-brand-dark text-sm uppercase italic tracking-tight leading-none mb-1.5 hover:text-brand-gold transition-colors block"
+          >
+            {c.name}
+          </Link>
           <div className="flex items-center gap-2">
             <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{c.constituencyName}</span>
             <span className="w-1 h-1 rounded-full bg-slate-200"></span>
@@ -50,12 +62,12 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
   const renderContestItem = (c: ContestCard, idx: number, value: string | number, label: string) => (
     <div key={`${c.constituencyId}-${idx}`} className="group p-6 flex items-center justify-between hover:bg-slate-50/50 transition-all">
       <div className="flex items-center gap-4">
-        <div className="w-10 h-10 rounded-2xl bg-slate-50 border border-slate-100 flex items-center justify-center text-[10px] font-black text-slate-300 group-hover:bg-brand-gold group-hover:text-brand-dark group-hover:border-brand-gold transition-all italic">
+        <div className="w-10 h-10 rounded-2xl bg-slate-50 border border-brand-gold flex items-center justify-center text-[10px] font-black text-brand-gold group-hover:bg-brand-gold group-hover:text-brand-dark group-hover:border-brand-gold transition-all italic">
           #{idx + 1}
         </div>
         <div>
-          <Link 
-            href={`/tn/constituency/${c.constituencyId}`} 
+          <Link
+            href={`/tn/constituency/${c.constituencyId}`}
             className="font-black text-brand-dark text-sm uppercase italic tracking-tight leading-none mb-1.5 hover:text-brand-gold transition-colors block"
           >
             {c.constituencyName}
@@ -87,7 +99,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
-        
+
         <CardWrapper title="Richest Candidates" icon={IndianRupeeIcon}>
           {insights.richestCandidates.slice(0, 5).map((c: ElectionInsightCandidate, idx: number) => renderCandidateItem(c, idx))}
         </CardWrapper>
@@ -103,49 +115,49 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
         )}
 
         <CardWrapper title="Closest 2021 Contests" icon={Target}>
-          {insights.closestLastElectionSeats.slice(0, 5).map((c: ContestCard, idx: number) => 
+          {insights.closestLastElectionSeats.slice(0, 5).map((c: ContestCard, idx: number) =>
             renderContestItem(c, idx, c.lastMargin?.toLocaleString() || '--', '21 Margin')
           )}
         </CardWrapper>
 
         <CardWrapper title="Most Crowded Contests" icon={Users}>
-          {insights.multiCornerContests.slice(0, 5).map((c: ContestCard, idx: number) => 
+          {insights.multiCornerContests.slice(0, 5).map((c: ContestCard, idx: number) =>
             renderContestItem(c, idx, c.candidateCount, 'Candidates')
           )}
         </CardWrapper>
 
         <CardWrapper title="Election Shape Stats" icon={Scale}>
-           <div className="p-8 space-y-8">
-              <div className="flex justify-between items-center bg-slate-50 p-6 rounded-3xl">
-                <div>
-                  <p className="text-2xl font-black italic text-brand-dark">{insights.openSeatsCount}</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Open Seats</p>
-                </div>
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand-gold shadow-sm">
-                  <span className="text-xl font-black italic">!</span>
-                </div>
+          <div className="p-8 space-y-8">
+            <div className="flex justify-between items-center bg-slate-50 p-6 rounded-3xl">
+              <div>
+                <p className="text-2xl font-black italic text-brand-dark">{insights.openSeatsCount}</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Open Seats</p>
               </div>
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand-gold shadow-sm">
+                <span className="text-xl font-black italic">!</span>
+              </div>
+            </div>
 
-              <div className="flex justify-between items-center bg-slate-50 p-6 rounded-3xl">
-                <div>
-                  <p className="text-2xl font-black italic text-brand-dark">{insights.incumbentRecontestCount}</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Sitting MLAs Fielding</p>
-                </div>
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand-gold shadow-sm">
-                   <Users size={20} />
-                </div>
+            <div className="flex justify-between items-center bg-slate-50 p-6 rounded-3xl">
+              <div>
+                <p className="text-2xl font-black italic text-brand-dark">{insights.incumbentRecontestCount}</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Sitting MLAs Fielding</p>
               </div>
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand-gold shadow-sm">
+                <Users size={20} />
+              </div>
+            </div>
 
-              <div className="flex justify-between items-center bg-slate-50 p-6 rounded-3xl">
-                <div>
-                  <p className="text-2xl font-black italic text-brand-dark">{insights.averageCandidateAge || '--'}</p>
-                  <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Average Age</p>
-                </div>
-                <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand-gold shadow-sm">
-                   <TrendingUp size={20} />
-                </div>
+            <div className="flex justify-between items-center bg-slate-50 p-6 rounded-3xl">
+              <div>
+                <p className="text-2xl font-black italic text-brand-dark">{insights.averageCandidateAge || '--'}</p>
+                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Average Age</p>
               </div>
-           </div>
+              <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-brand-gold shadow-sm">
+                <TrendingUp size={20} />
+              </div>
+            </div>
+          </div>
         </CardWrapper>
 
         {insights.contestTypePatterns && (
@@ -159,10 +171,10 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
                 <div className="w-16 h-16 relative flex items-center justify-center">
                   <svg className="w-full h-full transform -rotate-90">
                     <circle cx="32" cy="32" r="28" fill="transparent" stroke="#f1f5f9" strokeWidth="8" />
-                    <circle 
-                      cx="32" cy="32" r="28" fill="transparent" stroke="#eab308" strokeWidth="8" 
-                      strokeDasharray={175.9} 
-                      strokeDashoffset={175.9 * (1 - insights.contestTypePatterns.crossPercent / 100)} 
+                    <circle
+                      cx="32" cy="32" r="28" fill="transparent" stroke="#eab308" strokeWidth="8"
+                      strokeDasharray={175.9}
+                      strokeDashoffset={175.9 * (1 - insights.contestTypePatterns.crossPercent / 100)}
                       strokeLinecap="round"
                     />
                   </svg>
@@ -179,7 +191,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
                         {p.partyLogoUrl ? (
                           <img src={p.partyLogoUrl} alt={p.partyName} className="w-6 h-6 rounded-lg object-contain bg-white p-0.5" />
                         ) : (
-                          <div className="w-6 h-6 rounded-lg bg-white flex items-center justify-center text-[8px] font-black text-slate-400">{p.partyName.substring(0,2)}</div>
+                          <div className="w-6 h-6 rounded-lg bg-white flex items-center justify-center text-[8px] font-black text-slate-400">{p.partyName.substring(0, 2)}</div>
                         )}
                         <span className="text-[10px] font-bold text-slate-700">{p.partyName}</span>
                       </div>
@@ -198,15 +210,15 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
 
 function IndianRupeeIcon({ size }: { size: number }) {
   return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      width={size} 
-      height={size} 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
       strokeLinejoin="round"
     >
       <path d="M6 3h12" /><path d="M6 8h12" /><path d="m6 13 8.5 8" /><path d="M6 13h3" /><path d="M9 13c6.667 0 6.667-10 0-10" />
@@ -216,15 +228,15 @@ function IndianRupeeIcon({ size }: { size: number }) {
 
 function GavelIcon({ size }: { size: number }) {
   return (
-    <svg 
-      xmlns="http://www.w3.org/2000/svg" 
-      width={size} 
-      height={size} 
-      viewBox="0 0 24 24" 
-      fill="none" 
-      stroke="currentColor" 
-      strokeWidth="2" 
-      strokeLinecap="round" 
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width={size}
+      height={size}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
       strokeLinejoin="round"
     >
       <path d="m14 13-5 5" /><path d="m3 21 2-2" /><path d="m9 15 5-5" /><path d="m15 9 2-2" /><path d="M3 9 9 3" /><path d="m21 15-6-6" /><path d="m15 21-6-6" /><path d="m9 3 12 12" />

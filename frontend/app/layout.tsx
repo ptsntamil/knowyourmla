@@ -13,7 +13,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla-info.vercel.app"),
-  title: "KnowYourMLA - Tamil Nadu MLA Directory & Election History",
+  title: {
+    default: "KnowYourMLA - Tamil Nadu MLA Directory & Election History",
+    template: "%s | KnowYourMLA",
+  },
   description: "Comprehensive source for MLA information, election history, and performance analytics across Tamil Nadu constituencies. Empowering citizens with data-driven political insights.",
   keywords: ["KnowYourMLA", "MLA", "Tamil Nadu Politics", "Election Data", "Constituency Analysis"],
   robots: "index, follow",

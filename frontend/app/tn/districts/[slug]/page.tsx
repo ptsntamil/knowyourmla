@@ -6,14 +6,14 @@ import DistrictInsights from "@/components/district/DistrictInsights";
 import DistrictElectorate from "@/components/district/DistrictElectorate";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import SEOIntro from "@/components/seo/SEOIntro";
 import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ItemListSchema from "@/components/seo/ItemListSchema";
+import ShareButton from "@/components/ShareButton";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -23,16 +23,22 @@ export async function generateMetadata({ params }: PageProps) {
   const { slug } = await params;
   const districtName = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
   const districtId = `DISTRICT#${slug.toLowerCase()}`;
-  
+
   // Fetch for dynamic data in metadata (e.g. constituency count)
   // Next.js dedupes this call with the one in the component
   const constituencies = await fetchConstituencies(districtId).catch(() => []);
   const count = constituencies.length;
 
+  // Fetch insights to determine the best OG image type
+  const { insights } = await fetchDistrictInsights(districtId).catch(() => ({ insights: null }));
+  const ogType = (insights && insights.dominantParty && insights.dominantParty.party) ? 'dominant-party' : 'profile';
+  const ogImage = `/og/district/${slug.toLowerCase()}/${ogType}`;
+
   return buildMetadata({
     title: `${districtName} District MLA List | Constituencies, MLAs & Party Details`,
     description: `View the complete ${districtName} district MLA list with ${count} constituency names, current MLAs, party details, and candidate information on KnowYourMLA.`,
     path: `/tn/districts/${slug}`,
+    image: ogImage,
     keywords: [`${districtName} District`, "Tamil Nadu Politics", "MLA List", "Constituency Details", "Tamil Nadu Election"]
   });
 }
@@ -80,14 +86,14 @@ export default async function DistrictPage({ params }: PageProps) {
 
   return (
     <div className="min-h-screen bg-page-bg">
-      <BreadcrumbSchema 
+      <BreadcrumbSchema
         items={[
           { name: "Home", item: "/" },
           { name: "TN", item: "/tn" },
           { name: districtNameDisplay, item: `/tn/districts/${slug}` }
-        ]} 
+        ]}
       />
-      <ItemListSchema 
+      <ItemListSchema
         items={constituencies.map((c) => ({
           name: c.name,
           url: `/tn/constituency/${c.id.replace('CONSTITUENCY#', '').toLowerCase()}`
@@ -98,13 +104,24 @@ export default async function DistrictPage({ params }: PageProps) {
         title={`${slug} District`}
         subtitle={`Total of ${constituencies.length} legislative constituencies representing the people of ${slug}.`}
       >
-        <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span className="mx-3 text-white/20">/</span>
-          <Link href="/tn" className="hover:text-white transition-colors">TN</Link>
-          <span className="mx-3 text-white/20">/</span>
-          <span className="text-brand-gold">{slug}</span>
-        </nav>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span className="mx-3 text-white/20">/</span>
+            <Link href="/tn" className="hover:text-white transition-colors">TN</Link>
+            <span className="mx-3 text-white/20">/</span>
+            <span className="text-brand-gold">{slug}</span>
+          </nav>
+
+          <div className="flex items-center justify-end gap-4">
+            <ShareButton
+              title={`${districtNameDisplay} District Political Profile`}
+              text={`Explore ${districtNameDisplay} district political profile, MLA insights, dominant party, women representation and more on KnowYourMLA.`}
+              url={`/tn/districts/${slug}`}
+              label="Share"
+            />
+          </div>
+        </div>
       </CoverImage>
 
       <main className="max-w-7xl mx-auto px-4 py-16 space-y-16">
@@ -120,7 +137,7 @@ export default async function DistrictPage({ params }: PageProps) {
 
         {/* District Insights & Electorate Section */}
         <section className="space-y-12">
-          <SectionHeader 
+          <SectionHeader
             title="District Insights"
             subtitle="Quick political and representative insights from the current MLAs and electorate of this district."
           />
@@ -130,7 +147,7 @@ export default async function DistrictPage({ params }: PageProps) {
             </div>
             <div className="lg:col-span-3 h-full">
               {latestStats && (latestStats.male !== undefined || latestStats.total_electors > 0) ? (
-                <DistrictElectorate 
+                <DistrictElectorate
                   year={latestStats.year}
                   total_electors={latestStats.total_electors}
                   male={latestStats.male}
@@ -144,25 +161,6 @@ export default async function DistrictPage({ params }: PageProps) {
               )}
             </div>
           </div>
-
-          <div className="bg-brand-dark rounded-[3rem] p-10 mt-12 relative overflow-hidden group shadow-2xl shadow-brand-dark/20 text-center sm:text-left">
-            <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/5 rounded-full -mr-40 -mt-40 blur-3xl pointer-events-none" />
-            <div className="flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
-              <div className="space-y-3">
-                <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
-                <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
-                  How does {slug} compare to the rest of Tamil Nadu? 
-                  Explore the full 2021 assembly election analysis to see district-level strongholds, competitive battles, and participation trends.
-                </p>
-              </div>
-              <Link 
-                href="/tn/elections/2021/insights"
-                className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
-              >
-                Explore 2021 Insights
-              </Link>
-            </div>
-          </div>
         </section>
 
         {/* Constituencies Section */}
@@ -172,6 +170,25 @@ export default async function DistrictPage({ params }: PageProps) {
             <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Legislative segments within {slug} district</p>
           </div>
           <ConstituencyList constituencies={constituencies} mlas={mlas} />
+        </div>
+
+        <div className="bg-brand-dark rounded-[3rem] p-10 mt-20 mb-20 relative overflow-hidden group shadow-2xl shadow-brand-dark/20 text-center sm:text-left">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/5 rounded-full -mr-40 -mt-40 blur-3xl pointer-events-none" />
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
+            <div className="space-y-3">
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
+              <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
+                How does {slug} compare to the rest of Tamil Nadu?
+                Explore the full 2021 assembly election analysis to see district-level strongholds, competitive battles, and participation trends.
+              </p>
+            </div>
+            <Link
+              href="/tn/elections/2021/insights"
+              className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
+            >
+              Explore 2021 Insights
+            </Link>
+          </div>
         </div>
 
         <div className="pt-16 border-t border-slate-100 dark:border-slate-800">

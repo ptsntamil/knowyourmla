@@ -17,7 +17,7 @@ import {
 } from "recharts";
 
 interface AssetChartProps {
-  data: { year: number | string; assets: number }[];
+  data: { year: number | string; assets: number; growth_percent: number | null }[];
 }
 
 export function AssetChart({ data }: AssetChartProps) {
@@ -49,7 +49,20 @@ export function AssetChart({ data }: AssetChartProps) {
           />
           <Tooltip
             contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', padding: '12px' }}
-            formatter={(value: any) => [`₹${Number(value).toLocaleString('en-IN')}`, "Assets"]}
+            formatter={(value: any, name: any, props: any) => {
+              const growth = props.payload.growth_percent;
+              return [
+                <div key="assets" className="flex flex-col">
+                  <span className="font-black text-brand-dark">₹{Number(value).toLocaleString('en-IN')}</span>
+                  {growth !== null && (
+                    <span className={`text-[10px] uppercase tracking-wider font-bold ${growth >= 0 ? 'text-emerald-600' : 'text-rose-600'}`}>
+                      {growth >= 0 ? '↑' : '↓'} {Math.abs(growth)}% Growth
+                    </span>
+                  )}
+                </div>,
+                "Assets"
+              ];
+            }}
           />
           <Line
             type="monotone"
@@ -66,7 +79,7 @@ export function AssetChart({ data }: AssetChartProps) {
 }
 
 interface VoteTrendChartProps {
-  data: { year: number | string; votes: number }[];
+  data: { year: number | string; votes: number; vote_percent: number | null }[];
 }
 
 export function VoteTrendChart({ data }: VoteTrendChartProps) {
@@ -99,7 +112,19 @@ export function VoteTrendChart({ data }: VoteTrendChartProps) {
           <Tooltip
             cursor={{ fill: '#F1F5F9' }}
             contentStyle={{ borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)', padding: '12px' }}
-            formatter={(value: any) => [Number(value).toLocaleString('en-IN'), "Votes"]}
+            formatter={(value: any, name: any, props: any) => {
+              if (name === "votes") {
+                const voteShare = props.payload.vote_percent;
+                return [
+                  <div key="votes" className="flex flex-col">
+                    <span className="font-black text-brand-dark">{Number(value).toLocaleString('en-IN')} Votes</span>
+                    {voteShare && <span className="text-[10px] text-brand-gold uppercase tracking-wider font-bold">{voteShare}% Vote share</span>}
+                  </div>,
+                  ""
+                ];
+              }
+              return [value, name];
+            }}
           />
           <Bar dataKey="votes" fill="#E3C75F" radius={[4, 4, 0, 0]}>
             {data.map((entry, index) => (

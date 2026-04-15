@@ -13,8 +13,10 @@ from utils import (
     canonicalize_constituency,
     normalize_name,
     strip_initials,
-    names_are_similar
+    names_are_similar,
+    convert_floats_to_decimal
 )
+from decimal import Decimal
 
 def test_clean_name():
     assert clean_name("  John   Doe  \n") == "John Doe"
@@ -136,3 +138,30 @@ def test_strip_initials(name, expected):
 ])
 def test_names_are_similar(n1, n2, expected):
     assert names_are_similar(n1, n2) == expected
+
+def test_convert_floats_to_decimal():
+    data = {
+        "acres": 5.16,
+        "cents": 0.30,
+        "nested": {
+            "val": 10.5,
+            "list": [1.1, 2.2, "string"]
+        },
+        "integer": 10,
+        "string": "hello"
+    }
+    converted = convert_floats_to_decimal(data)
+    
+    assert isinstance(converted["acres"], Decimal)
+    assert converted["acres"] == Decimal("5.16")
+    assert isinstance(converted["cents"], Decimal)
+    assert converted["cents"] == Decimal("0.3")
+    assert isinstance(converted["nested"]["val"], Decimal)
+    assert converted["nested"]["val"] == Decimal("10.5")
+    assert isinstance(converted["nested"]["list"][0], Decimal)
+    assert converted["nested"]["list"][0] == Decimal("1.1")
+    assert isinstance(converted["nested"]["list"][1], Decimal)
+    assert converted["nested"]["list"][1] == Decimal("2.2")
+    assert converted["nested"]["list"][2] == "string"
+    assert converted["integer"] == 10
+    assert converted["string"] == "hello"

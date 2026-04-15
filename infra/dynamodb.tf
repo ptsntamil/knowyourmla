@@ -2,111 +2,111 @@ provider "aws" {
   region = "ap-south-2"
 }
 
-resource "aws_dynamodb_table" "tn_political_data" {
-  name         = "tn_political_data"
-  billing_mode = "PAY_PER_REQUEST"
+# resource "aws_dynamodb_table" "tn_political_data" {
+#   name         = "tn_political_data"
+#   billing_mode = "PAY_PER_REQUEST"
 
-  # Primary Key
-  hash_key  = "PK"
-  range_key = "SK"
+#   # Primary Key
+#   hash_key  = "PK"
+#   range_key = "SK"
 
-  attribute {
-    name = "PK"
-    type = "S"
-  }
+#   attribute {
+#     name = "PK"
+#     type = "S"
+#   }
 
-  attribute {
-    name = "SK"
-    type = "S"
-  }
+#   attribute {
+#     name = "SK"
+#     type = "S"
+#   }
 
-  attribute {
-    name = "GSI1PK"
-    type = "S"
-  }
+#   attribute {
+#     name = "GSI1PK"
+#     type = "S"
+#   }
 
-  attribute {
-    name = "GSI1SK"
-    type = "S"
-  }
+#   attribute {
+#     name = "GSI1SK"
+#     type = "S"
+#   }
 
-  attribute {
-    name = "GSI2PK"
-    type = "S"
-  }
+#   attribute {
+#     name = "GSI2PK"
+#     type = "S"
+#   }
 
-  attribute {
-    name = "GSI2SK"
-    type = "S"
-  }
+#   attribute {
+#     name = "GSI2SK"
+#     type = "S"
+#   }
 
-  attribute {
-    name = "GSI3PK"
-    type = "S"
-  }
+#   attribute {
+#     name = "GSI3PK"
+#     type = "S"
+#   }
 
-  attribute {
-    name = "GSI3SK"
-    type = "S"
-  }
+#   attribute {
+#     name = "GSI3SK"
+#     type = "S"
+#   }
 
-  # GSI1 - Candidate History
-  global_secondary_index {
-    name            = "GSI1"
-    projection_type = "ALL"
+#   # GSI1 - Candidate History
+#   global_secondary_index {
+#     name            = "GSI1"
+#     projection_type = "ALL"
 
-    key_schema {
-      attribute_name = "GSI1PK"
-      key_type       = "HASH"
-    }
+#     key_schema {
+#       attribute_name = "GSI1PK"
+#       key_type       = "HASH"
+#     }
 
-    key_schema {
-      attribute_name = "GSI1SK"
-      key_type       = "RANGE"
-    }
-  }
+#     key_schema {
+#       attribute_name = "GSI1SK"
+#       key_type       = "RANGE"
+#     }
+#   }
 
-  # GSI2 - Year View
-  global_secondary_index {
-    name            = "GSI2"
-    projection_type = "ALL"
+#   # GSI2 - Year View
+#   global_secondary_index {
+#     name            = "GSI2"
+#     projection_type = "ALL"
 
-    key_schema {
-      attribute_name = "GSI2PK"
-      key_type       = "HASH"
-    }
+#     key_schema {
+#       attribute_name = "GSI2PK"
+#       key_type       = "HASH"
+#     }
 
-    key_schema {
-      attribute_name = "GSI2SK"
-      key_type       = "RANGE"
-    }
-  }
+#     key_schema {
+#       attribute_name = "GSI2SK"
+#       key_type       = "RANGE"
+#     }
+#   }
 
-  # GSI3 - Constituency Timeline
-  global_secondary_index {
-    name            = "GSI3"
-    projection_type = "ALL"
+#   # GSI3 - Constituency Timeline
+#   global_secondary_index {
+#     name            = "GSI3"
+#     projection_type = "ALL"
 
-    key_schema {
-      attribute_name = "GSI3PK"
-      key_type       = "HASH"
-    }
+#     key_schema {
+#       attribute_name = "GSI3PK"
+#       key_type       = "HASH"
+#     }
 
-    key_schema {
-      attribute_name = "GSI3SK"
-      key_type       = "RANGE"
-    }
-  }
+#     key_schema {
+#       attribute_name = "GSI3SK"
+#       key_type       = "RANGE"
+#     }
+#   }
 
-  point_in_time_recovery {
-    enabled = true
-  }
+#   point_in_time_recovery {
+#     enabled = true
+#   }
 
-  tags = {
-    Project = "KnowYourMLA"
-    Env     = "prod"
-  }
-}
+#   tags = {
+#     Project = "KnowYourMLA"
+#     Env     = "prod"
+#   }
+# }
 
 resource "aws_dynamodb_table" "knowyourmla_candidates" {
   name         = "knowyourmla_candidates"
@@ -133,6 +133,21 @@ resource "aws_dynamodb_table" "knowyourmla_candidates" {
 
   attribute {
     name = "constituency_id"
+    type = "S"
+  }
+
+  attribute {
+    name = "year"
+    type = "N"
+  }
+
+  attribute {
+    name = "is_winner_flag"
+    type = "S"
+  }
+
+  attribute {
+    name = "party_id"
     type = "S"
   }
 
@@ -164,6 +179,54 @@ resource "aws_dynamodb_table" "knowyourmla_candidates" {
 
     key_schema {
       attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to find all candidates for a specific year
+  global_secondary_index {
+    name            = "YearIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "year"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "constituency_id"
+      key_type       = "RANGE"
+    }
+  }
+
+  # Sparse GSI for winners
+  global_secondary_index {
+    name            = "WinnerYearIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "is_winner_flag"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "year"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to find all candidates for a specific party
+  global_secondary_index {
+    name            = "PartyIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "party_id"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "year"
       key_type       = "RANGE"
     }
   }
@@ -206,6 +269,11 @@ resource "aws_dynamodb_table" "knowyourmla_persons" {
     type = "S"
   }
 
+  attribute {
+    name = "pan_number"
+    type = "S"
+  }
+
   # GSI for searching persons by name
   global_secondary_index {
     name            = "NameIndex"
@@ -235,6 +303,17 @@ resource "aws_dynamodb_table" "knowyourmla_persons" {
     key_schema {
       attribute_name = "PK"
       key_type       = "RANGE"
+    }
+  }
+
+  # GSI for searching persons by PAN number
+  global_secondary_index {
+    name            = "PanIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "pan_number"
+      key_type       = "HASH"
     }
   }
 
@@ -271,6 +350,11 @@ resource "aws_dynamodb_table" "knowyourmla_constituencies" {
     type = "S"
   }
 
+  attribute {
+    name = "district_id"
+    type = "S"
+  }
+
   # GSI for searching constituencies by normalized name
   global_secondary_index {
     name            = "NameIndex"
@@ -278,6 +362,38 @@ resource "aws_dynamodb_table" "knowyourmla_constituencies" {
 
     key_schema {
       attribute_name = "normalized_name"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to quickly list all METADATA records across all constituencies
+  global_secondary_index {
+    name            = "MetadataIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "SK"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to find all constituencies in a specific district
+  global_secondary_index {
+    name            = "DistrictIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "district_id"
       key_type       = "HASH"
     }
 
@@ -329,6 +445,22 @@ resource "aws_dynamodb_table" "knowyourmla_political_parties" {
 
     key_schema {
       attribute_name = "normalized_name"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to quickly list all METADATA records across all parties
+  global_secondary_index {
+    name            = "MetadataIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "SK"
       key_type       = "HASH"
     }
 
@@ -427,6 +559,22 @@ resource "aws_dynamodb_table" "knowyourmla_districts" {
 
     key_schema {
       attribute_name = "normalized_name"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to quickly list all METADATA records across all districts
+  global_secondary_index {
+    name            = "MetadataIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "SK"
       key_type       = "HASH"
     }
 

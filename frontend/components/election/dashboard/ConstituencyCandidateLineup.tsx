@@ -32,8 +32,11 @@ export default function ConstituencyCandidateLineup({
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {candidates.map(candidate => (
-        <ConstituencyCandidateCard key={candidate.id} candidate={candidate} />
+      {candidates.map((candidate, idx) => (
+        <ConstituencyCandidateCard 
+          key={candidate.id || `${candidate.personId}-${candidate.name}-${idx}`} 
+          candidate={candidate} 
+        />
       ))}
     </div>
   );

@@ -120022,3 +120022,299 @@ TypeError: Float types are not supported. Use Decimal types instead.
 2026-04-07 15:08:28,128 [INFO] election_importer: Processing candidate K.ANBALAGAN (ARANI)
 2026-04-07 15:08:28,242 [INFO] election_importer:   [Updating] stats for K.ANBALAGAN (AFFIDAVIT#2021#298)
 2026-04-07 15:08:28,273 [INFO] election_importer: Finished. Created: 2, Updated: 14. Successfully processed 16 records across 1 constituencies.
+2026-04-08 22:13:07,990 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-04-08 22:13:08,114 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-04-08 22:13:08,246 [INFO] enrichment_pipeline: Loaded 126 parties (363 lookup keys)
+2026-04-08 22:13:08,246 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-04-08 22:13:08,270 [INFO] enrichment_pipeline: Loaded 38 districts (39 lookup keys)
+2026-04-08 22:13:08,287 [INFO] election_importer: Filtering for constituency: mylapore (mylapore)
+2026-04-08 22:13:08,288 [INFO] election_importer: Processing candidate VELU.DHA (MYLAPORE)
+2026-04-08 22:13:08,527 [INFO] election_importer:           Action: Found existing Person: PERSON#alota
+2026-04-08 22:13:08,527 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2021#T#AETN273177
+2026-04-08 22:13:08,527 [INFO] election_importer: Processing candidate NATARAJ.R (MYLAPORE)
+2026-04-08 22:13:08,607 [INFO] election_importer:           Action: Found existing Person: PERSON#398e417dd8eee6b037c365314bd4fdc7
+2026-04-08 22:13:08,607 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#1890
+2026-04-08 22:13:08,607 [INFO] election_importer: Processing candidate SRIPRIYA (MYLAPORE)
+2026-04-08 22:13:08,689 [INFO] election_importer:           Action: Found existing Person: PERSON#f10964979f64a8dbfbc3fc79071c7a5c
+2026-04-08 22:13:08,690 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2291
+2026-04-08 22:13:08,690 [INFO] election_importer: Processing candidate MAHALAKSHMI.K (MYLAPORE)
+2026-04-08 22:13:08,774 [INFO] election_importer:           Action: Found existing Person: PERSON#d1569d32d804a5e6a19659e7fd1a9cd0
+2026-04-08 22:13:08,774 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#1892
+2026-04-08 22:13:08,774 [INFO] election_importer: Processing NOTA for MYLAPORE (2021)
+2026-04-08 22:13:08,830 [INFO] election_importer:           Action: Found existing Person: PERSON#nota
+2026-04-08 22:13:08,830 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2021#NOTA#mylapore
+2026-04-08 22:13:08,830 [INFO] election_importer: Processing candidate KARTHICK.D (MYLAPORE)
+2026-04-08 22:13:08,910 [INFO] election_importer:     Name similarity found in 2021 but Party (PARTY#anaithumakkalmunnetrakazhagam) does not match existing records. Forcing new identity.
+2026-04-08 22:13:09,167 [INFO] election_importer:           Action: Found existing Person: PERSON#katack_4
+2026-04-08 22:13:09,167 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2021#T#AETN273178
+2026-04-08 22:13:09,167 [INFO] election_importer: Processing candidate BALAJI (MYLAPORE)
+2026-04-08 22:13:09,248 [INFO] election_importer:           Action: Found existing Person: PERSON#ae1f9ce1c1fdf3c43948f359451719bd
+2026-04-08 22:13:09,248 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#237
+2026-04-08 22:13:09,248 [INFO] election_importer: Processing candidate RADHA M (TRANSGENDER) (MYLAPORE)
+2026-04-08 22:13:09,316 [INFO] election_importer:           Action: Found existing Person: PERSON#radhamtransgender_mahendiran
+2026-04-08 22:13:09,316 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2303
+2026-04-08 22:13:09,316 [INFO] election_importer: Processing candidate NALLAPPAN.G (MYLAPORE)
+2026-04-08 22:13:09,391 [INFO] election_importer:           Action: Found existing Person: PERSON#da02274de444b58bfe4d6b2df0f2b411
+2026-04-08 22:13:09,391 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2299
+2026-04-08 22:13:09,391 [INFO] election_importer: Processing candidate NATARAJAN P (MYLAPORE)
+2026-04-08 22:13:09,471 [INFO] election_importer:     Name similarity found in 2021 but Party (PARTY#independent) does not match existing records. Forcing new identity.
+2026-04-08 22:13:09,772 [INFO] election_importer:           Action: Found existing Person: PERSON#natarasan_4
+2026-04-08 22:13:09,772 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2021#T#AETN273186
+2026-04-08 22:13:09,772 [INFO] election_importer: Processing candidate PASUPATHI PRAGALATHAN (MYLAPORE)
+2026-04-08 22:13:09,852 [INFO] election_importer:           Action: Found existing Person: PERSON#8d0a6e2350ebc8216ef85ad6cddb4ed2
+2026-04-08 22:13:09,852 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2300
+2026-04-08 22:13:09,852 [INFO] election_importer: Processing candidate MOHANRAJ.J (MYLAPORE)
+2026-04-08 22:13:09,932 [INFO] election_importer:     Name similarity found in 2021 but Party (PARTY#jebamanijanata) does not match existing records. Forcing new identity.
+2026-04-08 22:13:10,117 [INFO] election_importer:           Action: Found existing Person: PERSON#moanras
+2026-04-08 22:13:10,117 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2021#T#AETN273181
+2026-04-08 22:13:10,118 [INFO] election_importer: Processing candidate SELVAKUMAR (MYLAPORE)
+2026-04-08 22:13:10,200 [INFO] election_importer:           Action: Found existing Person: PERSON#selvakumar_subramaniyan
+2026-04-08 22:13:10,200 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2296
+2026-04-08 22:13:10,200 [INFO] election_importer: Processing candidate RANGARAJAN.R (MYLAPORE)
+2026-04-08 22:13:10,280 [INFO] election_importer:           Action: Found existing Person: PERSON#6a4edbfa8f2a16f14569843b92d7e1a7
+2026-04-08 22:13:10,280 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2302
+2026-04-08 22:13:10,280 [INFO] election_importer: Processing candidate NANDAGOPAL.G (MYLAPORE)
+2026-04-08 22:13:10,361 [INFO] election_importer:           Action: Found existing Person: PERSON#03d98e9e2f78ff69e069d07681bcef06
+2026-04-08 22:13:10,362 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2298
+2026-04-08 22:13:10,362 [INFO] election_importer: Processing candidate SENTHIL KUMAR.D (MYLAPORE)
+2026-04-08 22:13:10,442 [INFO] election_importer:           Action: Found existing Person: PERSON#7bd3b4345376e353a4ff9b44934a7f5a
+2026-04-08 22:13:10,443 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#1889
+2026-04-08 22:13:10,443 [INFO] election_importer: Processing candidate ARUNRAJ BALAN (MYLAPORE)
+2026-04-08 22:13:10,539 [INFO] election_importer:           Action: Found existing Person: PERSON#473e6ed7be0a11b7c8494b15ecaa0ac7
+2026-04-08 22:13:10,539 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2292
+2026-04-08 22:13:10,539 [INFO] election_importer: Processing candidate VARATHARAJAN.V.S (MYLAPORE)
+2026-04-08 22:13:10,619 [INFO] election_importer:           Action: Found existing Person: PERSON#varatharajanvs_latevsampathkumariyengar
+2026-04-08 22:13:10,619 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2304
+2026-04-08 22:13:10,619 [INFO] election_importer: Processing candidate KAJENDRAN.M (MYLAPORE)
+2026-04-08 22:13:10,698 [INFO] election_importer:           Action: Found existing Person: PERSON#kajendranm_maruthamuthuk
+2026-04-08 22:13:10,698 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2293
+2026-04-08 22:13:10,698 [INFO] election_importer: Processing candidate V. VIJAYA KRISHNA (MYLAPORE)
+2026-04-08 22:13:10,779 [INFO] election_importer:           Action: Found existing Person: PERSON#4c2400d8c8124501baabf28a161efd10
+2026-04-08 22:13:10,779 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#236
+2026-04-08 22:13:10,779 [INFO] election_importer: Processing candidate SHANMUGARAJAN B (MYLAPORE)
+2026-04-08 22:13:10,857 [INFO] election_importer:           Action: Found existing Person: PERSON#8fe387e8c0281fc2577467be7c6c6246
+2026-04-08 22:13:10,858 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2295
+2026-04-08 22:13:10,858 [INFO] election_importer: Processing candidate MALAR KANNAN.R (MYLAPORE)
+2026-04-08 22:13:10,940 [INFO] election_importer:           Action: Found existing Person: PERSON#malarkannanr_raju
+2026-04-08 22:13:10,941 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2301
+2026-04-08 22:13:10,941 [INFO] election_importer: Processing candidate KUPPUSWAMY.T.M (MYLAPORE)
+2026-04-08 22:13:11,214 [INFO] election_importer:           Action: Found existing Person: PERSON#koposam
+2026-04-08 22:13:11,214 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2021#T#AETN273184
+2026-04-08 22:13:11,214 [INFO] election_importer: Processing candidate VENKATESH (MYLAPORE)
+2026-04-08 22:13:11,293 [INFO] election_importer:           Action: Found existing Person: PERSON#072368bed64ca1c01aca66d713a004f0
+2026-04-08 22:13:11,293 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2021#2305
+2026-04-08 22:13:11,296 [INFO] election_importer: Finished. Created: 6, Updated: 18. Successfully processed 24 records across 0 constituencies.
+2026-04-08 22:13:32,637 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-04-08 22:13:32,673 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-04-08 22:13:32,792 [INFO] enrichment_pipeline: Loaded 126 parties (363 lookup keys)
+2026-04-08 22:13:32,792 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-04-08 22:13:32,819 [INFO] enrichment_pipeline: Loaded 38 districts (39 lookup keys)
+2026-04-08 22:13:32,839 [INFO] election_importer: Filtering for constituency: mylapore (mylapore)
+2026-04-08 22:13:32,840 [INFO] election_importer: Processing candidate VELU.DHA (MYLAPORE)
+2026-04-08 22:13:33,137 [INFO] election_importer:   [Creating] winner stats for VELU.DHA (AFFIDAVIT#2021#T#AETN273177)
+2026-04-08 22:13:33,162 [INFO] election_importer: Processing candidate NATARAJ.R (MYLAPORE)
+2026-04-08 22:13:33,263 [INFO] election_importer:   [Updating] stats for NATARAJ.R (AFFIDAVIT#2021#1890)
+2026-04-08 22:13:33,289 [INFO] election_importer: Processing candidate SRIPRIYA (MYLAPORE)
+2026-04-08 22:13:33,385 [INFO] enrichment_pipeline:     [Updating] Person PERSON#f10964979f64a8dbfbc3fc79071c7a5c metadata: sex: None -> F, tcpd_pid: None -> AETN273182
+2026-04-08 22:13:33,408 [INFO] election_importer:   [Updating] stats for SRIPRIYA (AFFIDAVIT#2021#2291)
+2026-04-08 22:13:33,430 [INFO] election_importer: Processing candidate MAHALAKSHMI.K (MYLAPORE)
+2026-04-08 22:13:33,532 [INFO] enrichment_pipeline:     [Updating] Person PERSON#d1569d32d804a5e6a19659e7fd1a9cd0 metadata: sex: None -> F, tcpd_pid: None -> AETN273180
+2026-04-08 22:13:33,553 [INFO] election_importer:   [Updating] stats for MAHALAKSHMI.K (AFFIDAVIT#2021#1892)
+2026-04-08 22:13:33,575 [INFO] election_importer: Processing NOTA for MYLAPORE (2021)
+2026-04-08 22:13:33,634 [INFO] election_importer:   [Creating] stats for None Of The Above (AFFIDAVIT#2021#NOTA#mylapore)
+2026-04-08 22:13:33,656 [INFO] election_importer: Processing candidate KARTHICK.D (MYLAPORE)
+2026-04-08 22:13:33,739 [INFO] election_importer:     Name similarity found in 2021 but Party (PARTY#anaithumakkalmunnetrakazhagam) does not match existing records. Forcing new identity.
+2026-04-08 22:13:34,018 [INFO] election_importer:   [Creating] stats for KARTHICK.D (AFFIDAVIT#2021#T#AETN273178)
+2026-04-08 22:13:34,041 [INFO] election_importer: Processing candidate BALAJI (MYLAPORE)
+2026-04-08 22:13:34,141 [INFO] election_importer:   [Updating] stats for BALAJI (AFFIDAVIT#2021#237)
+2026-04-08 22:13:34,163 [INFO] election_importer: Processing candidate RADHA M (TRANSGENDER) (MYLAPORE)
+2026-04-08 22:13:34,265 [INFO] enrichment_pipeline:     [Updating] Person PERSON#radhamtransgender_mahendiran metadata: sex: None -> O, tcpd_pid: None -> AETN273192
+2026-04-08 22:13:34,286 [INFO] election_importer:   [Updating] stats for RADHA M (TRANSGENDER) (AFFIDAVIT#2021#2303)
+2026-04-08 22:13:34,308 [INFO] election_importer: Processing candidate NALLAPPAN.G (MYLAPORE)
+2026-04-08 22:13:34,406 [INFO] enrichment_pipeline:     [Updating] Person PERSON#da02274de444b58bfe4d6b2df0f2b411 metadata: sex: None -> M, tcpd_pid: None -> AETN273188
+2026-04-08 22:13:34,430 [INFO] election_importer:   [Updating] stats for NALLAPPAN.G (AFFIDAVIT#2021#2299)
+2026-04-08 22:13:34,454 [INFO] election_importer: Processing candidate NATARAJAN P (MYLAPORE)
+2026-04-08 22:13:34,536 [INFO] election_importer:     Name similarity found in 2021 but Party (PARTY#independent) does not match existing records. Forcing new identity.
+2026-04-08 22:13:34,865 [INFO] election_importer:   [Creating] stats for NATARAJAN P (AFFIDAVIT#2021#T#AETN273186)
+2026-04-08 22:13:34,887 [INFO] election_importer: Processing candidate PASUPATHI PRAGALATHAN (MYLAPORE)
+2026-04-08 22:13:34,987 [INFO] enrichment_pipeline:     [Updating] Person PERSON#8d0a6e2350ebc8216ef85ad6cddb4ed2 metadata: sex: None -> M, tcpd_pid: None -> AETN273189
+2026-04-08 22:13:35,009 [INFO] election_importer:   [Updating] stats for PASUPATHI PRAGALATHAN (AFFIDAVIT#2021#2300)
+2026-04-08 22:13:35,033 [INFO] election_importer: Processing candidate MOHANRAJ.J (MYLAPORE)
+2026-04-08 22:13:35,115 [INFO] election_importer:     Name similarity found in 2021 but Party (PARTY#jebamanijanata) does not match existing records. Forcing new identity.
+2026-04-08 22:13:35,296 [INFO] election_importer:   [Creating] stats for MOHANRAJ.J (AFFIDAVIT#2021#T#AETN273181)
+2026-04-08 22:13:35,320 [INFO] election_importer: Processing candidate SELVAKUMAR (MYLAPORE)
+2026-04-08 22:13:35,424 [INFO] enrichment_pipeline:     [Updating] Person PERSON#selvakumar_subramaniyan metadata: sex: None -> M, tcpd_pid: None -> AETN273185
+2026-04-08 22:13:35,445 [INFO] election_importer:   [Updating] stats for SELVAKUMAR (AFFIDAVIT#2021#2296)
+2026-04-08 22:13:35,468 [INFO] election_importer: Processing candidate RANGARAJAN.R (MYLAPORE)
+2026-04-08 22:13:35,571 [INFO] enrichment_pipeline:     [Updating] Person PERSON#6a4edbfa8f2a16f14569843b92d7e1a7 metadata: sex: None -> M, tcpd_pid: None -> AETN273191
+2026-04-08 22:13:35,593 [INFO] election_importer:   [Updating] stats for RANGARAJAN.R (AFFIDAVIT#2021#2302)
+2026-04-08 22:13:35,617 [INFO] election_importer: Processing candidate NANDAGOPAL.G (MYLAPORE)
+2026-04-08 22:13:35,725 [INFO] enrichment_pipeline:     [Updating] Person PERSON#03d98e9e2f78ff69e069d07681bcef06 metadata: sex: None -> M, tcpd_pid: None -> AETN273187
+2026-04-08 22:13:35,746 [INFO] election_importer:   [Updating] stats for NANDAGOPAL.G (AFFIDAVIT#2021#2298)
+2026-04-08 22:13:35,768 [INFO] election_importer: Processing candidate SENTHIL KUMAR.D (MYLAPORE)
+2026-04-08 22:13:35,871 [INFO] enrichment_pipeline:     [Updating] Person PERSON#7bd3b4345376e353a4ff9b44934a7f5a metadata: sex: None -> M, tcpd_pid: None -> AETN273179
+2026-04-08 22:13:35,892 [INFO] election_importer:   [Updating] stats for SENTHIL KUMAR.D (AFFIDAVIT#2021#1889)
+2026-04-08 22:13:35,913 [INFO] election_importer: Processing candidate ARUNRAJ BALAN (MYLAPORE)
+2026-04-08 22:13:36,018 [INFO] election_importer:   [Updating] stats for ARUNRAJ BALAN (AFFIDAVIT#2021#2292)
+2026-04-08 22:13:36,040 [INFO] election_importer: Processing candidate VARATHARAJAN.V.S (MYLAPORE)
+2026-04-08 22:13:36,133 [INFO] enrichment_pipeline:     [Updating] Person PERSON#varatharajanvs_latevsampathkumariyengar metadata: sex: None -> M, tcpd_pid: None -> AETN273193
+2026-04-08 22:13:36,154 [INFO] election_importer:   [Updating] stats for VARATHARAJAN.V.S (AFFIDAVIT#2021#2304)
+2026-04-08 22:13:36,176 [INFO] election_importer: Processing candidate KAJENDRAN.M (MYLAPORE)
+2026-04-08 22:13:36,268 [INFO] enrichment_pipeline:     [Updating] Person PERSON#kajendranm_maruthamuthuk metadata: sex: None -> M, tcpd_pid: None -> AETN273183
+2026-04-08 22:13:36,289 [INFO] election_importer:   [Updating] stats for KAJENDRAN.M (AFFIDAVIT#2021#2293)
+2026-04-08 22:13:36,311 [INFO] election_importer: Processing candidate V. VIJAYA KRISHNA (MYLAPORE)
+2026-04-08 22:13:36,412 [INFO] election_importer:   [Updating] stats for V. VIJAYA KRISHNA (AFFIDAVIT#2021#236)
+2026-04-08 22:13:36,434 [INFO] election_importer: Processing candidate SHANMUGARAJAN B (MYLAPORE)
+2026-04-08 22:13:36,535 [INFO] election_importer:   [Updating] stats for SHANMUGARAJAN B (AFFIDAVIT#2021#2295)
+2026-04-08 22:13:36,556 [INFO] election_importer: Processing candidate MALAR KANNAN.R (MYLAPORE)
+2026-04-08 22:13:36,648 [INFO] enrichment_pipeline:     [Updating] Person PERSON#malarkannanr_raju metadata: sex: None -> M, tcpd_pid: None -> AETN273190
+2026-04-08 22:13:36,669 [INFO] election_importer:   [Updating] stats for MALAR KANNAN.R (AFFIDAVIT#2021#2301)
+2026-04-08 22:13:36,691 [INFO] election_importer: Processing candidate KUPPUSWAMY.T.M (MYLAPORE)
+2026-04-08 22:13:36,990 [INFO] election_importer:   [Creating] stats for KUPPUSWAMY.T.M (AFFIDAVIT#2021#T#AETN273184)
+2026-04-08 22:13:37,012 [INFO] election_importer: Processing candidate VENKATESH (MYLAPORE)
+2026-04-08 22:13:37,099 [INFO] enrichment_pipeline:     [Updating] Person PERSON#072368bed64ca1c01aca66d713a004f0 metadata: sex: None -> M, tcpd_pid: None -> AETN273195
+2026-04-08 22:13:37,124 [INFO] election_importer:   [Updating] stats for VENKATESH (AFFIDAVIT#2021#2305)
+2026-04-08 22:13:37,149 [INFO] election_importer: Finished. Created: 6, Updated: 18. Successfully processed 24 records across 1 constituencies.
+2026-04-09 19:32:49,150 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-04-09 19:32:49,188 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-04-09 19:32:49,321 [INFO] enrichment_pipeline: Loaded 126 parties (363 lookup keys)
+2026-04-09 19:32:49,321 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-04-09 19:32:49,346 [INFO] enrichment_pipeline: Loaded 38 districts (39 lookup keys)
+2026-04-09 19:32:49,346 [INFO] enrichment_pipeline: Starting expansion run for 2006 (IDs 123 to 123) with 10 threads
+2026-04-09 19:32:49,375 [INFO] enrichment_pipeline: Found 0 winners for 2006
+2026-04-09 19:32:49,375 [INFO] enrichment_pipeline: Processing candidate 123 (2006) with PK: AFFIDAVIT#2006#123
+2026-04-09 19:32:57,186 [INFO] enrichment_pipeline: Linked candidate 123 to person PERSON#bc4715f936db79d8ba9ea883a89b4a6b
+2026-04-09 19:32:57,209 [ERROR] enrichment_pipeline: Error processing candidate 123 (2006): Float types are not supported. Use Decimal types instead.
+Traceback (most recent call last):
+  File "/Users/ideas2it/Projects/personal/knowyourmla/scraper/enrichment.py", line 217, in process_candidate
+    self._save_new_candidate(pk, cid, year, year_slug, details, person_id, winners_map)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/scraper/enrichment.py", line 303, in _save_new_candidate
+    self.candidates_table.put_item(Item=item)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/resources/factory.py", line 581, in do_action
+    response = action(self, *args, **kwargs)
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/resources/action.py", line 88, in __call__
+    response = getattr(parent.meta.client, operation_name)(*args, **params)
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/client.py", line 602, in _api_call
+    return self._make_api_call(operation_name, kwargs)
+           ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/context.py", line 123, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/client.py", line 1019, in _make_api_call
+    api_params = self._emit_api_params(
+        api_params=api_params,
+        operation_model=operation_model,
+        context=request_context,
+    )
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/client.py", line 1138, in _emit_api_params
+    self.meta.events.emit(
+    ~~~~~~~~~~~~~~~~~~~~~^
+        f'before-parameter-build.{service_id}.{operation_name}',
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        context=context,
+        ^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/hooks.py", line 412, in emit
+    return self._emitter.emit(aliased_event_name, **kwargs)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/hooks.py", line 256, in emit
+    return self._emit(event_name, kwargs)
+           ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/botocore/hooks.py", line 239, in _emit
+    response = handler(**kwargs)
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 217, in inject_attribute_value_input
+    self._transformer.transform(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        params,
+        ^^^^^^^
+    ...<2 lines>...
+        'AttributeValue',
+        ^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 289, in transform
+    self._transform_parameters(model, params, transformation, target_shape)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 296, in _transform_parameters
+    getattr(self, f'_transform_{type_name}')(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model, params, transformation, target_shape
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 312, in _transform_structure
+    self._transform_parameters(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        member_model,
+        ^^^^^^^^^^^^^
+    ...<2 lines>...
+        target_shape,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 296, in _transform_parameters
+    getattr(self, f'_transform_{type_name}')(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        model, params, transformation, target_shape
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/transform.py", line 326, in _transform_map
+    params[key] = transformation(value)
+                  ~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 116, in serialize
+    return {dynamodb_type: serializer(value)}
+                           ~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 240, in _serialize_m
+    return {k: self.serialize(v) for k, v in value.items()}
+               ~~~~~~~~~~~~~~^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 116, in serialize
+    return {dynamodb_type: serializer(value)}
+                           ~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 240, in _serialize_m
+    return {k: self.serialize(v) for k, v in value.items()}
+               ~~~~~~~~~~~~~~^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 116, in serialize
+    return {dynamodb_type: serializer(value)}
+                           ~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 240, in _serialize_m
+    return {k: self.serialize(v) for k, v in value.items()}
+               ~~~~~~~~~~~~~~^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 116, in serialize
+    return {dynamodb_type: serializer(value)}
+                           ~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 240, in _serialize_m
+    return {k: self.serialize(v) for k, v in value.items()}
+               ~~~~~~~~~~~~~~^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 114, in serialize
+    dynamodb_type = self._get_dynamodb_type(value)
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 127, in _get_dynamodb_type
+    elif self._is_number(value):
+         ~~~~~~~~~~~~~~~^^^^^^^
+  File "/Users/ideas2it/Projects/personal/knowyourmla/venv/lib/python3.14/site-packages/boto3/dynamodb/types.py", line 171, in _is_number
+    raise TypeError(
+        'Float types are not supported. Use Decimal types instead.'
+    )
+TypeError: Float types are not supported. Use Decimal types instead.
+2026-04-09 19:37:40,274 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-04-09 19:37:40,311 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-04-09 19:37:40,441 [INFO] enrichment_pipeline: Loaded 126 parties (363 lookup keys)
+2026-04-09 19:37:40,441 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-04-09 19:37:40,466 [INFO] enrichment_pipeline: Loaded 38 districts (39 lookup keys)
+2026-04-09 19:37:40,466 [INFO] enrichment_pipeline: Starting expansion run for 2006 (IDs 123 to 123) with 10 threads
+2026-04-09 19:37:40,495 [INFO] enrichment_pipeline: Found 0 winners for 2006
+2026-04-09 19:37:40,496 [INFO] enrichment_pipeline: Processing candidate 123 (2006) with PK: AFFIDAVIT#2006#123
+2026-04-09 19:37:47,364 [WARNING] enrichment_pipeline: Error parsing detailed assets from https://www.myneta.info/tn2006/candidate.php?candidate_id=123&print=true: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2026-04-09 19:37:47,514 [INFO] enrichment_pipeline: Linked candidate 123 to person PERSON#bc4715f936db79d8ba9ea883a89b4a6b
+2026-04-09 19:41:29,349 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-04-09 19:41:29,458 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-04-09 19:41:29,586 [INFO] enrichment_pipeline: Loaded 126 parties (363 lookup keys)
+2026-04-09 19:41:29,586 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-04-09 19:41:29,611 [INFO] enrichment_pipeline: Loaded 38 districts (39 lookup keys)
+2026-04-09 19:41:29,611 [INFO] enrichment_pipeline: Starting expansion run for 2006 (IDs 131 to 131) with 10 threads
+2026-04-09 19:41:29,641 [INFO] enrichment_pipeline: Found 0 winners for 2006
+2026-04-09 19:41:29,641 [INFO] enrichment_pipeline: Processing candidate 131 (2006) with PK: AFFIDAVIT#2006#131
+2026-04-09 19:41:37,080 [INFO] enrichment_pipeline: Linked candidate 131 to person PERSON#parasam_arolapasara

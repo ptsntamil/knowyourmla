@@ -1,10 +1,15 @@
 "use client";
 
+import { useState } from "react";
+
 interface IncomeDetailsTableProps {
   itrHistory?: Record<string, Record<string, number>> | null;
 }
 
 export default function IncomeDetailsTable({ itrHistory }: IncomeDetailsTableProps) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 5;
+
   if (!itrHistory || Object.keys(itrHistory).length === 0) {
     return (
       <div className="bg-white rounded-[2rem] p-10 shadow-xl border border-slate-100 text-center">
@@ -14,25 +19,28 @@ export default function IncomeDetailsTable({ itrHistory }: IncomeDetailsTablePro
   }
 
   // Get all unique year ranges across all relations for row headers
-  // Filter out any invalid years like 'None'
   const yearRanges = Array.from(
     new Set(Object.values(itrHistory).flatMap((years) => Object.keys(years)))
   ).filter(yr => yr && yr.toLowerCase() !== "none")
    .sort((a, b) => b.localeCompare(a)); // Sort latest first
 
+  // Pagination calculations
+  const totalPages = Math.ceil(yearRanges.length / pageSize);
+  const paginatedYearRanges = yearRanges.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
+
   // Get all relations for column headers
-  // Filter out 'None' relations and those with no values (except 'self')
   const relations = Object.keys(itrHistory)
     .filter(rel => {
       if (!rel || rel.toLowerCase() === "none") return false;
       if (rel.toLowerCase() === "self") return true;
 
-      // Check if this relation has any non-zero/non-null value across all years
       const years = itrHistory[rel];
       return Object.values(years).some(amt => amt && Number(amt) > 0);
     })
     .sort((a, b) => {
-      // Sort 'self' first, then 'spouse', then others
       if (a === 'self') return -1;
       if (b === 'self') return 1;
       if (a === 'spouse') return -1;
@@ -73,7 +81,7 @@ export default function IncomeDetailsTable({ itrHistory }: IncomeDetailsTablePro
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            {yearRanges.map((yr) => {
+            {paginatedYearRanges.map((yr) => {
               let rowTotal = 0;
               let hasAnyValue = false;
               
@@ -106,6 +114,31 @@ export default function IncomeDetailsTable({ itrHistory }: IncomeDetailsTablePro
           </tbody>
         </table>
       </div>
+
+      {totalPages > 1 && (
+        <div className="px-10 py-6 border-t border-slate-100 bg-slate-50/30 flex items-center justify-between">
+          <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+            Page {currentPage} of {totalPages}
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              disabled={currentPage === 1}
+              className="px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all active:scale-95 shadow-sm"
+            >
+              Previous
+            </button>
+            <button
+              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              disabled={currentPage === totalPages}
+              className="px-4 py-2 text-[10px] font-black uppercase tracking-widest rounded-xl bg-white border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-brand-gold hover:text-white hover:border-brand-gold transition-all active:scale-95 shadow-sm"
+            >
+              Next
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="bg-slate-50/50 px-10 py-4">
         <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest leading-relaxed">
           * Data aggregated from multiple election affidavits. ITR values represent latest self-declared taxable income for the respective financial years.

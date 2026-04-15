@@ -1,5 +1,6 @@
 import { fetchMLAProfile } from "@/services/api";
 import { headers } from "next/headers";
+import Link from "next/link";
 import MLAHeader from "@/components/MLAHeader";
 import HistoryTable from "@/components/HistoryTable";
 import { AssetChart, VoteTrendChart, MarginTrendChart } from "@/components/AnalyticsCharts";
@@ -16,7 +17,7 @@ import { AttendanceWidget, QuestionsWidget } from "@/components/MetricWidgets";
 import IncomeDetailsTable from "@/components/IncomeDetailsTable";
 import ElectionExpensesWidget from "@/components/ElectionExpensesWidget";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -188,7 +189,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
             <div className="bg-white rounded-3xl p-8 shadow-2xl flex flex-col h-full border border-white/50">
               <h3 className="text-xl font-black text-brand-dark mb-8 uppercase tracking-tight">Asset Growth</h3>
               <div className="flex-1">
-                <AssetChart data={profile.analytics.asset_growth.map((a) => ({ year: a.year, assets: a.assets }))} />
+                <AssetChart data={profile.analytics.asset_growth.map((a) => ({ year: a.year, assets: a.assets, growth_percent: a.growth_percent }))} />
               </div>
               <p className="text-[11px] text-slate-500 font-bold mt-8 leading-relaxed opacity-70">
                 Visualize the growth of assets declared by {profile.person.name} across different election cycles.
@@ -198,7 +199,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
             <div className="bg-white rounded-3xl p-8 shadow-2xl flex flex-col h-full border border-white/50">
               <h3 className="text-xl font-black text-brand-dark mb-8 uppercase tracking-tight">Vote Share</h3>
               <div className="flex-1">
-                <VoteTrendChart data={profile.analytics.vote_trend.map((v) => ({ year: v.year, votes: v.votes }))} />
+                <VoteTrendChart data={profile.analytics.vote_trend.map((v) => ({ year: v.year, votes: v.votes, vote_percent: v.vote_percent }))} />
               </div>
               <p className="text-[11px] text-slate-500 font-bold mt-8 leading-relaxed opacity-70">
                 Tracking the popularity and support received by the candidate in various elections.
@@ -302,17 +303,39 @@ export default async function MLAProfilePage({ params }: PageProps) {
                         Explore {latestElection?.year || 2021} Insights
                       </a>
                     </li>
-                    <li>
-                      <a href={`/parties/${partySlug}`} className="text-brand-dark dark:text-slate-600 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
-                        <span className="w-1.5 h-1.5 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
-                        View all {party} MLAs
-                      </a>
-                    </li>
+                    {party.toLowerCase() !== "independent" && party.toLowerCase() !== "ind" && (
+                      <li>
+                        <a href={`/parties/${partySlug}`} className="text-brand-dark dark:text-slate-600 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
+                          <span className="w-1.5 h-1.5 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
+                          View all {party} MLAs
+                        </a>
+                      </li>
+                    )}
                   </ul>
                 </div>
               </div>
             </section>
           </aside>
+        </div>
+
+
+        <div className="bg-brand-dark rounded-[3rem] p-10 mt-20 mb-20 relative overflow-hidden group shadow-2xl shadow-brand-dark/20 text-center sm:text-left">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/5 rounded-full -mr-40 -mt-40 blur-3xl pointer-events-none" />
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
+            <div className="space-y-3">
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
+              <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
+                How does {profile.person.name}'s performance compare to the statewide benchmarks?
+                Explore the full 2021 assembly election analysis to see detailed insights across all constituencies.
+              </p>
+            </div>
+            <Link
+              href="/tn/elections/2021/insights"
+              className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
+            >
+              Explore 2021 Insights
+            </Link>
+          </div>
         </div>
 
         <section className="mt-18 pt-16 border-t border-slate-100 dark:border-slate-800">

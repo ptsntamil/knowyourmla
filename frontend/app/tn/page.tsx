@@ -129,7 +129,16 @@ export default async function TNPage() {
           <CompositionInsights distributions={distributions} />
         </section>
 
-        {/* 4. Election Central - NEW Discoverability Hub */}
+
+        {/* 4. District Explorer */}
+        <section id="districts" className="pt-12 border-t border-slate-100">
+          <DistrictExplorer 
+            districts={districts}
+            countMap={districtCountMap}
+          />
+        </section>
+
+        {/* 5. Election Central - NEW Discoverability Hub */}
         <section className="space-y-12 pt-12 border-t border-slate-100">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
             <SectionHeader 
@@ -184,14 +193,6 @@ export default async function TNPage() {
               </div>
             </Link>
           </div>
-        </section>
-
-        {/* 4. District Explorer */}
-        <section id="districts" className="pt-12 border-t border-slate-100">
-          <DistrictExplorer 
-            districts={districts}
-            countMap={districtCountMap}
-          />
         </section>
 
         {/* Footer CTA */}

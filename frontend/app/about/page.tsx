@@ -3,7 +3,7 @@ import React from 'react';
 
 export async function generateMetadata() {
   return buildMetadata({
-    title: "About Us | KnowYourMLA",
+    title: "About Us",
     description: "Learn about our mission to provide transparent and accessible information about Tamil Nadu MLAs and political data.",
     path: "/about",
     keywords: ["About KnowYourMLA", "Political Transparency", "Tamil Nadu Politics", "MLA Data", "Constituency Information"]

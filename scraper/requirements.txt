@@ -7,3 +7,10 @@ pandas
 psycopg2-binary
 boto3
 requests
+playwright
+playwright-stealth
+pdfplumber
+google-genai
+pypdf
+python-dotenv
+json-repair

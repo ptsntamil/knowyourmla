@@ -9,8 +9,9 @@ import ConstituencyInsights from "@/components/constituency/ConstituencyInsights
 import PartyBadge from "@/components/ui/PartyBadge";
 import { getConstituencyPreElectionOverlayData } from "@/lib/elections/preElectionDashboard/getConstituencyPreElectionOverlayData";
 import ConstituencyPreElectionOverlay from "@/components/election/dashboard/ConstituencyPreElectionOverlay";
+import ShareButton from "@/components/ShareButton";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -133,19 +134,32 @@ export default async function ConstituencyPage({ params }: PageProps) {
         title={`${slug}`}
         subtitle={`Historical election data and representative details for the ${slug} constituency.`}
       >
-        <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
-          <span className="mx-3 text-white/20">/</span>
-          <Link href="/tn" className="hover:text-white transition-colors">TN</Link>
-          <span className="mx-3 text-white/20">/</span>
-          {districtName && (
-            <>
-              <Link href={`/tn/districts/${districtSlug}`} className="hover:text-white transition-colors">{districtName}</Link>
-              <span className="mx-3 text-white/20">/</span>
-            </>
-          )}
-          <span className="text-brand-gold">{slug}</span>
-        </nav>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <nav className="flex items-center flex-wrap gap-y-2 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
+            <Link href="/" className="hover:text-white transition-colors">Home</Link>
+            <span className="mx-3 text-white/20">/</span>
+            <Link href="/tn" className="hover:text-white transition-colors">TN</Link>
+            <span className="mx-3 text-white/20">/</span>
+            {districtName && (
+              <>
+                <Link href={`/tn/districts/${districtSlug}`} className="hover:text-white transition-colors">{districtName}</Link>
+                <span className="mx-3 text-white/20">/</span>
+              </>
+            )}
+            <span className="text-brand-gold">{slug}</span>
+          </nav>
+
+          <div className="flex items-center justify-end gap-4">
+            <ShareButton
+              title={`${constituencyName} Constituency Profile`}
+              text={currentWinner
+                ? `Explore ${constituencyName} constituency, current MLA ${currentWinner.winner} (${currentWinner.party.short_name}), election history, and candidates on KnowYourMLA.`
+                : `Explore ${constituencyName} constituency election history, candidate details, and political insights on KnowYourMLA.`}
+              url={`/tn/constituency/${slug}`}
+              label="Share"
+            />
+          </div>
+        </div>
       </CoverImage>
 
       <main className="max-w-7xl mx-auto px-4 py-8 space-y-16">
@@ -281,21 +295,6 @@ export default async function ConstituencyPage({ params }: PageProps) {
               <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Election History</h2>
               <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Past winners and performance in {slug}</p>
             </div>
-
-            <Link
-              href="/tn/elections/2021/insights"
-              className="group flex items-center gap-4 bg-white border border-slate-100 p-4 rounded-2xl shadow-sm hover:shadow-md transition-all active:scale-95"
-            >
-              <div className="w-10 h-10 bg-brand-gold/10 rounded-xl flex items-center justify-center text-brand-gold">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" className="w-5 h-5">
-                  <path d="M12 20v-6M6 20V10M18 20V4" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </div>
-              <div className="text-left">
-                <p className="text-[10px] font-black text-slate-400 uppercase tracking-wider leading-none mb-1">Statewide Context</p>
-                <p className="text-xs font-black text-brand-dark uppercase tracking-tight group-hover:text-brand-gold transition-colors">Explore 2021 Insights</p>
-              </div>
-            </Link>
           </div>
           <div className="bg-white rounded-[2.5rem] border border-slate-100 overflow-hidden shadow-sm">
             <div className="px-10 py-8 bg-brand-dark flex justify-between items-center text-white">
@@ -347,6 +346,26 @@ export default async function ConstituencyPage({ params }: PageProps) {
             </div>
           </div>
         </section>
+
+
+        <div className="bg-brand-dark rounded-[3rem] p-10 mt-20 mb-20 relative overflow-hidden group shadow-2xl shadow-brand-dark/20 text-center sm:text-left">
+          <div className="absolute top-0 right-0 w-80 h-80 bg-brand-gold/5 rounded-full -mr-40 -mt-40 blur-3xl pointer-events-none" />
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8 relative z-10">
+            <div className="space-y-3">
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
+              <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
+                How does {slug} compare to the statewide trends?
+                Explore the full 2021 assembly election analysis to see performance across all 234 seats, regional patterns, and candidate analytics.
+              </p>
+            </div>
+            <Link
+              href="/tn/elections/2021/insights"
+              className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
+            >
+              Explore 2021 Insights
+            </Link>
+          </div>
+        </div>
 
         <section className="pt-16 border-t border-slate-100 dark:border-slate-800">
           <FAQSection faqs={faqs} />
