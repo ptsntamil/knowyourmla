@@ -22,7 +22,7 @@ import logging
 import time
 from datetime import datetime, timezone
 from decimal import Decimal
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Tuple
 
 import boto3
 from botocore.exceptions import ClientError
@@ -498,6 +498,128 @@ def process_simple_assets(asset_data: Any, asset_type: str) -> Dict:
             
     return {}
 
+def enrich_candidates(json_path: str, start: int = 0, limit: int = None, dry_run: bool = False):
+    """Enrich already-created candidate records that are missing extraction data.
+
+    Scans the JSON file for candidates where:
+    - db_status == 'success' (record already in DynamoDB)
+    - extracted_data is now available in the JSON
+
+    It then patches the existing DynamoDB candidate record with full affidavit
+    details and refreshes the linked person's metadata.
+
+    Args:
+        json_path: Path to the candidates JSON file.
+        start: Zero-based start index.
+        limit: Maximum number of items to process.
+        dry_run: If True, no writes to DynamoDB are made.
+    """
+    if not os.path.exists(json_path):
+        logger.error(f"File not found: {json_path}")
+        return
+
+    with open(json_path, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+
+    dynamodb = boto3.resource('dynamodb', region_name=REGION_NAME)
+    resolver = PersonResolver2026(dynamodb)
+    candidates_table = dynamodb.Table(CANDIDATES_TABLE)
+
+    total = len(data)
+    end = total if limit is None else min(start + limit, total)
+    stats = {"enriched": 0, "skipped": 0, "failed": 0}
+
+    logger.info(f"[ENRICH] Scanning {start} to {end} (Total: {total})")
+
+    for i in range(start, end):
+        item = data[i]
+        name = item.get("name")
+        constituency = item.get("constituency")
+
+        # Only enrich records that are already in DynamoDB and have extracted_data now
+        if item.get("db_status") != "success":
+            stats["skipped"] += 1
+            continue
+        if not item.get("extracted_data"):
+            stats["skipped"] += 1
+            continue
+
+        pk = item.get("db_candidate_pk") or f"AFFIDAVIT#2026#{i+1}"
+        person_id = item.get("db_person_id") or item.get("person_id")
+        extracted = item.get("extracted_data") or {}
+
+        logger.info(f"[ENRICH][{i+1}/{total}] Enriching {name} ({constituency}) → {pk}")
+
+        try:
+            # Build enrichment update expression
+            enrich_fields = {
+                "total_assets": convert_floats_to_decimal({"v": extracted.get("total_assets", 0)})["v"],
+                "total_liabilities": convert_floats_to_decimal({"v": extracted.get("total_liabilities", 0)})["v"],
+                "criminal_cases": extracted.get("criminal_cases", 0),
+                "education": normalize_education(extracted.get("education")),
+                "profession": normalize_profession(extracted.get("profession")),
+                "itr_history": flatten_itr_history(extracted.get("itr_history", {})),
+                "gold_assets": process_simple_assets(extracted.get("gold_details") or extracted.get("gold_assets", {}), "gold"),
+                "silver_assets": process_simple_assets(extracted.get("silver_details") or extracted.get("silver_assets", {}), "silver"),
+                "vehicle_assets": process_simple_assets(extracted.get("vehicle_assets", {}), "vehicle"),
+                "land_assets": process_land_assets(extracted.get("land_assets", {})),
+                "income_itr": get_latest_income_map(flatten_itr_history(extracted.get("itr_history", {}))),
+                "profile_pic": item.get("photo_path"),
+                "extraction_status": "complete",
+                "enriched_at": datetime.now(timezone.utc).isoformat(),
+            }
+            enrich_fields = convert_floats_to_decimal(enrich_fields)
+
+            update_parts = [f"#{k} = :{k}" for k in enrich_fields]
+            update_expr = "SET " + ", ".join(update_parts)
+            # Use ExpressionAttributeNames to avoid reserved word conflicts
+            attr_names = {f"#{k}": k for k in enrich_fields}
+            attr_vals = {f":{k}": v for k, v in enrich_fields.items()}
+
+            if not dry_run:
+                candidates_table.update_item(
+                    Key={"PK": pk, "SK": "DETAILS"},
+                    UpdateExpression=update_expr,
+                    ExpressionAttributeNames=attr_names,
+                    ExpressionAttributeValues=attr_vals
+                )
+
+                # Also refresh person metadata
+                if person_id:
+                    pan = resolver.get_pan_from_extracted(extracted)
+                    contact = extracted.get("contact_details") or {}
+                    social_profiles = {k: v for k, v in {
+                        "email": contact.get("email"),
+                        "facebook": contact.get("facebook"),
+                        "twitter": contact.get("twitter_x"),
+                        "instagram": contact.get("instagram")
+                    }.items() if v}
+                    voter = extracted.get("voter_details") or {}
+                    v_norm = canonicalize_constituency(voter.get("constituency", ""))
+                    voter_update = {k: v for k, v in {
+                        "voter_constituency_id": f"CONSTITUENCY#{v_norm}" if v_norm else None,
+                        "voter_serial_no": str(voter.get("serial_no", "")) if voter.get("serial_no") else None,
+                        "voter_part_no": str(voter.get("part_no", "")) if voter.get("part_no") else None
+                    }.items() if v}
+                    resolver.update_person_metadata(person_id, pan, social_profiles, voter_update, dry_run)
+
+                item["db_status"] = "success"
+                stats["enriched"] += 1
+            else:
+                logger.info(f"[DRY RUN] Would enrich candidate {pk}")
+                stats["enriched"] += 1
+
+        except Exception as e:
+            logger.error(f"[ENRICH] Error at index {i}: {e}", exc_info=True)
+            item["db_error"] = str(e)
+            stats["failed"] += 1
+
+    if not dry_run:
+        save_json(data, json_path)
+
+    logger.info(f"[ENRICH] Done. Enriched: {stats['enriched']}, Skipped: {stats['skipped']}, Failed: {stats['failed']}")
+
+
 def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_run: bool = False):
     if not os.path.exists(json_path):
         logger.error(f"File not found: {json_path}")
@@ -563,8 +685,8 @@ def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_ru
                 "profile_pic": item.get("photo_path"),
                 "profile_url": item.get("profile_url"),
                 "itr_history": flatten_itr_history(extracted.get("itr_history", {})),
-                "gold_assets": process_simple_assets(extracted.get("gold_assets", {}), "gold"),
-                "silver_assets": process_simple_assets(extracted.get("silver_assets", {}), "silver"),
+                "gold_assets": process_simple_assets(extracted.get("gold_details") or extracted.get("gold_assets", {}), "gold"),
+                "silver_assets": process_simple_assets(extracted.get("silver_details") or extracted.get("silver_assets", {}), "silver"),
                 "vehicle_assets": process_simple_assets(extracted.get("vehicle_assets", {}), "vehicle"),
                 "land_assets": process_land_assets(extracted.get("land_assets", {})),
                 "income_itr": get_latest_income_map(flatten_itr_history(extracted.get("itr_history", {}))),
@@ -614,6 +736,15 @@ if __name__ == "__main__":
     parser.add_argument("--limit", type=int, default=None, help="Number of items to process")
     parser.add_argument("--dryrun", action="store_true", help="Perform a dry run")
     parser.add_argument("--file", type=str, default="tn_2026_candidates.json", help="Path to JSON file")
-    
+    parser.add_argument(
+        "--enrich",
+        action="store_true",
+        help="Enrich existing candidate records that have extraction_status=missing with full extracted details"
+    )
+
     args = parser.parse_args()
-    process_candidates(args.file, start=args.start, limit=args.limit, dry_run=args.dryrun)
+
+    if args.enrich:
+        enrich_candidates(args.file, start=args.start, limit=args.limit, dry_run=args.dryrun)
+    else:
+        process_candidates(args.file, start=args.start, limit=args.limit, dry_run=args.dryrun)

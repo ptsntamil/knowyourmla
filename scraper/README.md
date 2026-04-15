@@ -2,6 +2,39 @@
 
 This directory contains scripts for scraping candidate data from MyNeta and importing election results from CSV files (TCPD or OpenCity).
 
+## Affidavit Extraction Pipeline
+
+### batch_extract_affidavits.py
+Batch extracts structured data from candidate affidavit PDFs using the Gemini API. Supports resumption, periodic saves, and API quota-aware error handling.
+
+**Options:**
+
+| Flag | Type | Default | Description |
+|---|---|---|---|
+| `--file` | `str` | `tn_2026_candidates.json` | Path to candidates JSON file |
+| `--limit` | `int` | None (all) | Max number of candidates to process |
+| `--party` | `str` | None (all parties) | Filter candidates by party name (case-insensitive substring match) |
+
+**How to run:**
+```bash
+# Extract affidavits for all unprocessed candidates
+python3 scraper/batch_extract_affidavits.py
+
+# Limit to first 10 candidates
+python3 scraper/batch_extract_affidavits.py --limit 10
+
+# Extract only for a specific party
+python3 scraper/batch_extract_affidavits.py --party "Naam Tamilar Katchi"
+
+# Combine party filter with a limit
+python3 scraper/batch_extract_affidavits.py --party "Dravida Munnetra Kazhagam" --limit 20
+```
+
+**Notes:**
+- Already-extracted candidates (`extraction_status: success`) are skipped automatically.
+- The `--party` match is case-insensitive and supports partial names (e.g., `--party "DMK"` or `--party "Congress"`).
+- Progress is saved every 5 extractions to prevent data loss.
+
 ## Scraper Pipeline
 
 ### 1. Scrape MyNeta Winners

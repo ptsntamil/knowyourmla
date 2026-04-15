@@ -27,7 +27,7 @@ def save_json_atomic(data: List[Dict[str, Any]], file_path: str):
         json.dump(data, f, indent=4, ensure_ascii=False)
     os.replace(temp_path, file_path)
 
-def batch_process(limit: int = None, input_file: str = "tn_2026_candidates.json"):
+def batch_process(limit: int = None, input_file: str = "tn_2026_candidates.json", party: str = None):
     """Processes candidates from the JSON file and extracts affidavit details."""
     load_dotenv(dotenv_path=".env.local")
     api_key = os.environ.get("GOOGLE_GEMINI_API_KEY")
@@ -55,6 +55,10 @@ def batch_process(limit: int = None, input_file: str = "tn_2026_candidates.json"
 
         # Resumption logic: Skip if already has extraction results
         if candidate.get("extraction_status") == "success" or "extracted_data" in candidate:
+            continue
+
+        # Filter by party if provided
+        if party and party.lower() not in candidate.get("party_name", "").lower():
             continue
 
         name = candidate.get("name", "Unknown")
@@ -107,6 +111,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Batch extract candidate data from affidavits.")
     parser.add_argument("--limit", type=int, default=None, help="Limit number of candidates to process")
     parser.add_argument("--file", type=str, default="tn_2026_candidates.json", help="Path to candidates JSON file")
+    parser.add_argument("--party", type=str, default=None, help="Filter candidates by party name")
     
     args = parser.parse_args()
-    batch_process(limit=args.limit, input_file=args.file)
+    batch_process(limit=args.limit, input_file=args.file, party=args.party)
