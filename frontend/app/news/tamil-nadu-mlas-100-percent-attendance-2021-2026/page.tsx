@@ -11,7 +11,7 @@ import { ChevronRight, ArrowRight, Info, CheckCircle2, PieChart, Users } from 'l
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const { slug } = await params;
   return {
-    title: '18 MLAs with 100% Assembly Attendance in Tamil Nadu (2021–2026) | KnowYourMLA',
+    title: '18 MLAs with 100% Assembly Attendance in Tamil Nadu (2021–2026)',
     description: 'Discover the 18 Tamil Nadu MLAs who maintained 100% attendance in the Assembly from 2021 to 2026. Explore their profiles, constituencies, and performance data.',
     keywords: ['MLA Attendance', 'Tamil Nadu Assembly', '100% Attendance MLAs', 'TN Politics', 'Legislative Performance'],
     alternates: {
@@ -21,10 +21,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       title: '18 MLAs with 100% Assembly Attendance in Tamil Nadu (2021–2026)',
       description: 'Explore the profiles of the 18 Tamil Nadu MLAs who never missed a day in the Assembly.',
       type: 'article',
-      url: `https://knowyourmla-info.vercel.app/news/${slug}`,
+      url: `/news/${slug}`,
       images: [
         {
-          url: 'https://knowyourmla-info.vercel.app/logo.png',
+          url: '/logo.png',
           width: 1200,
           height: 630,
           alt: 'TN MLAs 100% Attendance',
@@ -38,7 +38,7 @@ export default function AttendanceNewsPage() {
   const description = 'Discover the 18 Tamil Nadu MLAs who maintained 100% attendance in the Assembly from 2021 to 2026. Explore their profiles, constituencies, and performance data.';
   const publishDate = "March 21, 2026";
   const readingTime = "4 min";
-  const articleUrl = "https://knowyourmla-info.vercel.app/news/tamil-nadu-mlas-100-percent-attendance-2021-2026";
+  const articleUrl = "/news/tamil-nadu-mlas-100-percent-attendance-2021-2026";
   const title = "18 MLAs with 100% Assembly Attendance in Tamil Nadu (2021–2026)";
 
   // JSON-LD Structured Data
@@ -51,14 +51,14 @@ export default function AttendanceNewsPage() {
     "author": {
       "@type": "Organization",
       "name": "KnowYourMLA Team",
-      "url": "https://knowyourmla-info.vercel.app"
+      "url": "/"
     },
     "publisher": {
       "@type": "Organization",
       "name": "KnowYourMLA",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://knowyourmla-info.vercel.app/KnowYourMLA_logo.png"
+        "url": "/KnowYourMLA_logo.png"
       }
     },
     "description": description,

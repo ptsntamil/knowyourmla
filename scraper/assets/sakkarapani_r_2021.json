@@ -1,0 +1,781 @@
+{
+  "PK": {
+    "S": "AFFIDAVIT#2026#1"
+  },
+  "SK": {
+    "S": "DETAILS"
+  },
+  "candidate_name": {
+    "S": "SAKKARAPANI. R"
+  },
+  "constituency_id": {
+    "S": "CONSTITUENCY#oddanchatram"
+  },
+  "createdtime": {
+    "S": "2026-04-12T11:35:01.556798+00:00"
+  },
+  "criminal_cases": {
+    "N": "0"
+  },
+  "education": {
+    "S": "B.A. Economics, American College, Madurai, Madurai Kamaraj University, 1983"
+  },
+  "election_type": {
+    "S": "Assembly"
+  },
+  "gold_assets": {
+    "M": {
+      "dependents": {
+        "L": []
+      },
+      "self": {
+        "M": {
+          "value": {
+            "N": "518000"
+          },
+          "weight": {
+            "N": "140"
+          },
+          "weight_grms": {
+            "N": "140"
+          }
+        }
+      },
+      "spouse": {
+        "M": {
+          "value": {
+            "N": "7741251"
+          },
+          "weight": {
+            "N": "597.78"
+          },
+          "weight_grms": {
+            "N": "597.78"
+          }
+        }
+      }
+    }
+  },
+  "group_id": {
+    "S": "asZUFjVBfod3nnEx5ss"
+  },
+  "itr_history": {
+    "M": {
+      "dependents": {
+        "N": "0"
+      },
+      "self": {
+        "N": "14994050"
+      },
+      "spouse": {
+        "N": "10956111"
+      }
+    }
+  },
+  "land_assets": {
+    "M": {
+      "self": {
+        "M": {
+          "entries": {
+            "L": []
+          },
+          "full_text": {
+            "S": "Agricultural Land\nKallimanthayam Village\n1.Survey No - 257/3, Acre - 1.8\n2. Survey No - 257/2, Acre - 1.66\n3. Survey No - 262/2, Acre - 1.09\n4. Survey No - 262/3, Acre - 1.39\n5. Survey No - 226/12, Acre - 5.9\n6. Survey No - 254/1, Acre - 4.93\n7. Survey No - 262/3A, Acre - 0.031/4\nTotal Area (in Acres): 16.801/4\nNon-Agricultural Land\nKallimanthayam Village\n1. Survey No - 262/3A, Acre - 0.031/4\nPurchase Date: 29.02.2016"
+          },
+          "gemini_extracted": {
+            "L": [
+              {
+                "M": {
+                  "area": {
+                    "N": "1.8"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "257/3"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "1.66"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "257/2"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "1.09"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "262/2"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "1.39"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "262/3"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "5.9"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "226/12"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "4.93"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "254/1"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "0.031"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "N": "22000"
+                  },
+                  "survey_no": {
+                    "S": "262/3A"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              }
+            ]
+          },
+          "total": {
+            "M": {
+              "calculated": {
+                "M": {
+                  "acres": {
+                    "N": "0"
+                  },
+                  "cents": {
+                    "N": "0"
+                  }
+                }
+              },
+              "declared": {
+                "M": {
+                  "acres": {
+                    "N": "0"
+                  },
+                  "cents": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mismatch": {
+                "BOOL": false
+              },
+              "total_purchase_cost": {
+                "N": "0"
+              }
+            }
+          }
+        }
+      },
+      "spouse": {
+        "M": {
+          "entries": {
+            "L": []
+          },
+          "full_text": {
+            "S": "Agricultural Land\nKallimanthayam Village\n1. Survey No - 226/1H1, Acre -5.16\n2. Survey No - 254/1, Acre - 1.33\n3. Survey No - 224/1,4,5, Acre -9\n4. Survey No - 261/1,2, 262/1, 258/3 - 257/1, Acre -1.33\n5. Survey No - 222/1, Acre - 0.30 (Cent)\n6. Survey No - 222/1A1, Acre - 0.52.45 (Cent)\nChikkamanayakapatti Village\n7. Survey No - 186/1, 1B, 208/2, 2, 4, 209/2F, Acre - 6.30\nTotal Area (in Acres): 23.94.45\nNon-Agricultural Land\nKallimanthayam Village\n1. Survey No - 397/1e, 394/32, Sq.ft - 4368\n2. Survey No - 388/1C2B, Sq.ft - 5702\n3. Survey No - 388/12, Sq.ft - 4360\n4. Survey No - 386/1B1C, Sq.ft - 4796\n5. Survey No - 386/1B3, Sq.ft - 12644\n6. Survey No - 386/18, 386/1961, Sq.ft - 2743\n7. Survey No - 386/6, Sq.ft - 1076.2\nChikkamanayakapatti Village\n7. Survey No - 186/1e, 1B, 208/21, 2, 4, 209/2F, Sq.ft - 6.30"
+          },
+          "gemini_extracted": {
+            "L": [
+              {
+                "M": {
+                  "area": {
+                    "N": "5.16"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "226/1H1"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "1.33"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "254/1"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "9"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "224/1,4,5"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "1.33"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "261/1,2, 262/1, 258/3 - 257/1"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "0.3"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "222/1"
+                  },
+                  "unit": {
+                    "S": "Cent"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "0.5245"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "222/1A1"
+                  },
+                  "unit": {
+                    "S": "Cent"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "6.3"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "186/1, 1B, 208/21, 2, 4, 209/2F"
+                  },
+                  "unit": {
+                    "S": "Acre"
+                  },
+                  "village": {
+                    "S": "Chikkamanayakapatti"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "4368"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "397/1e, 394/32"
+                  },
+                  "unit": {
+                    "S": "Sq.ft"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "5702"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "388/1C2B"
+                  },
+                  "unit": {
+                    "S": "Sq.ft"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "4360"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "388/12"
+                  },
+                  "unit": {
+                    "S": "Sq.ft"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "4796"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "386/1B1C"
+                  },
+                  "unit": {
+                    "S": "Sq.ft"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "12644"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "386/1B3"
+                  },
+                  "unit": {
+                    "S": "Sq.ft"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "2743"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "386/18, 386/1961"
+                  },
+                  "unit": {
+                    "S": "Sq.ft"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "1076.2"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "386/6"
+                  },
+                  "unit": {
+                    "S": "Sq.ft"
+                  },
+                  "village": {
+                    "S": "Kallimanthayam"
+                  }
+                }
+              },
+              {
+                "M": {
+                  "area": {
+                    "N": "6.3"
+                  },
+                  "current_market_value": {
+                    "NULL": true
+                  },
+                  "purchase_cost": {
+                    "NULL": true
+                  },
+                  "survey_no": {
+                    "S": "186/1e, 1B, 208/21, 2, 4, 209/2F"
+                  },
+                  "unit": {
+                    "S": "Sq.ft"
+                  },
+                  "village": {
+                    "S": "Chikkamanayakapatti"
+                  }
+                }
+              }
+            ]
+          },
+          "total": {
+            "M": {
+              "calculated": {
+                "M": {
+                  "acres": {
+                    "N": "0"
+                  },
+                  "cents": {
+                    "N": "0"
+                  }
+                }
+              },
+              "declared": {
+                "M": {
+                  "acres": {
+                    "N": "0"
+                  },
+                  "cents": {
+                    "N": "0"
+                  }
+                }
+              },
+              "mismatch": {
+                "BOOL": false
+              },
+              "total_purchase_cost": {
+                "N": "0"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "party_id": {
+    "S": "PARTY#dravidamunnetrakazhagam"
+  },
+  "person_id": {
+    "S": "PERSON#bc4715f936db79d8ba9ea883a89b4a6b"
+  },
+  "profession": {
+    "S": "Farmer and Indian Oil Corporation Ltd. Retailer"
+  },
+  "profile_pic": {
+    "S": "assets/2026/photos/ODDANCHATRAM_SAKKARAPANI._R.jpg"
+  },
+  "profile_url": {
+    "S": "https://affidavit.eci.gov.in/show-profile/eyJpdiI6IjlOQytpdFFYOUsrUTVCK1RtZkc5dEE9PSIsInZhbHVlIjoiUlovZzlGRlFPUzIvb1paUW5hR25hdz09IiwibWFjIjoiYjRhOTQ5ODJkYTZhOWI4NjI2YWMxZGFiOGNiZmU1YTY0ZDAxNzQ4ODAyMzg1ZDNmZDdmMTk2ZWMwZjBlYjZmNSIsInRhZyI6IiJ9/eyJpdiI6IlVCdmkzQ091RWgrUlRaaUJya1kvQ2c9PSIsInZhbHVlIjoiYVBCM1pwV2VyUVNPT2pSK1F2elZMQT09IiwibWFjIjoiYWZmMWJmMTE1MDU1Y2I2YzBkZjM4YTYyOTk0ZmQ1NTc5ODIwMmJjMTYxZDcyNGZlNTBjYTRmZDM5N2E0Zjg4MCIsInRhZyI6IiJ9/eyJpdiI6InVoMi9NcUdmWlJvSVJYc2MzUGl5eGc9PSIsInZhbHVlIjoiK3NIbUtqUE5USnNEekw5TzNBbDRPdz09IiwibWFjIjoiMDQzYWQxYWE5NTRjMTE0OWFhNGM5MDQyOWY2MmZjMjM0YjViYTc2ODNkYzVkODc5NGVlYTI4M2UwMDEzNWNiMiIsInRhZyI6IiJ9/eyJpdiI6InJ3NXE1cHBhaG4xQzdOdFpkUU9QZFE9PSIsInZhbHVlIjoidjMzeXczdzRBZEp2eFdsUXJEdU1kZz09IiwibWFjIjoiNjc1MWQ1OWEyODdkOTZlMTUwMzcwNGY2YzgyZjQ1NzAxYWU5N2ZmNDBlYTM3YmQ4ZjczYThlMjBlMmY4Y2QzNSIsInRhZyI6IiJ9/eyJpdiI6Iml5c1lYWjMvclVZM01zQkhmVmdqY0E9PSIsInZhbHVlIjoiY0RJeUs0UFcrRUZaMkhTdWxUZ3dzQT09IiwibWFjIjoiNmJkMjNjOGNmZjZjZjYwODA0MTA0YWZlNTZkYTk3ZTUyZGFhNGMxYzBiMmQxZjZkMTI1MGE2Y2Y2MmI1YjEyMCIsInRhZyI6IiJ9"
+  },
+  "total_assets": {
+    "N": "58712340.620000005"
+  },
+  "total_liabilities": {
+    "N": "22772697.2"
+  },
+  "vehicle_assets": {
+    "M": {
+      "dependents": {
+        "L": []
+      },
+      "self": {
+        "L": [
+          {
+            "M": {
+              "name": {
+                "S": "Ashok Leyland Oil Tanker"
+              },
+              "registration_no": {
+                "S": "TN 94D 1717 / 2022"
+              },
+              "value": {
+                "N": "288212"
+              }
+            }
+          },
+          {
+            "M": {
+              "name": {
+                "S": "Ashok Leyland Oil Tanker"
+              },
+              "registration_no": {
+                "S": "TN 94 E 1717/2022"
+              },
+              "value": {
+                "N": "1126820"
+              }
+            }
+          },
+          {
+            "M": {
+              "name": {
+                "S": "Ashok Leyland Oil Tanker"
+              },
+              "registration_no": {
+                "S": "TN 94 Y 1717/2020"
+              },
+              "value": {
+                "N": "203801"
+              }
+            }
+          },
+          {
+            "M": {
+              "name": {
+                "S": "Toyota Innova Crysta Car"
+              },
+              "registration_no": {
+                "S": "TN 57 CA 1717/2022"
+              },
+              "value": {
+                "N": "3112275"
+              }
+            }
+          },
+          {
+            "M": {
+              "name": {
+                "S": "Yamaha Two-wheeler (Rayz)"
+              },
+              "registration_no": {
+                "S": "TN 57 AW 6706 / 2014"
+              },
+              "value": {
+                "N": "27061"
+              }
+            }
+          },
+          {
+            "M": {
+              "name": {
+                "S": "Skoda Kodiaq"
+              },
+              "registration_no": {
+                "S": "TN 57 CB 1717/2024"
+              },
+              "value": {
+                "N": "4855105"
+              }
+            }
+          }
+        ]
+      },
+      "spouse": {
+        "L": [
+          {
+            "M": {
+              "name": {
+                "S": "Mahindra Agricultural Tractor, Trailer, Cultivator"
+              },
+              "registration_no": {
+                "S": "TN 94Y6828/2022"
+              },
+              "value": {
+                "N": "1008880"
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "year": {
+    "N": "2026"
+  }
+}

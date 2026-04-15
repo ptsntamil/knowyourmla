@@ -143,17 +143,25 @@ export async function submitFeedback(message: string, url: string): Promise<any>
 }
 
 export async function fetchParties(): Promise<any[]> {
+  let parties: any[] = [];
   if (isServer && USE_V2_API) {
     const { PartyService } = await import("@/lib/services/party.service");
     const service = new PartyService();
-    return service.getAllParties();
+    parties = await service.getAllParties();
+  } else {
+    const res = await fetch(`${BASE_URL}/parties`, { next: { revalidate: 3600 } });
+    if (!res.ok) {
+      const errorBody = await res.text().catch(() => "No error body");
+      throw new Error(`Failed to fetch parties: ${res.status} ${res.statusText} - ${errorBody}`);
+    }
+    parties = await res.json();
   }
-  const res = await fetch(`${BASE_URL}/parties`, { next: { revalidate: 3600 } });
-  if (!res.ok) {
-    const errorBody = await res.text().catch(() => "No error body");
-    throw new Error(`Failed to fetch parties: ${res.status} ${res.statusText} - ${errorBody}`);
-  }
-  return res.json();
+
+  return parties.filter((p: any) => {
+    const name = (p.name || "").toLowerCase();
+    const shortName = (p.short_name || "").toLowerCase();
+    return name !== "independent" && shortName !== "ind";
+  });
 }
 
 export async function fetchPartyDetails(slug: string, year?: string): Promise<any> {

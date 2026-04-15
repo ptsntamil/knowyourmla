@@ -14,11 +14,23 @@ const ProfileImage: React.FC<ProfileImageProps> = ({
   className = "w-full h-full object-cover",
 }) => {
   const [hasError, setHasError] = useState(false);
-  const [imgSrc, setImgSrc] = useState<string | null>(src || null);
+  const normalizeSrc = (value?: string | null) => {
+    if (!value) return null;
+    // Ensure we always end up with the same public path prefix.
+    return value.replace(/^assets\/\d{4}\/photos\//, "/candidate/2026/photos/");
+  };
+
+  const [imgSrc, setImgSrc] = useState<string | null>(() => normalizeSrc(src));
 
   useEffect(() => {
-    setImgSrc(src || null);
-    setHasError(false);
+    const normalizedSrc = normalizeSrc(src);
+    setImgSrc((prev) => {
+      if (prev !== normalizedSrc) {
+        // Only clear error when we actually switched the image URL.
+        setHasError(false);
+      }
+      return normalizedSrc;
+    });
   }, [src]);
 
   const getInitials = (name: string) => {

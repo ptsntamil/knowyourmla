@@ -78,16 +78,27 @@ export default function Navbar({ elections = [] }: NavbarProps) {
                 KnowYour<span className="text-brand-gold">MLA</span>
               </span>
             </Link>
-            <Link 
+            {/* <Link 
               href="/tn" 
               className={`text-slate-400 hover:text-white focus-visible:text-white text-[10px] md:text-xs font-black uppercase tracking-widest transition-all hover:scale-105 active:scale-95 outline-none focus-visible:ring-2 focus-visible:ring-brand-gold px-2 py-1 rounded ${isActive("/tn") ? "text-brand-gold" : ""}`}
             >
               Home
-            </Link>
+            </Link> */}
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8 items-center">
+            {/* 2026 Dashboard Link */}
+            <Link
+              href="/tn/elections/2026/dashboard"
+              className={`relative ${linkClasses(isActive("/tn/elections/2026/dashboard"))}`}
+            >
+              2026 Dashboard
+              <span className="absolute -top-3 -right-4 bg-brand-gold text-brand-dark text-[8px] font-black px-1.5 py-0.5 rounded shadow-lg animate-pulse">
+                NEW
+              </span>
+            </Link>
+
             {/* MLAs Link */}
             <Link href="/tn/mla/list" className={linkClasses(isActive("/tn/mla/list"))}>
               MLAs
@@ -112,7 +123,7 @@ export default function Navbar({ elections = [] }: NavbarProps) {
               </button>
 
               {isElectionsDropdownOpen && (
-                <div 
+                <div
                   className="absolute top-full left-0 mt-1 w-48 bg-brand-dark border border-white/10 rounded-2xl shadow-2xl py-3 animate-in fade-in slide-in-from-top-2 duration-200"
                   onMouseLeave={() => setIsElectionsDropdownOpen(false)}
                   role="menu"
@@ -147,14 +158,25 @@ export default function Navbar({ elections = [] }: NavbarProps) {
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex md:hidden items-center gap-4">
+          {/* Mobile Menu Button & Quick Links */}
+          <div className="flex md:hidden items-center gap-2">
+            <Link
+              href="/tn/elections/2026/dashboard"
+              className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 transition-all
+                ${isActive("/tn/elections/2026/dashboard")
+                  ? "bg-brand-gold text-brand-dark"
+                  : "bg-brand-gold/10 text-brand-gold border border-brand-gold/20"}
+              `}
+            >
+              2026
+              <span className={`w-1 h-1 rounded-full animate-pulse ${isActive("/tn/elections/2026/dashboard") ? "bg-brand-dark" : "bg-brand-gold"}`}></span>
+            </Link>
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white p-3 hover:bg-white/10 active:scale-90 rounded-lg transition-all outline-none focus-visible:ring-2 focus-visible:ring-white min-w-[44px] min-h-[44px] flex items-center justify-center"
+              className="text-white p-2 hover:bg-white/10 active:scale-90 rounded-lg transition-all outline-none focus-visible:ring-2 focus-visible:ring-white min-w-[40px] min-h-[40px] flex items-center justify-center"
               aria-label={isMenuOpen ? "Close Menu" : "Open Menu"}
             >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {isMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
@@ -162,6 +184,18 @@ export default function Navbar({ elections = [] }: NavbarProps) {
         {/* Mobile Navigation Content */}
         {isMenuOpen && (
           <div className="md:hidden bg-brand-dark border-t border-white/5 px-4 py-6 space-y-4 animate-in slide-in-from-top duration-300">
+            {/* 2026 Dashboard */}
+            <Link
+              href="/tn/elections/2026/dashboard"
+              onClick={() => setIsMenuOpen(false)}
+              className={`relative block w-full text-slate-400 hover:text-white px-5 py-4 rounded-xl transition-all text-xs font-black uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${isActive("/tn/elections/2026/dashboard") ? "bg-white/5 text-brand-gold" : ""}`}
+            >
+              2026 Dashboard
+              <span className="ml-2 bg-brand-gold text-brand-dark text-[8px] font-black px-1.5 py-0.5 rounded shadow-lg">
+                NEW
+              </span>
+            </Link>
+
             {/* MLAs */}
             <Link
               href="/tn/mla/list"
@@ -189,7 +223,7 @@ export default function Navbar({ elections = [] }: NavbarProps) {
                 Elections
                 <ChevronDown size={16} className={`transition-transform duration-200 ${isMobileElectionsOpen ? "rotate-180" : ""}`} />
               </button>
-              
+
               {isMobileElectionsOpen && (
                 <div className="pl-4 space-y-2 animate-in slide-in-from-top-1 duration-200">
                   {currentElections.map((election: ElectionItem) => (

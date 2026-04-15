@@ -7,9 +7,10 @@ interface ShareButtonProps {
   title: string;
   text: string;
   url: string;
+  label?: string;
 }
 
-const ShareButton: React.FC<ShareButtonProps> = ({ title, text, url }) => {
+const ShareButton: React.FC<ShareButtonProps> = ({ title, text, url, label = "Share Profile" }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [copied, setCopied] = useState(false);
 
@@ -69,7 +70,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ title, text, url }) => {
         className="flex items-center gap-3 px-6 py-3 bg-brand-gold text-white text-[10px] font-black rounded-full uppercase tracking-widest shadow-xl hover:shadow-brand-gold/40 hover:scale-105 hover:brightness-110 active:scale-95 transition-all border-2 border-white/20 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 min-h-[44px]"
       >
         <Share2 size={14} className="group-hover:rotate-12 transition-transform" />
-        <span>Share Profile</span>
+        <span>{label}</span>
       </button>
 
       {showDropdown && (
@@ -80,7 +81,7 @@ const ShareButton: React.FC<ShareButtonProps> = ({ title, text, url }) => {
           />
           <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-slate-900 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-800 z-50 overflow-hidden transform origin-top-right transition-all">
             <div className="p-4 border-b border-slate-50 dark:border-slate-800 flex justify-between items-center bg-slate-50/50 dark:bg-slate-800/50">
-              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">Share Profile</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-slate-400">{label}</span>
               <button 
                 onClick={() => setShowDropdown(false)}
                 className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors p-2 rounded-lg outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"

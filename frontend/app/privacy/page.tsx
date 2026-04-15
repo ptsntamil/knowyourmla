@@ -3,7 +3,7 @@ import React from 'react';
 
 export async function generateMetadata() {
   return buildMetadata({
-    title: "Privacy Policy | KnowYourMLA",
+    title: "Privacy Policy",
     description: "Our privacy policy explains how we handle your data and protect your privacy while using our platform.",
     path: "/privacy",
     keywords: ["Privacy Policy", "Data Protection", "KnowYourMLA Privacy", "User Data"]
