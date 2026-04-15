@@ -44,37 +44,45 @@ class AffidavitExtractor:
         Your task is to deeply parse the provided PDF and extract structured information into JSON.
         
         ### EXTRACTION STRATEGY:
-        1. **Locate Sections**: Find Section 7 (Movable Assets), Section 8 (Immovable Assets), Section 9 (Liabilities), and the Summary Abstract (usually Item 11 at the end).
-        2. **Family Columns**: Most tables have columns for Self, Spouse, Dependent-1, Dependent-2, etc. You MUST extract data for ALL columns.
-        3. **ITR History**: Look at Item 4 or the Summary Table for the last 5 years of Income Tax Return filings and reported income.
+        1. **Locate Core Sections**: 
+           - **Section 7 (Movable Assets)**: Focus on row (vi) for Vehicles and (vii) for Jewellery/Gold/Silver.
+           - **Section 8 (Immovable Assets)**: Focus on rows (i) Agricultural Land, (ii) Non-Agricultural Land, (iii) Commercial Buildings, and (iv) Residential Buildings.
+           - **Section 9 (Liabilities)** and the Summary Abstract (usually Item 11 at the end).
+        2. **ANNEXURES & APPENDICES**: Many affidavits list "Nil" or "As per Annexure" in the main tables. You MUST search the ENTIRE document (especially the end) for detailed lists titled "Annexure", "Annexure-I", "Separate Sheet", "Appendix", etc. These itemized lists contain the REAL data for vehicles and land.
+        3. **Correlate Owners**: Map data from both main tables and annexures to the correct family columns: Self, Spouse, Dependent-1, Dependent-2, etc. These tables often span multiple pages; ensure you match labels to the correct column across page breaks.
+        4. **PAN & ITR**: Scan Section 4 and the Summary Abstract Table for the Candidate's PAN and last 5 years of Income Tax returns.
+        5. **Tamil Translation**: Translate ALL Tamil terms to English. 
+           Keywords to look for: 'சொத்துக்கள்' (Assets), 'வாகனங்கள்' (Vehicles), 'தங்கம்' (Gold), 'வெள்ளி' (Silver), 'நிலம்' (Land), 'விவசாய' (Agricultural), 'சர்வே எண்' (Survey No), 'வருமான வரி' (Income Tax).
         
         ### DATA FIELDS TO EXTRACT:
-        1. pan_number
+        1. pan_number: The candidate's 10-character alphanumeric Permanent Account Number (e.g., ABCDE1234F).
         2. education: {qualification, year, institution}
         3. profession
-        4. party_name
-        5. constituency_name
-        6. voter_details: {constituency, serial_no, part_no}
-        7. contact_details: {email, facebook, twitter_x, instagram}
-        8. total_assets: {self, spouse, dependents} - Grand total of Movable + Immovable.
-        9. total_liabilities: {self, spouse, dependents}
-        10. criminal_cases: {count, sections}
-        11. income_tax_details: {self, spouse, dependents}
-        12. itr_history: {self, spouse, dependents} - Map financial years (e.g.,{"2023-24":738000}) to numeric income amounts.
-        13. vehicle_assets: {self, spouse, dependents} list of {name, registration_no, value}
-        14. gold_details: {self, spouse, dependents} {weight_grms, value}
-        15. silver_details: {self, spouse, dependents} {weight_grms, value}
-        16. land_assets: Dictionary with keys 'self', 'spouse', 'dependents'.
-            Each member must be an object: 
+        4. voter_details: {constituency, serial_no, part_no}
+        5. contact_details: {email, facebook, twitter_x, instagram}
+        6. total_assets: {self, spouse, dependents} - Grand total of Movable + Immovable assets.
+        7. total_liabilities: {self, spouse, dependents}
+        8. criminal_cases: {count, sections}
+        9. income_tax_details: {self, spouse, dependents}
+        10. itr_history: {self, spouse, dependents} - Map financial years (e.g., {"2023-24": 738000}) to numeric income amounts.
+        11. vehicle_assets: {self, spouse, dependents} - List of {name, registration_no, year_of_purchase, value}. 
+            Include Make/Model (e.g., Toyota Innova), Registration No, and Year.
+        12. gold_details: {self, spouse, dependents} - {weight_grms, value}. Usually from Section 7 (vii).
+        13. silver_details: {self, spouse, dependents} - {weight_grms, value}. Usually from Section 7 (vii).
+        14. land_assets: Dictionary with keys 'self', 'spouse', 'dependents'.
+            Each owner object must contain:
             {
-              "raw_text_block": "Deeply summarized English description of all land entries including Village, Survey No, Area, and Purchase Cost",
+              "raw_text_block": "Verbatim English translation of all itemized land entries. 
+                                FORMAT: [number]) [Village] Village, Survey No: [No], Area: [Value] [Unit], Cost: [Value].
+                                Ensure each entry is numbered (e.g., 1), 2)). This block is parsed by a strict regex.",
               "parsed_entries": [{village, survey_no, area, unit, purchase_cost, current_market_value}]
             }
 
         ### CRITICAL RULES:
-        - **UNIVERSAL TRANSLATION**: Translate ALL Tamil text (names, villages, parties) to English.
-        - **NUMERIC PRECISION**: Do NOT round or approximate monetary values. Use exact figures from the PDF.
-        - **THINK STEP-BY-STEP**: Analyze the table headers and row labels in Sections 7 and 8 carefully before outputting.
+        - **UNIVERSAL TRANSLATION**: Translate EVERYTHING to English.
+        - **PAN FORMAT**: PAN must be a 10-character alphanumeric string. Use null if not found.
+        - **NUMERIC PRECISION**: Use exact numeric figures. Remove commas but keep decimals if present.
+        - **THINK STEP-BY-STEP**: Analyze the table headers and "Refer Annexure" pointers carefully. If an annexure exists, prioritize it.
         - **NULL HANDLING**: Use null for missing text and 0 for missing numeric values.
         """
         # Note for Land Assets: parsed_entries must be populated if data exists. raw_text_block must be translated to English.
@@ -90,6 +98,13 @@ class AffidavitExtractor:
                 'max_output_tokens': 8192
             }
         )
+        
+        # Log token usage metadata
+        usage = response.usage_metadata
+        if usage:
+            logger.info(f"Token Usage - Prompt: {usage.prompt_token_count}, "
+                        f"Candidates: {usage.candidates_token_count}, "
+                        f"Total: {usage.total_token_count}")
         
         try:
             json_text = response.text.strip()

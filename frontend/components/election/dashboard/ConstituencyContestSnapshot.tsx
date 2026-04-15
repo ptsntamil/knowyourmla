@@ -10,6 +10,7 @@ interface ConstituencyContestSnapshotProps {
     winner?: string | null;
     partyShort?: string | null;
     margin?: number | null;
+    totalVotes?: number | null;
   } | null;
   candidateCount: number;
   isOpenSeat: boolean;
@@ -26,19 +27,25 @@ export default function ConstituencyContestSnapshot({
   overlayStatus
 }: ConstituencyContestSnapshotProps) {
   const isLive = overlayStatus === 'live';
+  const isSamePerson = currentMLA?.name && lastWinner?.winner && 
+    (currentMLA.name.toLowerCase().trim() === lastWinner.winner.toLowerCase().trim());
 
   const stats = [
     {
-      label: "Current MLA",
+      label: isSamePerson ? "Incumbent MLA" : "Current MLA",
       value: currentMLA?.name || "N/A",
       subValue: currentMLA?.partyShort || "",
       icon: User,
       color: "text-brand-dark"
     },
     {
-      label: "2021 Winner",
-      value: lastWinner?.winner || "N/A",
-      subValue: lastWinner?.margin ? `+${lastWinner.margin.toLocaleString()} Margin` : "",
+      label: isSamePerson ? "2021 Victory" : "2021 Winner",
+      value: isSamePerson 
+        ? (lastWinner?.margin ? `+${lastWinner.margin.toLocaleString()}` : "Winner")
+        : (lastWinner?.winner || "N/A"),
+      subValue: isSamePerson
+        ? (lastWinner?.totalVotes ? `${lastWinner.totalVotes.toLocaleString()} Votes` : "Margin")
+        : (lastWinner?.margin ? `+${lastWinner.margin.toLocaleString()} Margin` : ""),
       icon: TrendingUp,
       color: "text-brand-green"
     },
