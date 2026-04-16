@@ -59,6 +59,10 @@ export interface ContestCard {
   tags: string[];
   ownConstituencyCount?: number;
   crossConstituencyCount?: number;
+  lastWinnerPersonId?: string | null;
+  lastWinnerPartyColorBg?: string | null;
+  lastWinnerPartyColorText?: string | null;
+  lastWinnerPartyColorBorder?: string | null;
 }
 
 export interface PartyRolloutSummary {

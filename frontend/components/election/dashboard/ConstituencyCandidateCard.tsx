@@ -1,12 +1,15 @@
 import React from 'react';
+import Link from 'next/link';
 import { OverlayCandidate } from '@/lib/elections/preElectionDashboard/dashboard.types';
 import { Briefcase, GraduationCap, Scale, History, ShieldCheck, MapPin } from 'lucide-react';
+import PartyBadge from '@/components/ui/PartyBadge';
 
 interface ConstituencyCandidateCardProps {
   candidate: OverlayCandidate;
 }
 
 export default function ConstituencyCandidateCard({ candidate }: ConstituencyCandidateCardProps) {
+  const profileHref = `/tn/mla/${candidate.personId}`;
   const formatCurrency = (val: number | null | undefined) => {
     if (val === null || val === undefined) return "N/A";
     if (val >= 10000000) return `${(val / 10000000).toFixed(2)} Cr`;
@@ -23,17 +26,17 @@ export default function ConstituencyCandidateCard({ candidate }: ConstituencyCan
         {/* Header: Name and Party */}
         <div className="flex justify-between items-start">
           <div className="space-y-1">
-            <h3 className="text-2xl font-black text-brand-dark uppercase tracking-tight italic leading-tight">
-              {candidate.name}
-            </h3>
+            <Link href={profileHref}>
+              <h3 className="text-2xl font-black text-brand-dark uppercase tracking-tight italic leading-tight hover:text-brand-gold transition-colors">
+                {candidate.name}
+              </h3>
+            </Link>
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-xl bg-slate-100 flex items-center justify-center shrink-0 p-1">
-                {candidate.partyLogoUrl ? (
-                  <img src={candidate.partyLogoUrl} alt={candidate.partyShortName} className="w-full h-full object-contain" />
-                ) : (
-                  <div className="text-[10px] font-black uppercase text-slate-400">{candidate.partyShortName || "IND"}</div>
-                )}
-              </div>
+              <PartyBadge 
+                party={candidate.partyShortName || "IND"}
+                logoUrl={candidate.partyLogoUrl}
+                showName={false}
+              />
               <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{candidate.partyName}</p>
             </div>
           </div>
@@ -114,9 +117,12 @@ export default function ConstituencyCandidateCard({ candidate }: ConstituencyCan
 
         {/* Footer Link / Profile Action */}
         <div className="pt-4 border-t border-slate-50 mt-auto">
-          <button className="w-full py-3 bg-brand-dark text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl hover:bg-brand-gold transition-all shadow-md shadow-brand-dark/10">
+          <Link 
+            href={profileHref}
+            className="w-full py-3 bg-brand-dark text-white text-[10px] font-black uppercase tracking-[0.2em] rounded-2xl flex items-center justify-center hover:bg-brand-gold transition-all shadow-md shadow-brand-dark/10"
+          >
             View Full Profile
-          </button>
+          </Link>
         </div>
       </div>
     </div>

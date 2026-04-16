@@ -264,6 +264,8 @@ Full affidavit details for every candidate (winner and loser) in every election 
 | `silver_assets` | Map | Categorized silver details (self, spouse, dependents) |
 | `vehicle_assets` | Map | Categorized vehicle details (self, spouse, dependents) |
 | `land_assets` | Map | Categorized land details (self, spouse, dependents) including `entries`, `total`, and `full_text` |
+| `new_comer` | Boolean | `True` if the candidate has no prior election history (exactly one total candidate record) |
+| `is_incumbent` | Boolean | `True` if the candidate was a winner in the previous general election (2021) or any subsequent bye-election |
 | `createdtime` | String | ISO 8601 formatted creation timestamp |
 
 ### Sample Record
@@ -338,6 +340,8 @@ Full affidavit details for every candidate (winner and loser) in every election 
       }
     }
   },
+  "new_comer": false,
+  "is_incumbent": true,
   "createdtime": "2026-02-26T11:12:06.000000+00:00"
 }
 ```
