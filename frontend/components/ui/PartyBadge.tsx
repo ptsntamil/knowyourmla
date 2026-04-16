@@ -28,7 +28,7 @@ export default function PartyBadge({
   size = 'md',
 }: PartyBadgeProps) {
   const [imgError, setImgError] = React.useState(true);
-  
+
   // Prioritize local logo if shortName is available
   const effectiveLogoUrl = getPartyLogo(shortName || party) || logoUrl;
   const displayShortName = shortName || derivePartyShortName(party);
@@ -79,7 +79,7 @@ export default function PartyBadge({
     </>
   );
 
-  const containerClasses = `${config.text} font-black ${showName ? config.padding : 'p-0'} rounded-full uppercase tracking-wider flex items-center w-fit shadow-sm transition-all ${!isIndependent ? "hover:scale-105 active:scale-95" : ""} ${className}`;
+  const containerClasses = `border ${config.text} font-black ${showName ? config.padding : 'p-0'} rounded-full uppercase tracking-wider flex items-center w-fit shadow-sm transition-all ${!isIndependent ? "hover:scale-105 active:scale-95" : ""} ${className}`;
   const containerStyle = {
     backgroundColor: showName ? (colorBg || "#f8fafc") : 'transparent',
     color: colorText || "#1e293b",

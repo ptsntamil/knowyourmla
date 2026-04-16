@@ -54,7 +54,7 @@ export default async function PreElectionDashboardPage() {
       <DashboardHero
         title={`Tamil Nadu Assembly Election ${year}`}
         description="The central intelligence hub for the 2026 state assembly elections. Track candidates, contests, and real-time insights."
-        subtitle="Track candidates, constituency contests, party rollout, and key election insights for Tamil Nadu Assembly Election 2026."
+        subtitle="Explore the complete list of MLA candidates contesting in the Tamil Nadu Assembly Election 2026. Browse constituency-wise candidates, party-wise announcements, and key election insights across all 234 constituencies."
       />
 
       <main className="max-w-7xl mx-auto px-4 py-12 space-y-24">

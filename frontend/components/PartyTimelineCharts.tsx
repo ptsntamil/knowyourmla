@@ -13,6 +13,8 @@ import {
   Legend,
 } from "recharts";
 
+import { useState, useEffect } from "react";
+
 interface PartyTimelineChartsProps {
   analytics: any;
   isYearView?: boolean;
@@ -20,6 +22,9 @@ interface PartyTimelineChartsProps {
 }
 
 export default function PartyTimelineCharts({ analytics, isYearView }: PartyTimelineChartsProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
   const { timeline } = analytics;
 
   // Chart data for Trends
@@ -64,31 +69,33 @@ export default function PartyTimelineCharts({ analytics, isYearView }: PartyTime
           </div>
           
           <div className="h-[250px] sm:h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis 
-                  dataKey="year" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
-                />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
-                />
-                <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0,0,0,0.02)' }} />
-                <Legend 
-                  verticalAlign="bottom" 
-                  height={36}
-                  iconType="circle" 
-                  wrapperStyle={{ paddingTop: '20px', fontSize: '10px', fontWeight: 900, textTransform: 'uppercase' }} 
-                />
-                <Bar dataKey="candidates" name="Fielded" fill="#1e293b" radius={[4, 4, 0, 0]} />
-                <Bar dataKey="wins" name="Won" fill="#D4AF37" radius={[4, 4, 0, 0]} />
-              </BarChart>
-            </ResponsiveContainer>
+            {isMounted && (
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <XAxis 
+                    dataKey="year" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
+                  />
+                  <YAxis 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
+                  />
+                  <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(0,0,0,0.02)' }} />
+                  <Legend 
+                    verticalAlign="bottom" 
+                    height={36}
+                    iconType="circle" 
+                    wrapperStyle={{ paddingTop: '20px', fontSize: '10px', fontWeight: 900, textTransform: 'uppercase' }} 
+                  />
+                  <Bar dataKey="candidates" name="Fielded" fill="#1e293b" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="wins" name="Won" fill="#D4AF37" radius={[4, 4, 0, 0]} />
+                </BarChart>
+              </ResponsiveContainer>
+            )}
           </div>
         </div>
 
@@ -100,61 +107,63 @@ export default function PartyTimelineCharts({ analytics, isYearView }: PartyTime
           </div>
           
           <div className="h-[250px] sm:h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                <XAxis 
-                  dataKey="year" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
-                />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
-                  unit="%"
-                />
-                <Tooltip content={<CustomTooltip />} />
-                <Legend 
-                  verticalAlign="bottom" 
-                  height={36}
-                  iconType="circle" 
-                  wrapperStyle={{ paddingTop: '20px', fontSize: '10px', fontWeight: 900, textTransform: 'uppercase' }} 
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="winRate" 
-                  name="Win Rate" 
-                  stroke="#10b981" 
-                  strokeWidth={3} 
-                  dot={{ r: 4, strokeWidth: 2, fill: '#fff' }}
-                  activeDot={{ r: 6, strokeWidth: 0 }}
-                  unit="%"
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="femalePercentage" 
-                  name="Women %" 
-                  stroke="#db2777" 
-                  strokeWidth={3} 
-                  dot={{ r: 4, strokeWidth: 2, fill: '#fff' }}
-                  activeDot={{ r: 6, strokeWidth: 0 }}
-                  unit="%"
-                />
-                <Line 
-                  type="monotone" 
-                  dataKey="criminalPercentage" 
-                  name="Criminal %" 
-                  stroke="#ef4444" 
-                  strokeWidth={2} 
-                  strokeDasharray="5 5"
-                  dot={{ r: 3, strokeWidth: 2, fill: '#fff' }}
-                  activeDot={{ r: 5, strokeWidth: 0 }}
-                  unit="%"
-                />
-              </LineChart>
-            </ResponsiveContainer>
+            {isMounted && (
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={trendData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
+                  <XAxis 
+                    dataKey="year" 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
+                  />
+                  <YAxis 
+                    axisLine={false} 
+                    tickLine={false} 
+                    tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
+                    unit="%"
+                  />
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend 
+                    verticalAlign="bottom" 
+                    height={36}
+                    iconType="circle" 
+                    wrapperStyle={{ paddingTop: '20px', fontSize: '10px', fontWeight: 900, textTransform: 'uppercase' }} 
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="winRate" 
+                    name="Win Rate" 
+                    stroke="#10b981" 
+                    strokeWidth={3} 
+                    dot={{ r: 4, strokeWidth: 2, fill: '#fff' }}
+                    activeDot={{ r: 6, strokeWidth: 0 }}
+                    unit="%"
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="femalePercentage" 
+                    name="Women %" 
+                    stroke="#db2777" 
+                    strokeWidth={3} 
+                    dot={{ r: 4, strokeWidth: 2, fill: '#fff' }}
+                    activeDot={{ r: 6, strokeWidth: 0 }}
+                    unit="%"
+                  />
+                  <Line 
+                    type="monotone" 
+                    dataKey="criminalPercentage" 
+                    name="Criminal %" 
+                    stroke="#ef4444" 
+                    strokeWidth={2} 
+                    strokeDasharray="5 5"
+                    dot={{ r: 3, strokeWidth: 2, fill: '#fff' }}
+                    activeDot={{ r: 5, strokeWidth: 0 }}
+                    unit="%"
+                  />
+                </LineChart>
+              </ResponsiveContainer>
+            )}
           </div>
         </div>
       </div>

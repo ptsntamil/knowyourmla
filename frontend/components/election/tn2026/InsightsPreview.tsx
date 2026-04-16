@@ -39,7 +39,7 @@ export default function InsightsPreview({ insights }: InsightsPreviewProps) {
               Key Insights
             </h2>
           </div>
-          <p className="text-slate-500 font-medium text-sm">Pre-election database highlights and numeric patterns.</p>
+          <p className="text-slate-500 font-medium text-sm">Analyze key election patterns including candidate demographics, constituency trends, and party strategies in Tamil Nadu 2026.</p>
         </div>
         
         <Link 

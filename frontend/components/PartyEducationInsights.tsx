@@ -2,6 +2,7 @@
 
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { GraduationCap, Award, BookOpen } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface PartyEducationInsightsProps {
   data: any;
@@ -14,6 +15,9 @@ const COLORS = [
 ];
 
 export default function PartyEducationInsights({ data }: PartyEducationInsightsProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
   const { distribution, graduateCount, mostCommon, total } = data;
 
   const chartData = distribution.filter((d: any) => d.value > 0);
@@ -32,26 +36,28 @@ export default function PartyEducationInsights({ data }: PartyEducationInsightsP
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
         <div className="h-[250px] sm:h-[300px] w-full relative">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={chartData}
-                cx="50%"
-                cy="50%"
-                innerRadius="60%"
-                outerRadius="90%"
-                paddingAngle={5}
-                dataKey="value"
-              >
-                {chartData.map((entry: any, index: number) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-              <Tooltip 
-                contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', fontSize: '10px', fontWeight: '900', textTransform: 'uppercase' }}
-              />
-            </PieChart>
-          </ResponsiveContainer>
+          {isMounted && (
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius="60%"
+                  outerRadius="90%"
+                  paddingAngle={5}
+                  dataKey="value"
+                >
+                  {chartData.map((entry: any, index: number) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', fontSize: '10px', fontWeight: '900', textTransform: 'uppercase' }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <span className="text-2xl sm:text-3xl font-black text-brand-dark dark:text-slate-200 leading-none">{graduateCount}</span>
             <span className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">Graduates+</span>

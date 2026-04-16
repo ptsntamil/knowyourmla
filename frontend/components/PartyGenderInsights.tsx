@@ -2,12 +2,16 @@
 
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
 import { Users, Venus, Mars } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface PartyGenderInsightsProps {
   data: any;
 }
 
 export default function PartyGenderInsights({ data }: PartyGenderInsightsProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
   const { male, female, femalePercentage } = data;
 
   const chartData = [
@@ -29,26 +33,28 @@ export default function PartyGenderInsights({ data }: PartyGenderInsightsProps) 
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 items-center">
         <div className="h-[220px] sm:h-[250px] w-full relative">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={chartData}
-                cx="50%"
-                cy="50%"
-                innerRadius="65%"
-                outerRadius="95%"
-                paddingAngle={8}
-                dataKey="value"
-              >
-                {chartData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={entry.color} />
-                ))}
-              </Pie>
-              <Tooltip 
-                contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', fontSize: '10px', fontWeight: '900' }}
-              />
-            </PieChart>
-          </ResponsiveContainer>
+          {isMounted && (
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={chartData}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius="65%"
+                  outerRadius="95%"
+                  paddingAngle={8}
+                  dataKey="value"
+                >
+                  {chartData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)', fontSize: '10px', fontWeight: '900' }}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
             <span className="text-2xl sm:text-3xl font-black text-brand-dark dark:text-slate-200 leading-none">{femalePercentage}%</span>
             <span className="text-[8px] sm:text-[10px] font-black text-slate-400 uppercase tracking-widest">Women</span>

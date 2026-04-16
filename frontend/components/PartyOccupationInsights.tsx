@@ -2,6 +2,7 @@
 
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { Briefcase, TrendingUp } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface PartyOccupationInsightsProps {
   data: any;
@@ -10,6 +11,9 @@ interface PartyOccupationInsightsProps {
 const COLORS = ["#164C45", "#D4AF37", "#059669", "#0891B2", "#4F46E5", "#7C3AED"];
 
 export default function PartyOccupationInsights({ data }: PartyOccupationInsightsProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
   const { distribution, top } = data;
 
   const chartData = distribution
@@ -42,28 +46,30 @@ export default function PartyOccupationInsights({ data }: PartyOccupationInsight
         </div>
 
         <div className="h-[300px] w-full">
-           <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData} layout="vertical" margin={{ left: 20 }}>
-                 <XAxis type="number" hide />
-                 <YAxis 
-                    dataKey="name" 
-                    type="category" 
-                    width={100} 
-                    axisLine={false} 
-                    tickLine={false} 
-                    tick={{ fontSize: 10, fontWeight: 'bold', fill: '#94a3b8' }}
-                 />
-                 <Tooltip 
-                    cursor={{ fill: 'transparent' }}
-                    contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                 />
-                 <Bar dataKey="value" radius={[0, 10, 10, 0]}>
-                    {chartData.map((entry: any, index: number) => (
-                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                 </Bar>
-              </BarChart>
-           </ResponsiveContainer>
+           {isMounted && (
+             <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData} layout="vertical" margin={{ left: 20 }}>
+                   <XAxis type="number" hide />
+                   <YAxis 
+                      dataKey="name" 
+                      type="category" 
+                      width={100} 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fontSize: 10, fontWeight: 'bold', fill: '#94a3b8' }}
+                   />
+                   <Tooltip 
+                      cursor={{ fill: 'transparent' }}
+                      contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                   />
+                   <Bar dataKey="value" radius={[0, 10, 10, 0]}>
+                      {chartData.map((entry: any, index: number) => (
+                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                   </Bar>
+                </BarChart>
+             </ResponsiveContainer>
+           )}
         </div>
       </div>
       

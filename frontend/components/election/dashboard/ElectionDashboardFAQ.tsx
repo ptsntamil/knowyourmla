@@ -5,15 +5,15 @@ export default function ElectionDashboardFAQ() {
   const faq = [
     {
       question: "Who are the candidates in the Tamil Nadu Assembly Election 2026?",
-      answer: "We actively track and compile candidate lists as they are announced by major political parties for the 2026 Tamil Nadu Assembly Election. You can search by candidate name, party, or constituency in our interactive directory."
+      answer: "The Tamil Nadu Assembly Election 2026 includes candidates contesting across all 234 constituencies. You can explore the full MLA candidate list by constituency, district, or party using this dashboard."
     },
     {
       question: "How can I find the candidate list for my constituency?",
-      answer: "Navigate to the 'Candidate Directory' section above and use the 'Constituency' filter. Alternatively, explore the 'Contest Explorer' to see a summary of all announced candidates for any of the 234 seats in Tamil Nadu."
+      answer: "You can search for your constituency to view the list of candidates contesting in the Tamil Nadu Assembly Election 2026, along with their party affiliation and profile details."
     },
     {
       question: "Which political parties have announced candidates for 2026?",
-      answer: "Major parties including DMK, AIADMK, BJP, NTK, and others are in the process of rolling out their candidate lists. Our 'Party Rollout' section provides real-time counts and metrics for each party's announcements."
+      answer: "Major political parties such as DMK, AIADMK, BJP, and others are announcing candidates across constituencies. You can explore party-wise candidate lists on this dashboard."
     },
     {
       question: "Are sitting MLAs recontesting in the 2026 elections?",

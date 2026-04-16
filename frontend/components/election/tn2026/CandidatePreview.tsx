@@ -29,7 +29,7 @@ export default function CandidatePreview({ candidates }: CandidatePreviewProps) 
               Candidates (2026)
             </h2>
           </div>
-          <p className="text-slate-500 font-medium text-sm">Browse announced candidates across Tamil Nadu.</p>
+          <p className="text-slate-500 font-medium text-sm">Browse a preview of MLA candidates contesting in Tamil Nadu Assembly Election 2026 across constituencies and parties.</p>
         </div>
 
         <Link

@@ -12,6 +12,7 @@ import {
 } from "recharts";
 import { VoteShareEntry } from '@/lib/analytics/transformVoteShareHistory';
 import { formatIndianNumberCompact } from '@/lib/utils/formatIndianNumberCompact';
+import { useState, useEffect } from 'react';
 
 interface VoteShareTrendChartProps {
   data: VoteShareEntry[];
@@ -43,6 +44,9 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 };
 
 export default function VoteShareTrendChart({ data, selectedYear }: VoteShareTrendChartProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
   if (!data || data.length === 0) {
     return (
       <div className="h-[300px] flex items-center justify-center bg-slate-50 dark:bg-slate-900 rounded-[2rem] border border-dashed border-slate-200 dark:border-slate-800">
@@ -79,60 +83,60 @@ export default function VoteShareTrendChart({ data, selectedYear }: VoteShareTre
       </div>
 
       <div className="h-[250px] sm:h-[300px] w-full">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData} margin={{ top: 20, right: 30, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" opacity={0.5} />
-            <XAxis 
-              dataKey="year" 
-              axisLine={false} 
-              tickLine={false} 
-              tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
-              padding={{ left: 20, right: 20 }}
-            />
-            <YAxis 
-              axisLine={false} 
-              tickLine={false} 
-              tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
-              unit="%"
-              domain={[0, 'auto']}
-            />
-            <Tooltip content={<CustomTooltip />} />
-            <Line 
-              type="monotone" 
-              dataKey="voteShare" 
-              name="Vote Share" 
-              stroke="#10b981" 
-              strokeWidth={selectedYear ? 2 : 4} // Default base stroke
-              dot={({ cx, cy, payload }) => (
-                <circle 
-                  cx={cx} 
-                  cy={cy} 
-                  r={payload.dotRadius} 
-                  fill={payload.isHighlighted ? "#10b981" : "#E2E8F0"} 
-                  stroke="#fff" 
-                  strokeWidth={2}
-                  opacity={payload.opacity}
-                />
+        {isMounted && (
+          <ResponsiveContainer width="100%" height="100%">
+            <LineChart data={chartData} margin={{ top: 20, right: 30, left: -20, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" opacity={0.5} />
+              <XAxis 
+                dataKey="year" 
+                axisLine={false} 
+                tickLine={false} 
+                tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
+                padding={{ left: 20, right: 20 }}
+              />
+              <YAxis 
+                axisLine={false} 
+                tickLine={false} 
+                tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 700 }} 
+                unit="%"
+                domain={[0, 'auto']}
+              />
+              <Tooltip content={<CustomTooltip />} />
+              <Line 
+                type="monotone" 
+                dataKey="voteShare" 
+                name="Vote Share" 
+                stroke="#10b981" 
+                strokeWidth={selectedYear ? 2 : 4} // Default base stroke
+                dot={({ cx, cy, payload }) => (
+                  <circle 
+                    cx={cx} 
+                    cy={cy} 
+                    r={payload.dotRadius} 
+                    fill={payload.isHighlighted ? "#10b981" : "#E2E8F0"} 
+                    stroke="#fff" 
+                    strokeWidth={2}
+                    opacity={payload.opacity}
+                  />
+                )}
+                activeDot={{ r: 8, strokeWidth: 0, fill: '#10b981' }}
+                animationDuration={1500}
+              />
+              {/* Overlay line for highlighting if year is selected */}
+              {selectedYear && (
+                 <Line 
+                 type="monotone" 
+                 dataKey="voteShare" 
+                 stroke="#10b981" 
+                 strokeWidth={5}
+                 dot={false}
+                 activeDot={false}
+                 connectNulls
+               />
               )}
-              activeDot={{ r: 8, strokeWidth: 0, fill: '#10b981' }}
-              animationDuration={1500}
-            />
-            {/* Overlay line for highlighting if year is selected */}
-            {selectedYear && (
-               <Line 
-               type="monotone" 
-               dataKey="voteShare" 
-               stroke="#10b981" 
-               strokeWidth={5}
-               dot={false}
-               activeDot={false}
-               connectNulls
-               // This is a trick to only show the part of the line that's active? 
-               // Actually, it's easier to just use one line with dynamic properties in dot/stroke
-             />
-            )}
-          </LineChart>
-        </ResponsiveContainer>
+            </LineChart>
+          </ResponsiveContainer>
+        )}
       </div>
     </div>
   );
