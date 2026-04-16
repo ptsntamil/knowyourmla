@@ -43,7 +43,9 @@ export default async function ConstituenciesExplorerPage() {
       />
 
       <main className="max-w-7xl mx-auto px-4 py-12">
-        <ConstituencyContestExplorer contests={contests} filters={filters} />
+        <React.Suspense fallback={<div className="min-h-screen animate-pulse bg-slate-50 rounded-[3rem]" />}>
+          <ConstituencyContestExplorer contests={contests} filters={filters} />
+        </React.Suspense>
       </main>
     </div>
   );

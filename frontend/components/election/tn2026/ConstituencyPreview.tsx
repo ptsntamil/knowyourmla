@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, ArrowRight } from 'lucide-react';
-import { ConstituencyContestPayload } from '@/lib/elections/preElectionDashboard/dashboard.types';
+import { ContestCard } from '@/lib/elections/preElectionDashboard/dashboard.types';
 import ConstituencyPreviewCard from '@/components/election/tn2026/ConstituencyPreviewCard';
 
 interface ConstituencyPreviewProps {
-  contests: ConstituencyContestPayload[];
+  contests: ContestCard[];
 }
 
 export default function ConstituencyPreview({ contests }: ConstituencyPreviewProps) {
@@ -22,7 +22,7 @@ export default function ConstituencyPreview({ contests }: ConstituencyPreviewPro
               Constituency Contests
             </h2>
           </div>
-          <p className="text-slate-500 font-medium text-sm">Explore contests across all 234 constituencies.</p>
+          <p className="text-slate-500 font-medium text-sm">Explore constituency-wise contests and candidate presence across all Tamil Nadu constituencies for the 2026 election.</p>
         </div>
 
         <Link

@@ -22,7 +22,7 @@ export default function PartyPreview({ partyRollout }: PartyPreviewProps) {
               Party Rollout
             </h2>
           </div>
-          <p className="text-slate-500 font-medium text-sm">Tracking candidate announcements by major political parties.</p>
+          <p className="text-slate-500 font-medium text-sm">Track party-wise candidate announcements and seat coverage across Tamil Nadu Assembly Election 2026.</p>
         </div>
 
         <Link
