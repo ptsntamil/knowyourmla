@@ -3,28 +3,30 @@ import { notFound } from 'next/navigation';
 import { getTamilNaduPreElectionDashboardData } from '@/lib/elections/preElectionDashboard/getTamilNaduPreElectionDashboardData';
 import DashboardHero from '@/components/election/dashboard/DashboardHero';
 import ElectionSnapshotStats from '@/components/election/dashboard/ElectionSnapshotStats';
-import PartyRolloutSnapshot from '@/components/election/dashboard/PartyRolloutSnapshot';
-import ConstituencyContestExplorer from '@/components/election/dashboard/ConstituencyContestExplorer';
-import CandidateDirectory from '@/components/election/dashboard/CandidateDirectory';
-import PreElectionInsights from '@/components/election/dashboard/PreElectionInsights';
 import ElectionDashboardSEOContent from '@/components/election/dashboard/ElectionDashboardSEOContent';
 import ElectionDashboardFAQ from '@/components/election/dashboard/ElectionDashboardFAQ';
 import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { commonBreadcrumbs } from '@/lib/seo/breadcrumbs';
 import { buildMetadata } from '@/lib/seo/metadata';
 
+// Preview Components
+import CandidatePreview from '@/components/election/tn2026/CandidatePreview';
+import ConstituencyPreview from '@/components/election/tn2026/ConstituencyPreview';
+import PartyPreview from '@/components/election/tn2026/PartyPreview';
+import InsightsPreview from '@/components/election/tn2026/InsightsPreview';
+import ElectionQuickView from '@/components/election/tn2026/ElectionQuickView';
+
 export async function generateMetadata() {
   const year = 2026;
   return buildMetadata({
-    title: `Tamil Nadu Assembly Election ${year} Dashboard | Candidate Tracking & Contests`,
-    description: `Track announced candidates, constituency contests, party rollout strategies, and real-time election insights across Tamil Nadu for the upcoming ${year} Assembly Election.`,
+    title: `Tamil Nadu Assembly Election ${year} Dashboard | Candidate Tracking & Hub`,
+    description: `Central hub for tracking announced candidates, constituency contests, party rollout strategies, and real-time election insights across Tamil Nadu for the upcoming ${year} Assembly Election.`,
     path: `/tn/elections/${year}/dashboard`,
     keywords: [
       `Tamil Nadu Election ${year} candidates`,
-      `Tamil Nadu Assembly Election ${year} dashboard`,
-      `TN election candidate list ${year}`,
-      `constituency-wise candidates TN ${year}`,
-      `party rollout Tamil Nadu 2026`
+      `Tamil Nadu Assembly Election ${year} hub`,
+      `TN election tracker ${year}`,
+      `constituency-wise candidates TN ${year}`
     ]
   });
 }
@@ -37,7 +39,7 @@ export default async function PreElectionDashboardPage() {
     notFound();
   }
 
-  const { stats, partyRollout, contests, candidates, insights, filters } = data;
+  const { stats, partyRollout, contests, candidates, insights } = data;
 
   return (
     <div className="min-h-screen bg-page-bg">
@@ -45,48 +47,56 @@ export default async function PreElectionDashboardPage() {
         items={[
           commonBreadcrumbs.home,
           { name: "Elections", item: "/tn/elections" },
-          { name: `Tamil Nadu ${year} Dashboard`, item: `/tn/elections/${year}/dashboard` }
+          { name: `Tamil Nadu ${year} Overview`, item: `/tn/elections/${year}/dashboard` }
         ]}
       />
 
       <DashboardHero
-        title={`Tamil Nadu Assembly Election ${year} Dashboard`}
-        description="Track candidates, constituency-level contests, party rollout, and affidavit-based election insights across Tamil Nadu."
+        title={`Tamil Nadu Assembly Election ${year}`}
+        description="The central intelligence hub for the 2026 state assembly elections. Track candidates, contests, and real-time insights."
+        subtitle="Track candidates, constituency contests, party rollout, and key election insights for Tamil Nadu Assembly Election 2026."
       />
 
       <main className="max-w-7xl mx-auto px-4 py-12 space-y-24">
         {/* 1. Election Snapshot Stats */}
-        <section id="stats">
-          <ElectionSnapshotStats stats={stats} />
+        <div className="space-y-6">
+          <section id="stats">
+            <ElectionSnapshotStats stats={stats} />
+          </section>
+          <div className="flex justify-center">
+            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300">
+              Data Last Updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            </span>
+          </div>
+        </div>
+
+        {/* 2. Quick Navigation CTA Row */}
+        <section id="quick-nav">
+          <ElectionQuickView />
         </section>
 
-        {/* 2. Candidate Directory */}
-        <section id="directory">
-          <React.Suspense fallback={<div className="h-96 w-full animate-pulse bg-slate-100 rounded-[2.5rem]" />}>
-            <CandidateDirectory
-              initialCandidates={candidates}
-              filterOptions={filters}
-            />
-          </React.Suspense>
+        {/* 3. Insights Preview */}
+        <section id="insights-preview" className="pt-12 border-t border-slate-100">
+          <InsightsPreview insights={insights} />
         </section>
 
-        {/* 3. Constituency Contest Explorer */}
-        <section id="contests" className="pt-12 border-t border-slate-200">
-          <ConstituencyContestExplorer contests={contests} />
+        {/* 4. Candidate Preview */}
+        <section id="candidates-preview" className="pt-12 border-t border-slate-100">
+          <CandidatePreview candidates={candidates} />
         </section>
 
-        {/* 4. Party Rollout Summary */}
-        <section id="party-rollout" className="pt-12 border-t border-slate-200">
-          <PartyRolloutSnapshot partyRollout={partyRollout} />
+        {/* 5. Constituency Preview */}
+        <section id="contests-preview" className="pt-12 border-t border-slate-100">
+          <ConstituencyPreview contests={contests} />
         </section>
 
-        {/* 5. Pre-Election Insights */}
-        <section id="insights" className="pt-12 border-t border-slate-200">
-          <PreElectionInsights insights={insights} />
+        {/* 6. Party Preview */}
+        <section id="party-preview" className="pt-12 border-t border-slate-100">
+          <PartyPreview partyRollout={partyRollout} />
         </section>
 
         {/* 6. SEO Content */}
-        <section id="about" className="pt-16">
+        <section id="about" className="pt-16 border-t border-slate-200">
           <ElectionDashboardSEOContent />
         </section>
 
@@ -107,10 +117,11 @@ export default async function PreElectionDashboardPage() {
               </ul>
             </div>
             <div className="space-y-4">
-              <h3 className="text-xs font-black uppercase tracking-widest text-slate-400">MLA Directory</h3>
+              <h3 className="text-xs font-black uppercase tracking-widest text-slate-400">Deep Dives</h3>
               <ul className="space-y-2">
-                <li><a href="/tn/mla/list" className="text-sm font-medium text-slate-600 hover:text-brand-gold transition-colors">Current Tamil Nadu MLAs</a></li>
-                <li><a href="/parties" className="text-sm font-medium text-slate-600 hover:text-brand-gold transition-colors">Political Party Index</a></li>
+                <li><a href="/tn/elections/2026/candidates" className="text-sm font-medium text-slate-600 hover:text-brand-gold transition-colors">Candidate Explorer</a></li>
+                <li><a href="/tn/elections/2026/constituencies" className="text-sm font-medium text-slate-600 hover:text-brand-gold transition-colors">Constituency Contests</a></li>
+                <li><a href="/tn/elections/2026/parties" className="text-sm font-medium text-slate-600 hover:text-brand-gold transition-colors">Party Trackers</a></li>
               </ul>
             </div>
           </div>
@@ -119,3 +130,4 @@ export default async function PreElectionDashboardPage() {
     </div>
   );
 }
+

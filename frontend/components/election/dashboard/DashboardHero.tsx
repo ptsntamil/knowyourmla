@@ -4,9 +4,10 @@ import Link from 'next/link';
 interface DashboardHeroProps {
   title: string;
   description: string;
+  subtitle?: string;
 }
 
-export default function DashboardHero({ title, description }: DashboardHeroProps) {
+export default function DashboardHero({ title, description, subtitle }: DashboardHeroProps) {
   return (
     <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-brand-dark rounded-b-[4rem]">
       {/* Background aesthetics */}
@@ -43,6 +44,12 @@ export default function DashboardHero({ title, description }: DashboardHeroProps
           <p className="text-slate-400 text-lg md:text-xl font-medium max-w-2xl mx-auto leading-relaxed">
             {description}
           </p>
+
+          {subtitle && (
+             <p className="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] max-w-lg mx-auto leading-relaxed">
+               {subtitle}
+             </p>
+          )}
 
           <div className="pt-4 flex items-center justify-center gap-4">
              <div className="h-px bg-white/10 flex-grow max-w-[100px]"></div>

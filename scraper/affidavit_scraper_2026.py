@@ -200,11 +200,35 @@ def extract_candidates_from_page(page):
 def download_candidate_pdf(page, candidate, skip_pdf=False):
     """Enriches candidate data, downloads the affidavit and profile picture using an existing page."""
     try:
-        # 1. Navigate to Profile
+        # Jitter to prevent worker collision
+        time.sleep(random.uniform(0.5, 3.0))
+        
+        # 1. Session Initialization: Hit Home Page first to stabilize session
+        try:
+            logger.info(f"Initializing session context for {candidate.get('name')}...")
+            page.goto(BASE_URL, wait_until="load", timeout=30000)
+        except Exception as e:
+            logger.warning(f"Session init failed for {candidate.get('name')}, attempting direct: {e}")
+
+        # 2. Navigate to Profile
         page.goto(candidate['profile_url'], wait_until="load", timeout=45000)
         time.sleep(random.uniform(2, 4))
         
-        # 2. Dynamic Metadata extraction (Preserves person_id by modifying in-place)
+        # 3. Session Verification (Prevent candidate mix-ups)
+        try:
+            name_el = page.query_selector("div.details-name h4")
+            if name_el:
+                verified_name = name_el.inner_text().strip().lower()
+                expected_name = candidate.get('name', '').strip().lower()
+                # Basic fuzzy match (ignoring dots/spaces)
+                def clean(s): return ''.join(c for c in s if c.isalnum())
+                if clean(expected_name) not in clean(verified_name) and clean(verified_name) not in clean(expected_name):
+                    logger.error(f"!!! SESSION LEAKAGE DETECTED !!! Expected '{expected_name}', but page shows '{verified_name}'.")
+                    return candidate # Bail out to prevent corrupting data
+        except Exception as e:
+            logger.warning(f"Name verification failed: {e}")
+
+        # 4. Dynamic Metadata extraction (Preserves person_id by modifying in-place)
         try:
             groups = page.query_selector_all("div.detail-person .form-group")
             for group in groups:
@@ -250,33 +274,101 @@ def download_candidate_pdf(page, candidate, skip_pdf=False):
             logger.warning(f"Photo download failed for {candidate['name']}: {e}")
 
         # 4. Affidavit Download (Native Download Handler)
+        # 4. Affidavit Download (Native Download Handler)
         if not skip_pdf:
-            download_btn = page.query_selector("a:has-text('Affidavit')") or page.query_selector("div.aside-af a")
+            logger.info(f"[↓] Attempting download for: {candidate['name']}")
             
-            if download_btn:
-                logger.info(f"[↓] Downloading: {candidate['name']}")
-                
+            # 4.1 Better selectors (Header proximity > Generic classes)
+            # We look for a Download button specifically under a header starting with "Affidavit"
+            download_btn = None
+            selectors = [
+                "//h4[contains(text(), 'Affidavit')]/following-sibling::div//button[contains(text(), 'Download')]",
+                "//h4[contains(text(), 'Affidavit')]/following-sibling::div//a[contains(text(), 'Download')]",
+                "div.aside-af button",
+                "div.aside-af a",
+                "a:has-text('Affidavit')",
+                "button:has-text('Download')"
+            ]
+            
+            for sel in selectors:
                 try:
-                    # Use Playwright's native download listener
-                    with page.expect_download(timeout=60000) as download_info:
-                        # Multi-method click to ensure trigger
-                        try:
-                            page.evaluate("el => el.click()", download_btn)
-                        except:
-                            download_btn.click(force=True, timeout=10000)
+                    el = page.locator(sel).first
+                    if el.is_visible(timeout=5000):
+                        download_btn = el
+                        break
+                except: continue
+
+            if download_btn:
+                try:
+                    # 4.2 Intercept Response as Fallback (Very robust for JS-triggered blobs/POSTs)
+                    captured_pdf = {"data": None, "name": None}
+                    def on_response(response):
+                        if "application/pdf" in response.headers.get("content-type", "").lower():
+                            try:
+                                captured_pdf["data"] = response.body()
+                                cd = response.headers.get("content-disposition", "")
+                                if "filename=" in cd:
+                                    captured_pdf["name"] = cd.split("filename=")[1].split(";")[0].strip('" ')
+                            except: pass
                     
-                    download = download_info.value
-                    original_filename = download.suggested_filename
-                    unique_name = f"{sanitize_filename(candidate['constituency'])}_{sanitize_filename(candidate['name'])}_{original_filename}"
-                    local_path = os.path.join(ASSETS_DIR, unique_name)
-                    
-                    # Native save_as (Handles moving from temp dir)
-                    download.save_as(local_path)
-                    candidate["affidavite_file_location"] = f"assets/2026/affidavits/{unique_name}"
-                    logger.info(f"[✔] Downloaded: {unique_name}")
-                    
+                    page.on("response", on_response)
+
+                    # 4.3 Multi-Event Wait (Download or Popup)
+                    try:
+                        # First, try to catch a direct download
+                        # We use a combined approach: wait for download, but also look for new pages
+                        with page.expect_download(timeout=60000) as download_info:
+                            download_btn.click(force=True, timeout=15000)
+                        
+                        download = download_info.value
+                        original_filename = download.suggested_filename
+                        const_subdir = sanitize_filename(candidate.get('constituency', 'Unknown'))
+                        const_path = os.path.join(ASSETS_DIR, const_subdir)
+                        os.makedirs(const_path, exist_ok=True)
+                        
+                        unique_name = f"{sanitize_filename(candidate['name'])}_{original_filename}"
+                        local_path = os.path.join(const_path, unique_name)
+                        download.save_as(local_path)
+                        candidate["affidavite_file_location"] = f"assets/2026/affidavits/{const_subdir}/{unique_name}"
+                        logger.info(f"[✔] Downloaded via Event: {const_subdir}/{unique_name}")
+                        
+                    except Exception as e:
+                        # 4.4 Check if a popup/new tab opened with the PDF
+                        # Sometimes ECI opens a new tab that then triggers a download or shows PDF
+                        for context_page in page.context.pages:
+                            if context_page != page:
+                                if "application/pdf" in (context_page.url or "").lower() or ".pdf" in context_page.url:
+                                     # Capture from new page
+                                     response = context_page.request.get(context_page.url)
+                                     if response.status == 200:
+                                         captured_pdf["data"] = response.body()
+                                         captured_pdf["name"] = context_page.url.split("/")[-1]
+                                     context_page.close()
+                                     break
+
+                        # 4.5 Check if fallback interception caught it instead
+                        if captured_pdf["data"]:
+                            const_subdir = sanitize_filename(candidate.get('constituency', 'Unknown'))
+                            const_path = os.path.join(ASSETS_DIR, const_subdir)
+                            os.makedirs(const_path, exist_ok=True)
+                            
+                            fname = captured_pdf["name"] or "Affidavit.pdf"
+                            unique_name = f"{sanitize_filename(candidate['name'])}_{fname}"
+                            local_path = os.path.join(const_path, unique_name)
+                            
+                            with open(local_path, "wb") as f:
+                                f.write(captured_pdf["data"])
+                            
+                            candidate["affidavite_file_location"] = f"assets/2026/affidavits/{const_subdir}/{unique_name}"
+                            logger.info(f"[✔] Downloaded via Intercept: {const_subdir}/{unique_name}")
+                        else:
+                            logger.warning(f"Download capture failed (Event & Intercept) for {candidate['name']}: {e}")
+                            
+                    finally:
+                        page.remove_listener("response", on_response)
+                        
                 except Exception as e:
-                    logger.error(f"Failed to capture download for {candidate['name']} after 60s: {e}")
+                    logger.error(f"Error in download sequence for {candidate['name']}: {e}")
             else:
                 logger.warning(f"Affidavit download button not found for {candidate['name']}")
         else:
@@ -296,6 +388,7 @@ def main():
     parser.add_argument("--start-page", type=int, default=1, help="Page number to start crawling from")
     parser.add_argument("--proxy", type=str, default=None, help="Proxy URL")
     parser.add_argument("--skip-file-download", action="store_true", help="Skip affidavit PDF download")
+    parser.add_argument("--only-existing", action="store_true", help="Only process existing candidates from JSON, skip crawl")
     args = parser.parse_args()
 
     headless_bool = args.headless.lower() == "true"
@@ -318,7 +411,7 @@ def main():
     
     # 1. Crawl Phase
     all_candidates = []
-    if args.mode in ["full", "crawl"]:
+    if args.mode in ["full", "crawl"] and not args.only_existing:
         logger.info("Starting Crawl Phase...")
         with sync_playwright() as p:
             context = None
@@ -426,19 +519,23 @@ def main():
         logger.info("Starting Enrich Phase...")
         
         # Determine candidates that need processing (missing affidavit or missing photo)
-        candidates_to_enrich = []
-        if args.mode == "full":
-            candidates_to_enrich = [c for c in all_candidates if not c.get("photo_path") or not c.get("affidavite_file_location")]
-        else:
-            candidates_to_enrich = [c for c in processed_results if not c.get("photo_path")]
+        # We check both fields for all candidates currently in our processed list
+        candidates_to_enrich = [
+            c for c in processed_results 
+            if not c.get("photo_path") or not c.get("affidavite_file_location")
+        ]
             
         if args.limit:
             candidates_to_enrich = candidates_to_enrich[:args.limit]
         
+        total_existing = len(processed_results)
+        logger.info(f"Total candidates in JSON: {total_existing}")
+        
         if not candidates_to_enrich:
-            logger.info("No candidates identified for enrichment in this run.")
+            logger.info("All candidates are already fully enriched (photo and affidavit found).")
         else:
-            logger.info(f"Processing {len(candidates_to_enrich)} candidates for enrichment using {args.max_workers} threads.")
+            logger.info(f"Found {len(candidates_to_enrich)} candidates missing files.")
+            logger.info(f"Starting enrichment for {len(candidates_to_enrich)} candidates using {args.max_workers} threads.")
             
             def enrich_worker(candidate):
                 """Worker function for threading."""
