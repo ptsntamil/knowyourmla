@@ -146,6 +146,12 @@ export interface PersonDetail {
   profession?: string;
   age?: number;
   gender?: string;
+  social_profiles?: {
+    email?: string;
+    facebook?: string;
+    twitter?: string;
+    instagram?: string;
+  };
 }
 
 export interface ElectionHistoryRecord {

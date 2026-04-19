@@ -88,7 +88,7 @@ export default function PartyBadge({
 
   if (isIndependent) {
     return (
-      <div className={containerClasses} style={containerStyle}>
+      <div className={containerClasses} style={containerStyle} title={party}>
         {content}
       </div>
     );
@@ -99,6 +99,7 @@ export default function PartyBadge({
       href={`/parties/${slug}`}
       className={containerClasses}
       style={containerStyle}
+      title={party}
     >
       {content}
     </Link>

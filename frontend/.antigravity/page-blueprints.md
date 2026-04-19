@@ -24,7 +24,7 @@ This document defines the recommended structure and composition for the primary 
 1.  **Metadata:** Name, Title (MLA/Candidate), Constituency, and Party.
 2.  **Schema:** `PersonSchema`.
 3.  **BreadcrumbSchema:** Context-aware path (Home > TN > District > Constituency > Name).
-4.  **MLAHeader:** High-density profile card with facts (Gold, Land, Vehicles, Criminal cases).
+4.  **MLAHeader:** High-density profile card with facts (Gold, Land, Vehicles, Criminal cases) and **CandidateSocialLinks**.
 5.  **SEOIntro:** `h1` and intro summary.
 6.  **AnswerSnippet:** Quick identification (Who is [Name]?).
 7.  **Performance Metrics Section:**
@@ -110,4 +110,20 @@ To avoid vertical spacing breakage between the navbar, hero, and main content:
 - **Use `CoverImage` props for text**: Always pass the primary page title to `title` and the summary to `subtitle`.
 - **Reserve `children` for overlays**: Use the `children` slot *only* for secondary UI elements like breadcrumbs, stats pills, or tags.
 - **NEVER duplicate titles**: Avoid rendering a separate `h1` or summary paragraph inside the `children` of `CoverImage` if they are already provided via props.
-- **Padding consistency**: Use `main.max-w-7xl.mx-auto.px-4.py-20.space-y-32` for the main content area immediately following a hero to ensure balanced negative space.
+- **Padding consistency**: Use `main.max-w-7xl.mx-auto.px-4.py-20.space-y-32` for the main content area immediately following a hero to ensure balanced negative space. Responsive padding (`px-4 md:px-6`) should be consistent across all major pages.
+
+## 8. Election Dashboard Blueprint (Live/2026)
+**Purpose:** Provide real-time tracking, candidate comparisons, and party insights for an upcoming/live election.
+
+### Required Structure:
+1.  **Metadata:** `generateMetadata` focused on "Election 2026", "Candidate List", and "Live Updates".
+2.  **BreadcrumbSchema:** (Home > TN > Elections > [Year] > Dashboard).
+3.  **ElectionNavTabs:** Sticky horizontal navigation (Dashboard, Candidates, Parties, Insights).
+4.  **Hero Section:** `title` and `subtitle` identifying the election cycle.
+5.  **Main Content Grid:**
+    - `SpecialFocusCandidates`: High-profile candidate tracking.
+    - `InsightsPreview`: Card-based overview of criminal records, assets, etc.
+    - `PartyPreview`: Party-wise candidate distribution.
+    - `ConstituencyPreview`: Featured seats/districts.
+6.  **Candidate Directory**: Filterable list with **numbered pagination** (50 items/page).
+7.  **Antigravity Branding:** Mandatory footer block.

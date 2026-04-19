@@ -38,6 +38,8 @@ export interface DashboardCandidate {
   profilePic?: string | null;
   isContestingOwnConstituency?: boolean | null;
   constituencyContestType?: 'own_constituency' | 'cross_constituency' | 'unknown';
+  isStarCandidate?: boolean;
+  authorFocused?: boolean;
 }
 
 export interface ContestCard {
@@ -78,6 +80,7 @@ export interface PartyRolloutSummary {
   newcomersFielded: number;
   averageAssets: number | null;
   totalCriminalCases: number | null;
+  criminalCandidatePercentage: number | null;
   womenCandidatePercentage: number | null;
   ownConstituencyPercent?: number | null;
   crossConstituencyPercent?: number | null;
@@ -86,6 +89,8 @@ export interface PartyRolloutSummary {
 export interface ElectionInsightCandidate {
   name: string;
   party: string;
+  partyName?: string;
+  partyShortName?: string;
   constituencyName: string;
   value: number | string;
   formattedValue: string;

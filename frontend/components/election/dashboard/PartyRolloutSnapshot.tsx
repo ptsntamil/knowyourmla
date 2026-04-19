@@ -10,6 +10,8 @@ interface PartyRolloutSnapshotProps {
 export default function PartyRolloutSnapshot({ partyRollout }: PartyRolloutSnapshotProps) {
   if (!partyRollout || partyRollout.length === 0) return null;
 
+  const maxAvgAssets = Math.max(...partyRollout.map(p => p.averageAssets || 0), 1);
+
   return (
     <div className="space-y-12">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -48,7 +50,8 @@ export default function PartyRolloutSnapshot({ partyRollout }: PartyRolloutSnaps
               <div className="flex justify-between items-start">
                 <div className="space-y-3">
                   <PartyBadge 
-                    party={party.shortName} 
+                    party={party.partyName} 
+                    shortName={party.shortName}
                     logoUrl={party.logoUrl}
                     colorBg={party.colorBg}
                     colorText={party.colorText}
@@ -101,7 +104,10 @@ export default function PartyRolloutSnapshot({ partyRollout }: PartyRolloutSnaps
                       </span>
                     </div>
                     <div className="h-1 bg-slate-50 rounded-full overflow-hidden">
-                      <div className="h-full bg-emerald-500/20 w-full"></div>
+                      <div 
+                        className="h-full bg-emerald-500 transition-all duration-1000" 
+                        style={{ width: `${((party.averageAssets || 0) / maxAvgAssets) * 100}%` }}
+                      ></div>
                     </div>
                   </div>
                 )}
@@ -118,7 +124,10 @@ export default function PartyRolloutSnapshot({ partyRollout }: PartyRolloutSnaps
                       </span>
                     </div>
                     <div className="h-1 bg-slate-50 rounded-full overflow-hidden">
-                       <div className="h-full bg-slate-200 w-full"></div>
+                       <div 
+                          className="h-full bg-rose-500 transition-all duration-1000" 
+                          style={{ width: `${party.criminalCandidatePercentage || 0}%` }}
+                       ></div>
                     </div>
                   </div>
                 )}

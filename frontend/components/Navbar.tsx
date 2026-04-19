@@ -150,6 +150,11 @@ export default function Navbar({ elections = [] }: NavbarProps) {
               News
             </Link>
 
+            {/* About Us Link */}
+            <Link href="/about" className={linkClasses(isActive("/about"))}>
+              About Us
+            </Link>
+
             <button
               onClick={() => setIsFeedbackOpen(true)}
               className="bg-brand-green text-white px-5 py-2.5 rounded-lg hover:brightness-110 active:scale-95 transition-all flex items-center gap-2 border border-white/10 shadow-lg outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark cursor-pointer font-black text-xs uppercase tracking-widest ml-2"
@@ -249,6 +254,15 @@ export default function Navbar({ elections = [] }: NavbarProps) {
               className={`block w-full text-slate-400 hover:text-white px-5 py-4 rounded-xl transition-all text-xs font-black uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${isActive("/news") ? "bg-white/5 text-brand-gold" : ""}`}
             >
               News
+            </Link>
+
+            {/* About Us */}
+            <Link
+              href="/about"
+              onClick={() => setIsMenuOpen(false)}
+              className={`block w-full text-slate-400 hover:text-white px-5 py-4 rounded-xl transition-all text-xs font-black uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${isActive("/about") ? "bg-white/5 text-brand-gold" : ""}`}
+            >
+              About Us
             </Link>
 
             <button

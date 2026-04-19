@@ -62,7 +62,8 @@ export default function CandidatePreview({ candidates }: CandidatePreviewProps) 
                 </div>
               </div>
               <PartyBadge
-                party={c.partyShortName || "IND"}
+                party={c.partyName || "Independent"}
+                shortName={c.partyShortName}
                 colorBg={c.partyColorBg}
                 colorText={c.partyColorText}
                 colorBorder={c.partyColorBorder}

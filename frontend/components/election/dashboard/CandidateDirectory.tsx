@@ -5,13 +5,15 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { DashboardCandidate, DashboardFilterOptions } from '@/lib/elections/preElectionDashboard/dashboard.types';
 import PartyBadge from '@/components/ui/PartyBadge';
-import { Search, Filter, X, ChevronDown, User, IndianRupee, Gavel, GraduationCap } from 'lucide-react';
+import { Search, Filter, X, ChevronDown, User, IndianRupee, Gavel, GraduationCap, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getPartyRank } from '@/lib/elections/preElectionDashboard/dashboard.utils';
 
 interface CandidateDirectoryProps {
   initialCandidates: DashboardCandidate[];
   filterOptions: DashboardFilterOptions;
 }
+
+const ITEMS_PER_PAGE = 50;
 
 export default function CandidateDirectory({ initialCandidates, filterOptions }: CandidateDirectoryProps) {
   const router = useRouter();
@@ -34,6 +36,9 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [isFilterDrawerOpen, setIsFilterDrawerOpen] = useState(false);
 
+  // Pagination State
+  const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '1'));
+
   // Sync state with URL params
   useEffect(() => {
     const params = new URLSearchParams();
@@ -48,10 +53,17 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
     
     if (sortBy !== "constituency") params.set('sortBy', sortBy);
     if (sortOrder !== "asc") params.set('sortOrder', sortOrder);
+    
+    if (currentPage > 1) params.set('page', currentPage.toString());
 
     const queryString = params.toString();
     const targetUrl = queryString ? `?${queryString}` : window.location.pathname;
     window.history.replaceState(null, '', targetUrl);
+  }, [searchTerm, partyFilter, districtFilter, constituencyFilter, candidateTypeFilter, educationFilter, contestTypeFilter, multiSeatFilter, sortBy, sortOrder, currentPage]);
+
+  // Reset to page 1 when filters change
+  useEffect(() => {
+    setCurrentPage(1);
   }, [searchTerm, partyFilter, districtFilter, constituencyFilter, candidateTypeFilter, educationFilter, contestTypeFilter, multiSeatFilter, sortBy, sortOrder]);
 
   const resetFilters = () => {
@@ -65,6 +77,7 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
     setMultiSeatFilter("All");
     setSortBy("constituency");
     setSortOrder("asc");
+    setCurrentPage(1);
   };
 
   // 0. Pre-calculate lookup maps for advanced filters
@@ -166,6 +179,12 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
       return sortOrder === 'asc' ? comparison : -comparison;
     });
   }, [initialCandidates, searchTerm, partyFilter, districtFilter, constituencyFilter, candidateTypeFilter, educationFilter, contestTypeFilter, sortBy, sortOrder]);
+
+  const totalPages = Math.ceil(filteredCandidates.length / ITEMS_PER_PAGE);
+  const paginatedCandidates = useMemo(() => {
+    const start = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredCandidates.slice(start, start + ITEMS_PER_PAGE);
+  }, [filteredCandidates, currentPage]);
 
   const FilterSelect = ({
     label,
@@ -456,7 +475,7 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-50">
-            {filteredCandidates.length > 0 ? filteredCandidates.slice(0, 100).map((c, idx) => (
+            {paginatedCandidates.length > 0 ? paginatedCandidates.map((c, idx) => (
               <tr key={`${c.id}-${idx}`} className="group hover:bg-brand-gold/[0.02] transition-colors border-b border-slate-50 last:border-0">
                 <td className="py-6 px-8">
                   <div className="flex items-center gap-5">
@@ -513,7 +532,8 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
                 <td className="py-6 px-8 border-l border-slate-50">
                    <div className="scale-110 origin-left">
                     <PartyBadge
-                      party={c.partyShortName || "IND"}
+                      party={c.partyName || "Independent"}
+                      shortName={c.partyShortName}
                       colorBg={c.partyColorBg}
                       colorText={c.partyColorText}
                       colorBorder={c.partyColorBorder}
@@ -599,7 +619,7 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
 
       {/* Mobile view Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:hidden">
-        {filteredCandidates.length > 0 ? filteredCandidates.slice(0, 30).map((c, idx) => (
+        {paginatedCandidates.length > 0 ? paginatedCandidates.map((c, idx) => (
           <div key={`${c.id}-${idx}`} className="bg-white border border-slate-100 rounded-[2.5rem] p-8 shadow-xl shadow-slate-200/40 space-y-8 relative overflow-hidden group">
             <div className="absolute top-0 right-0 w-32 h-32 bg-slate-50 rounded-full -mr-16 -mt-16 group-hover:scale-110 transition-transform"></div>
             
@@ -640,7 +660,8 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
               </div>
               <div className="scale-90 origin-right">
                 <PartyBadge
-                  party={c.partyShortName || "IND"}
+                  party={c.partyName || "Independent"}
+                  shortName={c.partyShortName}
                   colorBg={c.partyColorBg}
                   colorText={c.partyColorText}
                   colorBorder={c.partyColorBorder}
@@ -713,12 +734,63 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
         )}
       </div>
 
-      {filteredCandidates.length > 50 && (
-        <div className="flex flex-col items-center gap-4 py-8">
-          <p className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Showing top 50 matches </p>
-          <div className="h-1 lg:w-32 bg-slate-100 rounded-full">
-            <div className="h-full bg-brand-gold rounded-full" style={{ width: `${(50 / filteredCandidates.length) * 100}%` }}></div>
+      {/* Pagination Controls */}
+      {totalPages > 1 && (
+        <div className="flex flex-col items-center gap-6 py-12 border-t border-slate-100">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+              disabled={currentPage === 1}
+              className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400 hover:border-brand-gold hover:text-brand-gold disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-400 transition-all bg-white shadow-sm"
+              title="Previous Page"
+            >
+              <ChevronLeft size={18} />
+            </button>
+
+            <div className="flex items-center gap-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1)
+                .filter(page => {
+                  // Show first, last, current, and pages around current
+                  return page === 1 || page === totalPages || Math.abs(page - currentPage) <= 1;
+                })
+                .map((page, index, array) => {
+                  const items = [];
+                  // Add ellipsis if gap exists
+                  if (index > 0 && page - array[index - 1] > 1) {
+                    items.push(
+                      <span key={`ellipsis-${page}`} className="px-2 text-slate-300 font-bold select-none">...</span>
+                    );
+                  }
+                  items.push(
+                    <button
+                      key={page}
+                      onClick={() => setCurrentPage(page)}
+                      className={`w-10 h-10 rounded-xl text-xs font-black transition-all shadow-sm ${
+                        currentPage === page
+                          ? 'bg-brand-dark text-white shadow-brand-dark/20'
+                          : 'bg-white border border-slate-200 text-slate-500 hover:border-brand-gold hover:text-brand-gold'
+                      }`}
+                    >
+                      {page}
+                    </button>
+                  );
+                  return items;
+                })}
+            </div>
+
+            <button
+              onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+              disabled={currentPage === totalPages}
+              className="w-10 h-10 flex items-center justify-center rounded-xl border border-slate-200 text-slate-400 hover:border-brand-gold hover:text-brand-gold disabled:opacity-30 disabled:hover:border-slate-200 disabled:hover:text-slate-400 transition-all bg-white shadow-sm"
+              title="Next Page"
+            >
+              <ChevronRight size={18} />
+            </button>
           </div>
+          
+          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
+            Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, filteredCandidates.length)} of {filteredCandidates.length} Candidates
+          </p>
         </div>
       )}
     </div>

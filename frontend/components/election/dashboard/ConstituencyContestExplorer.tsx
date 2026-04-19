@@ -292,7 +292,12 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
                   ) : (
                     <p className="text-xs font-bold text-slate-400 italic">No historical data found</p>
                   )}
-                  <PartyBadge party={contest.lastWinnerPartyShort || "IND"} showName={false} size="sm" />
+                  <PartyBadge 
+                    party={contest.lastWinnerParty || "Independent"} 
+                    shortName={contest.lastWinnerPartyShort}
+                    showName={false} 
+                    size="sm" 
+                  />
                 </div>
               </div>
 
@@ -310,7 +315,8 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
                   {contest.candidates.slice(0, 4).map((cand, idx) => (
                     <div key={`${cand.id}-${idx}`} title={cand.name}>
                       <PartyBadge
-                        party={cand.partyShortName || "IND"}
+                        party={cand.partyName || "Independent"}
+                        shortName={cand.partyShortName}
                         logoUrl={cand.partyLogoUrl}
                         showName={false}
                         size="sm"

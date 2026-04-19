@@ -14,6 +14,7 @@ import CandidatePreview from '@/components/election/tn2026/CandidatePreview';
 import ConstituencyPreview from '@/components/election/tn2026/ConstituencyPreview';
 import PartyPreview from '@/components/election/tn2026/PartyPreview';
 import InsightsPreview from '@/components/election/tn2026/InsightsPreview';
+import SpecialFocusCandidates from '@/components/election/tn2026/SpecialFocusCandidates';
 import ElectionQuickView from '@/components/election/tn2026/ElectionQuickView';
 
 export async function generateMetadata() {
@@ -76,9 +77,19 @@ export default async function PreElectionDashboardPage() {
         </section>
 
         {/* 3. Insights Preview */}
-        <section id="insights-preview" className="pt-12 border-t border-slate-100">
-          <InsightsPreview insights={insights} />
-        </section>
+        <div className="space-y-12">
+          <section id="insights-preview" className="pt-12 border-t border-slate-100">
+            <InsightsPreview insights={insights} />
+          </section>
+
+          {/* Special Focus row */}
+          <section id="special-focus" className="pt-12 border-t border-slate-100">
+            <SpecialFocusCandidates 
+              starCandidates={insights.starCandidates} 
+              authorFocusCandidates={insights.authorFocusCandidates}
+            />
+          </section>
+        </div>
 
         {/* 4. Candidate Preview */}
         <section id="candidates-preview" className="pt-12 border-t border-slate-100">
@@ -97,7 +108,7 @@ export default async function PreElectionDashboardPage() {
 
         {/* 6. SEO Content */}
         <section id="about" className="pt-16 border-t border-slate-200">
-          <ElectionDashboardSEOContent />
+          <ElectionDashboardSEOContent insights={insights} />
         </section>
 
         {/* 7. FAQ Section */}
