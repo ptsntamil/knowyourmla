@@ -33,7 +33,8 @@ export default function ConstituencyCandidateCard({ candidate }: ConstituencyCan
             </Link>
             <div className="flex items-center gap-2">
               <PartyBadge 
-                party={candidate.partyShortName || "IND"}
+                party={candidate.partyName || "Independent"}
+                shortName={candidate.partyShortName}
                 logoUrl={candidate.partyLogoUrl}
                 showName={false}
               />

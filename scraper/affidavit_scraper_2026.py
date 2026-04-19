@@ -27,7 +27,7 @@ checkpoint_lock = threading.Lock()
 # Logging setup
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(message)s',
+    format='%(asctime)s [%(levelname)s] [%(threadName)s] %(message)s',
     handlers=[
         logging.FileHandler("affidavit_download.log"),
         logging.StreamHandler()
@@ -99,6 +99,7 @@ def init_browser(p, headless=True, proxy=None):
         Object.defineProperty(navigator, 'languages', {get: () => ['en-US', 'en']});
     """)
     
+    logger.info(f"Initialized browser context with profile: {profile_dir[-15:]} (Headless: {headless})")
     return context, page, profile_dir
 
 def select_filters(page):
@@ -165,6 +166,7 @@ def select_filters(page):
     contesting_box.click()
     page.wait_for_load_state("domcontentloaded")
     
+    logger.info("Filters applied successfully. Ready to scrape.")
     time.sleep(random.uniform(3, 5))
 
 def extract_candidates_from_page(page):
@@ -211,6 +213,7 @@ def download_candidate_pdf(page, candidate, skip_pdf=False):
             logger.warning(f"Session init failed for {candidate.get('name')}, attempting direct: {e}")
 
         # 2. Navigate to Profile
+        logger.info(f"Navigating to profile: {candidate['profile_url']}")
         page.goto(candidate['profile_url'], wait_until="load", timeout=45000)
         time.sleep(random.uniform(2, 4))
         
@@ -294,6 +297,7 @@ def download_candidate_pdf(page, candidate, skip_pdf=False):
                 try:
                     el = page.locator(sel).first
                     if el.is_visible(timeout=5000):
+                        logger.info(f"Found download button using selector: {sel}")
                         download_btn = el
                         break
                 except: continue
@@ -537,16 +541,26 @@ def main():
             logger.info(f"Found {len(candidates_to_enrich)} candidates missing files.")
             logger.info(f"Starting enrichment for {len(candidates_to_enrich)} candidates using {args.max_workers} threads.")
             
+            progress_lock = threading.Lock()
+            completed_count = 0
+            total_count = len(candidates_to_enrich)
+
             def enrich_worker(candidate):
                 """Worker function for threading."""
+                nonlocal completed_count
                 with sync_playwright() as p:
                     context = None
                     temp_dir = None
                     try:
                         context, page, temp_dir = init_browser(p, headless=headless_bool, proxy=proxy_dict)
                         
-                        logger.info(f"--- Processing {candidate.get('name', 'Unknown')} ---")
+                        with progress_lock:
+                            current_progress = completed_count + 1
+                        
+                        logger.info(f"=== [{current_progress}/{total_count}] Processing {candidate.get('name', 'Unknown')} ===")
                         success = False
+                        start_time = time.time()
+                        
                         for attempt in range(2):
                             try:
                                 res = download_candidate_pdf(page, candidate, skip_pdf=args.skip_file_download)
@@ -557,18 +571,23 @@ def main():
                                 logger.error(f"Attempt {attempt + 1} failed for {candidate.get('name', 'Unknown')}: {e}")
                                 time.sleep(random.uniform(2, 5))
                         
+                        duration = time.time() - start_time
+                        
                         # Incremental save after each candidate (Thread-safe)
                         with file_lock:
                             try:
-                                # Reload and update to avoid overwriting other threads' progress if multiple files were used
-                                # But here we are updating the objects in the shared processed_results list
                                 with open(METADATA_FILE, "w", encoding="utf-8") as f:
                                     json.dump(processed_results, f, indent=4, ensure_ascii=False)
                             except Exception as e:
                                 logger.error(f"Error saving updated metadata: {e}")
-                                
-                        if not success:
-                            logger.warning(f"Failed to fully enrich {candidate.get('name', 'Unknown')} after 2 attempts.")
+                        
+                        with progress_lock:
+                            completed_count += 1
+                            
+                        if success:
+                            logger.info(f"Successfully enriched {candidate.get('name', 'Unknown')} in {duration:.2f}s")
+                        else:
+                            logger.warning(f"Failed to fully enrich {candidate.get('name', 'Unknown')} after 2 attempts. (Time: {duration:.2f}s)")
                             
                     except Exception as e:
                         logger.error(f"Critical error in worker for {candidate.get('name', 'Unknown')}: {e}")
@@ -577,7 +596,7 @@ def main():
                         if temp_dir and os.path.exists(temp_dir):
                             shutil.rmtree(temp_dir, ignore_errors=True)
 
-            with ThreadPoolExecutor(max_workers=args.max_workers) as executor:
+            with ThreadPoolExecutor(max_workers=args.max_workers, thread_name_prefix="EnrichWorker") as executor:
                 executor.map(enrich_worker, candidates_to_enrich)
     
     logger.info(f"Scraping complete in mode '{args.mode}'. Total candidates in database: {len(processed_results)}")

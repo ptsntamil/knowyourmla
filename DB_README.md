@@ -192,6 +192,7 @@ If no logical match is found, a new deterministic ID is generated:
 | `normalized_name` | String | Cleaned name (lowercase, no special chars) |
 | `birth_year` | Number | Approximate year of birth (calculated from age and election year) |
 | `voter_constituency_id` | String | FK → `knowyourmla_constituencies` PK (voter-residence constituency) |
+| `contact_details` | Map | Social profile links|
 | `voter_serial_no` | String | Serial number on electoral roll |
 | `voter_part_no` | String | Part number on electoral roll |
 | `created_at` | Number | Unix timestamp |
@@ -211,8 +212,14 @@ If no logical match is found, a new deterministic ID is generated:
   "voter_serial_no": "24",
   "voter_part_no": "132",
   "created_at": 1771825000,
-  "createdtime": "2026-02-26T11:12:06.000000+00:00"
-  "pan_number": "ABCDE1234F"
+  "social_profiles": {
+    "email": "ex@emp.com",
+    "facebook": "",
+    "twitter": "",
+    "instagram": ""
+  },
+  "createdtime": "2026-02-26T11:12:06.000000+00:00",
+  "pan_number" : "ABCDE1234F"
 }
 ```
 

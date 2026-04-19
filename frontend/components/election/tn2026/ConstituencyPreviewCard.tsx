@@ -52,7 +52,8 @@ export default function ConstituencyPreviewCard({ contest }: ConstituencyPreview
               </p> */}
             </div>
             <PartyBadge 
-              party={contest.lastWinnerPartyShort || "IND"} 
+              party={contest.lastWinnerParty || "Independent"}
+              shortName={contest.lastWinnerPartyShort}
               colorBg={contest.lastWinnerPartyColorBg}
               colorText={contest.lastWinnerPartyColorText}
               colorBorder={contest.lastWinnerPartyColorBorder}
