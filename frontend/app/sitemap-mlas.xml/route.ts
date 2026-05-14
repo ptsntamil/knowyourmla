@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { fetchMLAs } from '@/services/api';
 import { generateXml } from '@/lib/sitemap-utils';
+import { AVAILABLE_ELECTION_YEARS } from '@/lib/constants/elections';
 
 export const dynamic = 'force-dynamic';
 
@@ -9,9 +10,9 @@ export async function GET() {
   const tnBaseUrl = `${domain}/tn`;
 
   try {
-    const years = [2021, 2016, 2011];
+    const years = AVAILABLE_ELECTION_YEARS.map(y => parseInt(y));
     const results = await Promise.allSettled(years.map(year => fetchMLAs(year)));
-    
+
     let allMlas: any[] = [];
     results.forEach((res, index) => {
       if (res.status === 'fulfilled') {

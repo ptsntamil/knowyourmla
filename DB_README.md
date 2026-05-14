@@ -192,6 +192,7 @@ If no logical match is found, a new deterministic ID is generated:
 | `normalized_name` | String | Cleaned name (lowercase, no special chars) |
 | `birth_year` | Number | Approximate year of birth (calculated from age and election year) |
 | `voter_constituency_id` | String | FK → `knowyourmla_constituencies` PK (voter-residence constituency) |
+| `contact_details` | Map | Social profile links|
 | `voter_serial_no` | String | Serial number on electoral roll |
 | `voter_part_no` | String | Part number on electoral roll |
 | `created_at` | Number | Unix timestamp |
@@ -211,8 +212,14 @@ If no logical match is found, a new deterministic ID is generated:
   "voter_serial_no": "24",
   "voter_part_no": "132",
   "created_at": 1771825000,
-  "createdtime": "2026-02-26T11:12:06.000000+00:00"
-  "pan_number": "ABCDE1234F"
+  "social_profiles": {
+    "email": "ex@emp.com",
+    "facebook": "",
+    "twitter": "",
+    "instagram": ""
+  },
+  "createdtime": "2026-02-26T11:12:06.000000+00:00",
+  "pan_number" : "ABCDE1234F"
 }
 ```
 
@@ -264,6 +271,9 @@ Full affidavit details for every candidate (winner and loser) in every election 
 | `silver_assets` | Map | Categorized silver details (self, spouse, dependents) |
 | `vehicle_assets` | Map | Categorized vehicle details (self, spouse, dependents) |
 | `land_assets` | Map | Categorized land details (self, spouse, dependents) including `entries`, `total`, and `full_text` |
+| `new_comer` | Boolean | `True` if the candidate has no prior election history (exactly one total candidate record) |
+| `is_incumbent` | Boolean | `True` if the candidate was a winner in the previous general election (2021) or any subsequent bye-election |
+| `deposit_lost` | Boolean | `True` if the candidate failed to secure more than one-sixth (16.7%) of the total valid votes cast |
 | `createdtime` | String | ISO 8601 formatted creation timestamp |
 
 ### Sample Record
@@ -338,6 +348,9 @@ Full affidavit details for every candidate (winner and loser) in every election 
       }
     }
   },
+  "new_comer": false,
+  "is_incumbent": true,
+  "deposit_lost": false,
   "createdtime": "2026-02-26T11:12:06.000000+00:00"
 }
 ```
@@ -544,6 +557,70 @@ Master registry of elections.
   "created_at": 1771825000
 }
 ```
+
+---
+
+## Table 9 — `knowyourmla_polling_results`
+
+Polling station level results and AC-wide aggregates extracted from Form 20 data.
+
+| Entity Type | PK | SK |
+|---|---|---|
+| **Station Result** | `CONSTITUENCY#{const_id}#YEAR#{year}#PS#{ps_no}` | `METADATA` |
+| **AC Summary** | `CONSTITUENCY#{const_id}#YEAR#{year}` | `AC_SUMMARY` |
+
+### Sample Station Record
+
+```json
+{
+  "PK": "CONSTITUENCY#oddanchatram#YEAR#2026#PS#1",
+  "SK": "METADATA",
+  "constituency_id": "CONSTITUENCY#oddanchatram",
+  "polling_station_no": 1,
+  "year": 2026,
+  "results": {
+    "AFFIDAVIT#2026#1": {
+      "votes": 380,
+      "vote_share_percentage": 46.0,
+      "candidate_contribution_percentage": 0.41
+    },
+    "NOTA": {
+      "votes": 17,
+      "vote_share_percentage": 2.06
+    }
+  },
+  "valid_votes": 826,
+  "nota_votes": 17,
+  "total_votes_polled": 843,
+  "created_at": 1778739378
+}
+```
+
+### Sample AC Summary Record
+
+```json
+{
+  "PK": "CONSTITUENCY#oddanchatram#YEAR#2026",
+  "SK": "AC_SUMMARY",
+  "constituency_id": "CONSTITUENCY#oddanchatram",
+  "candidate_totals": {
+    "AFFIDAVIT#2026#1": 92068,
+    "NOTA": 1478
+  },
+  "total_electors": 220238,
+  "poll_percentage": 90.76,
+  "total_valid_votes": 198412,
+  "total_votes_polled": 199890
+}
+```
+
+### GSIs on `knowyourmla_polling_results`
+
+| GSI | Partition Key | Sort Key | Use Case |
+|---|---|---|---|
+| `PollingStationIndex` | `polling_station_no` | `constituency_id` | Cross-constituency polling station analysis |
+| `ConstituencyIndex` | `constituency_id` | `polling_station_no` | Retrieve all station results for a constituency |
+| `YearIndex` | `year` | `constituency_id` | List all results/ACs for a specific election year |
 
 ---
 

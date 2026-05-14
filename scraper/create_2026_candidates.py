@@ -63,7 +63,24 @@ def normalize_education(education: Any) -> str:
     if isinstance(education, str):
         return education.strip() or "Not Specified"
     if isinstance(education, list):
+        # Sort by year descending to get the latest qualification first
+        items_to_sort = []
+        other_items = []
         for item in education:
+            if isinstance(item, dict):
+                items_to_sort.append(item)
+            else:
+                other_items.append(item)
+        
+        if items_to_sort:
+            def get_year(x):
+                y = x.get("year")
+                if y is None or y == "": return 0
+                try: return int(y)
+                except: return 0
+            items_to_sort.sort(key=get_year, reverse=True)
+            
+        for item in items_to_sort + other_items:
             normalized = normalize_education(item)
             if normalized != "Not Specified":
                 return normalized
@@ -203,7 +220,7 @@ class PersonResolver2026:
             logger.error(f"Error in name-based resolution: {e}")
         return None
 
-    def update_person_metadata(self, person_id: str, pan: str, social_profiles: Dict, voter_update: Dict, dry_run: bool):
+    def update_person_metadata(self, person_id: str, pan: str, social_profiles: Dict, voter_update: Dict, dry_run: bool, education: str = None, profession: str = None):
         """Update existing person with new metadata from the latest affidavit."""
         if dry_run: return
         try:
@@ -215,6 +232,12 @@ class PersonResolver2026:
             if social_profiles:
                 update_expr += ", social_profiles = :sp"
                 attr_vals[":sp"] = social_profiles
+            if education:
+                update_expr += ", education = :e"
+                attr_vals[":e"] = education
+            if profession:
+                update_expr += ", profession = :pr"
+                attr_vals[":pr"] = profession
             
             for k, v in voter_update.items():
                 update_expr += f", {k} = :{k}"
@@ -272,7 +295,9 @@ class PersonResolver2026:
         }.items() if v}
 
         if person_id:
-            self.update_person_metadata(person_id, pan, social_profiles, voter_update, dry_run)
+            edu = normalize_education(extracted.get("education"))
+            prof = normalize_profession(extracted.get("profession"))
+            self.update_person_metadata(person_id, pan, social_profiles, voter_update, dry_run, education=edu, profession=prof)
             return person_id, False
 
         # 3. Create new person
@@ -601,7 +626,15 @@ def enrich_candidates(json_path: str, start: int = 0, limit: int = None, dry_run
                         "voter_serial_no": str(voter.get("serial_no", "")) if voter.get("serial_no") else None,
                         "voter_part_no": str(voter.get("part_no", "")) if voter.get("part_no") else None
                     }.items() if v}
-                    resolver.update_person_metadata(person_id, pan, social_profiles, voter_update, dry_run)
+                    resolver.update_person_metadata(
+                        person_id, 
+                        pan, 
+                        social_profiles, 
+                        voter_update, 
+                        dry_run, 
+                        education=enrich_fields["education"], 
+                        profession=enrich_fields["profession"]
+                    )
 
                 item["db_status"] = "success"
                 stats["enriched"] += 1
@@ -672,7 +705,7 @@ def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_ru
                 "PK": pk,
                 "SK": "DETAILS",
                 "person_id": person_id,
-                "constituency_id": f"CONSTITUENCY#{normalize_name(clean_constituency(constituency))}",
+                "constituency_id": f"CONSTITUENCY#{canonicalize_constituency(constituency)}",
                 "year": 2026,
                 "election_type": "Assembly",
                 "candidate_name": name,

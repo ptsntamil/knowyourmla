@@ -4,24 +4,24 @@
 Update Constituency Statistics (2026)
 =====================================
 
-This script scrapes electoral statistics (Male, Female, Third Gender, Total) 
-for all Tamil Nadu assembly constituencies from the official election website 
-and updates the `knowyourmla_constituencies` DynamoDB table.
+This script updates the `knowyourmla_constituencies` DynamoDB table with 
+votes polled, poll percentage, and poll breakup (Male, Female, Others) 
+from the 2026 election CSV.
 
-URL: https://elections.tn.gov.in/ACwise_Gendercount_23022026.aspx
+Source: scraper/assets/Tamilnadu_2026_votes_polled.csv
 
 Usage:
-    python3 scraper/update_constituency_stats_2026.py [--dryrun]
+    python3 scraper/update_constituency_stats_2026.py [--csv PATH] [--dryrun]
 """
 
+import csv
 import os
 import sys
 import argparse
 import logging
+from decimal import Decimal
 from typing import Dict, Any, List, Optional
 
-import httpx
-from bs4 import BeautifulSoup
 import boto3
 from botocore.exceptions import ClientError
 
@@ -36,10 +36,9 @@ logger = logging.getLogger("constituency_stats_updater_2026")
 # DynamoDB Configuration
 REGION_NAME = "ap-south-2"
 CONSTITUENCIES_TABLE_NAME = "knowyourmla_constituencies"
-SOURCE_URL = "https://elections.tn.gov.in/ACwise_Gendercount_23022026.aspx"
 
 class ConstituencyStatsUpdater2026:
-    """Scrapes 2026 electoral statistics and updates DynamoDB."""
+    """Updates 2026 constituency statistics in DynamoDB from CSV data."""
 
     def __init__(self, table_name: str = CONSTITUENCIES_TABLE_NAME, region: str = REGION_NAME):
         """Initializes the updater with DynamoDB resources.
@@ -52,76 +51,49 @@ class ConstituencyStatsUpdater2026:
         self.table = self.dynamodb.Table(table_name)
         self.year = "2026"
 
-    def fetch_data(self) -> List[Dict[str, Any]]:
-        """Fetches and parses electoral data from the official website.
+    def parse_csv(self, csv_path: str) -> List[Dict[str, Any]]:
+        """Parses the CSV and returns a list of constituency stats.
+
+        Args:
+            csv_path: Path to the 2026 votes polled CSV.
 
         Returns:
             A list of dictionaries containing constituency stats.
         """
-        logger.info(f"Fetching data from {SOURCE_URL}")
-        try:
-            response = httpx.get(SOURCE_URL, verify=False, timeout=30.0) # verify=False because government sites often have SSL issues
-            response.raise_for_status()
-        except httpx.HTTPError as e:
-            logger.error(f"Failed to fetch data: {e}")
-            return []
-
-        soup = BeautifulSoup(response.text, 'lxml')
-        table = soup.find('table') # Usually the main data table
-        if not table:
-            logger.error("Could not find data table in HTML content")
+        if not os.path.exists(csv_path):
+            logger.error(f"CSV file not found: {csv_path}")
             return []
 
         stats_list = []
-        rows = table.find_all('tr')
-        
-        # Identify headers to be sure about column indices
-        # Based on exploration:
-        # District No, District Name, AC No., Name of Assembly Constituency, Male, Female, Third Gender, Total
-        
-        for row in rows[1:]: # Skip header row
-            cols = row.find_all('td')
-            
-            # Handle rowspans: First row of a district has 8 columns, others have 6
-            if len(cols) == 8:
-                ac_no = cols[2].text.strip()
-                raw_name = cols[3].text.strip()
-                male_text = cols[4].text.strip()
-                female_text = cols[5].text.strip()
-                third_gender_text = cols[6].text.strip()
-                total_text = cols[7].text.strip()
-            elif len(cols) == 6:
-                ac_no = cols[0].text.strip()
-                raw_name = cols[1].text.strip()
-                male_text = cols[2].text.strip()
-                female_text = cols[3].text.strip()
-                third_gender_text = cols[4].text.strip()
-                total_text = cols[5].text.strip()
-            else:
-                continue
-            
-            try:
-                male = clean_currency_to_int(male_text)
-                female = clean_currency_to_int(female_text)
-                third_gender = clean_currency_to_int(third_gender_text)
-                total = clean_currency_to_int(total_text)
-                
-                if not raw_name or raw_name.lower() == "total":
+
+        with open(csv_path, mode='r', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                raw_name = row.get('AC_Name')
+                if not raw_name:
                     continue
 
-                stats_list.append({
-                    "ac_no": ac_no,
-                    "raw_name": raw_name,
-                    "male": male,
-                    "female": female,
-                    "third_gender": third_gender,
-                    "total_electors": total
-                })
-            except (ValueError, IndexError) as e:
-                logger.warning(f"Error parsing row: {e}")
-                continue
+                try:
+                    male = clean_currency_to_int(row.get('Male', '0'))
+                    female = clean_currency_to_int(row.get('Female', '0'))
+                    others = clean_currency_to_int(row.get('Other', '0'))
+                    total = clean_currency_to_int(row.get('Total', '0'))
+                    percent = Decimal(str(row.get('Percent', '0')))
 
-        logger.info(f"Successfully scraped {len(stats_list)} constituencies")
+                    stats_list.append({
+                        "raw_name": raw_name,
+                        "total_votes_polled": total,
+                        "poll_percentage": percent,
+                        "poll_breakup": {
+                            "male": male,
+                            "female": female,
+                            "others": others
+                        }
+                    })
+                except (ValueError, TypeError) as e:
+                    logger.error(f"Error parsing stats for {raw_name}: {e}")
+
+        logger.info(f"Successfully parsed {len(stats_list)} constituencies from CSV")
         return stats_list
 
     def update_dynamodb(self, stats: Dict[str, Any], dry_run: bool = False) -> bool:
@@ -180,19 +152,16 @@ class ConstituencyStatsUpdater2026:
                     raise
 
             # Step 3: Update specific fields
-            update_data = {
-                "total_electors": stats["total_electors"],
-                "male": stats["male"],
-                "female": stats["female"],
-                "third_gender": stats["third_gender"]
-            }
-
             self.table.update_item(
                 Key={'PK': pk, 'SK': 'METADATA'},
-                UpdateExpression="SET #stats.#yr = :stats_data",
+                UpdateExpression="SET #stats.#yr.total_votes_polled = :vp, #stats.#yr.poll_percentage = :pp, #stats.#yr.poll_breakup = :pb",
                 ConditionExpression="attribute_exists(PK)",
                 ExpressionAttributeNames={"#stats": "statistics", "#yr": self.year},
-                ExpressionAttributeValues={":stats_data": update_data}
+                ExpressionAttributeValues={
+                    ":vp": stats["total_votes_polled"],
+                    ":pp": stats["poll_percentage"],
+                    ":pb": stats["poll_breakup"]
+                }
             )
             logger.debug(f"Updated {pk} ({raw_name})")
             return True
@@ -204,29 +173,34 @@ class ConstituencyStatsUpdater2026:
                 logger.error(f"Failed to update {pk}: {e}")
             return False
 
-    def run(self, dry_run: bool = False):
-        """Orchestrates the scraping and update process.
+    def run(self, csv_path: str, dry_run: bool = False):
+        """Orchestrates the update process.
 
         Args:
+            csv_path: Path to the source CSV.
             dry_run: Whether to perform a dry run.
         """
-        logger.info(f"Starting 2026 stats update (Dry run: {dry_run})")
-        scraped_data = self.fetch_data()
+        logger.info(f"Starting 2026 stats update from {csv_path} (Dry run: {dry_run})")
+        parsed_data = self.parse_csv(csv_path)
         
-        if not scraped_data:
-            logger.error("No data scraped. Aborting.")
+        if not parsed_data:
+            logger.error("No data parsed. Aborting.")
             return
 
         success_count = 0
-        for entry in scraped_data:
+        for entry in parsed_data:
             if self.update_dynamodb(entry, dry_run):
                 success_count += 1
 
-        logger.info(f"Completed. Successfully processed {success_count}/{len(scraped_data)} constituencies.")
+        logger.info(f"Completed. Successfully processed {success_count}/{len(parsed_data)} constituencies.")
 
 def main():
     """Main entry point for the script."""
-    parser = argparse.ArgumentParser(description="Scrape and update constituency stats for 2026.")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    default_csv = os.path.join(script_dir, "assets", "Tamilnadu_2026_votes_polled.csv")
+
+    parser = argparse.ArgumentParser(description="Update constituency stats for 2026 from CSV.")
+    parser.add_argument("--csv", default=default_csv, help=f"Path to the source CSV (default: {default_csv})")
     parser.add_argument("--dryrun", action="store_true", help="Perform a dry run")
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging")
     
@@ -236,7 +210,7 @@ def main():
         logging.getLogger().setLevel(logging.DEBUG)
     
     updater = ConstituencyStatsUpdater2026()
-    updater.run(dry_run=args.dryrun)
+    updater.run(csv_path=args.csv, dry_run=args.dryrun)
 
 if __name__ == "__main__":
     main()

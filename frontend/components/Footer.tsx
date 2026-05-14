@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import { Instagram, Facebook, Linkedin, Twitter } from 'lucide-react';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -37,9 +38,25 @@ const Footer: React.FC = () => {
             </Link>
           </div>
 
-          <div className="text-sm text-slate-500 font-medium max-w-md text-center md:text-right">
-            © {currentYear} KnowYourMLA.<br />
-            All Rights Reserved. Data sourced from MyNeta.info and Election Commission.
+          <div className="flex flex-col items-center md:items-end gap-4">
+            <div className="flex items-center gap-4">
+              <a href="https://facebook.com/ptsntamil" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-all hover:scale-110 active:scale-90" aria-label="Facebook">
+                <Facebook size={20} />
+              </a>
+              <a href="https://instagram.com/ptsntamil" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-all hover:scale-110 active:scale-90" aria-label="Instagram">
+                <Instagram size={20} />
+              </a>
+              <a href="https://linkedin.com/in/ptsntamil" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-all hover:scale-110 active:scale-90" aria-label="LinkedIn">
+                <Linkedin size={20} />
+              </a>
+              <a href="https://x.com/ptsntamil" target="_blank" rel="noopener noreferrer" className="text-slate-500 hover:text-white transition-all hover:scale-110 active:scale-90" aria-label="Twitter">
+                <Twitter size={20} />
+              </a>
+            </div>
+            <div className="text-sm text-slate-500 font-medium max-w-md text-center md:text-right">
+              © {currentYear} KnowYourMLA.<br />
+              All Rights Reserved. Data sourced from MyNeta.info and Election Commission.
+            </div>
           </div>
         </div>
 

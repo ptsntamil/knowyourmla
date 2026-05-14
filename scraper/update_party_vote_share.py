@@ -16,7 +16,7 @@ from decimal import Decimal
 
 # Add the parent directory to sys.path to import utils
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
-from scraper.utils import normalize_name
+from scraper.utils import normalize_name, convert_floats_to_decimal, DecimalEncoder
 
 # Configure logging
 logging.basicConfig(
@@ -60,18 +60,8 @@ def update_party_vote_share(party_data, dry_run=False):
     pk = f"PARTY#{normalized}"
     sk = "METADATA"
 
-    # Convert floats to Decimals for DynamoDB
-    def float_to_decimal(obj):
-        if isinstance(obj, float):
-            return Decimal(str(obj))
-        if isinstance(obj, dict):
-            return {k: float_to_decimal(v) for k, v in obj.items()}
-        if isinstance(obj, list):
-            return [float_to_decimal(v) for v in obj]
-        return obj
-
     vote_share = {
-        "assembly": float_to_decimal(assembly_stats)
+        "assembly": convert_floats_to_decimal(assembly_stats)
     }
 
     # Attempt to find the party in DynamoDB
@@ -107,7 +97,7 @@ def update_party_vote_share(party_data, dry_run=False):
             return False
 
         if dry_run:
-            logger.info(f"  [DRY RUN] Would update {pk} with vote_share: {json.dumps(vote_share)}")
+            logger.info(f"  [DRY RUN] Would update {pk} with vote_share: {json.dumps(vote_share, cls=DecimalEncoder)}")
             return True
 
         # Update the item

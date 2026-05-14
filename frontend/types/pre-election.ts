@@ -38,6 +38,8 @@ export interface DashboardCandidate {
   profilePic?: string | null;
   isContestingOwnConstituency?: boolean | null;
   constituencyContestType?: 'own_constituency' | 'cross_constituency' | 'unknown';
+  isStarCandidate?: boolean;
+  authorFocused?: boolean;
 }
 
 export interface ContestCard {
@@ -59,6 +61,10 @@ export interface ContestCard {
   tags: string[];
   ownConstituencyCount?: number;
   crossConstituencyCount?: number;
+  lastWinnerPersonId?: string | null;
+  lastWinnerPartyColorBg?: string | null;
+  lastWinnerPartyColorText?: string | null;
+  lastWinnerPartyColorBorder?: string | null;
 }
 
 export interface PartyRolloutSummary {
@@ -74,6 +80,7 @@ export interface PartyRolloutSummary {
   newcomersFielded: number;
   averageAssets: number | null;
   totalCriminalCases: number | null;
+  criminalCandidatePercentage: number | null;
   womenCandidatePercentage: number | null;
   ownConstituencyPercent?: number | null;
   crossConstituencyPercent?: number | null;
@@ -82,6 +89,8 @@ export interface PartyRolloutSummary {
 export interface ElectionInsightCandidate {
   name: string;
   party: string;
+  partyName?: string;
+  partyShortName?: string;
   constituencyName: string;
   value: number | string;
   formattedValue: string;
@@ -121,6 +130,10 @@ export interface PreElectionSnapshotStats {
   averageAssets: number | null;
   ownConstituencyPercent?: number | null;
   crossConstituencyPercent?: number | null;
+  totalVoters?: number | null;
+  maleVoters?: number | null;
+  femaleVoters?: number | null;
+  thirdGenderVoters?: number | null;
 }
 
 export interface PreElectionDashboardData {

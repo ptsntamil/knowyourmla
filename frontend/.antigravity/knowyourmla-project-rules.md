@@ -1,101 +1,62 @@
-# KnowYourMLA Project Rules
+# KnowYourMLA Agent Implementation Guide
 
-This document defines the architectural patterns, coding standards, and development rules for the KnowYourMLA project. All future development must adhere to these conventions to maintain consistency and search performance.
+This guide defines the mandatory technical constraints and patterns for the KnowYourMLA project. Agents must strictly adhere to these rules to maintain architectural integrity and SEO performance.
 
-## 1. Project Overview
-KnowYourMLA is a production-grade Next.js application (App Router) designed for high SEO performance, accessibility, and data-rich election analytics. It serves as an "Election Intelligence Dashboard" for Tamil Nadu politics.
+## 1. Architectural Mandates (3-Tier Isolation)
+All data flow must follow a strict three-tier hierarchy: **UI Components -> Service Layer -> Repository Layer -> Database**.
 
-## 2. Route Structure Rules
-The project follows a strict hierarchical URL structure to optimize for crawlability:
+- **Rule 1.1 (Service Only):** Next.js Pages and Components MUST NOT import from `lib/repositories/` or connect to the database directly. They must only interface with `lib/services/` (e.g., `MLAService`).
+- **Rule 1.2 (No Internal Fetch):** Server Components MUST NOT perform internal HTTP fetches (e.g., `fetch('/api/...')`). Call internal Service methods directly.
+- **Rule 1.3 (Payload Optimization):** Do not pass raw database records to Client Components. Serialize only the required fields into the props.
+- **Rule 1.4 (Type Safety):** All data structures must strictly conform to interfaces in `types/models.ts`. **Zero `any` policy.**
 
-- **State Home:** `/tn`
-- **Districts:** `/tn/districts/[slug]`
-- **MLAs:**
-  - List: `/tn/mla/list`
-  - Profile: `/tn/mla/[slug]`
-- **Constituencies:** `/tn/constituency/[slug]`
-- **Parties:**
-  - List: `/parties`
-  - Detail: `/parties/[slug]` (supports `?election=[year]` search param)
+## 2. Route & Pathing Standards
+The project uses a hierarchical URL structure optimized for crawlability.
 
-### Conventions:
-- All core political entities must be prefixed with `/tn/` (except Parties).
-- Slugs must be lowercase, hyphenated (e.g., `chennai-central`).
-- Use `generateStaticParams` for high-traffic entity pages to enable ISR/Static generation.
+- **Slugs:** All dynamic slugs must be lowercase and hyphenated (e.g., `chennai-central`).
+- **Core Entities:** All Tamil Nadu political entities must be prefixed with `/tn/`.
+  - District: `/tn/districts/[slug]`
+  - MLA Profile: `/tn/mla/[slug]`
+  - Constituency: `/tn/constituency/[slug]`
+  - Election Dashboard: `/tn/elections/[year]/dashboard`
+- **ISR:** Use `generateStaticParams` for high-traffic entity pages to enable Static generation.
 
-## 3. Page File Rules
-- **Server Components by Default:** All pages in `app/` should be Server Components unless interactivity is required at the top level.
-- **Dynamic Fetching:** Use `export const dynamic = "force-dynamic"` for pages requiring real-time or frequently updated data (like profiles or filtered lists).
-- **Metadata Handling:** Every page MUST implement `generateMetadata()` using the `buildMetadata` helper from `@/lib/seo/metadata`.
-- **Composition:** Pages should be composed of high-level section components rather than deep JSX nesting.
-- **Error Boundaries & Fallback UI:** Every dynamic route (e.g., `[slug]`) must implement route-segment-level `loading.tsx` and `error.tsx` boundaries. If data is completely missing, explicitly trigger Next.js's `notFound()` function to ensure correct 404 HTTP status codes for search engines.
+## 3. SEO & Structured Data Checklist
+Every indexable route MUST implement the following:
 
-## 4. Component Architecture Rules
-Components are organized by responsibility:
+- **Metadata:** Implement `generateMetadata()` using the `buildMetadata` helper from `@/lib/seo/metadata`.
+- **JSON-LD:** Inject structured data schemas via the `JsonLd` component:
+  - `BreadcrumbSchema` (All pages)
+  - `PersonSchema` (MLA Profiles)
+  - `ItemListSchema` (Listing pages)
+  - `FAQSchema` (Where applicable)
+- **H1 Optimization:** Use the `SEOIntro` component for the primary page heading and summary.
 
-- `components/ui`: Atomic UI primitives (`Badge`, `Card`, `SectionHeader`).
-- `components/seo`: SEO-specific helpers (`AnswerSnippet`, `BreadcrumbSchema`, `FAQSection`, `SEOIntro`).
-- `components/shared`: Global elements (`Navbar`, `Footer`, `CoverImage`).
-- `components/features`: Domain-specific components (e.g., `MLAHeader`, `HistoryTable`, `PartyHero`, `PartySummaryStats`).
+## 4. Mandatory Component Patterns
+To ensure UI consistency, use established components; **NEVER inline styles** for these patterns.
 
-### Guidelines:
-- **Consistency:** Reuse `Badge` and `Card` primitives for all data displays.
-- **Party Display Template:** Always use the `PartyBadge` component from `components/ui/PartyBadge` when displaying a party name with its logo. Do not inline the styling or the `Link` tag for party display. This ensures consistent URL routing, branding colors, and logo handling.
-- **Density:** Favor "High-Density" layouts for profile pages (vertical sidebars within cards).
-- **Interactive:** Keep "use client" components as small as possible (e.g., `FeedbackModal`, `ShareButton`).
-- **State Management & Filtering (SEO-First):** Prefer URL Search Parameters over React Local State (`useState`) for filtering (e.g., `?party=dmk&year=2021`). This ensures specific views remain shareable and crawlable.
-- **Component Extraction (Rule of Three):** If a JSX layout, data formatting utility, or specific Tailwind styling block is repeated three times across the repository, it MUST be extracted into `components/ui/` or `lib/utils/`.
+- **Rule 4.1 (Party Branding):** ALWAYS use the `PartyBadge` component from `@/components/ui/PartyBadge`. Never inline the party logo, color, or redirection URL logic.
+- **Rule 4.2 (Containers):** Wrap main content in `<main className="max-w-7xl mx-auto px-4 md:px-6 py-20 space-y-32">`.
+- **Rule 4.3 (Cards):** Use the `Card` component from `@/components/ui/Card`. Standard: `rounded-[2rem] border-slate-100 shadow-sm`.
+- **Rule 4.4 (Tables):** Use `w-full text-left border-collapse`. Headers must use `bg-slate-50/50` with `text-[10px] font-black uppercase tracking-widest text-slate-400`.
+- **Rule 4.5 (Inputs):** Use `rounded-2xl border-slate-200 py-3 focus:ring-brand-gold/10 focus:border-brand-gold`.
 
-## 5. SEO & Structured Data Rules
-SEO is a first-class citizen in this codebase:
+## 5. Data Normalization & Processing
+- **Normalization:** Use `@/lib/utils/profile-normalizers` for:
+  - `normalizeProfileEducation`
+  - `normalizeProfileProfession`
+  - `normalizeTotalAssets` (handles HUF/Spouse/Dependents)
+- **Social Links:** Use the `ensureAbsoluteUrl` utility in `MLAHeader.tsx` to normalize social handles into full platform URLs.
+- **Asset Aggregation:** For multi-seat candidates, aggregate assets and cases across the latest affidavits at the Service layer.
 
-- **Metadata:** Title format: `Primary Title | KnowYourMLA`.
-- **JSON-LD:** Every entity page must include:
-  - `BreadcrumbSchema`
-  - `ItemListSchema` (for lists)
-  - `PersonSchema` (for MLA profiles via `JsonLd` component)
-  - `FAQSchema` (where applicable)
-- **Content:** Use `SEOIntro` for `h1` and introductory text. Use `AnswerSnippet` for "Featured Snippet" optimization.
+## 6. Project Branding (Antigravity)
+- **Built with Antigravity:** All major content pages and the "About" page must include the "Built with Antigravity" branding block using `Google_Antigravity_Logo_2025.svg`.
 
-## 6. Data Fetching & Backend Access Rules (Full-stack Next.js)
-- **Strict Three-Tier Isolation:** UI Server Components (`page.tsx`) must NEVER import from `lib/repositories/` or connect to the database directly. They must *only* interact with `lib/services/` (e.g., `MLAService`).
-- **Data Source of Truth (Database Normalization):** When fetching aggregated data, always prioritize the primary master tables for core traits to avoid denormalization sync issues. *Example: always fetch `district_name` from the `Constituency` table, and fetch `age/birth_year` and `sex/gender` from the `Person` table, rather than relying on stale copies in the `Candidate` history table.*
-- **No Internal Fetching:** Server Components MUST NOT perform internal HTTP fetches (e.g., `fetch('/api/...')`). They must fetch data by directly calling internal Service methods, saving HTTP wrapper overhead. Reserve `fetch()` for external endpoints or Client Components.
-- **Server Actions vs. Route Handlers:** Use Next.js Server Actions (`"use server"`) for internal client mutations and form submissions. Use API Route Handlers (`app/api/route.ts`) *only* when exposing data to an external webhook or client app.
-- **Prop Drilling & Payload Optimization:** Never pass massive raw database records (e.g., entire DynamoDB responses) down to Client Components. Only pass exactly the fields required by the UI to prevent serializing multi-megabyte payloads over the network.
-- **Environment Variable Safety:** Database credentials and backend secret tokens must never be prefixed with `NEXT_PUBLIC_` to prevent security leaks into the client bundle.
-- **Centralized External API:** All third-party external data fetching must go through `services/api.ts` or structured adapters.
-- **Strict TypeScript (Zero `any` Policy):** All data structures fetched from the DB must strictly conform to interfaces defined in `types/models.ts`. Avoid `any`.
-- **Validation:** Handle missing data gracefully with fallbacks and "Not Found" states (use `not-found.tsx`).
-
-## 7. Analytics & Data Visualization
-Analytics sections (Youngest/Oldest candidate, Assets, etc.) follow a specific pattern:
-- Use **Recharts** via the `AnalyticsCharts.tsx` wrapper for consistency.
-- **Metric Widgets:** Use `MetricWidgets.tsx` for standalone KPI cards (e.g., Attendance, Questions).
-- **Party Insights:** Group complex demographic data into "Insights" sections (e.g., `PartyKeyInsights`).
-
-## 8. Styling & Media Rules (Tailwind CSS)
-- **Image Optimization:** All images must use Next.js `<Image />` component with strict `width` and `height` dimensions to prevent Cumulative Layout Shift (CLS). Implement fallback logic for broken or missing candidate portraits.
-- **Color Palette:**
-  - `brand-dark`: Primary dark theme / text.
-  - `brand-gold`: Accent / highlight.
-  - `brand-green`: Success / positive growth.
-  - `brand-light-gold`: Secondary accent.
-  - `bg-page-bg`: Global background color.
-- **Design Tokens:**
-  - Card Radius: `rounded-[2rem]` or `rounded-[3rem]`.
-  - Section Spacing: `space-y-12` (standard) or `space-y-16` (large).
-  - Container: `max-w-7xl mx-auto px-4`.
-
-## 9. Naming Conventions
-- **Files:** `PascalCase.tsx` for components, `camelCase.ts` for libs/services.
-- **Variables:** `camelCase`.
-- **Constants:** `UPPER_SNAKE_CASE`.
-- **Slugs:** `kebab-case`.
-
-## 10. Future Development Workflow
-1.  **Plan:** Define the route and necessary metadata.
-2.  **API:** Add required fetching logic to `services/api.ts`.
-3.  **UI:** Check `components/ui` and `components/seo` for reusable blocks.
-4.  **SEO:** Implement `generateMetadata` and appropriate JSON-LD schemas.
-5.  **Analytics:** Use existing chart components for data visualization.
+## 7. Global Layout Tokens
+- **Sticky Navbar:** `sticky top-0 z-50 bg-brand-dark h-16 border-b border-white/5`.
+- **Footer:** `bg-slate-900 border-t border-white/5 py-12 text-slate-400`.
+- **Colors:**
+  - `brand-dark`: #0F172A (Primary)
+  - `brand-gold`: #D4AF37 (Accent)
+  - `brand-green`: #10B981 (Success)
+  - `bg-page-bg`: #F8FAFC (Background)
