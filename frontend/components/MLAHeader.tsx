@@ -1,5 +1,5 @@
 import { PersonDetail, ElectionHistoryRecord } from "@/types/models";
-import { User, GraduationCap, Briefcase, AlertCircle, Coins, Car, MapPin } from "lucide-react";
+import { User, GraduationCap, Briefcase, AlertCircle, Coins, Car, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
 import ProfileImage from "./ProfileImage";
 import ShareButton from "./ShareButton";
 import Badge from "./ui/Badge";
@@ -16,6 +16,13 @@ interface MLAHeaderProps {
    landAssets?: any;
    personalTitle?: string;
 }
+
+const ensureAbsoluteUrl = (url: string, base: string) => {
+   if (!url) return "";
+   if (url.startsWith("http")) return url;
+   const cleanUrl = url.startsWith("@") ? url.substring(1) : url;
+   return `${base}${cleanUrl}`;
+};
 
 export default function MLAHeader({
    person, latestHistory, criminalCases, totalAssets, winRate,
@@ -123,6 +130,43 @@ export default function MLAHeader({
                            text={`Check out ${person.name}'s ${personalTitle} profile on KnowYourMLA.`}
                            url={`/tn/mla/${person.person_id}`}
                         />
+
+                        {/* Social Profile Links */}
+                        <div className="flex gap-2">
+                           {person.social_profiles?.facebook && (
+                              <a
+                                 href={ensureAbsoluteUrl(person.social_profiles.facebook, "https://facebook.com/")}
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                                 className="w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/10 transition-all hover:scale-110 active:scale-95 group"
+                                 title="Facebook"
+                              >
+                                 <Facebook size={18} className="group-hover:text-brand-gold transition-colors" />
+                              </a>
+                           )}
+                           {person.social_profiles?.twitter && (
+                              <a
+                                 href={ensureAbsoluteUrl(person.social_profiles.twitter, "https://x.com/")}
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                                 className="w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/10 transition-all hover:scale-110 active:scale-95 group"
+                                 title="Twitter / X"
+                              >
+                                 <Twitter size={18} className="group-hover:text-brand-gold transition-colors" />
+                              </a>
+                           )}
+                           {person.social_profiles?.instagram && (
+                              <a
+                                 href={ensureAbsoluteUrl(person.social_profiles.instagram, "https://instagram.com/")}
+                                 target="_blank"
+                                 rel="noopener noreferrer"
+                                 className="w-10 h-10 flex items-center justify-center bg-white/10 hover:bg-white/20 text-white rounded-xl border border-white/10 transition-all hover:scale-110 active:scale-95 group"
+                                 title="Instagram"
+                              >
+                                 <Instagram size={18} className="group-hover:text-brand-gold transition-colors" />
+                              </a>
+                           )}
+                        </div>
                      </div>
                   </div>
 

@@ -157,8 +157,10 @@ class ElectionCSVImporter:
         # 5. Update Constituency Statistics (only once per AC)
         if processed_constituencies is not None and const_id not in processed_constituencies:
             ac_valid_votes = self.parse_int(row.get('Valid_Votes'))
-            if ac_valid_votes:
-                self._update_constituency_stats(const_id, year, ac_valid_votes)
+            ac_electors = self.parse_int(row.get('Electors'))
+            ac_poll_percent = self.parse_decimal(row.get('Turnout_Percentage'))
+            if ac_valid_votes or ac_electors:
+                self._update_constituency_stats(const_id, year, ac_valid_votes, ac_electors, ac_poll_percent)
                 processed_constituencies.add(const_id)
 
         # 6. Save/Update Candidate
@@ -199,7 +201,8 @@ class ElectionCSVImporter:
             is_turncoat=self.parse_bool(row.get('Turncoat')),
             no_terms=self.parse_int(row.get('No_Terms')),
             candidate_type=self.clean_val(row.get('Candidate_Type')),
-            candidacy_type=self.clean_val(row.get('Election_Type', 'General'))
+            candidacy_type=self.clean_val(row.get('Election_Type', 'General')),
+            deposit_lost=self.parse_bool(row.get('Deposit_Lost'))
         )
 
     def _find_matching_candidate(self, details: AffidavitData, year: str, const_id: str, party_id: str, dry_run: bool) -> Dict:
@@ -215,12 +218,14 @@ class ElectionCSVImporter:
         pk = f"AFFIDAVIT#{year}#T#{safe_pid}"
 
         try:
+            # logger.info(f"Constituency ID: {const_id}")
             resp = self.candidates_table.query(
                 IndexName='ConstituencyIndex',
                 KeyConditionExpression=Key('constituency_id').eq(const_id)
             )
             candidates = resp.get('Items', [])
             
+            # logger.info(f"Total candidates for constituency: {len(candidates)}")
             # 1. Filter by Name Similarity
             name_matches = self._get_name_matches(candidates, details.candidate_name)
             # print(f"Names {name_matches}")
@@ -271,8 +276,10 @@ class ElectionCSVImporter:
     def _get_name_matches(self, candidates: List[Dict], target_name: str) -> List[Dict]:
         """Filters candidates by name similarity."""
         name_matches = []
+        # logger.info(f"Target name: {target_name}")
         target_stripped = strip_initials(target_name) or normalize_name(target_name)
         for c in candidates:
+            # logger.info(f"Candidate: {c.get('candidate_name')}")
             c_name = c.get('candidate_name', '')
             c_stripped = strip_initials(c_name) or normalize_name(c_name)
             if names_are_similar(target_stripped, c_stripped) or names_are_similar(target_name, c_name):
@@ -351,7 +358,7 @@ class ElectionCSVImporter:
             logger.info(f"          Action: Found existing Person: {person_id}")
             logger.info(f"          Action: {action} candidate record {pk}")
 
-    def _update_constituency_stats(self, pk: str, year: str, total_votes: int):
+    def _update_constituency_stats(self, pk: str, year: str, total_votes: int, electors: int, poll_percentage: Decimal):
         """Update total AC votes in constituency statistics."""
         try:
             # Ensure the 'statistics' map exists first
@@ -367,10 +374,10 @@ class ElectionCSVImporter:
                 # Try updating the specific year's nested attribute
                 self.constituencies_table.update_item(
                     Key={'PK': pk, 'SK': 'METADATA'},
-                    UpdateExpression="SET #stats.#yr.total_votes_polled = :tv",
+                    UpdateExpression="SET #stats.#yr.total_votes_polled = :tv, #stats.#yr.total_electors = :te, #stats.#yr.poll_percentage = :pp",
                     ConditionExpression="attribute_exists(PK)",
                     ExpressionAttributeNames={"#stats": "statistics", "#yr": str(year)},
-                    ExpressionAttributeValues={":tv": total_votes}
+                    ExpressionAttributeValues={":tv": total_votes, ":te": electors, ":pp": poll_percentage}
                 )
             except ClientError as e:
                 # If the year map doesn't exist, ValidationException is thrown
@@ -381,7 +388,11 @@ class ElectionCSVImporter:
                         UpdateExpression="SET #stats.#yr = :map",
                         ConditionExpression="attribute_exists(PK)",
                         ExpressionAttributeNames={"#stats": "statistics", "#yr": str(year)},
-                        ExpressionAttributeValues={":map": {"total_votes_polled": total_votes}}
+                        ExpressionAttributeValues={":map": {
+                            "total_votes_polled": total_votes,
+                            "total_electors": electors,
+                            "poll_percentage": poll_percentage
+                        }}
                     )
                 else:
                     raise
@@ -407,6 +418,7 @@ class ElectionCSVImporter:
             "is_turncoat = :tc",
             "no_terms = :nt",
             "candidate_type = :ct",
+            "deposit_lost = :dl",
             "createdtime = if_not_exists(createdtime, :ctm)"
         ]
         
@@ -421,7 +433,7 @@ class ElectionCSVImporter:
             ":yr": int(year), ":pos": details.position,
             ":tv": details.total_votes, ":wm": details.winning_margin, ":mp": details.margin_percentage,
             ":inc": details.is_incumbent, ":tc": details.is_turncoat, ":nt": details.no_terms,
-            ":ct": details.candidate_type, ":ctm": datetime.now(timezone.utc).isoformat()
+            ":ct": details.candidate_type, ":dl": details.deposit_lost, ":ctm": datetime.now(timezone.utc).isoformat()
         }
         
         if details.age:

@@ -35,13 +35,20 @@ This README focuses on system architecture and data pipeline concepts.
 All database-specific details must be taken from @db_readme.md.
 
 🏗 System Architecture
-Core Database
 
-AWS DynamoDB
+The platform follows a dual-layer architecture designed for high performance, SEO, and scalable data ingestion.
 
-Single Table Design (updated version — see @db_readme.md)
+### 1️⃣ Application Layer (Unified Full Stack)
+- **Next.js (App Router)**: A unified full-stack application serving both the UI and the API layer.
+- **SSR-First**: Prioritizes Server-Side Rendering for maximum SEO and performance.
+- **Direct Data Access**: Fetches data from DynamoDB via the AWS SDK for efficient, low-latency responses.
 
-All logical entities are stored inside one DynamoDB table.
+### 2️⃣ Data Pipeline Layer (Python)
+- **Scraper Suite**: Python-based scrapers (BeautifulSoup/Requests) that extract and normalize data from IndiaVotes and Myneta.
+- **Ingestion Engine**: Processes raw data and populates the structured DynamoDB tables.
+- **Independent Life Cycle**: The data layer runs independently of the web application, ensuring reliable updates without impacting live traffic.
+
+Core Database: **AWS DynamoDB** (Single Table Design — see @db_readme.md)
 
 📊 Data Sources
 1️⃣ Election Results (IndiaVotes)
@@ -171,23 +178,13 @@ Analytics-friendly schema
 
 Planned expansions include:
 
-Official Election Commission data integration
-
-Party switching history tracking
-
-Constituency development indicators
-
-ML-based anomaly detection (asset growth outliers)
-
-FastAPI backend query layer
-
-React-based analytics dashboard
-
-Public API endpoints
-
-S3 archival of raw HTML
-
-Step Functions orchestration
+- Official Election Commission data integration
+- Party switching history tracking
+- Constituency development indicators
+- ML-based anomaly detection (asset growth outliers)
+- S3 archival of raw HTML
+- Step Functions orchestration
+- Antigravity AI Branding & Intelligent Assistance
 
 🛡 Stability & Risk Management
 
@@ -221,15 +218,9 @@ Make data-driven political comparisons
 
 📌 Technology Stack
 
-Python
-
-Requests
-
-BeautifulSoup
-
-AWS DynamoDB
-
-Terraform
-- [Scraper Documentation](scraper/README.md)
-- (Planned) FastAPI
-- (Planned) React
+- **Unified Full Stack**: Next.js 16+ (App Router), React 19, TypeScript
+- **Styling**: Tailwind CSS (Lucide Icons)
+- **Data Layer**: Python (BeautifulSoup, Requests)
+- **Infrastructure**: AWS (DynamoDB, Lambda, S3, Secrets Manager)
+- **Analytics**: Recharts, Vercel Analytics
+- **Project Tracking & Quality**: Sonar Way compliance, Antigravity AI Standards

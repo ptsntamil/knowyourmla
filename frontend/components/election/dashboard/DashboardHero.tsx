@@ -1,12 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
+import ShareButton from '@/components/ShareButton';
 
 interface DashboardHeroProps {
   title: string;
   description: string;
+  subtitle?: string;
 }
 
-export default function DashboardHero({ title, description }: DashboardHeroProps) {
+export default function DashboardHero({ title, description, subtitle }: DashboardHeroProps) {
   return (
     <section className="relative pt-24 pb-16 md:pt-32 md:pb-24 overflow-hidden bg-brand-dark rounded-b-[4rem]">
       {/* Background aesthetics */}
@@ -44,10 +46,25 @@ export default function DashboardHero({ title, description }: DashboardHeroProps
             {description}
           </p>
 
-          <div className="pt-4 flex items-center justify-center gap-4">
-             <div className="h-px bg-white/10 flex-grow max-w-[100px]"></div>
-             <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">Data-Driven Transparency</span>
-             <div className="h-px bg-white/10 flex-grow max-w-[100px]"></div>
+          {subtitle && (
+             <p className="text-white/40 text-[10px] font-black uppercase tracking-[0.2em] max-w-2xl mx-auto leading-relaxed">
+               {subtitle}
+             </p>
+          )}
+
+          <div className="pt-6 flex flex-col items-center gap-8">
+            <ShareButton 
+              title="Tamil Nadu Assembly Election 2026 Dashboard"
+              text="Explore the complete list of MLA candidates and election insights for Tamil Nadu 2026."
+              url="/tn/elections/2026/dashboard"
+              label="Share Dashboard"
+            />
+
+            <div className="flex items-center justify-center gap-4 w-full">
+               <div className="h-px bg-white/10 flex-grow max-w-[100px]"></div>
+               <span className="text-[10px] font-black uppercase tracking-[0.4em] text-white/20">Data-Driven Transparency</span>
+               <div className="h-px bg-white/10 flex-grow max-w-[100px]"></div>
+            </div>
           </div>
         </div>
       </div>

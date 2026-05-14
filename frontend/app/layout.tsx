@@ -52,7 +52,7 @@ async function getElections() {
     const repo = new ElectionRepository();
     const records = await repo.getAllElections();
     return records
-      .filter(r => r.type === "Assembly" && r.category === "General" && r.year !== 2026)
+      .filter(r => r.type === "Assembly" && r.category === "General")
       .sort((a, b) => b.year - a.year)
       .map(r => ({
         year: r.year,
@@ -79,8 +79,8 @@ export default async function RootLayout({
       <body className={`${inter.className} bg-slate-50 dark:bg-slate-950 min-h-screen text-slate-900 dark:text-slate-100 flex flex-col`}>
         <Navbar elections={elections} />
 
-        <NoteBanner 
-          message="This site currently contains data for only the last 2 elections and may have some issues as we are still updating it. More election data will be added in the coming weeks." 
+        <NoteBanner
+          message="This site currently contains data for only the last 2 elections and may have some issues as we are still updating it. More election data will be added in the coming weeks."
         />
 
         <div className="flex-grow">

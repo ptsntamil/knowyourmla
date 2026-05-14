@@ -41,8 +41,15 @@ class AffidavitExtractor:
         """Extracts structured data using the new SDK's generate_content."""
         prompt = """
         You are an expert Data Extraction agent specializing in Indian Election Affidavits (Form 26). 
-        Your task is to deeply parse the provided PDF and extract structured information into JSON.
+        Your task is to deeply parse the provided PDF—which consists of SCANNED IMAGES—and extract structured information into JSON.
         
+        ### SOURCE NATURE: 
+        All pages are scanned images of physical documents. They often contain:
+        - Handwritten values (in Tamil or English).
+        - Official stamps, signatures, and ink bleeds overlapping text.
+        - Tilted pages and low-resolution table layouts.
+        You must perform high-precision visual analysis to accurately extract the data despite these artifacts.
+
         ### EXTRACTION STRATEGY:
         1. **Locate Core Sections**: 
            - **Section 7 (Movable Assets)**: Focus on row (vi) for Vehicles and (vii) for Jewellery/Gold/Silver.
@@ -79,7 +86,8 @@ class AffidavitExtractor:
             }
 
         ### CRITICAL RULES:
-        - **UNIVERSAL TRANSLATION**: Translate EVERYTHING to English.
+        - **UNIVERSAL TRANSLATION**: Translate EVERYTHING to English, including handwritten Tamil notes.
+        - **SCANNED IMAGE PRECISION**: Pay extreme attention to handwritten numbers. If a value is ambiguous, cross-verify with "Totals" or higher-level summary tables (Item 11).
         - **PAN FORMAT**: PAN must be a 10-character alphanumeric string. Use null if not found.
         - **NUMERIC PRECISION**: Use exact numeric figures. Remove commas but keep decimals if present.
         - **THINK STEP-BY-STEP**: Analyze the table headers and "Refer Annexure" pointers carefully. If an annexure exists, prioritize it.

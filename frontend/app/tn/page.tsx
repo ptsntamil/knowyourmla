@@ -8,6 +8,7 @@ import CoverImage from "@/components/CoverImage";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ItemListSchema from "@/components/seo/ItemListSchema";
 import SectionHeader from "@/components/ui/SectionHeader";
+import { LATEST_ELECTION_YEAR } from "@/lib/constants/elections";
 
 // New Components
 import StateStatsHeroPills from "@/components/state/StateStatsHeroPills";
@@ -146,7 +147,7 @@ export default async function TNPage() {
               subtitle="Deep dives into historical results, regional patterns, and candidate analytics."
             />
             <Link 
-              href="/tn/elections/2021"
+              href={`/tn/elections/${LATEST_ELECTION_YEAR}`}
               className="text-brand-gold font-black uppercase tracking-widest text-[10px] flex items-center gap-2 group hover:underline underline-offset-8 transition-all"
             >
               Browse Election Archive
@@ -156,7 +157,7 @@ export default async function TNPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Link 
-              href="/tn/elections/2021"
+              href={`/tn/elections/${LATEST_ELECTION_YEAR}`}
               className="group relative bg-white rounded-[3rem] p-10 border border-slate-100 shadow-sm hover:shadow-2xl hover:shadow-brand-gold/10 transition-all active:scale-[0.98] overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
@@ -165,7 +166,7 @@ export default async function TNPage() {
                   <TrendingUp size={28} />
                 </div>
                 <div className="space-y-2">
-                  <h3 className="text-2xl font-black text-brand-dark uppercase tracking-tight">2021 Results Hub</h3>
+                  <h3 className="text-2xl font-black text-brand-dark uppercase tracking-tight">{LATEST_ELECTION_YEAR} Results Hub</h3>
                   <p className="text-slate-500 font-medium leading-relaxed">Official assembly results, constituency mapping, and party-wise seat distributions for the latest election.</p>
                 </div>
                 <div className="pt-4 flex items-center gap-3 text-[10px] font-black text-brand-gold uppercase tracking-[0.2em] group-hover:gap-5 transition-all">
@@ -175,7 +176,7 @@ export default async function TNPage() {
             </Link>
 
             <Link 
-              href="/tn/elections/2021/insights"
+              href={`/tn/elections/${LATEST_ELECTION_YEAR}/insights`}
               className="group relative bg-brand-dark rounded-[3rem] p-10 shadow-2xl hover:shadow-brand-gold/20 transition-all active:scale-[0.98] overflow-hidden"
             >
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-gold/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
@@ -185,7 +186,7 @@ export default async function TNPage() {
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-2xl font-black text-white uppercase tracking-tight">Deep Analytics</h3>
-                  <p className="text-slate-400 font-medium leading-relaxed">Richest candidates, closest contests, women representation, and regional strongholds analyzed for the 2021 assembly.</p>
+                  <p className="text-slate-400 font-medium leading-relaxed">Richest candidates, closest contests, women representation, and regional strongholds analyzed for the {LATEST_ELECTION_YEAR} assembly.</p>
                 </div>
                 <div className="pt-4 flex items-center gap-3 text-[10px] font-black text-brand-gold uppercase tracking-[0.2em] group-hover:gap-5 transition-all">
                   Full Insights <ArrowRight size={14} />

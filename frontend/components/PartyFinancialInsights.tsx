@@ -2,6 +2,7 @@
 
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from "recharts";
 import { Wallet, TrendingUp, Landmark, IndianRupee } from "lucide-react";
+import { useState, useEffect } from "react";
 
 interface PartyFinancialInsightsProps {
   data: any;
@@ -10,6 +11,9 @@ interface PartyFinancialInsightsProps {
 const COLORS = ["#10B981", "#059669", "#047857", "#164C45", "#064E3B", "#022C22"];
 
 export default function PartyFinancialInsights({ data }: PartyFinancialInsightsProps) {
+  const [isMounted, setIsMounted] = useState(false);
+  useEffect(() => setIsMounted(true), []);
+
   const { average, median, crorepatiCount, crorepatiPercentage, distribution } = data;
 
   const formatCurrency = (amt: number) => {
@@ -56,25 +60,27 @@ export default function PartyFinancialInsights({ data }: PartyFinancialInsightsP
         </div>
 
         <div className="h-[300px] w-full relative">
-           <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={chartData}>
-                 <XAxis 
-                    dataKey="name" 
-                    axisLine={false} 
-                    tickLine={false} 
-                    tick={{ fontSize: 8, fontWeight: 'bold', fill: '#94a3b8' }}
-                 />
-                 <Tooltip 
-                    cursor={{ fill: 'transparent' }}
-                    contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                 />
-                 <Bar dataKey="value" radius={[10, 10, 0, 0]}>
-                    {chartData.map((entry: any, index: number) => (
-                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                    ))}
-                 </Bar>
-              </BarChart>
-           </ResponsiveContainer>
+           {isMounted && (
+             <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={chartData}>
+                   <XAxis 
+                      dataKey="name" 
+                      axisLine={false} 
+                      tickLine={false} 
+                      tick={{ fontSize: 8, fontWeight: 'bold', fill: '#94a3b8' }}
+                   />
+                   <Tooltip 
+                      cursor={{ fill: 'transparent' }}
+                      contentStyle={{ borderRadius: '1rem', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                   />
+                   <Bar dataKey="value" radius={[10, 10, 0, 0]}>
+                      {chartData.map((entry: any, index: number) => (
+                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      ))}
+                   </Bar>
+                </BarChart>
+             </ResponsiveContainer>
+           )}
         </div>
       </div>
       
