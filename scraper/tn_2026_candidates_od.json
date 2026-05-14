@@ -37529,319 +37529,203 @@
         "Age": "34",
         "affidavite_file_location": "assets/2026/affidavits/TAMBARAM/D.sarathkumar_Affidavit-1776421090.pdf",
         "extracted_data": {
-            "candidate_name": "D.sarathkumar",
-            "age": "34",
-            "father_name": "Dhanasekaran",
-            "address": "No.22, Balaji Nagar, srinivasa Nagar, Old Perungalathur, Chennai-600063.",
             "pan_number": "ERCPS7204B",
-            "education": [
-                {
-                    "qualification": "B.B.A.",
-                    "year": "2012",
-                    "institution": "M.M. Jain College, Meenambakkam"
-                }
-            ],
-            "profession": "Advocate",
-            "party_name": "Tamilaga Vettri Kazhagam",
-            "constituency_name": "TAMBARAM",
+            "education": {
+                "qualification": "B.B.A.",
+                "year": "2012",
+                "institution": "M.M. Jain College, Meenambakkam"
+            },
+            "profession": "Individual Civil Contractor",
             "voter_details": {
-                "constituency": "31 - Tambaram, Tamil Nadu",
+                "constituency": "Tambaram",
                 "serial_no": "466",
                 "part_no": "339"
             },
             "contact_details": {
                 "email": "sarathkumar0828@gmail.com",
-                "facebook": "https://www.facebook.com/share/1CNT4y58Ah/?mibextid=wwXIfr",
-                "twitter_x": "https://x.com/sarath0828",
-                "instagram": "https://www.instagram.com/g.ashwin_tvk?igsh=a2M1OHN3c3oyaGl0"
+                "facebook": "Tambaram Ghilli Sarath",
+                "twitter_x": "Ghillisarath",
+                "instagram": "Ghilli Sarath.official08"
             },
-            "total_assets": 0.0,
-            "total_liabilities": 0.0,
-            "total_assets_details": null,
-            "total_liabilities_details": null,
-            "criminal_cases": 1,
-            "income_itr": {
-                "self": [
-                    {
-                        "financial_year": "2025-2026",
-                        "income": 1337700
-                    },
-                    {
-                        "financial_year": "2024-2025",
-                        "income": 1276972
-                    },
-                    {
-                        "financial_year": "2023-2024",
-                        "income": null
-                    },
-                    {
-                        "financial_year": "2022-2023",
-                        "income": null
-                    },
-                    {
-                        "financial_year": "2021-2022",
-                        "income": null
-                    }
-                ],
-                "spouse": [
-                    {
-                        "financial_year": "2025-2026",
-                        "income": 1183290
-                    },
-                    {
-                        "financial_year": "2024-2025",
-                        "income": 318360
-                    },
-                    {
-                        "financial_year": "2023-2024",
-                        "income": null
-                    },
-                    {
-                        "financial_year": "2022-2023",
-                        "income": null
-                    },
-                    {
-                        "financial_year": "2021-2022",
-                        "income": null
-                    }
-                ],
-                "dependents": []
+            "total_assets": {
+                "self": 38253531.96,
+                "spouse": 2694000.0,
+                "dependents": 0.0
+            },
+            "total_liabilities": {
+                "self": 1000000.0,
+                "spouse": 0.0,
+                "dependents": 0.0
+            },
+            "criminal_cases": {
+                "count": 1,
+                "sections": "Sections 189(2), 126(2), 285, 287 BNS"
+            },
+            "income_tax_details": {
+                "self": "Returns filed for 2024-25 and 2025-26",
+                "spouse": "Returns filed for 2024-25 and 2025-26",
+                "dependents": null
             },
             "itr_history": {
-                "self": [
-                    {
-                        "2025-2026": 1337700
-                    },
-                    {
-                        "2024-2025": 1276972
-                    },
-                    {
-                        "2023-2024": null
-                    },
-                    {
-                        "2022-2023": null
-                    },
-                    {
-                        "2021-2022": null
-                    }
-                ],
-                "spouse": [
-                    {
-                        "2025-2026": 1183290
-                    },
-                    {
-                        "2024-2025": 318360
-                    },
-                    {
-                        "2023-2024": null
-                    },
-                    {
-                        "2022-2023": null
-                    },
-                    {
-                        "2021-2022": null
-                    }
-                ],
-                "dependents": []
+                "self": {
+                    "2025-26": 1337700.0,
+                    "2024-25": 1276972.0,
+                    "2023-24": 0.0,
+                    "2022-23": 0.0,
+                    "2021-22": 0.0
+                },
+                "spouse": {
+                    "2025-26": 1183290.0,
+                    "2024-25": 318360.0,
+                    "2023-24": 0.0,
+                    "2022-23": 0.0,
+                    "2021-22": 0.0
+                },
+                "dependents": {}
             },
             "vehicle_assets": {
                 "self": [
                     {
-                        "name": "TOYOTA INNOVA HYCROSS",
+                        "name": "Innova Hycross",
                         "registration_no": "TN-11-CB-8888",
-                        "year_of_purchase": 2026,
-                        "value": 3400000
+                        "year_of_purchase": "2026",
+                        "value": 3400000.0
                     },
                     {
-                        "name": "KIA CARENS",
+                        "name": "Kia Carens",
                         "registration_no": "TN-11-BH-8888",
-                        "year_of_purchase": 2023,
-                        "value": 1900000
+                        "year_of_purchase": "2023",
+                        "value": 1900000.0
                     }
                 ],
                 "spouse": [],
                 "dependents": []
             },
-            "gold_assets": [],
-            "silver_assets": [],
-            "land_assets": {
+            "gold_details": {
                 "self": {
-                    "full_text": "(1) Agricultural Land:\n1) Agricultural Land:\nVillage: Sembuur, Survey No: 161/J, 1E, 1D, 1E (92 Cents), Area: 0.92 Acres, Cost: Rs.4,60,000/-\n2) Agricultural Land:\nVillage: Sembuur, Survey No: 161/1A, 1B (33 Cents), Area: 0.33 Acres, Cost: Rs.1,65,000/-\n(2) Non-Agricultural Land:\n1) Land purchased on 16.03.2022, Cost: Rs.1,84,920/-\n2) Land purchased on 16.03.2022, Cost: Rs.66,330/-\n(3) Residential Buildings:\n1) Land Development/Construction Cost: Rs.4,60,000/-\n2) Land Development/Construction Cost: Rs.1,65,000/-",
-                    "entries": [
-                        {
-                            "village": "Agricultural Land",
-                            "survey_no": "161/J",
-                            "raw_area": "0.92",
-                            "acres": 0.0,
-                            "cents": 92.0,
-                            "purchase_cost": 0.0,
-                            "confidence": "high",
-                            "correction_applied": false,
-                            "raw_text": "Agricultural Land:\nVillage: Sembuur, Survey No: 161/J, 1E, 1D, 1E (92 Cents), Area: 0.92 Acres, Cost: Rs.4,60,000/-"
-                        },
-                        {
-                            "village": "Agricultural Land",
-                            "survey_no": "161/1A",
-                            "raw_area": "0.33",
-                            "acres": 0.0,
-                            "cents": 33.0,
-                            "purchase_cost": 0.0,
-                            "confidence": "high",
-                            "correction_applied": false,
-                            "raw_text": "Agricultural Land:\nVillage: Sembuur, Survey No: 161/1A, 1B (33 Cents), Area: 0.33 Acres, Cost: Rs.1,65,000/-\n("
-                        }
-                    ],
-                    "total": {
-                        "calculated": {
-                            "acres": 1.0,
-                            "cents": 25.0
-                        },
-                        "declared": {
-                            "acres": 0.0,
-                            "cents": 0.0
-                        },
-                        "total_purchase_cost": 251250.0,
-                        "mismatch": true
-                    },
-                    "gemini_extracted": [
-                        {
-                            "village": "Sembuur",
-                            "survey_no": "161/J, 1E, 1D, 1E",
-                            "area": "0.92",
-                            "unit": "Acres",
-                            "purchase_cost": null,
-                            "current_market_value": null
-                        },
-                        {
-                            "village": "Sembuur",
-                            "survey_no": "161/1A, 1B",
-                            "area": "0.33",
-                            "unit": "Acres",
-                            "purchase_cost": null,
-                            "current_market_value": null
-                        },
-                        {
-                            "village": null,
-                            "survey_no": null,
-                            "area": null,
-                            "unit": null,
-                            "purchase_cost": 184920,
-                            "current_market_value": null
-                        },
-                        {
-                            "village": null,
-                            "survey_no": null,
-                            "area": null,
-                            "unit": null,
-                            "purchase_cost": 66330,
-                            "current_market_value": null
-                        },
-                        {
-                            "village": null,
-                            "survey_no": null,
-                            "area": null,
-                            "unit": null,
-                            "purchase_cost": null,
-                            "current_market_value": 460000
-                        },
-                        {
-                            "village": null,
-                            "survey_no": null,
-                            "area": null,
-                            "unit": null,
-                            "purchase_cost": null,
-                            "current_market_value": 165000
-                        }
-                    ]
+                    "weight_grms": 128.0,
+                    "value": 1450000.0
                 },
                 "spouse": {
-                    "full_text": "(1) Agricultural Land:\n1) Agricultural Land:\nVillage: Sembuur, Survey No: 161/J, 1E, 1D, 1E (92 Cents), Area: 0.92 Acres, Cost: Rs.4,60,000/-\n2) Agricultural Land:\nVillage: Sembuur, Survey No: 161/1A, 1B (33 Cents), Area: 0.33 Acres, Cost: Rs.1,65,000/-\n(2) Non-Agricultural Land:\n1) Land purchased on 16.03.2022, Cost: Rs.1,84,920/-\n2) Land purchased on 16.03.2022, Cost: Rs.66,330/-\n(3) Residential Buildings:\n1) Land Development/Construction Cost: Rs.4,60,000/-\n2) Land Development/Construction Cost: Rs.1,65,000/-",
-                    "entries": [
+                    "weight_grms": 240.0,
+                    "value": 2550000.0
+                },
+                "dependents": {
+                    "weight_grms": 0.0,
+                    "value": 0.0
+                }
+            },
+            "silver_details": {
+                "self": {
+                    "weight_grms": 0.0,
+                    "value": 0.0
+                },
+                "spouse": {
+                    "weight_grms": 0.0,
+                    "value": 0.0
+                },
+                "dependents": {
+                    "weight_grms": 0.0,
+                    "value": 0.0
+                }
+            },
+            "land_assets": {
+                "self": {
+                    "raw_text_block": "1) Sembur Village, Cheyyur, Survey No: 161/J, 1E, 1D, 1E, Area: 0.92 Acre, Cost: 184920. 2) Sembur Village, Cheyyur, Survey No: 161/1A, 1B, Area: 0.33 Acre, Cost: 66330. 3) Oorpakkam Village, Chengalpattu, Survey No: 195/5, 159A/2A1, Area: 3382.5 Sqft, Cost: 6088500. 4) Eanchambakkam Village, Chennai, Survey No: 200/5, Area: 1070 Sqft, Cost: 11550000. 5) Perungalathur Village, Survey No: 382/61, Area: 800 Sqft, Cost: 1920000. 6) Perungalathur Village, Survey No: 382/61, Area: 1816 Sqft, Cost: 6278400.",
+                    "parsed_entries": [
                         {
-                            "village": "Agricultural Land",
-                            "survey_no": "161/J",
-                            "raw_area": "0.92",
-                            "acres": 0.0,
-                            "cents": 92.0,
-                            "purchase_cost": 0.0,
-                            "confidence": "high",
-                            "correction_applied": false,
-                            "raw_text": "Agricultural Land:\nVillage: Sembuur, Survey No: 161/J, 1E, 1D, 1E (92 Cents), Area: 0.92 Acres, Cost: Rs.4,60,000/-"
+                            "village": "Sembur Village, Cheyyur",
+                            "survey_no": "161/J, 1E, 1D, 1E",
+                            "area": 0.92,
+                            "unit": "Acre",
+                            "purchase_cost": 184920.0,
+                            "current_market_value": 460000.0
                         },
                         {
-                            "village": "Agricultural Land",
-                            "survey_no": "161/1A",
-                            "raw_area": "0.33",
-                            "acres": 0.0,
-                            "cents": 33.0,
-                            "purchase_cost": 0.0,
-                            "confidence": "high",
-                            "correction_applied": false,
-                            "raw_text": "Agricultural Land:\nVillage: Sembuur, Survey No: 161/1A, 1B (33 Cents), Area: 0.33 Acres, Cost: Rs.1,65,000/-\n("
+                            "village": "Sembur Village, Cheyyur",
+                            "survey_no": "161/1A, 1B",
+                            "area": 0.33,
+                            "unit": "Acre",
+                            "purchase_cost": 66330.0,
+                            "current_market_value": 165000.0
+                        },
+                        {
+                            "village": "Oorpakkam Village, Chengalpattu",
+                            "survey_no": "195/5, 159A/2A1",
+                            "area": 3382.5,
+                            "unit": "Sqft",
+                            "purchase_cost": 6088500.0,
+                            "current_market_value": 17638500.0
+                        },
+                        {
+                            "village": "Eanchambakkam Village, Chennai",
+                            "survey_no": "200/5",
+                            "area": 1070.0,
+                            "unit": "Sqft",
+                            "purchase_cost": 11550000.0,
+                            "current_market_value": 11550000.0
+                        },
+                        {
+                            "village": "Perungalathur Village",
+                            "survey_no": "382/61",
+                            "area": 800.0,
+                            "unit": "Sqft",
+                            "purchase_cost": 1920000.0,
+                            "current_market_value": 3670000.0
+                        },
+                        {
+                            "village": "Perungalathur Village",
+                            "survey_no": "382/61",
+                            "area": 1816.0,
+                            "unit": "Sqft",
+                            "purchase_cost": 6278400.0,
+                            "current_market_value": 9428400.0
                         }
                     ],
                     "total": {
                         "calculated": {
-                            "acres": 1.0,
-                            "cents": 25.0
+                            "acres": 0.0,
+                            "cents": 0.0
                         },
+                        "total_purchase_cost": 0.0,
                         "declared": {
                             "acres": 0.0,
                             "cents": 0.0
                         },
-                        "total_purchase_cost": 251250.0,
-                        "mismatch": true
-                    },
-                    "gemini_extracted": [
-                        {
-                            "village": "Sembuur",
-                            "survey_no": "161/J, 1E, 1D, 1E",
-                            "area": "0.92",
-                            "unit": "Acres",
-                            "purchase_cost": null,
-                            "current_market_value": null
+                        "mismatch": false
+                    }
+                },
+                "spouse": {
+                    "raw_text_block": "None",
+                    "parsed_entries": [],
+                    "total": {
+                        "calculated": {
+                            "acres": 0.0,
+                            "cents": 0.0
                         },
-                        {
-                            "village": "Sembuur",
-                            "survey_no": "161/1A, 1B",
-                            "area": "0.33",
-                            "unit": "Acres",
-                            "purchase_cost": null,
-                            "current_market_value": null
+                        "total_purchase_cost": 0.0,
+                        "declared": {
+                            "acres": 0.0,
+                            "cents": 0.0
                         },
-                        {
-                            "village": null,
-                            "survey_no": null,
-                            "area": null,
-                            "unit": null,
-                            "purchase_cost": 184920,
-                            "current_market_value": null
+                        "mismatch": false
+                    }
+                },
+                "dependents": {
+                    "raw_text_block": "None",
+                    "parsed_entries": [],
+                    "total": {
+                        "calculated": {
+                            "acres": 0.0,
+                            "cents": 0.0
                         },
-                        {
-                            "village": null,
-                            "survey_no": null,
-                            "area": null,
-                            "unit": null,
-                            "purchase_cost": 66330,
-                            "current_market_value": null
+                        "total_purchase_cost": 0.0,
+                        "declared": {
+                            "acres": 0.0,
+                            "cents": 0.0
                         },
-                        {
-                            "village": null,
-                            "survey_no": null,
-                            "area": null,
-                            "unit": null,
-                            "purchase_cost": null,
-                            "current_market_value": 460000
-                        },
-                        {
-                            "village": null,
-                            "survey_no": null,
-                            "area": null,
-                            "unit": null,
-                            "purchase_cost": null,
-                            "current_market_value": 165000
-                        }
-                    ]
+                        "mismatch": false
+                    }
                 }
             }
         },
@@ -195489,6 +195373,11 @@
             "pan_number": "AKKPH7348Q",
             "education": [
                 {
+                    "qualification": "LL.B",
+                    "year": 2022,
+                    "institution": "Sri Eshwar Reddy College of Law Sri Venkateswara University"
+                },
+                {
                     "qualification": "10th Class",
                     "year": 2010,
                     "institution": "AJS Nidhi Higher Secondary School-Alandur"
@@ -195502,11 +195391,6 @@
                     "qualification": "B.E. (Civil)",
                     "year": 2016,
                     "institution": "Jerusalem College of Engineering – Pallikaranai- Anna University"
-                },
-                {
-                    "qualification": "LL.B",
-                    "year": 2022,
-                    "institution": "Sri Eshwar Reddy College of Law Sri Venkateswara University"
                 }
             ],
             "profession": "Advocate & Notary Public",
@@ -313751,7 +313635,8 @@
             "silver_assets": [],
             "land_assets": {}
         },
-        "extracted_at": "2026-04-19T02:46:47Z"
+        "extracted_at": "2026-04-19T02:46:47Z",
+        "db_error": "An error occurred (UnrecognizedClientException) when calling the UpdateItem operation: The security token included in the request is invalid"
     },
     {
         "name": "Narmada Nandhakumar",
@@ -313817,7 +313702,8 @@
             "silver_assets": [],
             "land_assets": {}
         },
-        "extracted_at": "2026-04-19T02:47:05Z"
+        "extracted_at": "2026-04-19T02:47:05Z",
+        "db_error": "An error occurred (UnrecognizedClientException) when calling the UpdateItem operation: The security token included in the request is invalid"
     },
     {
         "name": "D.dinesh",
@@ -314044,7 +313930,8 @@
                 }
             }
         },
-        "extracted_at": "2026-04-19T02:47:25Z"
+        "extracted_at": "2026-04-19T02:47:25Z",
+        "db_error": "An error occurred (UnrecognizedClientException) when calling the UpdateItem operation: The security token included in the request is invalid"
     },
     {
         "name": "Raj. P.",
@@ -314183,7 +314070,8 @@
                 }
             }
         },
-        "extracted_at": "2026-04-19T02:47:45Z"
+        "extracted_at": "2026-04-19T02:47:45Z",
+        "db_error": "An error occurred (UnrecognizedClientException) when calling the UpdateItem operation: The security token included in the request is invalid"
     },
     {
         "name": "Suryaprakash.s",
@@ -314375,7 +314263,8 @@
                 }
             }
         },
-        "extracted_at": "2026-04-19T02:48:01Z"
+        "extracted_at": "2026-04-19T02:48:01Z",
+        "db_error": "An error occurred (UnrecognizedClientException) when calling the UpdateItem operation: The security token included in the request is invalid"
     },
     {
         "name": "Dhetchna Moorthy. Doctor. S",
@@ -314578,7 +314467,8 @@
                 }
             }
         },
-        "extracted_at": "2026-04-19T02:48:23Z"
+        "extracted_at": "2026-04-19T02:48:23Z",
+        "db_error": "An error occurred (UnrecognizedClientException) when calling the UpdateItem operation: The security token included in the request is invalid"
     },
     {
         "name": "Krishnakumar.a",
@@ -314664,7 +314554,8 @@
             "silver_assets": null,
             "land_assets": {}
         },
-        "extracted_at": "2026-04-19T02:48:44Z"
+        "extracted_at": "2026-04-19T02:48:44Z",
+        "db_error": "An error occurred (UnrecognizedClientException) when calling the UpdateItem operation: The security token included in the request is invalid"
     },
     {
         "name": "Rajendran. A",
@@ -314857,7 +314748,8 @@
                 }
             }
         },
-        "extracted_at": "2026-04-19T02:49:05Z"
+        "extracted_at": "2026-04-19T02:49:05Z",
+        "db_error": "An error occurred (UnrecognizedClientException) when calling the UpdateItem operation: The security token included in the request is invalid"
     },
     {
         "name": "K. Sampath Kumar",
@@ -315003,7 +314895,8 @@
                 }
             }
         },
-        "extracted_at": "2026-04-19T02:49:26Z"
+        "extracted_at": "2026-04-19T02:49:26Z",
+        "db_error": "An error occurred (UnrecognizedClientException) when calling the UpdateItem operation: The security token included in the request is invalid"
     },
     {
         "name": "Sendrayan. G.",
@@ -315373,7 +315266,8 @@
                 }
             }
         },
-        "extracted_at": "2026-04-19T02:49:47Z"
+        "extracted_at": "2026-04-19T02:49:47Z",
+        "db_error": "An error occurred (UnrecognizedClientException) when calling the UpdateItem operation: The security token included in the request is invalid"
     },
     {
         "name": "Murugan. S",

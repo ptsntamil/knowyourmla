@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Users, MapPin, Landmark, Lightbulb } from 'lucide-react';
+import { LayoutDashboard, Users, MapPin, Landmark, Lightbulb, BarChart3 } from 'lucide-react';
 
 const TABS = [
   { name: 'Overview', href: '/tn/elections/2026/dashboard', icon: LayoutDashboard },
@@ -11,6 +11,7 @@ const TABS = [
   { name: 'Constituencies', href: '/tn/elections/2026/constituencies', icon: MapPin },
   { name: 'Parties', href: '/tn/elections/2026/parties', icon: Landmark },
   { name: 'Insights', href: '/tn/elections/2026/insights', icon: Lightbulb },
+  { name: 'Results', href: '/tn/elections/2026', icon: BarChart3 },
 ];
 
 export default function ElectionNavTabs() {

@@ -621,3 +621,96 @@ resource "aws_dynamodb_table" "knowyourmla_elections" {
     Env     = "prod"
   }
 }
+
+resource "aws_dynamodb_table" "knowyourmla_polling_results" {
+  name         = "knowyourmla_polling_results"
+  billing_mode = "PAY_PER_REQUEST"
+
+  # Primary Key: 
+  # Station: PK = CONSTITUENCY#<const_id>#YEAR#<year>#PS#<ps_no>, SK = METADATA
+  # AC Summary: PK = CONSTITUENCY#<const_id>#YEAR#<year>, SK = AC_SUMMARY
+  hash_key  = "PK"
+  range_key = "SK"
+
+  attribute {
+    name = "PK"
+    type = "S"
+  }
+
+  attribute {
+    name = "SK"
+    type = "S"
+  }
+
+  attribute {
+    name = "constituency_id"
+    type = "S"
+  }
+
+  attribute {
+    name = "polling_station_no"
+    type = "N"
+  }
+
+  attribute {
+    name = "year"
+    type = "N"
+  }
+
+  # GSI1: Polling Station view
+  global_secondary_index {
+    name            = "PollingStationIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "polling_station_no"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "constituency_id"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI2: Constituency view
+  global_secondary_index {
+    name            = "ConstituencyIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "constituency_id"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "polling_station_no"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI3: Year view
+  global_secondary_index {
+    name            = "YearIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "year"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "constituency_id"
+      key_type       = "RANGE"
+    }
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
+  tags = {
+    Project = "KnowYourMLA"
+    Env     = "prod"
+  }
+}

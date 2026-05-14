@@ -47,9 +47,9 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
 
   // 4. Filtering Logic
   const filteredContests = useMemo(() => {
-    return contests.filter(c => {
-      const searchLower = searchTerm.toLowerCase();
-      const matchesSearch = !searchTerm ||
+    const searchLower = searchTerm.toLowerCase().trim();
+    const filtered = contests.filter(c => {
+      const matchesSearch = !searchLower ||
         c.constituencyName.toLowerCase().includes(searchLower) ||
         c.districtName?.toLowerCase().includes(searchLower);
 
@@ -63,6 +63,31 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
 
       return matchesSearch && matchesDistrict && matchesPattern;
     });
+
+    // Prioritize matches in constituency name over district name
+    if (searchLower) {
+      filtered.sort((a, b) => {
+        const aName = a.constituencyName.toLowerCase();
+        const bName = b.constituencyName.toLowerCase();
+
+        // 1. Constituency name starts with search term
+        const aStarts = aName.startsWith(searchLower);
+        const bStarts = bName.startsWith(searchLower);
+        if (aStarts && !bStarts) return -1;
+        if (!aStarts && bStarts) return 1;
+
+        // 2. Constituency name contains search term
+        const aContains = aName.includes(searchLower);
+        const bContains = bName.includes(searchLower);
+        if (aContains && !bContains) return -1;
+        if (!aContains && bContains) return 1;
+
+        // 3. Fallback to default alphabetical order
+        return a.constituencyName.localeCompare(b.constituencyName);
+      });
+    }
+
+    return filtered;
   }, [contests, searchTerm, selectedDistrict, selectedPattern]);
 
   // 5. Highlight Contests
@@ -259,8 +284,8 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
                   {/* Limit to 3 tags */}
                   {contest.tags.slice(0, 3).map((t, idx) => (
                     <span key={`${t}-${idx}`} className={`text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded-lg border shadow-sm whitespace-nowrap ${t === 'Close Margin' || t === 'Open Seat'
-                        ? 'bg-rose-50 text-rose-500 border-rose-100'
-                        : 'bg-brand-gold/10 text-brand-gold border-brand-gold/10'
+                      ? 'bg-rose-50 text-rose-500 border-rose-100'
+                      : 'bg-brand-gold/10 text-brand-gold border-brand-gold/10'
                       }`}>
                       {t}
                     </span>
@@ -292,11 +317,11 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
                   ) : (
                     <p className="text-xs font-bold text-slate-400 italic">No historical data found</p>
                   )}
-                  <PartyBadge 
-                    party={contest.lastWinnerParty || "Independent"} 
+                  <PartyBadge
+                    party={contest.lastWinnerParty || "Independent"}
                     shortName={contest.lastWinnerPartyShort}
-                    showName={false} 
-                    size="sm" 
+                    showName={false}
+                    size="sm"
                   />
                 </div>
               </div>

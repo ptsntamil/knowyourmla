@@ -5,6 +5,15 @@ import logging
 from typing import Optional, Dict, List, Any, Union
 from decimal import Decimal
 
+class DecimalEncoder(json.JSONEncoder):
+    """JSON Encoder that converts Decimal objects to float/int."""
+    def default(self, obj):
+        if isinstance(obj, Decimal):
+            if obj % 1 == 0:
+                return int(obj)
+            return float(obj)
+        return super(DecimalEncoder, self).default(obj)
+
 logger = logging.getLogger(__name__)
 
 # Reservation categories to strip from names
@@ -124,7 +133,8 @@ CONSTITUENCY_ALIAS_MAP = {
     "muthukulathure": "mudukulathur",
     "vriddhachalam": "vridhachalam",
     "veppanahallil": "veppanahalli",
-    "tnagar": "thiyagarayanagar"
+    "tnagar": "thiyagarayanagar",
+    "nilakottai": "nilakkottai"
 }
 
 
@@ -142,8 +152,9 @@ def get_all_aliases() -> Dict[str, str]:
             try:
                 with open(json_path, "r", encoding="utf-8") as f:
                     _DYNAMIC_ALIASES = json.load(f)
-            except Exception:
-                pass
+            except Exception as e:
+                logger.warning(f"Failed to load constituency aliases from {json_path}: {e}")
+                _DYNAMIC_ALIASES = {}
     
     # Merge hardcoded into dynamic (hardcoded wins if conflict)
     combined = {**_DYNAMIC_ALIASES, **CONSTITUENCY_ALIAS_MAP}
@@ -159,7 +170,12 @@ def canonicalize_constituency(name: str) -> Optional[str]:
     """
     cleaned = clean_constituency(name)
     if not cleaned:
-        return None
+        # Fallback for names that clean_constituency might reject (e.g. just numbers) 
+        # or missed by main cleanup, similar to enrichment.py pattern
+        cleaned = name.split('(')[0].strip() if name else ""
+        if not cleaned:
+            return None
+            
     norm = normalize_name(cleaned)
     aliases = get_all_aliases()
     return aliases.get(norm, norm)

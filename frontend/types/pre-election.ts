@@ -130,6 +130,10 @@ export interface PreElectionSnapshotStats {
   averageAssets: number | null;
   ownConstituencyPercent?: number | null;
   crossConstituencyPercent?: number | null;
+  totalVoters?: number | null;
+  maleVoters?: number | null;
+  femaleVoters?: number | null;
+  thirdGenderVoters?: number | null;
 }
 
 export interface PreElectionDashboardData {

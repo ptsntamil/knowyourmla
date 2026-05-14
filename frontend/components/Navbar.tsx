@@ -5,6 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import FeedbackModal from "./FeedbackModal";
+import Search from "./Search";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 export interface ElectionItem {
@@ -18,6 +19,7 @@ interface NavbarProps {
 
 export default function Navbar({ elections = [] }: NavbarProps) {
   const currentElections = elections.length > 0 ? elections : [
+    { year: 2026, label: "2026 Assembly" },
     { year: 2021, label: "2021 Assembly" },
     { year: 2016, label: "2016 Assembly" },
     { year: 2011, label: "2011 Assembly" },
@@ -155,6 +157,8 @@ export default function Navbar({ elections = [] }: NavbarProps) {
               About Us
             </Link>
 
+            <Search />
+
             <button
               onClick={() => setIsFeedbackOpen(true)}
               className="bg-brand-green text-white px-5 py-2.5 rounded-lg hover:brightness-110 active:scale-95 transition-all flex items-center gap-2 border border-white/10 shadow-lg outline-none focus-visible:ring-2 focus-visible:ring-brand-green focus-visible:ring-offset-2 focus-visible:ring-offset-brand-dark cursor-pointer font-black text-xs uppercase tracking-widest ml-2"
@@ -176,6 +180,7 @@ export default function Navbar({ elections = [] }: NavbarProps) {
               2026
               <span className={`w-1 h-1 rounded-full animate-pulse ${isActive("/tn/elections/2026/dashboard") ? "bg-brand-dark" : "bg-brand-gold"}`}></span>
             </Link>
+            <Search />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="text-white p-2 hover:bg-white/10 active:scale-90 rounded-lg transition-all outline-none focus-visible:ring-2 focus-visible:ring-white min-w-[40px] min-h-[40px] flex items-center justify-center"

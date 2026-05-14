@@ -23,7 +23,7 @@ export default function ElectionDashboardSEOContent({ insights }: ElectionDashbo
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="space-y-6">
               <p className="text-lg leading-relaxed font-medium">
-                This Tamil Nadu Assembly Election 2026 dashboard provides a comprehensive view of all announced MLA candidates across constituencies. Users can explore constituency-wise candidate lists, track party-wise candidate announcements, and analyze election patterns such as incumbent recontests, open seats, and cross-constituency candidates.
+                This Tamil Nadu Assembly Election 2026 dashboard provides a comprehensive view of all announced MLA candidates across constituencies. Beyond candidate profiles, the platform now provides official electoral statistics, allowing users to analyze the total electorate strength and gender-wise voter distribution across Tamil Nadu's 234 seats.
               </p>
               <p className="text-sm leading-loose text-slate-500">
                 The platform covers all 234 constituencies in Tamil Nadu, allowing users to quickly find candidates contesting in their constituency and compare profiles across parties.
