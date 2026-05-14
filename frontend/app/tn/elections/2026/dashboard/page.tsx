@@ -16,16 +16,18 @@ import PartyPreview from '@/components/election/tn2026/PartyPreview';
 import InsightsPreview from '@/components/election/tn2026/InsightsPreview';
 import SpecialFocusCandidates from '@/components/election/tn2026/SpecialFocusCandidates';
 import ElectionQuickView from '@/components/election/tn2026/ElectionQuickView';
+import VotersCountSection from '@/components/election/dashboard/VotersCountSection';
 
 export async function generateMetadata() {
   const year = 2026;
   return buildMetadata({
-    title: `Tamil Nadu Assembly Election ${year} Dashboard | Candidate Tracking & Hub`,
-    description: `Central hub for tracking announced candidates, constituency contests, party rollout strategies, and real-time election insights across Tamil Nadu for the upcoming ${year} Assembly Election.`,
+    title: `Tamil Nadu Assembly Election ${year} Dashboard | Candidate Tracking & Voter Stats`,
+    description: `Central hub for tracking announced candidates and electoral statistics across Tamil Nadu for the upcoming ${year} Assembly Election. Explore constituency-wise electorate data, candidate profiles, and party rollout strategies.`,
     path: `/tn/elections/${year}/dashboard`,
     keywords: [
       `Tamil Nadu Election ${year} candidates`,
-      `Tamil Nadu Assembly Election ${year} hub`,
+      `Tamil Nadu Assembly Election ${year} voter count`,
+      `TN election electorate statistics ${year}`,
       `TN election tracker ${year}`,
       `constituency-wise candidates TN ${year}`
     ]
@@ -70,6 +72,13 @@ export default async function PreElectionDashboardPage() {
             </span>
           </div>
         </div>
+
+        {/* 1.5 Voters Count Section */}
+        {stats.totalVoters && (
+          <section id="electorate" className="pt-12 border-t border-slate-100">
+            <VotersCountSection stats={stats} />
+          </section>
+        )}
 
         {/* 2. Quick Navigation CTA Row */}
         <section id="quick-nav">

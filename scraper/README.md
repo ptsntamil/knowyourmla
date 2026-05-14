@@ -114,6 +114,21 @@ python3 scraper/update_constituency_stats_2016.py
 python3 scraper/update_constituency_stats_2016.py --dryrun
 ```
 
+### update_party_vote_share.py
+Updates political parties with historical vote share data from `assets/party_vote_share.json`.
+
+**How to run:**
+```bash
+# Update with defaults
+python3 scraper/update_party_vote_share.py
+
+# Run a dry run to verify matches
+python3 scraper/update_party_vote_share.py --dry-run
+
+# Limit to first N parties
+python3 scraper/update_party_vote_share.py --limit 10
+```
+
 ## Verification
 Run the deduplication verification suite to ensure identity resolution is working correctly:
 ```bash

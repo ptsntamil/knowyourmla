@@ -114,6 +114,7 @@ class AffidavitData:
     is_turncoat: Optional[bool] = None
     no_terms: Optional[int] = None
     candidate_type: Optional[str] = None
+    deposit_lost: Optional[bool] = None
     other_elections: List[ElectionEntry] = field(default_factory=list)
     group_id: Optional[str] = None
     candidacy_type: str = "General"

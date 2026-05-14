@@ -12,21 +12,25 @@ import ItemListSchema from "@/components/seo/ItemListSchema";
 import InternalLinks from "@/components/seo/InternalLinks";
 import SectionHeader from "@/components/ui/SectionHeader";
 import Badge from "@/components/ui/Badge";
+import { LATEST_ELECTION_YEAR } from "@/lib/constants/elections";
 
 export const revalidate = 3600;
 
 export async function generateMetadata() {
+  const currentYear = parseInt(LATEST_ELECTION_YEAR);
+  const nextYear = currentYear + 5;
   return buildMetadata({
-    title: "Tamil Nadu MLA List 2021-2026 | Elected Members by Constituency",
-    description: "Complete list of 234 elected MLAs in Tamil Nadu. View MLA photos, party affiliations, and constituency details on KnowYourMLA.",
+    title: `Tamil Nadu MLA List ${currentYear}-${nextYear} | Elected Members by Constituency`,
+    description: `Complete list of 234 elected MLAs in Tamil Nadu for the ${currentYear}-${nextYear} assembly. View MLA photos, party affiliations, and constituency details on KnowYourMLA.`,
     path: "/tn/mla/list",
-    keywords: ["MLA List", "Tamil Nadu MLAs", "Elected Members", "Constituency Wise MLAs", "MLA photos", "Tamil Nadu Politics"]
+    keywords: [`MLA List ${currentYear}`, `Tamil Nadu MLAs ${currentYear}`, `Elected Members ${currentYear}`, "Constituency Wise MLAs", "MLA photos", "Tamil Nadu Politics"]
   });
 }
 
 export default async function MLAListPage() {
+  const currentYear = parseInt(LATEST_ELECTION_YEAR);
   const [{ mlas }, districts, parties] = await Promise.all([
-    fetchMLAs(),
+    fetchMLAs(currentYear),
     fetchDistricts(),
     fetchParties()
   ]);
@@ -64,7 +68,7 @@ export default async function MLAListPage() {
       
       <CoverImage 
         title="Current MLAs" 
-        subtitle="List of elected members of the Tamil Nadu Legislative Assembly (2021-2026)."
+        subtitle={`List of elected members of the Tamil Nadu Legislative Assembly (${currentYear}-${currentYear + 5}).`}
       >
         <nav className="flex text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
           <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
