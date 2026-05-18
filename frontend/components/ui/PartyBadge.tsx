@@ -13,7 +13,7 @@ interface PartyBadgeProps {
   colorBorder?: string | null;
   className?: string;
   showName?: boolean;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'xs' | 'sm' | 'md' | 'lg';
 }
 
 export default function PartyBadge({
@@ -46,6 +46,7 @@ export default function PartyBadge({
   }, [effectiveLogoUrl]);
 
   const sizeConfig = {
+    xs: { container: "w-5 h-5", text: "text-[7px]", padding: "px-1.5 py-0.5 gap-1" },
     sm: { container: "w-6 h-6", text: "text-[8px]", padding: "px-2 py-1 gap-1.5" },
     md: { container: "w-8 h-8", text: "text-[10px]", padding: "px-4 py-2 gap-3" },
     lg: { container: "w-10 h-10", text: "text-xs", padding: "px-6 py-3 gap-4" }

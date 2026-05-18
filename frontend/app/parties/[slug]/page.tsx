@@ -12,6 +12,7 @@ import Link from "next/link";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import SEOIntro from "@/components/seo/SEOIntro";
+import { LAST_COMPLETED_ELECTION_YEAR, LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from "@/lib/constants/elections";
 import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
@@ -32,15 +33,42 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
     const partyName = data.party?.name || slug.toUpperCase();
     const shortName = data.party?.short_name || partyName;
 
-    const year = election || 'all';
-    const ogImage = `/og/party/${slug.toLowerCase()}/${year}/stats`;
+    const year = election && election !== 'all' ? election : null;
+    const ogImage = `/og/party/${slug.toLowerCase()}/${year || 'all'}/stats`;
+
+    const title = year
+      ? `${shortName} Deposit Lost Candidates & Election Performance ${year} | KnowYourMLA`
+      : `${partyName} (${shortName}) in Tamil Nadu: MLAs, Vote Share, Election Performance`;
+
+    const description = year
+      ? `Explore party-wise deposit lost analysis, candidates who lost deposits, constituency performance, and election insights in Tamil Nadu elections.`
+      : `Explore ${partyName} (${shortName}) performance in Tamil Nadu including current MLAs, vote share across assembly elections, seats won, election trends, and political insights on KnowYourMLA.`;
+
+    const keywords = [
+      `${partyName} Party`,
+      "Tamil Nadu Politics",
+      "Election Analytics",
+      "Vote Share Trends",
+      "MLA Candidates",
+      "Political Party Analysis"
+    ];
+
+    if (year) {
+      keywords.push(
+        "deposit lost candidates",
+        "party deposit lost seats",
+        "candidates who lost deposit in election",
+        "deposit lost analysis Tamil Nadu election",
+        "which party lost most deposits"
+      );
+    }
 
     return buildMetadata({
-      title: `${partyName} (${shortName}) in Tamil Nadu: MLAs, Vote Share, Election Performance`,
-      description: `Explore ${partyName} (${shortName}) performance in Tamil Nadu including current MLAs, vote share across assembly elections, seats won, election trends, and political insights on KnowYourMLA.`,
-      path: `/parties/${slug}`,
+      title,
+      description,
+      path: `/parties/${slug}${year ? `?election=${year}` : ""}`,
       image: ogImage,
-      keywords: [`${partyName} Party`, "Tamil Nadu Politics", "Election Analytics", "Vote Share Trends", "MLA Candidates", "Political Party Analysis"]
+      keywords
     });
   } catch (error) {
     return buildMetadata({
@@ -108,6 +136,27 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
     }
   ];
 
+  if (!isAllElections && election) {
+    faqs.push(
+      {
+        question: `What does "deposit lost" mean in elections for ${party.short_name}?`,
+        answer: `A candidate loses their security deposit when they fail to secure a minimum of one-sixth (16.67%) of the total valid votes polled in their respective constituency during an election.`
+      },
+      {
+        question: `How many candidates of ${party.short_name} lost their deposits in the ${election} election?`,
+        answer: `During the ${election} Tamil Nadu Assembly elections, ${analytics?.depositLost?.depositLostCount || 0} candidates fielded by ${party.short_name} lost their deposits, resulting in a deposit loss percentage of ${analytics?.depositLost?.depositLossPercentage?.toFixed(1) || 0}%. You can filter and view the full list of these candidates in our Candidate Directory.`
+      },
+      {
+        question: `How is the deposit loss percentage calculated?`,
+        answer: `Deposit loss percentage = (Deposit Lost Seats / Total Seats Contested) × 100. This metric is a useful indicator for assessing a political party's viability across diverse assembly constituencies.`
+      },
+      {
+        question: `Why is deposit lost analysis important for ${party.short_name}?`,
+        answer: `Deposit lost analysis helps identify the geographic strength and core base of ${party.short_name}. It distinguishes regions of strong voter support from areas where campaigns failed to gain minimal traction.`
+      }
+    );
+  }
+
   return (
     <div className="min-h-screen bg-page-bg selection:bg-brand-gold/20">
       <BreadcrumbSchema
@@ -162,12 +211,13 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
                 ...analytics?.stats,
                 totalElections: analytics?.stats?.totalElections || availableElections?.length || 0
               }}
+              depositLost={analytics?.depositLost}
               isYearView={!isAllElections}
             />
           </section>
 
           <section id="insights">
-            <PartyKeyInsights analytics={analytics} />
+            <PartyKeyInsights analytics={analytics} isYearView={!isAllElections} />
           </section>
 
           <section id="trends" className="space-y-8">
@@ -232,14 +282,14 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
             <h3 className="text-2xl font-black text-white uppercase tracking-tight">Electoral Context</h3>
             <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
               How did {party.short_name} perform relative to the state-level benchmarks? 
-              Explore the full {election && election !== 'all' ? election : '2021'} assembly insights to see winning margins, vote share distributions, and analytical breakdowns.
+              Explore the full {election && election !== 'all' ? election : LAST_COMPLETED_ELECTION_YEAR} assembly insights to see winning margins, vote share distributions, and analytical breakdowns.
             </p>
           </div>
           <Link 
-            href={`/tn/elections/${election && election !== 'all' ? election : '2021'}/insights`}
+            href={`/tn/elections/${election && election !== 'all' ? election : LAST_COMPLETED_ELECTION_YEAR}/insights`}
             className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all relative z-10 shadow-xl shadow-black/20 shrink-0"
           >
-            Explore {election && election !== 'all' ? election : '2021'} Analysis
+            Explore {election && election !== 'all' ? election : LAST_COMPLETED_ELECTION_YEAR} Analysis
           </Link>
         </div>
 

@@ -10,7 +10,7 @@ const TABS = [
   { name: 'Candidates', href: '/tn/elections/2026/candidates', icon: Users },
   { name: 'Constituencies', href: '/tn/elections/2026/constituencies', icon: MapPin },
   { name: 'Parties', href: '/tn/elections/2026/parties', icon: Landmark },
-  { name: 'Insights', href: '/tn/elections/2026/insights', icon: Lightbulb },
+  { name: 'Insights', href: '/tn/elections/2026/pre-election-insights', icon: Lightbulb },
   { name: 'Results', href: '/tn/elections/2026', icon: BarChart3 },
 ];
 

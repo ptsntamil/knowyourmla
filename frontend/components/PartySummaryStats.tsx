@@ -1,25 +1,26 @@
-import { Trophy, Users, CheckCircle2, TrendingUp, Star, Calendar } from "lucide-react";
+import { Trophy, Users, CheckCircle2, TrendingUp, Star, Calendar, TrendingDown, ShieldAlert } from "lucide-react";
 
 interface PartySummaryStatsProps {
   stats: any;
+  depositLost?: any;
   isYearView?: boolean;
 }
 
-export default function PartySummaryStats({ stats, isYearView }: PartySummaryStatsProps) {
+export default function PartySummaryStats({ stats, depositLost, isYearView }: PartySummaryStatsProps) {
   if (!stats) return null;
 
   const metrics = [
     {
-      label: "Elections Contested",
-      value: stats.totalElections || stats.totalContested || (stats.years?.length) || 0,
+      label: isYearView ? "Seats Contested" : "Elections Contested",
+      value: isYearView ? stats.totalContested || 0 : (stats.totalElections || stats.totalContested || (stats.years?.length) || 0),
       icon: <Calendar className="w-5 h-5" />,
       color: "bg-blue-500/10 text-blue-500",
     },
     {
-      label: "Candidates Fielded",
-      value: stats.totalContested || 0,
-      icon: <Users className="w-5 h-5" />,
-      color: "bg-purple-500/10 text-purple-500",
+      label: isYearView ? "Deposit Saved" : "Candidates Fielded",
+      value: isYearView ? (depositLost?.depositSavedCount || 0) : (stats.totalContested || 0),
+      icon: isYearView ? <ShieldAlert className="w-5 h-5" /> : <Users className="w-5 h-5" />,
+      color: isYearView ? "bg-purple-500/10 text-purple-500" : "bg-purple-500/10 text-purple-500",
     },
     {
       label: "Seats Won",
@@ -34,17 +35,17 @@ export default function PartySummaryStats({ stats, isYearView }: PartySummarySta
       color: "bg-brand-gold/10 text-brand-gold",
     },
     {
-      label: "Best Performance",
-      value: stats.bestYear || "N/A",
-      subValue: stats.maxWins ? `${stats.maxWins} seats` : undefined,
-      icon: <Star className="w-5 h-5" />,
-      color: "bg-amber-500/10 text-amber-500",
+      label: isYearView ? "Deposit Lost" : "Best Performance",
+      value: isYearView ? (depositLost?.depositLostCount || 0) : (stats.bestYear || "N/A"),
+      subValue: isYearView ? undefined : (stats.maxWins ? `${stats.maxWins} seats` : undefined),
+      icon: isYearView ? <TrendingDown className="w-5 h-5" /> : <Star className="w-5 h-5" />,
+      color: isYearView ? "bg-rose-500/10 text-rose-500" : "bg-amber-500/10 text-amber-500",
     },
     {
-      label: isYearView ? "Latest Participation" : "Historical Peak",
-      value: stats.latestYear || stats.firstYear || "N/A",
-      icon: <TrendingUp className="w-5 h-5" />,
-      color: "bg-rose-500/10 text-rose-500",
+      label: isYearView ? "Loss Percentage" : "Historical Peak",
+      value: isYearView ? `${(depositLost?.depositLossPercentage || 0).toFixed(1)}%` : (stats.latestYear || stats.firstYear || "N/A"),
+      icon: isYearView ? <TrendingDown className="w-5 h-5" /> : <TrendingUp className="w-5 h-5" />,
+      color: isYearView ? "bg-rose-500/10 text-rose-500" : "bg-rose-500/10 text-rose-500",
     },
   ];
 

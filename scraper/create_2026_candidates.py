@@ -56,49 +56,166 @@ from scraper.utils import (
 )
 
 
-def normalize_education(education: Any) -> str:
-    """Normalize varied education payloads into a display-safe string."""
+QUALIFICATION_RANKS = {
+    "doctorate": 8, "phd": 8, "ph.d": 8, "m.phil": 7, "mphil": 7,
+    "post graduate": 6, "master": 6, "ma": 6, "m.a": 6, "msc": 6, "m.sc": 6, "mcom": 6, "m.com": 6, "mba": 6, "m.b.a": 6, "mtech": 6, "m.tech": 6, "llm": 6, "ll.m": 6, "md": 6, "m.d": 6, "ms": 6, "m.s": 6,
+    "graduate": 5, "bachelor": 5, "ba": 5, "b.a": 5, "bsc": 5, "b.sc": 5, "bcom": 5, "b.com": 5, "bba": 5, "b.b.a": 5, "btech": 5, "b.tech": 5, "be": 5, "b.e": 5, "llb": 5, "ll.b": 5, "mbbs": 5, "m.b.b.s": 5, "bed": 5, "b.ed": 5,
+    "diploma": 4, "iti": 4,
+    "hsc": 3, "12th": 3, "puc": 3, "p.u.c": 3, "intermediate": 3, "higher secondary": 3, "plus two": 3,
+    "sslc": 2, "10th": 2, "matriculation": 2, "high school": 2, "secondary": 2,
+    "8th": 1, "5th": 1, "literate": 1, "below 10th": 1
+}
+
+
+def _parse_year(y: Any) -> int:
+    """Extracts a numeric year from a year string or number.
+
+    Args:
+        y: The year value (string, int, float, etc.) to parse.
+
+    Returns:
+        An integer representing the parsed year, or 0 if not parsable.
+    """
+    if not y:
+        return 0
+    if isinstance(y, (int, float)):
+        return int(y)
+    
+    import re
+    y_str = str(y).strip()
+    
+    # 1. Match all 4-digit numbers
+    four_digits = re.findall(r'\d{4}', y_str)
+    if four_digits:
+        return max(int(d) for d in four_digits)
+    
+    # 2. Fallback to any contiguous digits
+    any_digits = re.findall(r'\d+', y_str)
+    if any_digits:
+        parsed_years = []
+        for d in any_digits:
+            val = int(d)
+            # Normalize 2-digit years
+            if len(d) == 2:
+                val += 1900 if val >= 50 else 2000
+            parsed_years.append(val)
+        return max(parsed_years) if parsed_years else 0
+        
+    return 0
+
+
+def _get_qualification_rank(qual_str: str) -> int:
+    """Returns a numeric rank for a qualification string to help order them.
+
+    Args:
+        qual_str: The qualification string to rank.
+
+    Returns:
+        An integer representing the rank (higher is more advanced).
+    """
+    if not qual_str:
+        return 0
+    norm = qual_str.lower().strip()
+    norm_clean = norm.replace(".", "").replace(" ", "")
+    
+    if norm_clean in QUALIFICATION_RANKS:
+        return QUALIFICATION_RANKS[norm_clean]
+        
+    for key, rank in QUALIFICATION_RANKS.items():
+        if key in norm:
+            return rank
+            
+    return 0
+
+
+def _normalize_list(education: list) -> str:
+    """Normalize a list of educational details by sorting them to find the latest.
+
+    Args:
+        education: The list of educational details.
+
+    Returns:
+        A normalized educational string.
+    """
     if not education:
         return "Not Specified"
+        
+    def get_item_sort_key(indexed_item: tuple) -> tuple:
+        idx, item = indexed_item
+        year = 0
+        rank = 0
+        if isinstance(item, dict):
+            y = item.get("year")
+            if y is not None and y != "":
+                year = _parse_year(y)
+            qual = item.get("qualification") or item.get("degree") or ""
+            if qual:
+                rank = _get_qualification_rank(str(qual))
+        elif isinstance(item, str):
+            year = _parse_year(item)
+            rank = _get_qualification_rank(item)
+        return (year, rank, idx)
+        
+    # Sort by (year, rank, index) descending to prefer latest, highest, and last items
+    sorted_items = sorted(enumerate(education), key=get_item_sort_key, reverse=True)
+    
+    for _, item in sorted_items:
+        normalized = normalize_education(item)
+        if normalized != "Not Specified":
+            return normalized
+    return "Not Specified"
+
+
+def _normalize_dict(education: dict) -> str:
+    """Normalize a dictionary of educational details.
+
+    Args:
+        education: The dictionary of educational details.
+
+    Returns:
+        A normalized educational string.
+    """
+    if isinstance(education.get("qualification"), str) and education.get("qualification").strip():
+        return education.get("qualification").strip()
+        
+    if education.get("self"):
+        normalized_self = normalize_education(education.get("self"))
+        if normalized_self != "Not Specified":
+            return normalized_self
+            
+    degree = str(education.get("degree", "")).strip() if education.get("degree") else ""
+    institution = str(education.get("institution", "")).strip() if education.get("institution") else ""
+    year = str(education.get("year", "")).strip() if education.get("year") else ""
+    combined = ", ".join([part for part in [degree, institution, year] if part])
+    if combined:
+        return combined
+        
+    return "Not Specified"
+
+
+def normalize_education(education: Any) -> str:
+    """Normalize varied education payloads into a display-safe string.
+
+    Args:
+        education: The education payload which could be a string, list, or dict.
+
+    Returns:
+        A display-safe normalized string.
+    """
+    if not education:
+        return "Not Specified"
+    
     if isinstance(education, str):
         return education.strip() or "Not Specified"
-    if isinstance(education, list):
-        # Sort by year descending to get the latest qualification first
-        items_to_sort = []
-        other_items = []
-        for item in education:
-            if isinstance(item, dict):
-                items_to_sort.append(item)
-            else:
-                other_items.append(item)
         
-        if items_to_sort:
-            def get_year(x):
-                y = x.get("year")
-                if y is None or y == "": return 0
-                try: return int(y)
-                except: return 0
-            items_to_sort.sort(key=get_year, reverse=True)
-            
-        for item in items_to_sort + other_items:
-            normalized = normalize_education(item)
-            if normalized != "Not Specified":
-                return normalized
-        return "Not Specified"
+    if isinstance(education, list):
+        return _normalize_list(education)
+        
     if isinstance(education, dict):
-        if isinstance(education.get("qualification"), str) and education.get("qualification").strip():
-            return education.get("qualification").strip()
-        if education.get("self"):
-            normalized_self = normalize_education(education.get("self"))
-            if normalized_self != "Not Specified":
-                return normalized_self
-        degree = str(education.get("degree", "")).strip() if education.get("degree") else ""
-        institution = str(education.get("institution", "")).strip() if education.get("institution") else ""
-        year = str(education.get("year", "")).strip() if education.get("year") else ""
-        combined = ", ".join([part for part in [degree, institution, year] if part])
-        if combined:
-            return combined
+        return _normalize_dict(education)
+            
     return "Not Specified"
+
 
 
 def normalize_profession(profession: Any) -> str:

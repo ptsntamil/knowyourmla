@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { LATEST_ELECTION_YEAR } from "@/lib/constants/elections";
 import { MLAService } from "@/lib/services/mla.service";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
-  const year = parseInt(searchParams.get("year") || "2021");
+  const year = parseInt(searchParams.get("year") || LATEST_ELECTION_YEAR);
   
   const service = new MLAService();
   try {

@@ -34,7 +34,7 @@ export default function ElectionQuickView() {
       title: "View Insights",
       subtitle: "Deep dive into financial and criminal data",
       icon: BarChart2,
-      href: "/tn/elections/2026/insights",
+      href: "/tn/elections/2026/pre-election-insights",
       color: "bg-amber-50 text-amber-600 border-amber-100",
       hover: "hover:border-amber-200 hover:shadow-amber-900/5"
     }
