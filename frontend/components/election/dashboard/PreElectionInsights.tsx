@@ -5,6 +5,7 @@ import { DashboardInsights, ElectionInsightCandidate, ContestCard } from '@/lib/
 import PartyBadge from '@/components/ui/PartyBadge';
 import Link from 'next/link';
 import { Trophy, TrendingUp, AlertTriangle, Scale, Target, Users, MapPin, IndianRupee, Gavel } from 'lucide-react';
+import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from '@/lib/constants/elections';
 
 interface PreElectionInsightsProps {
   insights: DashboardInsights;
@@ -12,8 +13,8 @@ interface PreElectionInsightsProps {
 
 const SECTION_DESCRIPTIONS = {
   candidateIntelligence: "Insights from candidate affidavits revealing financial strength, education, and criminal background.",
-  multiConstituency: "Candidates identified as contesting from more than one assembly seat in the 2026 election cycle.",
-  constituencyPatterns: "Analysis of contest density and historical margins across constituencies.",
+  multiConstituency: `Candidates identified as contesting from more than one assembly seat in the ${LATEST_ELECTION_YEAR} election cycle.`,
+  constituencyPatterns: `Analysis of contest density and historical margins across constituencies.`,
   electionShape: "Macroscopic view of the election landscape including seat types and demographics.",
   contestingPatterns: "Strategic patterns in candidate placement and regional focus by political parties."
 };
@@ -204,11 +205,11 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
             <div className="flex items-center gap-3">
               <div className="w-1.5 h-6 bg-brand-gold rounded-full" />
               <h1 className="text-3xl md:text-5xl font-black text-brand-dark uppercase tracking-tighter italic leading-none">
-                Election Insights 2026
+                Election Insights {LATEST_ELECTION_YEAR}
               </h1>
             </div>
             <p className="text-slate-500 font-medium text-lg max-w-2xl leading-relaxed">
-              Explore key insights from Tamil Nadu Assembly Election 2026, including candidate profiles, constituency patterns, and election trends based on affidavit data.
+              Explore key insights from Tamil Nadu Assembly Election {LATEST_ELECTION_YEAR}, including candidate profiles, constituency patterns, and election trends based on affidavit data.
             </p>
           </div>
         </div>
@@ -244,7 +245,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
           <CardWrapper 
             title="Richest Candidates" 
             icon={IndianRupee}
-            footerHref="/tn/elections/2026/candidates?sortBy=assets&sortOrder=desc"
+            footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates?sortBy=assets&sortOrder=desc`}
             footerLabel="View Full List"
           >
             {insights.richestCandidates.slice(0, 5).map((c, idx) => renderCandidateItem(c, idx))}
@@ -253,7 +254,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
           <CardWrapper 
             title="Youngest Candidates" 
             icon={TrendingUp}
-            footerHref="/tn/elections/2026/candidates?sortBy=age&sortOrder=asc"
+            footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates?sortBy=age&sortOrder=asc`}
             footerLabel="View Full List"
           >
             {insights.youngestCandidates.slice(0, 5).map((c, idx) => renderCandidateItem(c, idx))}
@@ -263,7 +264,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
             <CardWrapper 
               title="Highest Criminal Record" 
               icon={Gavel}
-              footerHref="/tn/elections/2026/candidates?sortBy=cases&sortOrder=desc"
+              footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates?sortBy=cases&sortOrder=desc`}
               footerLabel="View Full List"
             >
               {insights.mostCriminalCases.slice(0, 5).map((c, idx) => renderCandidateItem(c, idx))}
@@ -283,7 +284,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
           <CardWrapper 
             title="Multi-Seat Contestants" 
             icon={Trophy}
-            footerHref="/tn/elections/2026/candidates?q=Multi-Seat"
+            footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates?q=Multi-Seat`}
             footerLabel="View Analysis"
           >
             {insights.multiConstituencyCandidates && insights.multiConstituencyCandidates.length > 0 ? (
@@ -314,20 +315,20 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
         />
         <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-8">
           <CardWrapper 
-            title="Closest 2021 Contests" 
+            title={`Closest ${PREVIOUS_ELECTION_YEAR} Contests`} 
             icon={Target}
-            footerHref="/tn/elections/2026/constituencies?pattern=Close%20Margin"
+            footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/constituencies?pattern=Close%20Margin`}
             footerLabel="Explore Seats"
           >
             {insights.closestLastElectionSeats.slice(0, 5).map((c, idx) =>
-              renderContestItem(c, idx, c.lastMargin?.toLocaleString() || '--', '21 Margin')
+              renderContestItem(c, idx, c.lastMargin?.toLocaleString() || '--', `${PREVIOUS_ELECTION_YEAR.slice(-2)} Margin`)
             )}
           </CardWrapper>
 
           <CardWrapper 
             title="Most Crowded Contests" 
             icon={Users}
-            footerHref="/tn/elections/2026/constituencies?q=Multi-Corner"
+            footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/constituencies?q=Multi-Corner`}
             footerLabel="Explore Seats"
           >
             {insights.multiCornerContests.slice(0, 5).map((c, idx) =>
@@ -392,7 +393,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
             <CardWrapper 
               title="Contesting Patterns" 
               icon={MapPin}
-              footerHref="/tn/elections/2026/candidates?contestType=cross_constituency"
+              footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates?contestType=cross_constituency`}
               footerLabel="View Candidates"
             >
               <div className="p-8 space-y-8">
@@ -443,22 +444,22 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
 
       {/* Footer Navigation */}
       <div className="pt-12 border-t border-slate-100 flex flex-col items-center gap-8">
-        <p className="text-slate-400 text-sm font-medium italic">Based on 2026 declared candidates so far</p>
+        <p className="text-slate-400 text-sm font-medium italic">Based on {LATEST_ELECTION_YEAR} declared candidates so far</p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link 
-            href="/tn/elections/2026/candidates"
+            href={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates`}
             className="px-8 py-3 bg-white border border-slate-200 text-brand-dark font-black uppercase tracking-widest text-xs italic rounded-2xl hover:border-brand-gold hover:text-brand-gold transition-all"
           >
             Explore All Candidates
           </Link>
           <Link 
-            href="/tn/elections/2026/constituencies"
+            href={`/tn/elections/${LATEST_ELECTION_YEAR}/constituencies`}
             className="px-8 py-3 bg-white border border-slate-200 text-brand-dark font-black uppercase tracking-widest text-xs italic rounded-2xl hover:border-brand-gold hover:text-brand-gold transition-all"
           >
             View All Constituencies
           </Link>
           <Link 
-            href="/tn/elections/2026/dashboard"
+            href={`/tn/elections/${LATEST_ELECTION_YEAR}/dashboard`}
             className="px-8 py-3 bg-brand-dark text-white font-black uppercase tracking-widest text-xs italic rounded-2xl hover:bg-brand-gold hover:text-brand-dark transition-all"
           >
             Back to Dashboard

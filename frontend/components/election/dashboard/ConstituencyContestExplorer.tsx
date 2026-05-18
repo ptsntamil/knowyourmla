@@ -5,6 +5,7 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { ContestCard, DashboardFilterOptions } from '@/lib/elections/preElectionDashboard/dashboard.types';
 import Link from 'next/link';
 import PartyBadge from '@/components/ui/PartyBadge';
+import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from '@/lib/constants/elections';
 import { Search, MapPin, Users, History, ArrowRight, X, Filter, ChevronDown, LayoutGrid, Target, Zap } from 'lucide-react';
 
 interface ConstituencyContestExplorerProps {
@@ -123,7 +124,7 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
               </h1>
             </div>
             <p className="text-slate-500 font-medium text-sm md:text-base max-w-2xl">
-              Real-time intelligence across Tamil Nadu's 234 assembly seats. Tracking candidates, incumbent defenses, and key electoral shifts for 2026.
+              Real-time intelligence across Tamil Nadu's 234 assembly seats. Tracking candidates, incumbent defenses, and key electoral shifts for {LATEST_ELECTION_YEAR}.
             </p>
           </div>
 
@@ -298,7 +299,7 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <History size={14} className="text-slate-400" />
-                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">2021 Winner</span>
+                    <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">{PREVIOUS_ELECTION_YEAR} Winner</span>
                   </div>
                   {typeof contest.lastMargin === 'number' && (
                     <span className={`text-[9px] font-black uppercase tracking-widest px-2 py-0.5 rounded-full ${contest.lastMargin < 5000 ? 'bg-rose-50 text-rose-500' : 'bg-slate-100 text-slate-500'
@@ -326,7 +327,7 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
                 </div>
               </div>
 
-              {/* 2026 Candidates */}
+              {/* {LATEST_ELECTION_YEAR} Candidates */}
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -400,19 +401,44 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
 
         {/* SEO Content Block */}
         <section className="max-w-4xl space-y-8">
-          <h2 className="text-2xl md:text-3xl font-black text-brand-dark uppercase tracking-tighter italic">Tamil Nadu Constituency Contests 2026</h2>
+          <h2 className="text-2xl md:text-3xl font-black text-brand-dark uppercase tracking-tighter italic">Tamil Nadu Constituency Contests {LATEST_ELECTION_YEAR}</h2>
           <div className="prose prose-slate prose-sm text-slate-500 font-medium max-w-none space-y-4">
             <p>
-              The 2026 Tamil Nadu Legislative Assembly election is set to be one of the most dynamic in the state's political history. This constituency explorer provides a comprehensive portal into all 234 assembly seats, allowing voters and analysts to track candidates as they are announced by major alliances.
+              The {LATEST_ELECTION_YEAR} Tamil Nadu Legislative Assembly election is set to be one of the most dynamic in the state's political history. This constituency explorer provides a comprehensive portal into all 234 assembly seats, allowing voters and analysts to track candidates as they are announced by major alliances.
             </p>
             <p>
-              Using our advanced pattern analysis, you can quickly identify <strong>Open Seats</strong> where an incumbent is not seeking re-election, <strong>Multi-Cornered Contests</strong> where three or more major parties have a significant presence, and <strong>Close Margin Seats</strong> from the 2021 election that are likely to be battlegrounds again.
+              Using our advanced pattern analysis, you can quickly identify <strong>Open Seats</strong> where an incumbent is not seeking re-election, <strong>Multi-Cornered Contests</strong> where three or more major parties have a significant presence, and <strong>Close Margin Seats</strong> from the {PREVIOUS_ELECTION_YEAR} election that are likely to be battlegrounds again.
             </p>
             <p>
               Each constituency profile includes historical results, current candidate lineups, and regional demographics to provide a complete picture of the electoral landscape. From the urban corridors of Chennai to the agrarian heartlands of the Delta region and the industrial belts of the West, explore how Tamil Nadu is preparing for its next legislative assembly.
             </p>
           </div>
         </section>
+      </div>
+      
+      {/* Footer Navigation */}
+      <div className="pt-12 border-t border-slate-100 flex flex-col items-center gap-8">
+        <p className="text-slate-400 text-sm font-medium italic">Based on {LATEST_ELECTION_YEAR} declared candidates so far</p>
+        <div className="flex flex-wrap justify-center gap-4">
+          <Link 
+            href={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates`}
+            className="px-8 py-3 bg-white border border-slate-200 text-brand-dark font-black uppercase tracking-widest text-xs italic rounded-2xl hover:border-brand-gold hover:text-brand-gold transition-all"
+          >
+            Explore All Candidates
+          </Link>
+          <Link 
+            href={`/tn/elections/${LATEST_ELECTION_YEAR}/constituencies`}
+            className="px-8 py-3 bg-white border border-slate-200 text-brand-dark font-black uppercase tracking-widest text-xs italic rounded-2xl hover:border-brand-gold hover:text-brand-gold transition-all"
+          >
+            View All Constituencies
+          </Link>
+          <Link 
+            href={`/tn/elections/${LATEST_ELECTION_YEAR}/dashboard`}
+            className="px-8 py-3 bg-brand-dark text-white font-black uppercase tracking-widest text-xs italic rounded-2xl hover:bg-brand-gold hover:text-brand-dark transition-all"
+          >
+            Back to Dashboard
+          </Link>
+        </div>
       </div>
 
       {/* Mobile Filter Drawer Overlay */}

@@ -16,6 +16,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { AttendanceWidget, QuestionsWidget } from "@/components/MetricWidgets";
 import IncomeDetailsTable from "@/components/IncomeDetailsTable";
 import ElectionExpensesWidget from "@/components/ElectionExpensesWidget";
+import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from "@/lib/constants/elections";
 
 export const revalidate = 3600;
 
@@ -30,7 +31,7 @@ export async function generateMetadata({ params }: PageProps) {
     const name = profile.person.name;
     const latestElection = profile.history[0];
     const isWinner = latestElection?.winner === true;
-    const isCurrent = latestElection?.year === 2021 && isWinner;
+    const isCurrent = latestElection?.year === parseInt(LATEST_ELECTION_YEAR) && isWinner;
     const constituency = latestElection?.constituency || "N/A";
     const party = latestElection?.party || "Independent";
 
@@ -59,7 +60,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
   const profile = await fetchMLAProfile(slug);
   const latestElection = profile.history?.[0];
   const isWinner = latestElection?.winner === true;
-  const isCurrent = latestElection?.year === 2021 && isWinner;
+  const isCurrent = latestElection?.year === parseInt(LATEST_ELECTION_YEAR) && isWinner;
   const isFormer = !isCurrent && profile.history.some((h: any) => h.winner === true);
 
   const personalTitle = isCurrent ? "MLA" : (isFormer ? "Former MLA" : "Candidate");
@@ -298,9 +299,9 @@ export default async function MLAProfilePage({ params }: PageProps) {
                       </a>
                     </li>
                     <li>
-                      <a href={`/tn/elections/${latestElection?.year || 2021}/insights`} className="text-brand-dark dark:text-slate-600 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
+                      <a href={`/tn/elections/${latestElection?.year || LATEST_ELECTION_YEAR}/insights`} className="text-brand-dark dark:text-slate-600 hover:text-brand-gold dark:hover:text-brand-gold font-black text-sm flex items-center gap-3 transition-all active:translate-x-1 py-1 group outline-none focus-visible:ring-2 focus-visible:ring-brand-gold rounded px-2 -ml-2">
                         <span className="w-1.5 h-1.5 bg-brand-gold rounded-full group-hover:scale-150 transition-transform" />
-                        Explore {latestElection?.year || 2021} Insights
+                        Explore {latestElection?.year || LATEST_ELECTION_YEAR} Insights
                       </a>
                     </li>
                     {party.toLowerCase() !== "independent" && party.toLowerCase() !== "ind" && (
@@ -326,14 +327,14 @@ export default async function MLAProfilePage({ params }: PageProps) {
               <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
               <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
                 How does {profile.person.name}'s performance compare to the statewide benchmarks?
-                Explore the full 2021 assembly election analysis to see detailed insights across all constituencies.
+                Explore the full {PREVIOUS_ELECTION_YEAR} assembly election analysis to see detailed insights across all constituencies.
               </p>
             </div>
             <Link
-              href="/tn/elections/2021/insights"
+              href={`/tn/elections/${PREVIOUS_ELECTION_YEAR}/insights`}
               className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
             >
-              Explore 2021 Insights
+              Explore {PREVIOUS_ELECTION_YEAR} Insights
             </Link>
           </div>
         </div>

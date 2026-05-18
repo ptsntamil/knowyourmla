@@ -119,6 +119,8 @@ export default async function ConstituencyElectionResultPage({ params }: PagePro
         <CandidateRankingTable 
           candidates={result.candidates}
           constituencyName={result.constituencyName}
+          slug={slug}
+          year={yearNum}
         />
 
         {/* Editorial Summary */}

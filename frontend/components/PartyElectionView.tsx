@@ -20,6 +20,7 @@ export default function PartyElectionView({ partySlug, initialYear, years, isGlo
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [resultFilter, setResultFilter] = useState<"all" | "winner" | "contestant">("all");
+  const [depositFilter, setDepositFilter] = useState<"all" | "lost" | "saved">("all");
   const [sortBy, setSortBy] = useState<SortOption>("name");
   const [displayCount, setDisplayCount] = useState(15);
 
@@ -34,6 +35,7 @@ export default function PartyElectionView({ partySlug, initialYear, years, isGlo
         const data = await fetchPartyCandidates(partySlug, selectedYear);
         setCandidates(data);
         setDisplayCount(15);
+        setDepositFilter("all");
       } catch (e) {
         console.error(e);
       } finally {
@@ -43,14 +45,35 @@ export default function PartyElectionView({ partySlug, initialYear, years, isGlo
     load();
   }, [partySlug, selectedYear]);
 
+  const { depositLostCount, depositSavedCount } = useMemo(() => {
+    let lost = 0;
+    let saved = 0;
+    candidates.forEach((c) => {
+      const isLost = c.deposit_lost === true || c.deposit_lost === "true" || c.deposit_lost === 1;
+      if (isLost) {
+        lost++;
+      } else {
+        saved++;
+      }
+    });
+    return { depositLostCount: lost, depositSavedCount: saved };
+  }, [candidates]);
+
   const filteredAndSortedCandidates = useMemo(() => {
     let result = candidates.filter(c => {
       const matchesSearch = (c.candidate_name || "").toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (c.constituency_id || "").toLowerCase().includes(searchTerm.toLowerCase());
+        (c.constituency_name || c.constituency_id || "").toLowerCase().includes(searchTerm.toLowerCase());
 
-      if (resultFilter === "winner") return matchesSearch && c.is_winner;
-      if (resultFilter === "contestant") return matchesSearch && !c.is_winner;
-      return matchesSearch;
+      const isLost = c.deposit_lost === true || c.deposit_lost === "true" || c.deposit_lost === 1;
+      const matchesDeposit = depositFilter === "all" ||
+        (depositFilter === "lost" && isLost) ||
+        (depositFilter === "saved" && !isLost);
+
+      const matchesResult = resultFilter === "all" ||
+        (resultFilter === "winner" && c.is_winner) ||
+        (resultFilter === "contestant" && !c.is_winner);
+
+      return matchesSearch && matchesDeposit && matchesResult;
     });
 
     result.sort((a, b) => {
@@ -67,7 +90,7 @@ export default function PartyElectionView({ partySlug, initialYear, years, isGlo
     });
 
     return result;
-  }, [candidates, searchTerm, resultFilter, sortBy]);
+  }, [candidates, searchTerm, resultFilter, depositFilter, sortBy]);
 
   const displayedCandidates = filteredAndSortedCandidates.slice(0, displayCount);
   const hasMore = displayCount < filteredAndSortedCandidates.length;
@@ -83,46 +106,85 @@ export default function PartyElectionView({ partySlug, initialYear, years, isGlo
 
       <div className="space-y-6">
         <div className="sticky top-20 z-20 bg-slate-50/95 dark:bg-slate-900/95 backdrop-blur-md py-4 -mx-4 px-4 sm:mx-0 sm:px-0">
-          <div className="flex flex-col lg:flex-row gap-4">
-            <div className="relative flex-1">
-              <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
-              <input
-                type="text"
-                placeholder="Search name or constituency..."
-                className="w-full pl-11 pr-5 py-3.5 bg-white dark:bg-slate-800 rounded-2xl border border-border/50 focus:ring-2 focus:ring-brand-gold/20 outline-none text-xs font-bold uppercase tracking-wider"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-
-            <div className="flex gap-3 overflow-x-auto no-scrollbar">
-              <div className="relative group min-w-[140px]">
-                <select
-                  className="w-full bg-white dark:bg-slate-800 border border-border/50 rounded-2xl px-5 py-3.5 text-[10px] font-black uppercase tracking-widest outline-none appearance-none cursor-pointer"
-                  value={resultFilter}
-                  onChange={(e) => setResultFilter(e.target.value as any)}
-                >
-                  <option value="all">All Results</option>
-                  <option value="winner">🏆 Winners</option>
-                  <option value="contestant">🗳️ Others</option>
-                </select>
-                <Filter className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={12} />
+          <div className="flex flex-col gap-4">
+            <div className="flex flex-col lg:flex-row gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+                <input
+                  type="text"
+                  placeholder="Search name or constituency..."
+                  className="w-full pl-11 pr-5 py-3.5 bg-white dark:bg-slate-800 rounded-2xl border border-border/50 focus:ring-2 focus:ring-brand-gold/20 outline-none text-xs font-bold uppercase tracking-wider"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
               </div>
 
-              <div className="relative group min-w-[160px]">
-                <select
-                  className="w-full bg-white dark:bg-slate-800 border border-border/50 rounded-2xl px-5 py-3.5 text-[10px] font-black uppercase tracking-widest outline-none appearance-none cursor-pointer"
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as any)}
-                >
-                  <option value="name">Sort by Name</option>
-                  <option value="assets-desc">💰 Highest Assets</option>
-                  <option value="cases-desc">⚖️ Most Cases</option>
-                  <option value="youngest">👶 Youngest</option>
-                </select>
-                <ArrowUpDown className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={12} />
+              <div className="flex gap-3 overflow-x-auto no-scrollbar">
+                <div className="relative group min-w-[140px]">
+                  <select
+                    className="w-full bg-white dark:bg-slate-800 border border-border/50 rounded-2xl px-5 py-3.5 text-[10px] font-black uppercase tracking-widest outline-none appearance-none cursor-pointer"
+                    value={resultFilter}
+                    onChange={(e) => setResultFilter(e.target.value as any)}
+                  >
+                    <option value="all">All Results</option>
+                    <option value="winner">🏆 Winners</option>
+                    <option value="contestant">🗳️ Others</option>
+                  </select>
+                  <Filter className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={12} />
+                </div>
+
+                <div className="relative group min-w-[160px]">
+                  <select
+                    className="w-full bg-white dark:bg-slate-800 border border-border/50 rounded-2xl px-5 py-3.5 text-[10px] font-black uppercase tracking-widest outline-none appearance-none cursor-pointer"
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value as any)}
+                  >
+                    <option value="name">Sort by Name</option>
+                    <option value="assets-desc">💰 Highest Assets</option>
+                    <option value="cases-desc">⚖️ Most Cases</option>
+                    <option value="youngest">👶 Youngest</option>
+                  </select>
+                  <ArrowUpDown className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400" size={12} />
+                </div>
               </div>
             </div>
+
+            {selectedYear && (
+              <div className="flex flex-wrap gap-2 pt-2 border-t border-slate-100 dark:border-slate-800/50">
+                <button
+                  onClick={() => setDepositFilter("all")}
+                  className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all border ${
+                    depositFilter === "all"
+                      ? "bg-brand-dark text-white border-brand-dark dark:bg-brand-gold dark:text-brand-dark dark:border-brand-gold"
+                      : "bg-white text-slate-600 border-border/50 hover:bg-slate-50 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700"
+                  }`}
+                >
+                  All Deposit Statuses ({candidates.length})
+                </button>
+                <button
+                  onClick={() => setDepositFilter("lost")}
+                  className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all border flex items-center gap-1.5 ${
+                    depositFilter === "lost"
+                      ? "bg-rose-600 text-white border-rose-600"
+                      : "bg-rose-50/50 text-rose-600 border-rose-100 hover:bg-rose-50 dark:bg-rose-950/20 dark:text-rose-400 dark:border-rose-900/30"
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                  Deposit Lost ({depositLostCount})
+                </button>
+                <button
+                  onClick={() => setDepositFilter("saved")}
+                  className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all border flex items-center gap-1.5 ${
+                    depositFilter === "saved"
+                      ? "bg-emerald-600 text-white border-emerald-600"
+                      : "bg-emerald-50/50 text-emerald-600 border-emerald-100 hover:bg-emerald-50 dark:bg-emerald-950/20 dark:text-emerald-400 dark:border-emerald-900/30"
+                  }`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Deposit Saved ({depositSavedCount})
+                </button>
+              </div>
+            )}
           </div>
         </div>
 

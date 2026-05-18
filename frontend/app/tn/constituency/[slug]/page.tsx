@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ArrowUpRight } from "lucide-react";
 import { fetchConstituencyWinners } from "@/services/api";
 import CoverImage from "@/components/CoverImage";
 import { buildMetadata } from "@/lib/seo/metadata";
@@ -10,6 +11,7 @@ import PartyBadge from "@/components/ui/PartyBadge";
 import { getConstituencyPreElectionOverlayData } from "@/lib/elections/preElectionDashboard/getConstituencyPreElectionOverlayData";
 import ConstituencyPreElectionOverlay from "@/components/election/dashboard/ConstituencyPreElectionOverlay";
 import ShareButton from "@/components/ShareButton";
+import { LAST_COMPLETED_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from "@/lib/constants/elections";
 
 export const revalidate = 3600;
 
@@ -309,6 +311,7 @@ export default async function ConstituencyPage({ params }: PageProps) {
                     <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Winner</th>
                     <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">Party</th>
                     <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Margin</th>
+                    <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">Full Results</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-50">
@@ -339,6 +342,14 @@ export default async function ConstituencyPage({ params }: PageProps) {
                         />
                       </td>
                       <td className="px-10 py-8 text-right font-black text-slate-400" suppressHydrationWarning>{record.margin.toLocaleString()}</td>
+                      <td className="px-10 py-8 text-right">
+                        <Link 
+                          href={`/tn/constituency/${slug}/election/${record.year}`}
+                          className="inline-flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-brand-gold hover:text-brand-dark transition-colors"
+                        >
+                          View <ArrowUpRight size={14} />
+                        </Link>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -355,14 +366,14 @@ export default async function ConstituencyPage({ params }: PageProps) {
               <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
               <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
                 How does {slug} compare to the statewide trends?
-                Explore the full 2021 assembly election analysis to see performance across all 234 seats, regional patterns, and candidate analytics.
+                Explore the full {LAST_COMPLETED_ELECTION_YEAR} assembly election analysis to see performance across all 234 seats, regional patterns, and candidate analytics.
               </p>
             </div>
             <Link
-              href="/tn/elections/2021/insights"
+              href={`/tn/elections/${LAST_COMPLETED_ELECTION_YEAR}/insights`}
               className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
             >
-              Explore 2021 Insights
+              Explore {LAST_COMPLETED_ELECTION_YEAR} Insights
             </Link>
           </div>
         </div>

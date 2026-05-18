@@ -141,7 +141,7 @@ export default async function PreElectionDashboardPage() {
               <ul className="space-y-2">
                 <li><a href="/tn/elections/2026/candidates" className="text-sm font-medium text-slate-600 hover:text-brand-gold transition-colors">Candidate Explorer</a></li>
                 <li><a href="/tn/elections/2026/constituencies" className="text-sm font-medium text-slate-600 hover:text-brand-gold transition-colors">Constituency Contests</a></li>
-                <li><a href="/tn/elections/2026/parties" className="text-sm font-medium text-slate-600 hover:text-brand-gold transition-colors">Party Trackers</a></li>
+                <li><a href="/tn/elections/2026/pre-election-insights" className="text-sm font-medium text-slate-600 hover:text-brand-gold transition-colors">Candidate Insights</a></li>
               </ul>
             </div>
           </div>
