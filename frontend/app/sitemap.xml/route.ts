@@ -11,7 +11,8 @@ export async function GET() {
     'sitemap-parties.xml',
     'sitemap-constituencies.xml',
     'sitemap-mlas.xml',
-    'sitemap-elections.xml'
+    'sitemap-elections.xml',
+    'sitemap-polling-stations.xml'
   ];
 
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { fetchConstituencies } from '@/services/api';
 import { generateXml, slugify } from '@/lib/sitemap-utils';
+import { AVAILABLE_ELECTION_YEARS } from '@/lib/constants/elections';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,12 +11,32 @@ export async function GET() {
 
   try {
     const constituencies = await fetchConstituencies();
-    const urls = (constituencies || []).map((c: any) => ({
-      url: `${tnBaseUrl}/constituency/${c.slug || slugify(c.name)}`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.7,
-    })).filter(u => u.url.split('/').pop());
+    const urls: { url: string; lastModified: Date; changeFrequency: string; priority: number }[] = [];
+    
+    (constituencies || []).forEach((c: any) => {
+      const slug = c.slug || slugify(c.name);
+      if (!slug) return;
+
+      const profileUrl = `${tnBaseUrl}/constituency/${slug}`;
+      
+      // Main profile page
+      urls.push({
+        url: profileUrl,
+        lastModified: new Date(),
+        changeFrequency: 'weekly',
+        priority: 0.7,
+      });
+
+      // Election result pages for each year
+      AVAILABLE_ELECTION_YEARS.forEach(year => {
+        urls.push({
+          url: `${profileUrl}/election/${year}`,
+          lastModified: new Date(),
+          changeFrequency: 'monthly',
+          priority: 0.6,
+        });
+      });
+    });
 
     const xml = generateXml(urls);
     return new NextResponse(xml, {

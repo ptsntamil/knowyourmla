@@ -43,7 +43,7 @@ export default function InsightsPreview({ insights }: InsightsPreviewProps) {
         </div>
         
         <Link 
-          href="/tn/elections/2026/insights"
+          href="/tn/elections/2026/pre-election-insights"
           className="hidden sm:flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-brand-gold hover:text-brand-dark transition-colors group"
         >
           View Full Insights <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -94,7 +94,7 @@ export default function InsightsPreview({ insights }: InsightsPreviewProps) {
 
       <div className="sm:hidden pt-4">
         <Link 
-          href="/tn/elections/2026/insights"
+          href="/tn/elections/2026/pre-election-insights"
           className="flex items-center justify-center gap-2 w-full py-4 bg-slate-100 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] text-slate-600"
         >
           View Full Insights <ChevronRight size={14} />

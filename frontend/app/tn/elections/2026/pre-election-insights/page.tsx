@@ -11,7 +11,7 @@ export async function generateMetadata() {
   return buildMetadata({
     title: `Tamil Nadu Election Insights ${year} | Financials, Criminal Cases & Demographics`,
     description: `Deep dive into the data behind the ${year} Tamil Nadu Assembly Election. Analyze candidate assets, criminal records, age distributions, and incumbency patterns.`,
-    path: `/tn/elections/${year}/insights`,
+    path: `/tn/elections/${year}/pre-election-insights`,
     keywords: [
       `TN election insights ${year}`,
       `Tamil Nadu assembly election analytics`,
@@ -38,7 +38,7 @@ export default async function InsightsPage() {
           commonBreadcrumbs.home,
           { name: "Elections", item: "/tn/elections" },
           { name: `Tamil Nadu ${year} Overview`, item: `/tn/elections/${year}/dashboard` },
-          { name: "Insights", item: `/tn/elections/${year}/insights` }
+          { name: "Pre-Election Insights", item: `/tn/elections/${year}/pre-election-insights` }
         ]}
       />
 

@@ -649,7 +649,7 @@ resource "aws_dynamodb_table" "knowyourmla_polling_results" {
 
   attribute {
     name = "polling_station_no"
-    type = "N"
+    type = "S"
   }
 
   attribute {
@@ -657,7 +657,7 @@ resource "aws_dynamodb_table" "knowyourmla_polling_results" {
     type = "N"
   }
 
-  # GSI1: Polling Station view
+  # GSI1: Polling Station view (Temporarily commented for migration)
   global_secondary_index {
     name            = "PollingStationIndex"
     projection_type = "ALL"
@@ -673,7 +673,7 @@ resource "aws_dynamodb_table" "knowyourmla_polling_results" {
     }
   }
 
-  # GSI2: Constituency view
+  #GSI2: Constituency view (Temporarily commented for migration)
   global_secondary_index {
     name            = "ConstituencyIndex"
     projection_type = "ALL"
