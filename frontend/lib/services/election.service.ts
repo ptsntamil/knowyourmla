@@ -1,11 +1,7 @@
 import { MLARepository } from "../repositories/mla.repository";
 import { ElectionResponse } from "@/types/models";
-
-// Reusing MLARepository or creating a dedicated ElectionRepository if needed. 
-// However, based on backend/app/services/election_service.py, it uses ElectionRepository.
-// I'll check if I implemented ElectionRepository. I didn't. I'll need it.
-
 import { DynamoDBWrapper } from "../dynamodb";
+import { unstable_cache } from "next/cache";
 
 export class ElectionRepository {
   private client: DynamoDBWrapper;
@@ -33,26 +29,38 @@ export class ElectionService {
   }
 
   async listElections(): Promise<ElectionResponse[]> {
-    const rawElections = await this.repository.getAllElections();
-    rawElections.sort((a, b) => parseInt(b.year || "0") - parseInt(a.year || "0"));
+    return unstable_cache(
+      async (): Promise<ElectionResponse[]> => {
+        const rawElections = await this.repository.getAllElections();
+        rawElections.sort((a, b) => parseInt(b.year || "0") - parseInt(a.year || "0"));
 
-    return rawElections.map((item: any) => ({
-      id: item.PK,
-      year: parseInt(item.year || "0"),
-      type: item.type,
-      category: item.category,
-    }));
+        return rawElections.map((item: any) => ({
+          id: item.PK,
+          year: parseInt(item.year || "0"),
+          type: item.type,
+          category: item.category,
+        }));
+      },
+      ["all-elections-list"],
+      { revalidate: 86400, tags: ["elections"] }
+    )();
   }
 
   async getElection(electionId: string): Promise<ElectionResponse | null> {
-    const item = await this.repository.getElectionById(electionId);
-    if (!item) return null;
+    return unstable_cache(
+      async (eId: string): Promise<ElectionResponse | null> => {
+        const item = await this.repository.getElectionById(eId);
+        if (!item) return null;
 
-    return {
-      id: item.PK,
-      year: parseInt(item.year || "0"),
-      type: item.type,
-      category: item.category,
-    };
+        return {
+          id: item.PK,
+          year: parseInt(item.year || "0"),
+          type: item.type,
+          category: item.category,
+        };
+      },
+      ["election-by-id"],
+      { revalidate: 86400, tags: [`election-${electionId}`] }
+    )(electionId);
   }
 }
