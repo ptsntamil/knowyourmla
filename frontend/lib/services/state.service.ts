@@ -6,6 +6,7 @@ import { PartyRepository } from "../repositories/party.repository";
 import { DistrictMLA, DistrictInsights } from "@/types/models";
 import { formatAssets, buildInsights, calculateAge, getDistributionData } from "../utils/insights";
 import { normalizeProfileEducation, normalizeTotalAssets } from "../utils/profile-normalizers";
+import { unstable_cache } from "next/cache";
 
 export interface StateOverviewResponse {
   totalConstituencies: number;
@@ -83,96 +84,101 @@ export class StateService {
   }
 
   async getStateOverview(): Promise<StateOverviewResponse> {
-    const [districts, constituencies, winners] = await Promise.all([
-      this.districtRepo.getAllDistricts(),
-      this.constituencyRepo.getAllConstituencies(),
-      this.mlaRepo.getWinnersByYearRange(2026, 2031)
-    ]);
+    return unstable_cache(
+      async (): Promise<StateOverviewResponse> => {
+        const [districts, constituencies, winners] = await Promise.all([
+          this.districtRepo.getAllDistricts(),
+          this.constituencyRepo.getAllConstituencies(),
+          this.mlaRepo.getWinnersByYearRange(2026, 2031)
+        ]);
 
-    // Filter only 2021 winners
-    const currentWinners = winners.filter((w: any) => parseInt(w.year) === 2026);
+        // Filter only 2026 winners
+        const currentWinners = winners.filter((w: any) => parseInt(w.year) === 2026);
 
-    // Fetch person details
-    const personIds = Array.from(new Set(currentWinners.map((w: any) => w.person_id).filter(Boolean)));
-    const persons = await this.personRepo.getPersonsByIds(personIds as string[]);
-    const personMap = persons.reduce((acc: any, p: any) => {
-      acc[p.PK] = p;
-      return acc;
-    }, {});
+        // Fetch person details
+        const personIds = Array.from(new Set(currentWinners.map((w: any) => w.person_id).filter(Boolean)));
+        const persons = await this.personRepo.getPersonsByIds(personIds as string[]);
+        const personMap = persons.reduce((acc: any, p: any) => {
+          acc[p.PK] = p;
+          return acc;
+        }, {});
 
-    await this.ensurePartyCache();
+        await this.ensurePartyCache();
 
-    const mlaList: DistrictMLA[] = await Promise.all(currentWinners.map(async (w: any) => {
-      const person = personMap[w.person_id] || {};
-      const constituency = constituencies.find((c: any) => c.PK === w.constituency_id);
+        const mlaList: DistrictMLA[] = await Promise.all(currentWinners.map(async (w: any) => {
+          const person = personMap[w.person_id] || {};
+          const constituency = constituencies.find((c: any) => c.PK === w.constituency_id);
 
-      const birthYear = person.birth_year || person.birthyear;
-      const age = calculateAge(birthYear) || (person.age ? parseInt(person.age) : null);
-      const gender = (person.sex || person.gender || "").toLowerCase();
-      const assets = normalizeTotalAssets(w.total_assets);
-      const margin = normalizeTotalAssets(w.winning_margin || w.margin);
-      const votes = normalizeTotalAssets(w.total_votes);
+          const birthYear = person.birth_year || person.birthyear;
+          const age = calculateAge(birthYear) || (person.age ? parseInt(person.age) : null);
+          const gender = (person.sex || person.gender || "").toLowerCase();
+          const assets = normalizeTotalAssets(w.total_assets);
+          const margin = normalizeTotalAssets(w.winning_margin || w.margin);
+          const votes = normalizeTotalAssets(w.total_votes);
 
-      const partyInfo = await this.getPartyInfo(w.party_id);
-      const partyShort = partyInfo.short_name || w.party_id?.replace("PARTY#", "") || "IND";
+          const partyInfo = await this.getPartyInfo(w.party_id);
+          const partyShort = partyInfo.short_name || w.party_id?.replace("PARTY#", "") || "IND";
 
-      return {
-        name: person.name || w.candidate_name || "Unknown",
-        age,
-        slug: (person.name || w.candidate_name || "Unknown").toLowerCase().replace(/[^a-z0-9]/g, "-"),
-        constituency: constituency?.name || w.constituency_id?.replace("CONSTITUENCY#", ""),
-        constituencyId: w.constituency_id,
-        party: partyShort,
-        partyShort: partyShort,
-        partyColor: partyInfo.color_bg,
-        partyColorText: partyInfo.color_text,
-        partyColorBorder: partyInfo.color_border,
-        partyLogoUrl: partyInfo.logo,
-        assets,
-        formattedAssets: formatAssets(assets),
-        margin,
-        votes,
-        image_url: person.image_url || w.profile_pic || null,
-        isFresher: (w.total_wins !== undefined && w.total_wins !== null) ? Number(w.total_wins) === 1 : undefined,
-        gender: gender || "unknown",
-        education: normalizeProfileEducation(person.education || w.education)
-      };
+          return {
+            name: person.name || w.candidate_name || "Unknown",
+            age,
+            slug: (person.name || w.candidate_name || "Unknown").toLowerCase().replace(/[^a-z0-9]/g, "-"),
+            constituency: constituency?.name || w.constituency_id?.replace("CONSTITUENCY#", ""),
+            constituencyId: w.constituency_id,
+            party: partyShort,
+            partyShort: partyShort,
+            partyColor: partyInfo.color_bg,
+            partyColorText: partyInfo.color_text,
+            partyColorBorder: partyInfo.color_border,
+            partyLogoUrl: partyInfo.logo,
+            assets,
+            formattedAssets: formatAssets(assets),
+            margin,
+            votes,
+            image_url: person.image_url || w.profile_pic || null,
+            isFresher: (w.total_wins !== undefined && w.total_wins !== null) ? Number(w.total_wins) === 1 : undefined,
+            gender: gender || "unknown",
+            education: normalizeProfileEducation(person.education || w.education)
+          };
 
-    }));
+        }));
 
-    const insights = buildInsights(mlaList as any);
-    const partySpread = new Set(mlaList.map(m => m.party)).size;
+        const insights = buildInsights(mlaList as any);
+        const partySpread = new Set(mlaList.map(m => m.party)).size;
 
-    // Calculate constituency count map
-    const districtCountMap: Record<string, number> = {};
-    constituencies.forEach((c: any) => {
-      if (c.district_id) {
-        districtCountMap[c.district_id] = (districtCountMap[c.district_id] || 0) + 1;
-      }
-    });
+        // Calculate constituency count map
+        const districtCountMap: Record<string, number> = {};
+        constituencies.forEach((c: any) => {
+          if (c.district_id) {
+            districtCountMap[c.district_id] = (districtCountMap[c.district_id] || 0) + 1;
+          }
+        });
 
-    return {
-      totalConstituencies: constituencies.length,
-      totalMLAs: mlaList.length,
-      totalDistricts: districts.length,
-      partySpread,
-      insights,
-      mlas: mlaList,
-      districts: districts.map((d: any) => ({
-        id: d.PK,
-        name: d.name,
-        slug: d.PK.replace("DISTRICT#", "").toLowerCase(),
-        total_constituencies: districtCountMap[d.PK] || d.total_constituencies || 0,
-        image_url: d.image_url
-      })),
-      districtCountMap,
-      distributions: {
-        party: getDistributionData(mlaList, 'party'),
-        education: getDistributionData(mlaList, 'education'),
-        gender: getDistributionData(mlaList, 'gender'),
-        age: getDistributionData(mlaList, 'age')
-      }
-    };
-
+        return {
+          totalConstituencies: constituencies.length,
+          totalMLAs: mlaList.length,
+          totalDistricts: districts.length,
+          partySpread,
+          insights,
+          mlas: mlaList,
+          districts: districts.map((d: any) => ({
+            id: d.PK,
+            name: d.name,
+            slug: d.PK.replace("DISTRICT#", "").toLowerCase(),
+            total_constituencies: districtCountMap[d.PK] || d.total_constituencies || 0,
+            image_url: d.image_url
+          })),
+          districtCountMap,
+          distributions: {
+            party: getDistributionData(mlaList, 'party'),
+            education: getDistributionData(mlaList, 'education'),
+            gender: getDistributionData(mlaList, 'gender'),
+            age: getDistributionData(mlaList, 'age')
+          }
+        };
+      },
+      ["state-overview"],
+      { revalidate: 86400, tags: ["state-summary"] }
+    )();
   }
 }
