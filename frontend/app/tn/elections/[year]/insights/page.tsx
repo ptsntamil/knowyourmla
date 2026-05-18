@@ -9,6 +9,7 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { commonBreadcrumbs } from '@/lib/seo/breadcrumbs';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { AVAILABLE_ELECTION_YEARS } from '@/lib/constants/elections';
+import FAQSection from '@/components/seo/FAQSection';
 
 interface PageProps {
   params: Promise<{ year: string }>;
@@ -18,16 +19,18 @@ export async function generateMetadata({ params }: PageProps) {
   const { year } = await params;
 
   return buildMetadata({
-    title: `Tamil Nadu Election ${year} Results Insights | Analysis, Stats & Highlights`,
-    description: `Deep analytical insights for the ${year} Tamil Nadu Assembly Election. Explore closest contests, biggest victories, turnout patterns, and contestant demographics including richest and youngest candidates.`,
+    title: `Deposit Lost Analysis in Tamil Nadu Elections ${year} | Party-wise Insights`,
+    description: `Explore party-wise deposit lost analysis, candidates who lost deposits, constituency performance, and election insights in Tamil Nadu elections.`,
     path: `/tn/elections/${year}/insights`,
     image: `/tn/elections/${year}/opengraph-image?type=closest`,
     keywords: [
       `Tamil Nadu Election ${year} Insights`,
       `TN Election ${year} Analysis`,
-      `Richest Candidates TN ${year}`,
-      `Closest Contests TN ${year}`,
-      `Women Winners Tamil Nadu ${year}`
+      `deposit lost candidates`,
+      `party deposit lost seats`,
+      `candidates who lost deposit in election`,
+      `deposit lost analysis Tamil Nadu election`,
+      `which party lost most deposits`
     ]
   });
 }
@@ -52,6 +55,29 @@ export default async function ElectionInsightsPage({ params }: PageProps) {
   }
 
   const { summary, insights } = data;
+
+  const faqs = [
+    {
+      question: "What does \"deposit lost\" mean in elections?",
+      answer: `A candidate is said to have lost their security deposit when they fail to secure a minimum of one-sixth (16.67%) of the total valid votes polled in their respective constituency during an election.`
+    },
+    {
+      question: `Which party lost the most deposits in the Tamil Nadu ${year} assembly election?`,
+      answer: `The party-wise deposit loss breakdown is shown in the Deposit Lost Analysis table above. It documents the total contested seats, deposit lost count, saved count, and loss percentage for every registered political party in the ${year} Tamil Nadu elections.`
+    },
+    {
+      question: `Which candidates lost their deposits in the ${year} elections?`,
+      answer: `View constituency-wise and party-wise lists of candidates who lost deposits by filtering candidates by election year in our individual constituency and party profile directory.`
+    },
+    {
+      question: "How is the deposit loss percentage calculated?",
+      answer: "Deposit loss percentage is computed by dividing the number of candidates who lost their security deposits by the total number of contested seats for a party, and multiplying the result by 100."
+    },
+    {
+      question: "Why is deposit lost analysis important in Tamil Nadu politics?",
+      answer: "Deposit lost analysis serves as an excellent health indicator for political parties. It shows which parties have strong core bases versus those contesting in name only without real grassroots support."
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-page-bg">
@@ -110,6 +136,11 @@ export default async function ElectionInsightsPage({ params }: PageProps) {
               Back to Main Results
             </Link>
           </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="pt-16 border-t border-slate-100 dark:border-slate-800">
+          <FAQSection faqs={faqs} />
         </section>
       </main>
     </div>

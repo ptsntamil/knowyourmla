@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import FeedbackModal from "./FeedbackModal";
 import Search from "./Search";
 import { Menu, X, ChevronDown } from "lucide-react";
+import { LATEST_ELECTION_YEAR, AVAILABLE_ELECTION_YEARS } from "@/lib/constants/elections";
 
 export interface ElectionItem {
   year: number;
@@ -18,12 +19,10 @@ interface NavbarProps {
 }
 
 export default function Navbar({ elections = [] }: NavbarProps) {
-  const currentElections = elections.length > 0 ? elections : [
-    { year: 2026, label: "2026 Assembly" },
-    { year: 2021, label: "2021 Assembly" },
-    { year: 2016, label: "2016 Assembly" },
-    { year: 2011, label: "2011 Assembly" },
-  ];
+  const currentElections = elections.length > 0 ? elections : AVAILABLE_ELECTION_YEARS.map(year => ({
+    year: parseInt(year),
+    label: `${year} Assembly`
+  }));
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isElectionsDropdownOpen, setIsElectionsDropdownOpen] = useState(false);
@@ -90,12 +89,12 @@ export default function Navbar({ elections = [] }: NavbarProps) {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex gap-8 items-center">
-            {/* 2026 Dashboard Link */}
+            {/* LATEST_ELECTION_YEAR Dashboard Link */}
             <Link
-              href="/tn/elections/2026/dashboard"
-              className={`relative ${linkClasses(isActive("/tn/elections/2026/dashboard"))}`}
+              href={`/tn/elections/${LATEST_ELECTION_YEAR}/dashboard`}
+              className={`relative ${linkClasses(isActive(`/tn/elections/${LATEST_ELECTION_YEAR}/dashboard`))}`}
             >
-              2026 Dashboard
+              {LATEST_ELECTION_YEAR} Dashboard
               <span className="absolute -top-3 -right-4 bg-brand-gold text-brand-dark text-[8px] font-black px-1.5 py-0.5 rounded shadow-lg animate-pulse">
                 NEW
               </span>

@@ -18,7 +18,7 @@ END_PS = {{END_PS}}
 
 Example:
 START_PS = 1
-END_PS = 50
+END_PS = 75
 
 Return ONLY polling stations within this range.
 
@@ -42,6 +42,16 @@ Return ONLY polling stations within this range.
 * valid vote totals
 * candidate alignment
 
+11. The `polling_station_summary` MUST be the aggregate sum of both individual station votes (EVM) and postal votes.
+12. Introduce an `evm_totals` field within `polling_station_summary` to specifically represent the sum of all EVM votes.
+13. Use row `Postal Ballot Votes` to extract Postal votes.
+14. IDENTIFYING POLLING STATIONS (`ps` field):
+    * EXCLUDE the "SL. NO." (Serial Number) column completely. Do not use it for anything.
+    * Use ONLY the "Polling Station No." column for the `ps` value.
+15. IDENTIFYING CANDIDATE VOTES:
+    * EXTREMELY IMPORTANT: DO NOT extract "SL. NO." or "Polling Station No." as candidate votes!
+    * Candidate votes start AFTER the polling station columns. 
+    * Ensure Candidate 1's votes are extracted from the first actual candidate column, NOT from the serial number or polling station number columns.
 ---
 
 ## MANDATORY VALIDATION
@@ -51,9 +61,9 @@ Before returning JSON:
 1. Verify all polling stations in requested range exist.
 
 Example:
-If range is 1–50:
+If range is 1–75:
 
-* ensure exactly 50 polling stations exist
+* ensure exactly 75 polling stations exist
 * ensure no missing station numbers
 
 2. Detect:
@@ -82,102 +92,102 @@ If range is 1–50:
 ## OPTIMIZED JSON FORMAT
 
 {
-"meta": {
-"election": "TN Assembly Election 2026",
-"form": "Form 20",
-"state": "Tamil Nadu",
-"year": 2026,
-"ac_no": 128,
-"ac_name": "Oddanchatram",
-"range_start": {{START_PS}},
-"range_end": {{END_PS}}
-},
-
-"candidates": {
-"1": {
-"name": "SAKKARAPANI. R",
-"party": "Dravida Munnetra Kazhagam",
-"party_short": "dmk"
-},
-"2": {
-"name": "MURUGARAJ. P",
-"party": "Bahujan Samaj Party",
-"party_short": "bsp"
-}
-},
-
-"stations": [
-{
-"ps": 1,
-
-```
-  "v": {
-    "1": 380,
-    "2": 1,
-    "3": 29,
-    "4": 210,
-    "5": 191
+  "meta": {
+    "election": "TN Assembly Election 2026",
+    "form": "Form 20",
+    "state": "Tamil Nadu",
+    "year": 2026,
+    "ac_no": 128,
+    "ac_name": "Oddanchatram",
+    "range_start": {{START_PS}},
+    "range_end": {{END_PS}}
   },
-
-  "valid": 826,
-  "nota": 17,
-  "rej": 0,
-  "total": 843,
-  "tendered": 0
-},
-postal": {
-"v": {
-"1": 125,
-"2": 4,
-"3": 15,
-"4": 52,
-"5": 39
-},
-"nota": 2,
-"rejected": 1,
-"valid": 237,
-"total": 240
-},
-"polling_station_summary": {
-"v": {
-"1": 98234,
-"2": 2134,
-"3": 12455,
-"4": 54321,
-"5": 65211
-}
-"party_votes": {
-"dmk": 98234,
-"bsp": 2134,
-"ntk": 12455,
-"bjp": 54321,
-"tvk": 65211
-},
-"valid": 206046,
-"rej": 0,
-"nota": 738,
-"total": 206784,
-"tendered": 0
-}
-```
-
-],
-
-"validation": {
-"range_complete": true,
-"expected_station_count": {{END_PS - START_PS + 1}},
-"actual_station_count": 0,
-"missing_polling_stations": [],
-"duplicate_polling_stations": [],
-"sequence_valid": true,
-"totals_valid": true,
-"errors": []
-},
-
-"next_range": {
-"start": {{END_PS + 1}},
-"end": {{END_PS + 50}}
-}
+  "candidates": {
+    "1": {
+      "name": "SAKKARAPANI. R",
+      "party": "Dravida Munnetra Kazhagam",
+      "party_short": "dmk"
+    },
+    "2": {
+      "name": "MURUGARAJ. P",
+      "party": "Bahujan Samaj Party",
+      "party_short": "bsp"
+    }
+  },
+  "stations": [
+    {
+      "ps": 1,
+      "v": {
+        "1": 380,
+        "2": 1,
+        "3": 29,
+        "4": 210,
+        "5": 191
+      },
+      "valid": 826,
+      "nota": 17,
+      "rej": 0,
+      "total": 843,
+      "tendered": 0
+    }
+  ],
+  "postal": {
+    "v": {
+      "1": 125,
+      "2": 4,
+      "3": 15,
+      "4": 52,
+      "5": 39
+    },
+    "nota": 2,
+    "rejected": 1,
+    "valid": 237,
+    "total": 240
+  },
+  "evm_totals": {
+    "v": {
+      "1": 98109,
+      "2": 2130,
+      "3": 12440,
+      "4": 54269,
+      "5": 65172
+    }
+  },
+  "polling_station_summary": {
+    "v": {
+      "1": 98234,
+      "2": 2134,
+      "3": 12455,
+      "4": 54321,
+      "5": 65211
+    },
+    "party_votes": {
+      "dmk": 98234,
+      "bsp": 2134,
+      "ntk": 12455,
+      "bjp": 54321,
+      "tvk": 65211
+    },
+    "valid": 206046,
+    "rej": 0,
+    "nota": 738,
+    "total": 206784,
+    "tendered": 0
+  },
+  "validation": {
+    "range_complete": true,
+    "expected_station_count": {{END_PS - START_PS + 1}},
+    "actual_station_count": 0,
+    "missing_polling_stations": [],
+    "duplicate_polling_stations": [],
+    "sequence_valid": true,
+    "totals_valid": true,
+    "errors": []
+  },
+  "next_range": {
+    "start": {{END_PS + 1}},
+    "end": {{END_PS + 75}}
+  }
 }
 
 ---

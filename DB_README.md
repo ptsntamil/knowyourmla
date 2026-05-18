@@ -576,7 +576,7 @@ Polling station level results and AC-wide aggregates extracted from Form 20 data
   "PK": "CONSTITUENCY#oddanchatram#YEAR#2026#PS#1",
   "SK": "METADATA",
   "constituency_id": "CONSTITUENCY#oddanchatram",
-  "polling_station_no": 1,
+  "polling_station_no": "1",
   "year": 2026,
   "results": {
     "AFFIDAVIT#2026#1": {

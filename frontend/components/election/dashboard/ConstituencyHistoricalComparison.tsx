@@ -1,5 +1,6 @@
 import React from 'react';
 import { History, TrendingUp, Users } from 'lucide-react';
+import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from '@/lib/constants/elections';
 
 interface ConstituencyHistoricalComparisonProps {
   lastElection?: {
@@ -29,7 +30,7 @@ export default function ConstituencyHistoricalComparison({
       <div className="px-10 py-8 bg-slate-900 border-b border-slate-800 flex justify-between items-center text-white">
         <div className="flex items-center gap-3">
           <History className="text-brand-gold" size={20} />
-          <h3 className="font-black uppercase tracking-widest text-sm italic">Historical vs 2026 Contest</h3>
+          <h3 className="font-black uppercase tracking-widest text-sm italic">Historical vs {LATEST_ELECTION_YEAR} Contest</h3>
         </div>
         <span className="text-[10px] font-black text-white/40 uppercase tracking-[0.3em]">Single Seat Intelligence</span>
       </div>
@@ -39,7 +40,7 @@ export default function ConstituencyHistoricalComparison({
         <div className="p-10 space-y-8">
           <div className="space-y-1">
             <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none">Previous Election</p>
-            <h4 className="text-xl font-black text-brand-dark uppercase tracking-tight italic">2021 Assembly</h4>
+            <h4 className="text-xl font-black text-brand-dark uppercase tracking-tight italic">{PREVIOUS_ELECTION_YEAR} Assembly</h4>
           </div>
 
           <div className="space-y-6">
@@ -69,7 +70,7 @@ export default function ConstituencyHistoricalComparison({
         <div className="p-10 space-y-8 bg-slate-50/20">
           <div className="space-y-1">
             <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest leading-none">Current Overlay</p>
-            <h4 className="text-xl font-black text-brand-dark uppercase tracking-tight italic">2026 Pre-Election</h4>
+            <h4 className="text-xl font-black text-brand-dark uppercase tracking-tight italic">{LATEST_ELECTION_YEAR} Pre-Election</h4>
           </div>
 
           <div className="space-y-6">

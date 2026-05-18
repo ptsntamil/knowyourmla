@@ -108,7 +108,7 @@ class PollingDataImporter:
             with open(mapping_file, 'r') as f:
                 data = json.load(f)
                 for entry in data:
-                    const_norm = normalize_name(entry.get('constituency', ''))
+                    const_norm = canonicalize_constituency(entry.get('constituency', ''))
                     name_norm = normalize_name(entry.get('name', ''))
                     party_norm = normalize_name(entry.get('party_name', ''))
                     
@@ -119,21 +119,38 @@ class PollingDataImporter:
             logger.error(f"Failed to load mappings: {e}")
             sys.exit(1)
 
-    def resolve_candidate(self, const_norm: str, name: str, party: str) -> Optional[str]:
+    def resolve_candidate(self, const_norm: str, name: str, party: str = "") -> Optional[str]:
         """Resolve a candidate name to their db_candidate_pk."""
         name_norm = normalize_name(name)
-        party_norm = normalize_name(party)
+        party_norm = normalize_name(party) if party else ""
         
-        # Direct match
-        key = (const_norm, name_norm, party_norm)
-        if key in self.candidate_mappings:
-            return self.candidate_mappings[key]
+        # 1. Direct match with party
+        if party_norm:
+            key = (const_norm, name_norm, party_norm)
+            if key in self.candidate_mappings:
+                return self.candidate_mappings[key]
         
-        # Fuzzy match if direct match fails
+        # 2. Match by name within constituency (if party is missing or direct match failed)
+        matches = []
         for (m_const, m_name, m_party), db_pk in self.candidate_mappings.items():
-            if m_const == const_norm and m_party == party_norm:
-                if names_are_similar(name, m_name):
-                    return db_pk
+            if m_const == const_norm:
+                if m_name == name_norm:
+                    matches.append((m_party, db_pk))
+                elif names_are_similar(name, m_name):
+                    matches.append((m_party, db_pk))
+
+        if len(matches) == 1:
+            return matches[0][1]
+        elif len(matches) > 1:
+            # If party was provided, try to find exact party match among name matches
+            if party_norm:
+                for m_party, db_pk in matches:
+                    if m_party == party_norm:
+                        return db_pk
+            
+            logger.warning(f"Multiple matches for candidate '{name}' in {const_norm}: {matches}")
+            # Fallback to first match as a best-effort
+            return matches[0][1]
         
         logger.warning(f"Could not resolve candidate: {name} ({party}) in {const_norm}")
         return None
@@ -176,11 +193,26 @@ class PollingDataImporter:
         # Map local_id to db_candidate_pk
         id_map = {} # local_id -> db_pk
         for cid, info in json_candidates.items():
-            db_pk = self.resolve_candidate(const_norm, info['name'], info['party'])
+            db_pk = None
+            if isinstance(info, str):
+                name = info
+                party = ""
+            elif isinstance(info, dict):
+                name = info.get('name', '')
+                party = info.get('party', '') or info.get('party_name', '')
+                # Check for explicit candidate_id
+                db_pk = info.get('candidate_id') or info.get('canidate_id')
+            else:
+                logger.error(f"Unexpected candidate info format for {cid}: {info}")
+                continue
+                
+            if not db_pk:
+                db_pk = self.resolve_candidate(const_norm, name, party)
+            
             if db_pk:
                 id_map[cid] = db_pk
             else:
-                logger.error(f"Resolution failed for candidate {cid}: {info['name']}")
+                logger.error(f"Resolution failed for candidate {cid}: {name}")
 
         # Map candidate_totals to DB IDs
         db_candidate_totals = {id_map[cid]: votes for cid, votes in candidate_totals.items() if cid in id_map}
@@ -189,14 +221,15 @@ class PollingDataImporter:
         # Pass 2: Ingest Polling Station Records
         logger.info(f"Ingesting {len(stations)} polling stations for {ac_name}...")
         
-        batch_items = []
         for ps in stations:
             ps_val = ps.get('ps')
             if ps_val in ['TOTAL_POLLING', 'TOTAL', 'SUMMARY']:
                 continue
                 
             try:
-                ps_no = int(ps_val)
+                ps_no = str(ps_val).strip()
+                if not ps_no:
+                    continue
             except (ValueError, TypeError):
                 logger.error(f"Invalid polling station number: {ps_val}")
                 continue
@@ -223,7 +256,6 @@ class PollingDataImporter:
                 }
             
             # Add NOTA to results
-            ps_nota = ps.get('nota', 0)
             results["NOTA"] = {
                 "votes": ps_nota,
                 "vote_share_percentage": round((ps_nota / ps_valid * 100), 2) if ps_valid > 0 else 0
@@ -250,7 +282,58 @@ class PollingDataImporter:
             else:
                 self.polling_table.put_item(Item=item)
 
-        # Pass 3: Ingest AC Summary Record
+        # Pass 3: Ingest Postal Votes if present
+        postal_data = data.get('postal')
+        if postal_data:
+            logger.info(f"Ingesting postal votes for {ac_name}...")
+            p_v_map = postal_data.get('v', {})
+            p_valid = int(postal_data.get('valid', 0))
+            p_total = int(postal_data.get('total', 0))
+            p_nota = int(postal_data.get('nota', 0))
+            p_rej = int(postal_data.get('rej', 0))
+            
+            p_results = {}
+            for cid, votes in p_v_map.items():
+                if cid not in id_map: continue
+                db_pk = id_map[cid]
+                
+                # Calculations for postal
+                share = round((votes / p_valid * 100), 2) if p_valid > 0 else 0
+                contribution = round((votes / candidate_totals[cid] * 100), 2) if candidate_totals.get(cid, 0) > 0 else 0
+                
+                p_results[db_pk] = {
+                    "votes": votes,
+                    "vote_share_percentage": share,
+                    "candidate_contribution_percentage": contribution
+                }
+            
+            # Add NOTA to postal results
+            p_results["NOTA"] = {
+                "votes": p_nota,
+                "vote_share_percentage": round((p_nota / p_valid * 100), 2) if p_valid > 0 else 0
+            }
+
+            postal_pk = f"CONSTITUENCY#{const_norm}#YEAR#{year}"
+            postal_item = {
+                "PK": postal_pk,
+                "SK": "POSTAL",
+                "constituency_id": const_id,
+                "year": year,
+                "results": p_results,
+                "valid_votes": p_valid,
+                "rejected_votes": p_rej,
+                "nota_votes": p_nota,
+                "total_votes_polled": p_total,
+                "created_at": int(datetime.now(timezone.utc).timestamp())
+            }
+            
+            postal_item = convert_floats_to_decimal(postal_item)
+            if dry_run:
+                logger.info(f"Dry Run Postal Item: {json.dumps(postal_item, indent=2, cls=DecimalEncoder)}")
+            else:
+                self.polling_table.put_item(Item=postal_item)
+
+        # Pass 4: Ingest AC Summary Record
         summary_pk = f"CONSTITUENCY#{const_norm}#YEAR#{year}"
         summary_item = {
             "PK": summary_pk,

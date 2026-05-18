@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Award, Medal, User } from "lucide-react";
+import { Award, Medal, User, MapPin } from "lucide-react";
 import { CandidateResultRow } from "@/lib/services/election-analytics.service";
 import ProfileImage from "@/components/ProfileImage";
 import PartyBadge from "@/components/ui/PartyBadge";
@@ -7,18 +7,29 @@ import PartyBadge from "@/components/ui/PartyBadge";
 interface CandidateRankingTableProps {
   candidates: CandidateResultRow[];
   constituencyName: string;
+  slug: string;
+  year: number;
 }
 
 export default function CandidateRankingTable({
   candidates,
-  constituencyName
+  constituencyName,
+  slug,
+  year
 }: CandidateRankingTableProps) {
   return (
     <section className="space-y-8">
-      <div className="flex items-center justify-between px-4 md:px-0">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 px-4 md:px-0">
         <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">Full Candidate Ranking</h2>
-        <div className="hidden md:flex items-center gap-4">
-          <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total: {candidates.length} Candidates</span>
+        <div className="flex items-center gap-4">
+          <Link 
+            href={`/tn/constituency/${slug}/election/${year}/polling-stations`}
+            className="flex items-center gap-2 px-6 py-2.5 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-2xl text-xs font-black uppercase tracking-tight transition-all border border-blue-100 shadow-sm"
+          >
+            <MapPin size={14} className="text-blue-500" />
+            View Polling Station Results
+          </Link>
+          <span className="hidden md:block text-[10px] font-black text-slate-400 uppercase tracking-widest">Total: {candidates.length} Candidates</span>
         </div>
       </div>
 

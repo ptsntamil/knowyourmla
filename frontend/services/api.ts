@@ -9,6 +9,7 @@ import {
   DistrictInsightsResponse,
   PartyObj
 } from "@/types/models";
+import { LATEST_ELECTION_YEAR } from "@/lib/constants/elections";
 
 // Default to V2 API (Next.js routes) unless explicitly disabled or in local dev without Vercel prefix
 const USE_V2_API = process.env.NEXT_PUBLIC_USE_V2_API !== "false";
@@ -113,7 +114,7 @@ export async function fetchMLAProfile(identifier: string): Promise<MLAProfileRes
   return res.json();
 }
 
-export async function fetchMLAs(year: number = 2021): Promise<MLAListResponse> {
+export async function fetchMLAs(year: number = parseInt(LATEST_ELECTION_YEAR)): Promise<MLAListResponse> {
   if (isServer && USE_V2_API) {
     const { MLAService } = await import("@/lib/services/mla.service");
     const service = new MLAService();

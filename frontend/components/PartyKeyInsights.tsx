@@ -3,11 +3,12 @@ import Link from "next/link";
 
 interface PartyKeyInsightsProps {
   analytics: any;
+  isYearView?: boolean;
 }
 
-export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
+export default function PartyKeyInsights({ analytics, isYearView }: PartyKeyInsightsProps) {
   if (!analytics) return null;
-  const { age, assets, criminal, education, stats, gender } = analytics;
+  const { age, assets, criminal, education, stats, gender, depositLost } = analytics;
 
   const insights = [
     {
@@ -58,7 +59,15 @@ export default function PartyKeyInsights({ analytics }: PartyKeyInsightsProps) {
       bg: "bg-blue-500/5",
       darkBg: "bg-blue-900/10"
     },
-    {
+    isYearView && depositLost ? {
+      label: "Deposit Losses",
+      value: depositLost.depositLostCount || 0,
+      subValue: `${depositLost.depositLossPercentage?.toFixed(1) || 0}% of candidates`,
+      icon: <TrendingDown className="w-5 h-5" />,
+      color: "text-rose-600",
+      bg: "bg-rose-500/5",
+      darkBg: "bg-rose-900/10"
+    } : {
       label: "New Faces",
       value: stats.newCandidates || 0,
       subValue: "First-timers",

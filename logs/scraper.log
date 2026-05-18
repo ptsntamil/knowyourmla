@@ -150843,3 +150843,137 @@ TypeError: Float types are not supported. Use Decimal types instead.
 2026-05-13 22:32:31,837 [INFO] election_importer: Processing candidate KRISHNAN M (VILAVANCODE)
 2026-05-13 22:32:31,975 [INFO] election_importer:   [Updating] stats for KRISHNAN M (AFFIDAVIT#2026#2028)
 2026-05-13 22:32:32,005 [INFO] election_importer: Finished. Created: 1, Updated: 14. Successfully processed 15 records across 1 constituencies.
+2026-05-18 10:02:46,759 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-05-18 10:02:46,793 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-05-18 10:02:46,927 [INFO] enrichment_pipeline: Loaded 127 parties (364 lookup keys)
+2026-05-18 10:02:46,927 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-05-18 10:02:46,957 [INFO] enrichment_pipeline: Loaded 38 districts (39 lookup keys)
+2026-05-18 10:02:46,980 [INFO] election_importer: Filtering for constituency: thiruvikanagar (thiruvikanagar)
+2026-05-18 10:02:46,980 [INFO] election_importer: Processing candidate M. R. PALLAVI (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,087 [INFO] election_importer:           Action: Found existing Person: PERSON#mrpallavi_prajesh
+2026-05-18 10:02:47,087 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#1356
+2026-05-18 10:02:47,087 [INFO] election_importer: Processing candidate K. S. RAVICHANDRAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,168 [INFO] election_importer:           Action: Found existing Person: PERSON#dc60107aad5704b3ed12f7476fb68533
+2026-05-18 10:02:47,168 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#82
+2026-05-18 10:02:47,168 [INFO] election_importer: Processing candidate PORKODI ARMSTRONG (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,256 [INFO] election_importer:           Action: Found existing Person: PERSON#c8a8048a59f84430
+2026-05-18 10:02:47,256 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#272
+2026-05-18 10:02:47,256 [INFO] election_importer: Processing candidate JAGADESH CHANDER .M (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,336 [INFO] election_importer:           Action: Found existing Person: PERSON#jagadeshchanderm_munivelc
+2026-05-18 10:02:47,336 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#536
+2026-05-18 10:02:47,336 [INFO] election_importer: Processing NOTA for THIRU-VI-KA-NAGAR (2026)
+2026-05-18 10:02:47,391 [INFO] election_importer:           Action: Found existing Person: PERSON#nota
+2026-05-18 10:02:47,391 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#NOTA#thiruvikanagar
+2026-05-18 10:02:47,391 [INFO] election_importer: Processing candidate S JAYAKALPANA (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,475 [INFO] election_importer:           Action: Found existing Person: PERSON#sjayakalpana_shanmugam
+2026-05-18 10:02:47,475 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#1608
+2026-05-18 10:02:47,475 [INFO] election_importer: Processing candidate A. SELVA KUMAR (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,555 [INFO] election_importer:           Action: Found existing Person: PERSON#aselvakumar_marumugam
+2026-05-18 10:02:47,555 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#1128
+2026-05-18 10:02:47,555 [INFO] election_importer: Processing candidate PRAKASH ARUNACHALAM (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,636 [INFO] election_importer:           Action: Found existing Person: PERSON#prakasharunachalam_arunachalam
+2026-05-18 10:02:47,636 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#3212
+2026-05-18 10:02:47,636 [INFO] election_importer: Processing candidate PRASANTH. D (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,718 [INFO] election_importer:           Action: Found existing Person: PERSON#prasanthd_damodharan
+2026-05-18 10:02:47,718 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#3373
+2026-05-18 10:02:47,718 [INFO] election_importer: Processing candidate M. LOKESH (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,798 [INFO] election_importer:           Action: Found existing Person: PERSON#mlokesh_mohan
+2026-05-18 10:02:47,798 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#3728
+2026-05-18 10:02:47,798 [INFO] election_importer: Processing candidate C. CHRISTY (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,878 [INFO] election_importer:           Action: Found existing Person: PERSON#cchristy_chinnappan
+2026-05-18 10:02:47,878 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#934
+2026-05-18 10:02:47,878 [INFO] election_importer: Processing candidate M. KOLANJI (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:47,958 [INFO] election_importer:           Action: Found existing Person: PERSON#mkolanji_muniyan
+2026-05-18 10:02:47,959 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#2185
+2026-05-18 10:02:47,959 [INFO] election_importer: Processing candidate PRAVEEN THIYAGARAJAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,038 [INFO] election_importer:           Action: Found existing Person: PERSON#praveenthiyagarajan_thiyagarajan
+2026-05-18 10:02:48,038 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#3424
+2026-05-18 10:02:48,038 [INFO] election_importer: Processing candidate C. JAGAN MOHAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,112 [INFO] election_importer:           Action: Found existing Person: PERSON#cjaganmohan_chitambaram
+2026-05-18 10:02:48,113 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#3780
+2026-05-18 10:02:48,113 [INFO] election_importer: Processing candidate S. PARTHIBAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,190 [INFO] election_importer:           Action: Found existing Person: PERSON#sparthiban_sivagnanam
+2026-05-18 10:02:48,190 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#3131
+2026-05-18 10:02:48,190 [INFO] election_importer: Processing candidate D. SATHISH KUMAR (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,269 [INFO] election_importer:           Action: Found existing Person: PERSON#dsathishkumar_deenan
+2026-05-18 10:02:48,269 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#2326
+2026-05-18 10:02:48,269 [INFO] election_importer: Processing candidate S. RAJENDRAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,348 [INFO] election_importer:           Action: Found existing Person: PERSON#srajendran_pselvaraj
+2026-05-18 10:02:48,348 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#3686
+2026-05-18 10:02:48,349 [INFO] election_importer: Processing candidate R. MURUGAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,430 [INFO] election_importer:           Action: Found existing Person: PERSON#rmurugan_rangaswamy
+2026-05-18 10:02:48,430 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#3497
+2026-05-18 10:02:48,430 [INFO] election_importer: Processing candidate R. ANANDAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,510 [INFO] election_importer:           Action: Found existing Person: PERSON#ranandan_prathinadoss
+2026-05-18 10:02:48,510 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#1684
+2026-05-18 10:02:48,510 [INFO] election_importer: Processing candidate G. J. DHARANIRAJ (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,594 [INFO] election_importer:           Action: Found existing Person: PERSON#gjdharaniraj_kjegathish
+2026-05-18 10:02:48,594 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#2923
+2026-05-18 10:02:48,594 [INFO] election_importer: Processing candidate M. KANNADASAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,685 [INFO] election_importer:           Action: Found existing Person: PERSON#mkannadasan_muthu
+2026-05-18 10:02:48,685 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#2038
+2026-05-18 10:02:48,686 [INFO] election_importer: Processing candidate SATHISH (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,770 [INFO] election_importer:           Action: Found existing Person: PERSON#sathish_kumar
+2026-05-18 10:02:48,770 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#2592
+2026-05-18 10:02:48,771 [INFO] election_importer: Processing candidate S. SENTHAMIZHAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,852 [INFO] election_importer:           Action: Found existing Person: PERSON#ssenthamizhan_sampath
+2026-05-18 10:02:48,852 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#2769
+2026-05-18 10:02:48,852 [INFO] election_importer: Processing candidate M. MOHAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:48,934 [INFO] election_importer:           Action: Found existing Person: PERSON#mmohan_tmuthu
+2026-05-18 10:02:48,934 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#3565
+2026-05-18 10:02:48,938 [INFO] election_importer: Finished. Created: 1, Updated: 23. Successfully processed 24 records across 0 constituencies.
+2026-05-18 10:02:54,413 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-05-18 10:02:54,443 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-05-18 10:02:54,566 [INFO] enrichment_pipeline: Loaded 127 parties (364 lookup keys)
+2026-05-18 10:02:54,566 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-05-18 10:02:54,594 [INFO] enrichment_pipeline: Loaded 38 districts (39 lookup keys)
+2026-05-18 10:02:54,616 [INFO] election_importer: Filtering for constituency: thiruvikanagar (thiruvikanagar)
+2026-05-18 10:02:54,616 [INFO] election_importer: Processing candidate M. R. PALLAVI (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:54,791 [INFO] election_importer:   [Updating] winner stats for M. R. PALLAVI (AFFIDAVIT#2026#1356)
+2026-05-18 10:02:54,816 [INFO] election_importer: Processing candidate K. S. RAVICHANDRAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:54,924 [INFO] election_importer:   [Updating] stats for K. S. RAVICHANDRAN (AFFIDAVIT#2026#82)
+2026-05-18 10:02:54,945 [INFO] election_importer: Processing candidate PORKODI ARMSTRONG (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:55,063 [INFO] election_importer:   [Updating] stats for PORKODI ARMSTRONG (AFFIDAVIT#2026#272)
+2026-05-18 10:02:55,086 [INFO] election_importer: Processing candidate JAGADESH CHANDER .M (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:55,180 [INFO] election_importer:   [Updating] stats for JAGADESH CHANDER .M (AFFIDAVIT#2026#536)
+2026-05-18 10:02:55,204 [INFO] election_importer: Processing NOTA for THIRU-VI-KA-NAGAR (2026)
+2026-05-18 10:02:55,257 [INFO] election_importer:   [Creating] stats for None Of The Above (AFFIDAVIT#2026#NOTA#thiruvikanagar)
+2026-05-18 10:02:55,277 [INFO] election_importer: Processing candidate S JAYAKALPANA (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:55,377 [INFO] election_importer:   [Updating] stats for S JAYAKALPANA (AFFIDAVIT#2026#1608)
+2026-05-18 10:02:55,398 [INFO] election_importer: Processing candidate A. SELVA KUMAR (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:55,511 [INFO] election_importer:   [Updating] stats for A. SELVA KUMAR (AFFIDAVIT#2026#1128)
+2026-05-18 10:02:55,531 [INFO] election_importer: Processing candidate PRAKASH ARUNACHALAM (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:55,634 [INFO] election_importer:   [Updating] stats for PRAKASH ARUNACHALAM (AFFIDAVIT#2026#3212)
+2026-05-18 10:02:55,655 [INFO] election_importer: Processing candidate PRASANTH. D (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:55,752 [INFO] election_importer:   [Updating] stats for PRASANTH. D (AFFIDAVIT#2026#3373)
+2026-05-18 10:02:55,776 [INFO] election_importer: Processing candidate M. LOKESH (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:55,871 [INFO] election_importer:   [Updating] stats for M. LOKESH (AFFIDAVIT#2026#3728)
+2026-05-18 10:02:55,894 [INFO] election_importer: Processing candidate C. CHRISTY (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:55,989 [INFO] election_importer:   [Updating] stats for C. CHRISTY (AFFIDAVIT#2026#934)
+2026-05-18 10:02:56,010 [INFO] election_importer: Processing candidate M. KOLANJI (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:56,108 [INFO] election_importer:   [Updating] stats for M. KOLANJI (AFFIDAVIT#2026#2185)
+2026-05-18 10:02:56,129 [INFO] election_importer: Processing candidate PRAVEEN THIYAGARAJAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:56,244 [INFO] election_importer:   [Updating] stats for PRAVEEN THIYAGARAJAN (AFFIDAVIT#2026#3424)
+2026-05-18 10:02:56,264 [INFO] election_importer: Processing candidate C. JAGAN MOHAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:56,363 [INFO] election_importer:   [Updating] stats for C. JAGAN MOHAN (AFFIDAVIT#2026#3780)
+2026-05-18 10:02:56,383 [INFO] election_importer: Processing candidate S. PARTHIBAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:56,488 [INFO] election_importer:   [Updating] stats for S. PARTHIBAN (AFFIDAVIT#2026#3131)
+2026-05-18 10:02:56,509 [INFO] election_importer: Processing candidate D. SATHISH KUMAR (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:56,624 [INFO] election_importer:   [Updating] stats for D. SATHISH KUMAR (AFFIDAVIT#2026#2326)
+2026-05-18 10:02:56,644 [INFO] election_importer: Processing candidate S. RAJENDRAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:56,763 [INFO] election_importer:   [Updating] stats for S. RAJENDRAN (AFFIDAVIT#2026#3686)
+2026-05-18 10:02:56,785 [INFO] election_importer: Processing candidate R. MURUGAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:56,901 [INFO] election_importer:   [Updating] stats for R. MURUGAN (AFFIDAVIT#2026#3497)
+2026-05-18 10:02:56,924 [INFO] election_importer: Processing candidate R. ANANDAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:57,042 [INFO] election_importer:   [Updating] stats for R. ANANDAN (AFFIDAVIT#2026#1684)
+2026-05-18 10:02:57,063 [INFO] election_importer: Processing candidate G. J. DHARANIRAJ (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:57,188 [INFO] election_importer:   [Updating] stats for G. J. DHARANIRAJ (AFFIDAVIT#2026#2923)
+2026-05-18 10:02:57,209 [INFO] election_importer: Processing candidate M. KANNADASAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:57,321 [INFO] election_importer:   [Updating] stats for M. KANNADASAN (AFFIDAVIT#2026#2038)
+2026-05-18 10:02:57,345 [INFO] election_importer: Processing candidate SATHISH (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:57,469 [INFO] election_importer:   [Updating] stats for SATHISH (AFFIDAVIT#2026#2592)
+2026-05-18 10:02:57,493 [INFO] election_importer: Processing candidate S. SENTHAMIZHAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:57,613 [INFO] election_importer:   [Updating] stats for S. SENTHAMIZHAN (AFFIDAVIT#2026#2769)
+2026-05-18 10:02:57,637 [INFO] election_importer: Processing candidate M. MOHAN (THIRU-VI-KA-NAGAR)
+2026-05-18 10:02:57,757 [INFO] election_importer:   [Updating] stats for M. MOHAN (AFFIDAVIT#2026#3565)
+2026-05-18 10:02:57,784 [INFO] election_importer: Finished. Created: 1, Updated: 23. Successfully processed 24 records across 1 constituencies.

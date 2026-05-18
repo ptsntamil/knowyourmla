@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import {
   BarChart,
   Bar,
@@ -51,6 +52,7 @@ function CustomTooltip({ active, payload, label }: any) {
 }
 
 export default function CompositionInsights({ distributions }: CompositionInsightsProps) {
+  const router = useRouter();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
@@ -106,7 +108,17 @@ export default function CompositionInsights({ distributions }: CompositionInsigh
             />
             <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748B', fontSize: 10, fontWeight: 700 }} />
             <Tooltip content={<CustomTooltip />} />
-            <Bar dataKey="value" name="MLAs" fill="#164C45" radius={[4, 4, 0, 0]} />
+            <Bar dataKey="value" name="MLAs" fill="#164C45" radius={[4, 4, 0, 0]}>
+              {distributions.education.map((entry, index) => (
+                <Cell 
+                  key={`cell-${index}`} 
+                  className="cursor-pointer hover:opacity-85 transition-opacity"
+                  onClick={() => {
+                    router.push(`/tn/mla/list?education=${encodeURIComponent(entry.label)}`);
+                  }}
+                />
+              ))}
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
       </ChartCard>

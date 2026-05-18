@@ -245,6 +245,7 @@ export interface MLAListItem {
   party_color_border?: string;
   period: string;
   image_url?: string;
+  education?: string;
 }
 
 export interface MLAListResponse {
