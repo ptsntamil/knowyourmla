@@ -3,6 +3,7 @@ import { PersonRepository } from "../repositories/person.repository";
 import { CandidateRepository } from "../repositories/candidate.repository";
 import { ConstituencyRepository } from "../repositories/constituency.repository";
 import { PartyRepository } from "../repositories/party.repository";
+import { unstable_cache } from "next/cache";
 import {
   MLAProfileResponse,
   MLAListResponse,
@@ -299,243 +300,257 @@ export class MLAService {
   }
 
   async getMLAProfile(identifier: string): Promise<MLAProfileResponse> {
-    let personId = identifier;
-    if (!personId.startsWith("PERSON#")) {
-      personId = `PERSON#${personId}`;
-    }
-
-    let personData = await this.personRepo.getPersonById(personId);
-    if (!personData) {
-      const normalizedSlug = identifier.toLowerCase().replace(/[^a-z0-9]/g, "");
-      personData = await this.personRepo.getPersonByNormalizedName(normalizedSlug);
-    }
-
-    if (!personData) {
-      throw new Error("Person not found");
-    }
-
-    const actualPersonId = personData.PK;
-    const candidatesData = await this.candidateRepo.getPersonHistory(actualPersonId);
-    candidatesData.sort((a, b) => parseInt(a.year || "0") - parseInt(b.year || "0"));
-
-    const history: ElectionHistoryRecord[] = [];
-    const assetGrowth: AssetGrowthRecord[] = [];
-    const voteTrend: VoteTrendRecord[] = [];
-    const incomeGrowth: IncomeGrowthRecord[] = [];
-    const criminalCaseTrend: CriminalCaseRecord[] = [];
-    const marginTrend: MarginTrendRecord[] = [];
-    const electionExpensesTrend: ElectionExpenseRecord[] = [];
-    const totalItrHistory: Record<string, Record<string, number>> = {};
-    let totalWins = 0;
-    let totalValidContested = 0;
-    let prevAssets: number | null = null;
-    let prevIncome: number | null = null;
-    let prevExpenses: number | null = null;
-
-    const processedAnalyticsYears = new Set<number>();
-    const constituencyCache: Record<string, any> = {};
-
-    for (const record of candidatesData) {
-      const year = parseInt(record.year || "0");
-      const isWinner = Boolean(record.is_winner);
-      const hasResults = Boolean(record.total_votes || record.winning_margin);
-
-      const partyInfo = await this.getPartyInfo(record.party_id);
-
-      let districtName: string | undefined;
-      const cid = record.constituency_id;
-      if (cid) {
-        if (!constituencyCache[cid]) {
-          const constiMeta = await this.constituencyRepo.getConstituencyMetadata(cid);
-          constituencyCache[cid] = constiMeta || {};
+    return unstable_cache(
+      async (idStr: string): Promise<MLAProfileResponse> => {
+        const identifier = idStr;
+        let personId = identifier;
+        if (!personId.startsWith("PERSON#")) {
+          personId = `PERSON#${personId}`;
         }
-        const constiData = constituencyCache[cid];
-        if (constiData && Object.keys(constiData).length > 0) {
-          districtName = constiData.district_name || (constiData.district_id ? constiData.district_id.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()) : undefined);
+
+        let personData = await this.personRepo.getPersonById(personId);
+        if (!personData) {
+          const normalizedSlug = identifier.toLowerCase().replace(/[^a-z0-9]/g, "");
+          personData = await this.personRepo.getPersonByNormalizedName(normalizedSlug);
         }
-      }
 
-      // Income Tax Details should merge 2026 also (aggregated from all affidavits)
-      this.aggregateItrHistory(record, totalItrHistory);
-      const constituencyFromId = (record.constituency_id || "")
-        .replace("CONSTITUENCY#", "")
-        .replace(/-/g, " ")
-        .replace(/\b\w/g, (l: any) => l.toUpperCase());
-      const constituencyName = (record.constituency_name || constituencyFromId || "").toString().trim();
-      const partyName = record.party_id
-        ? (partyInfo.short_name || record.party_id.replace("PARTY#", "")).toUpperCase()
-        : ((record.party_name || record.party || "") as string).toUpperCase();
+        if (!personData) {
+          throw new Error("Person not found");
+        }
 
-      // Keep history complete even for pending elections so profile header/details can show latest party and constituency.
-      // History should ALWAYS show all records, even duplicates in same year (2 seats).
-      history.push({
-        year,
-        constituency: constituencyName,
-        party: partyName,
-        party_logo_url: partyInfo.logo,
-        party_color_bg: partyInfo.color_bg,
-        party_color_text: partyInfo.color_text,
-        party_color_border: partyInfo.color_border,
-        winner: isWinner,
-        results_declared: hasResults,
-        district_name: districtName || record.district_name || (record.district_id ? record.district_id.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()) : undefined),
-        margin: isWinner && hasResults ? parseInt(record.winning_margin || "0") : undefined,
-        margin_percent: isWinner && hasResults ? parseFloat(record.margin_percentage || "0") : undefined,
-        assets: normalizeTotalAssets(record.total_assets || record.assets || "0"),
-      });
+        const actualPersonId = personData.PK;
+        const candidatesData = await this.candidateRepo.getPersonHistory(actualPersonId);
+        candidatesData.sort((a, b) => parseInt(a.year || "0") - parseInt(b.year || "0"));
 
-      // For analytics trends (Assets, Income, Cases, etc.), we only need one data point per year.
-      // If we've already processed this year for analytics, we skip pushing to the trend arrays.
-      if (processedAnalyticsYears.has(year)) {
-        continue;
-      }
-      processedAnalyticsYears.add(year);
+        const history: ElectionHistoryRecord[] = [];
+        const assetGrowth: AssetGrowthRecord[] = [];
+        const voteTrend: VoteTrendRecord[] = [];
+        const incomeGrowth: IncomeGrowthRecord[] = [];
+        const criminalCaseTrend: CriminalCaseRecord[] = [];
+        const marginTrend: MarginTrendRecord[] = [];
+        const electionExpensesTrend: ElectionExpenseRecord[] = [];
+        const totalItrHistory: Record<string, Record<string, number>> = {};
+        let totalWins = 0;
+        let totalValidContested = 0;
+        let prevAssets: number | null = null;
+        let prevIncome: number | null = null;
+        let prevExpenses: number | null = null;
 
-      // Core outcome metrics should only be included if results are available (excludes pending results).
-      if (hasResults) {
-        totalValidContested++;
-        if (isWinner) totalWins++;
+        const processedAnalyticsYears = new Set<number>();
+        const constituencyCache: Record<string, any> = {};
 
-        if (record.total_votes || record.vote_percent) {
-          voteTrend.push({
+        for (const record of candidatesData) {
+          const year = parseInt(record.year || "0");
+          const isWinner = Boolean(record.is_winner);
+          const hasResults = Boolean(record.total_votes || record.winning_margin);
+
+          const partyInfo = await this.getPartyInfo(record.party_id);
+
+          let districtName: string | undefined;
+          const cid = record.constituency_id;
+          if (cid) {
+            if (!constituencyCache[cid]) {
+              const constiMeta = await this.constituencyRepo.getConstituencyMetadata(cid);
+              constituencyCache[cid] = constiMeta || {};
+            }
+            const constiData = constituencyCache[cid];
+            if (constiData && Object.keys(constiData).length > 0) {
+              districtName = constiData.district_name || (constiData.district_id ? constiData.district_id.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()) : undefined);
+            }
+          }
+
+          // Income Tax Details should merge 2026 also (aggregated from all affidavits)
+          this.aggregateItrHistory(record, totalItrHistory);
+          const constituencyFromId = (record.constituency_id || "")
+            .replace("CONSTITUENCY#", "")
+            .replace(/-/g, " ")
+            .replace(/\b\w/g, (l: any) => l.toUpperCase());
+          const constituencyName = (record.constituency_name || constituencyFromId || "").toString().trim();
+          const partyName = record.party_id
+            ? (partyInfo.short_name || record.party_id.replace("PARTY#", "")).toUpperCase()
+            : ((record.party_name || record.party || "") as string).toUpperCase();
+
+          // Keep history complete even for pending elections so profile header/details can show latest party and constituency.
+          // History should ALWAYS show all records, even duplicates in same year (2 seats).
+          history.push({
             year,
-            votes: parseInt(record.total_votes || "0"),
-            vote_percent: record.vote_percent ? parseFloat(record.vote_percent.toString()) : null
+            constituency: constituencyName,
+            party: partyName,
+            party_logo_url: partyInfo.logo,
+            party_color_bg: partyInfo.color_bg,
+            party_color_text: partyInfo.color_text,
+            party_color_border: partyInfo.color_border,
+            winner: isWinner,
+            results_declared: hasResults,
+            district_name: districtName || record.district_name || (record.district_id ? record.district_id.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()) : undefined),
+            margin: isWinner && hasResults ? parseInt(record.winning_margin || "0") : undefined,
+            margin_percent: isWinner && hasResults ? parseFloat(record.margin_percentage || "0") : undefined,
+            assets: normalizeTotalAssets(record.total_assets || record.assets || "0"),
           });
+
+          // For analytics trends (Assets, Income, Cases, etc.), we only need one data point per year.
+          // If we've already processed this year for analytics, we skip pushing to the trend arrays.
+          if (processedAnalyticsYears.has(year)) {
+            continue;
+          }
+          processedAnalyticsYears.add(year);
+
+          // Core outcome metrics should only be included if results are available (excludes pending results).
+          if (hasResults) {
+            totalValidContested++;
+            if (isWinner) totalWins++;
+
+            if (record.total_votes || record.vote_percent) {
+              voteTrend.push({
+                year,
+                votes: parseInt(record.total_votes || "0"),
+                vote_percent: record.vote_percent ? parseFloat(record.vote_percent.toString()) : null
+              });
+            }
+
+            if (isWinner && (record.winning_margin || record.margin_percentage)) {
+              marginTrend.push({
+                year,
+                margin: parseInt(record.winning_margin || "0"),
+                margin_percent: parseFloat(record.margin_percentage || "0"),
+              });
+            }
+
+            const [expenseRec, currentExpenses] = this.processElectionExpenses(record, prevExpenses);
+            electionExpensesTrend.push(expenseRec);
+            prevExpenses = currentExpenses;
+          }
+
+          // Asset and Income trends represent declarations, so they include 2026 data
+          const [assetRec, currentAssets] = this.processAssetGrowth(record, prevAssets);
+          assetGrowth.push(assetRec);
+          prevAssets = currentAssets;
+
+          const [incomeRec, currentIncome] = this.processIncomeGrowth(record, prevIncome);
+          incomeGrowth.push(incomeRec);
+          prevIncome = currentIncome;
+
+          criminalCaseTrend.push({ year, cases: normalizeCriminalCases(record.criminal_cases) });
         }
 
-        if (isWinner && (record.winning_margin || record.margin_percentage)) {
-          marginTrend.push({
-            year,
-            margin: parseInt(record.winning_margin || "0"),
-            margin_percent: parseFloat(record.margin_percentage || "0"),
-          });
-        }
+        const winRateVal = totalValidContested > 0 ? (totalWins / totalValidContested) * 100 : 0;
 
-        const [expenseRec, currentExpenses] = this.processElectionExpenses(record, prevExpenses);
-        electionExpensesTrend.push(expenseRec);
-        prevExpenses = currentExpenses;
-      }
+        const latestRecord = candidatesData.length > 0 ? candidatesData[candidatesData.length - 1] : {} as any;
 
-      // Asset and Income trends represent declarations, so they include 2026 data
-      const [assetRec, currentAssets] = this.processAssetGrowth(record, prevAssets);
-      assetGrowth.push(assetRec);
-      prevAssets = currentAssets;
+        const personDetail: PersonDetail = {
+          person_id: actualPersonId,
+          name: personData.name || "Unknown",
+          image_url: latestRecord.profile_pic || personData.image_url || null,
+          education: normalizeProfileEducation(latestRecord.education) || normalizeProfileEducation(personData.education) || undefined,
+          profession: normalizeProfileProfession(latestRecord.profession) || normalizeProfileProfession(personData.profession) || undefined,
+          age: (personData.birth_year || personData.birthyear) ? new Date().getFullYear() - parseInt(personData.birth_year || personData.birthyear) : (personData.age ? parseInt(personData.age) : undefined),
+          gender: personData.sex || undefined,
+          social_profiles: personData.social_profiles || undefined,
+        };
 
-      const [incomeRec, currentIncome] = this.processIncomeGrowth(record, prevIncome);
-      incomeGrowth.push(incomeRec);
-      prevIncome = currentIncome;
+        const analytics: MLAAnalytics = {
+          win_rate: {
+            total_contested: totalValidContested,
+            total_wins: totalWins,
+            win_rate: parseFloat(winRateVal.toFixed(2)),
+          },
+          asset_growth: assetGrowth,
+          vote_trend: voteTrend,
+          margin_trend: marginTrend,
+          income_growth: incomeGrowth,
+          criminal_case_trend: criminalCaseTrend,
+          election_expenses_trend: electionExpensesTrend,
+          itr_history: Object.keys(totalItrHistory).length > 0 ? totalItrHistory : undefined,
+          gold_assets: this.parseGoldAssets(latestRecord.gold_assets) || null,
+          silver_assets: this.parseSilverAssets(latestRecord.silver_assets, latestRecord.gold_assets) || null,
+          vehicle_assets: latestRecord.vehicle_assets || null,
+          land_assets: latestRecord.land_assets || null,
+        };
 
-      criminalCaseTrend.push({ year, cases: normalizeCriminalCases(record.criminal_cases) });
-    }
+        history.sort((a, b) => b.year - a.year);
 
-    const winRateVal = totalValidContested > 0 ? (totalWins / totalValidContested) * 100 : 0;
-
-    const latestRecord = candidatesData.length > 0 ? candidatesData[candidatesData.length - 1] : {} as any;
-
-    const personDetail: PersonDetail = {
-      person_id: actualPersonId,
-      name: personData.name || "Unknown",
-      image_url: latestRecord.profile_pic || personData.image_url || null,
-      education: normalizeProfileEducation(latestRecord.education) || normalizeProfileEducation(personData.education) || undefined,
-      profession: normalizeProfileProfession(latestRecord.profession) || normalizeProfileProfession(personData.profession) || undefined,
-      age: (personData.birth_year || personData.birthyear) ? new Date().getFullYear() - parseInt(personData.birth_year || personData.birthyear) : (personData.age ? parseInt(personData.age) : undefined),
-      gender: personData.sex || undefined,
-      social_profiles: personData.social_profiles || undefined,
-    };
-
-    const analytics: MLAAnalytics = {
-      win_rate: {
-        total_contested: totalValidContested,
-        total_wins: totalWins,
-        win_rate: parseFloat(winRateVal.toFixed(2)),
+        return { person: personDetail, history, analytics };
       },
-      asset_growth: assetGrowth,
-      vote_trend: voteTrend,
-      margin_trend: marginTrend,
-      income_growth: incomeGrowth,
-      criminal_case_trend: criminalCaseTrend,
-      election_expenses_trend: electionExpensesTrend,
-      itr_history: Object.keys(totalItrHistory).length > 0 ? totalItrHistory : undefined,
-      gold_assets: this.parseGoldAssets(latestRecord.gold_assets) || null,
-      silver_assets: this.parseSilverAssets(latestRecord.silver_assets, latestRecord.gold_assets) || null,
-      vehicle_assets: latestRecord.vehicle_assets || null,
-      land_assets: latestRecord.land_assets || null,
-    };
-
-    history.sort((a, b) => b.year - a.year);
-
-    return { person: personDetail, history, analytics };
+      ["mla-profile"],
+      { revalidate: 86400, tags: [`mla-profile-${identifier}`] }
+    )(identifier);
   }
 
   async getCurrentMLAs(year: number = parseInt(LATEST_ELECTION_YEAR)): Promise<MLAListResponse> {
-    const constituencies = await this.constituencyRepo.getAllConstituencies();
+    return unstable_cache(
+      async (yr: number): Promise<MLAListResponse> => {
+        const year = yr;
+        const constituencies = await this.constituencyRepo.getAllConstituencies();
 
-    let winners;
-    if (year === 2021) {
-      winners = await this.mlaRepo.getWinnersByYearRange(2021, 2026);
-    } else if (year === 2026) {
-      winners = await this.mlaRepo.getWinnersByYear(2026);
-    } else {
-      winners = await this.mlaRepo.getWinnersByYear(year);
-    }
+        let winners;
+        if (year === 2021) {
+          winners = await this.mlaRepo.getWinnersByYearRange(2021, 2026);
+        } else if (year === 2026) {
+          winners = await this.mlaRepo.getWinnersByYear(2026);
+        } else {
+          winners = await this.mlaRepo.getWinnersByYear(year);
+        }
 
-    winners.sort((a: any, b: any) => parseInt(a.year || "0") - parseInt(b.year || "0"));
+        winners.sort((a: any, b: any) => parseInt(a.year || "0") - parseInt(b.year || "0"));
 
-    const personIds = Array.from(new Set(winners.map((w: any) => w.person_id).filter((id: string) => id)));
-    const persons = await this.personRepo.getPersonsByIds(personIds as string[]);
-    const personMap = persons.reduce((acc: any, p: any) => {
-      acc[p.PK] = p;
-      return acc;
-    }, {});
+        const personIds = Array.from(new Set(winners.map((w: any) => w.person_id).filter((id: string) => id)));
+        const persons = await this.personRepo.getPersonsByIds(personIds as string[]);
+        const personMap = persons.reduce((acc: any, p: any) => {
+          acc[p.PK] = p;
+          return acc;
+        }, {});
 
-    const winnerMap = winners.reduce((acc: any, w: any) => {
-      acc[w.constituency_id] = w;
-      return acc;
-    }, {});
+        const winnerMap = winners.reduce((acc: any, w: any) => {
+          acc[w.constituency_id] = w;
+          return acc;
+        }, {});
 
-    const mlaList: MLAListItem[] = [];
-    for (const consti of constituencies) {
-      const constId = consti.PK;
-      const winner = winnerMap[constId];
+        const mlaList: MLAListItem[] = [];
+        for (const consti of constituencies) {
+          const constId = consti.PK;
+          const winner = winnerMap[constId];
 
-      if (!winner) {
-        mlaList.push({
-          person_id: "",
-          slug: "",
-          name: "",
-          constituency: consti.name || constId.replace("CONSTITUENCY#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()),
-          constituency_id: constId,
-          party: "",
-          period: `${year}-${year + 5}`,
-          education: "Unknown",
-        });
-        continue;
-      }
+          if (!winner) {
+            mlaList.push({
+              person_id: "",
+              slug: "",
+              name: "",
+              constituency: consti.name || constId.replace("CONSTITUENCY#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()),
+              constituency_id: constId,
+              party: "",
+              period: `${year}-${year + 5}`,
+              education: "Unknown",
+            });
+            continue;
+          }
 
-      const pId = winner.person_id;
-      const personMeta = personMap[pId] || {};
-      const displayName = personMeta.name || winner.candidate_name || "Unknown";
-      const partyInfo = await this.getPartyInfo(winner.party_id);
+          const pId = winner.person_id;
+          const personMeta = personMap[pId] || {};
+          const displayName = personMeta.name || winner.candidate_name || "Unknown";
+          const partyInfo = await this.getPartyInfo(winner.party_id);
 
-      mlaList.push({
-        person_id: pId,
-        slug: this.slugify(displayName),
-        name: displayName,
-        constituency: consti.name || constId.replace("CONSTITUENCY#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()),
-        constituency_id: constId,
-        party: winner.party_id ? (partyInfo.short_name || winner.party_id.replace("PARTY#", "")).toUpperCase() : "",
-        party_logo_url: partyInfo.logo,
-        party_color_bg: partyInfo.color_bg,
-        party_color_text: partyInfo.color_text,
-        party_color_border: partyInfo.color_border,
-        period: `${year}-${year + 5}`,
-        education: normalizeEducation(personMeta.education || winner.education),
-      });
-    }
+          mlaList.push({
+            person_id: pId,
+            slug: this.slugify(displayName),
+            name: displayName,
+            constituency: consti.name || constId.replace("CONSTITUENCY#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()),
+            constituency_id: constId,
+            party: winner.party_id ? (partyInfo.short_name || winner.party_id.replace("PARTY#", "")).toUpperCase() : "",
+            party_logo_url: partyInfo.logo,
+            party_color_bg: partyInfo.color_bg,
+            party_color_text: partyInfo.color_text,
+            party_color_border: partyInfo.color_border,
+            period: `${year}-${year + 5}`,
+            education: normalizeEducation(personMeta.education || winner.education),
+          });
+        }
 
-    mlaList.sort((a, b) => a.constituency.localeCompare(b.constituency));
+        mlaList.sort((a, b) => a.constituency.localeCompare(b.constituency));
 
-    return { mlas: mlaList, total: mlaList.length };
+        return { mlas: mlaList, total: mlaList.length };
+      },
+      ["current-mlas"],
+      { revalidate: 86400, tags: [`mlas-list-${year}`] }
+    )(year);
   }
 }
