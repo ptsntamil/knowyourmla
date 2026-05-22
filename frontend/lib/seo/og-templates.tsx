@@ -1,4 +1,5 @@
 import { PersonDetail, ElectionHistoryRecord } from "@/types/models";
+import { normalizeEducation } from "@/lib/utils/profile-normalizers";
 
 export interface OGTemplateProps {
   person: PersonDetail;
@@ -20,15 +21,7 @@ export function formatCurrency(value: string | number | null | undefined): strin
   return `Rs. ${num.toLocaleString('en-IN')}`;
 }
 
-export function normalizeEducation(edu: string | null | undefined): string {
-  if (!edu) return "Graduate";
-  let cleaned = edu;
-  if (edu.includes("Category:")) {
-    cleaned = edu.split("Category:")[1].split(")")[0].trim();
-  }
-  const parts = cleaned.split(/[\s,]+/);
-  return parts.slice(0, 2).join(" ");
-}
+
 
 export function getInitials(name: string): string {
   if (!name) return "MLA";
@@ -259,7 +252,7 @@ export function generateMLACard(profile: { person: PersonDetail, history: Electi
           )}
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: '13px', fontWeight: 900, color: '#94a3b8', marginBottom: '6px' }}>EDUCATION</span>
-            <span style={{ fontSize: '22px', fontWeight: 800, color: '#000' }}>{normalizeEducation(person.education)}</span>
+            <span style={{ fontSize: '22px', fontWeight: 800, color: '#000' }}>{normalizeEducation(person.education) ?? "Graduate"}</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: '13px', fontWeight: 900, color: '#94a3b8', marginBottom: '6px' }}>ASSETS</span>

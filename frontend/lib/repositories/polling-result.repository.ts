@@ -17,7 +17,11 @@ export interface PollingStationResult {
   total_votes_polled: number;
   total_electors?: number;
   created_at: number;
+  ps_name?: string;
+  polling_station_name?: string;
+  electors?: number;
 }
+
 
 export interface ACSummary {
   PK: string;

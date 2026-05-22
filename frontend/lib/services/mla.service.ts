@@ -21,8 +21,9 @@ import {
 } from "@/types/models";
 import { LATEST_ELECTION_YEAR } from "../constants/elections";
 import { getPartyLogo } from "../utils/party-utils";
-import { normalizeProfileEducation, normalizeProfileProfession, normalizeTotalAssets, normalizeIncome, normalizeCriminalCases } from "../utils/profile-normalizers";
-import { normalizeEducation } from "../utils/insights";
+import { normalizeEducation, normalizeProfession, normalizeTotalAssets, normalizeIncome, normalizeCriminalCases } from "../utils/profile-normalizers";
+import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
+import { categorizeEducation } from "../utils/insights";
 
 export class MLAService {
   private mlaRepo: MLARepository;
@@ -440,9 +441,9 @@ export class MLAService {
         const personDetail: PersonDetail = {
           person_id: actualPersonId,
           name: personData.name || "Unknown",
-          image_url: latestRecord.profile_pic || personData.image_url || null,
-          education: normalizeProfileEducation(latestRecord.education) || normalizeProfileEducation(personData.education) || undefined,
-          profession: normalizeProfileProfession(latestRecord.profession) || normalizeProfileProfession(personData.profession) || undefined,
+          image_url: normalizeCandidateProfilePic(latestRecord.profile_pic || personData.image_url) || null,
+          education: normalizeEducation(latestRecord.education) || normalizeEducation(personData.education) || undefined,
+          profession: normalizeProfession(latestRecord.profession) || normalizeProfession(personData.profession) || undefined,
           age: (personData.birth_year || personData.birthyear) ? new Date().getFullYear() - parseInt(personData.birth_year || personData.birthyear) : (personData.age ? parseInt(personData.age) : undefined),
           gender: personData.sex || undefined,
           social_profiles: personData.social_profiles || undefined,
@@ -541,7 +542,7 @@ export class MLAService {
             party_color_text: partyInfo.color_text,
             party_color_border: partyInfo.color_border,
             period: `${year}-${year + 5}`,
-            education: normalizeEducation(personMeta.education || winner.education),
+            education: categorizeEducation(personMeta.education || winner.education),
           });
         }
 

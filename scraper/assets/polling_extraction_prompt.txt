@@ -45,13 +45,15 @@ Return ONLY polling stations within this range.
 11. The `polling_station_summary` MUST be the aggregate sum of both individual station votes (EVM) and postal votes.
 12. Introduce an `evm_totals` field within `polling_station_summary` to specifically represent the sum of all EVM votes.
 13. Use row `Postal Ballot Votes` to extract Postal votes.
-14. IDENTIFYING POLLING STATIONS (`ps` field):
+14. IDENTIFYING POLLING STATIONS (`ps`, `ps_name`, and `electors` fields):
     * EXCLUDE the "SL. NO." (Serial Number) column completely. Do not use it for anything.
     * Use ONLY the "Polling Station No." column for the `ps` value.
+    * Extract the name of the Polling Station (e.g. "Panchayat Union Primary School...", in English or Tamil, whatever is present in the table header or row) and put it in `ps_name`. Reconstruct it if it spans multiple lines.
+    * Extract the "Total Electors" value for each polling station (the number of registered voters at that specific station, listed in the column labeled "Total Electors" / "srotcelE latoT" or similar) and put it in `electors`. This is NOT the total votes cast — it is the REGISTERED ELECTORS count. If not available, omit the field.
 15. IDENTIFYING CANDIDATE VOTES:
-    * EXTREMELY IMPORTANT: DO NOT extract "SL. NO." or "Polling Station No." as candidate votes!
-    * Candidate votes start AFTER the polling station columns. 
-    * Ensure Candidate 1's votes are extracted from the first actual candidate column, NOT from the serial number or polling station number columns.
+    * EXTREMELY IMPORTANT: DO NOT extract "SL. NO.", "Polling Station No.", or "Total Electors" as candidate votes!
+    * Candidate votes start AFTER the polling station and electors columns.
+    * Ensure Candidate 1's votes are extracted from the first actual candidate column, NOT from the serial number, polling station number, or electors columns.
 ---
 
 ## MANDATORY VALIDATION
@@ -117,6 +119,8 @@ If range is 1–75:
   "stations": [
     {
       "ps": 1,
+      "ps_name": "Panchayat Union Primary School , Koochur - 635 203, South Facing Terraced Building West Side",
+      "electors": 1080,
       "v": {
         "1": 380,
         "2": 1,

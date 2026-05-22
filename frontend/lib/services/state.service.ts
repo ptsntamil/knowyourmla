@@ -5,7 +5,8 @@ import { MLARepository } from "../repositories/mla.repository";
 import { PartyRepository } from "../repositories/party.repository";
 import { DistrictMLA, DistrictInsights } from "@/types/models";
 import { formatAssets, buildInsights, calculateAge, getDistributionData } from "../utils/insights";
-import { normalizeProfileEducation, normalizeTotalAssets } from "../utils/profile-normalizers";
+import { normalizeEducation, normalizeTotalAssets } from "../utils/profile-normalizers";
+import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
 import { unstable_cache } from "next/cache";
 
 export interface StateOverviewResponse {
@@ -135,10 +136,10 @@ export class StateService {
             formattedAssets: formatAssets(assets),
             margin,
             votes,
-            image_url: person.image_url || w.profile_pic || null,
+            image_url: normalizeCandidateProfilePic(person.image_url || w.profile_pic) || undefined,
             isFresher: (w.total_wins !== undefined && w.total_wins !== null) ? Number(w.total_wins) === 1 : undefined,
             gender: gender || "unknown",
-            education: normalizeProfileEducation(person.education || w.education)
+            education: normalizeEducation(person.education || w.education)
           };
 
         }));
