@@ -13,7 +13,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import { AttendanceWidget, QuestionsWidget } from "@/components/MetricWidgets";
 import IncomeDetailsTable from "@/components/IncomeDetailsTable";
 import ElectionExpensesWidget from "@/components/ElectionExpensesWidget";
-import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from "@/lib/constants/elections";
+import { LATEST_ELECTION_YEAR, LAST_COMPLETED_ELECTION_YEAR } from "@/lib/constants/elections";
 
 
 interface PageProps {
@@ -315,14 +315,14 @@ export default async function MLAProfilePage({ params }: PageProps) {
               <h3 className="text-2xl font-black text-white uppercase tracking-tight">Election Intelligence</h3>
               <p className="text-slate-400 text-sm font-medium max-w-xl leading-relaxed">
                 How does {profile.person.name}'s performance compare to the statewide benchmarks?
-                Explore the full {PREVIOUS_ELECTION_YEAR} assembly election analysis to see detailed insights across all constituencies.
+                Explore the full {LAST_COMPLETED_ELECTION_YEAR} assembly election analysis to see detailed insights across all constituencies.
               </p>
             </div>
             <Link
-              href={`/tn/elections/${PREVIOUS_ELECTION_YEAR}/insights`}
+              href={`/tn/elections/${LAST_COMPLETED_ELECTION_YEAR}/insights`}
               className="bg-brand-gold text-brand-dark font-black px-12 py-5 rounded-2xl uppercase tracking-[0.2em] text-[10px] hover:bg-white hover:scale-105 transition-all shadow-xl shadow-black/20 shrink-0"
             >
-              Explore {PREVIOUS_ELECTION_YEAR} Insights
+              Explore {LAST_COMPLETED_ELECTION_YEAR} Insights
             </Link>
           </div>
         </div>

@@ -3,6 +3,7 @@ import { ConstituencyRepository } from "../repositories/constituency.repository"
 import { PersonRepository } from "../repositories/person.repository";
 import { CandidateRepository } from "../repositories/candidate.repository";
 import { PartyRepository } from "../repositories/party.repository";
+import { MLARepository } from "../repositories/mla.repository";
 import { unstable_cache } from "next/cache";
 import { 
   DistrictResponse, 
@@ -16,7 +17,7 @@ import { getPartyLogo } from "../utils/party-utils";
 import { normalizeTotalAssets } from "../utils/profile-normalizers";
 import { LATEST_ELECTION_YEAR } from "../constants/elections";
 import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
-
+import { getSharedPartyInfo } from "./shared/party-cache";
 
 export class DistrictService {
   private districtRepo: DistrictRepository;
@@ -24,20 +25,22 @@ export class DistrictService {
   private personRepo: PersonRepository;
   private candidateRepo: CandidateRepository;
   private partyRepo: PartyRepository;
-  private _partyCache: Record<string, any> | null = null;
+  private mlaRepo: MLARepository;
 
   constructor(
     districtRepo?: DistrictRepository, 
     constituencyRepo?: ConstituencyRepository,
     personRepo?: PersonRepository,
     candidateRepo?: CandidateRepository,
-    partyRepo?: PartyRepository
+    partyRepo?: PartyRepository,
+    mlaRepo?: MLARepository
   ) {
     this.districtRepo = districtRepo || new DistrictRepository();
     this.constituencyRepo = constituencyRepo || new ConstituencyRepository();
     this.personRepo = personRepo || new PersonRepository();
     this.candidateRepo = candidateRepo || new CandidateRepository();
     this.partyRepo = partyRepo || new PartyRepository();
+    this.mlaRepo = mlaRepo || new MLARepository();
   }
 
   async getAllDistricts(): Promise<DistrictResponse[]> {
@@ -154,13 +157,10 @@ export class DistrictService {
         const districtId = dId;
         const constituencies = await this.constituencyRepo.getConstituenciesByDistrict(districtId);
         
-        // 1. Get latest winners for these constituencies
-        const winnerPromises = constituencies.map(c => this.constituencyRepo.getWinnerHistory(c.PK));
-        const winnersResults = await Promise.all(winnerPromises);
-        
-        const currentWinners = winnersResults.map(history => {
-          return history.find((h: any) => parseInt(h.year) === parseInt(LATEST_ELECTION_YEAR));
-        }).filter(Boolean);
+        // 1. Get latest winners for these constituencies efficiently using YearIndex
+        const allWinners = await this.mlaRepo.getWinnersByYear(parseInt(LATEST_ELECTION_YEAR));
+        const constituencyIdSet = new Set(constituencies.map(c => c.PK));
+        const currentWinners = allWinners.filter(w => w.is_winner && constituencyIdSet.has(w.constituency_id));
 
         if (currentWinners.length === 0) return [];
 
@@ -171,9 +171,6 @@ export class DistrictService {
           acc[p.PK] = p;
           return acc;
         }, {});
-
-        // 3. Ensure party info is cached
-        await this.ensurePartyCache();
 
         // 3. Build DistrictMLA objects
         const mlaPromises = currentWinners.map(async (w: any) => {
@@ -188,7 +185,7 @@ export class DistrictService {
           
           const assets = normalizeTotalAssets(w.total_assets);
 
-          const partyInfo = await this.getPartyInfo(w.party_id);
+          const partyInfo = await getSharedPartyInfo(w.party_id);
           const partyShort = partyInfo.short_name || w.party_id?.replace("PARTY#", "") || "IND";
 
           return {
@@ -218,41 +215,6 @@ export class DistrictService {
       ["district-mlas"],
       { revalidate: 86400, tags: [`district-mlas-${districtId}`] }
     )(districtId);
-  }
-
-  private async ensurePartyCache() {
-    if (this._partyCache === null) {
-      try {
-        const parties = await this.partyRepo.getAllParties();
-        this._partyCache = {};
-        for (const p of parties) {
-          const pk = (p.PK || "").toUpperCase();
-          const data = {
-            logo: getPartyLogo(p.short_name) || p.logo_url,
-            short_name: p.short_name,
-            color_bg: p.color_bg,
-            color_text: p.color_text,
-            color_border: p.color_border,
-          };
-          this._partyCache[pk] = data;
-          if (data.short_name) {
-            this._partyCache[`PARTY#${data.short_name.toUpperCase()}`] = data;
-          }
-          if (p.name) {
-            this._partyCache[`PARTY#${p.name.toUpperCase()}`] = data;
-          }
-        }
-      } catch (error) {
-        console.error("Error building party cache:", error);
-        this._partyCache = {};
-      }
-    }
-  }
-
-  private async getPartyInfo(partyId: string) {
-    if (!partyId) return { logo: null, short_name: null, color_bg: null, color_text: null, color_border: null };
-    await this.ensurePartyCache();
-    return this._partyCache?.[partyId.toUpperCase()] || { logo: null, short_name: null, color_bg: null, color_text: null, color_border: null };
   }
 }
 

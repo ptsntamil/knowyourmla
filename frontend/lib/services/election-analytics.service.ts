@@ -9,6 +9,7 @@ import { getPartyLogo } from "../utils/party-utils";
 import { normalizeTotalAssets } from "../utils/profile-normalizers";
 import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
 import { unstable_cache } from "next/cache";
+import { cache } from "react";
 
 export interface ElectionSummary {
   year: number;
@@ -828,14 +829,10 @@ export class ElectionAnalyticsService {
     )(constituencyId, year);
   }
 
-  async getPollingStationResults(constituencyId: string, year: number): Promise<ConstituencyPollingData | null> {
-    return unstable_cache(
-      async (cId: string, yr: number): Promise<ConstituencyPollingData | null> => {
-        const constituencyId = cId;
-        const year = yr;
-        const cid = constituencyId.startsWith("CONSTITUENCY#") ? constituencyId : `CONSTITUENCY#${constituencyId}`;
+  getPollingStationResults = cache(async (constituencyId: string, year: number): Promise<ConstituencyPollingData | null> => {
+    const cid = constituencyId.startsWith("CONSTITUENCY#") ? constituencyId : `CONSTITUENCY#${constituencyId}`;
 
-        const [constituency, pollingResults, acSummary, allParties, candidates, districts, explicitPostalRecord] = await Promise.all([
+    const [constituency, pollingResults, acSummary, allParties, candidates, districts, explicitPostalRecord] = await Promise.all([
           this.constituencyRepo.getConstituencyMetadata(cid),
           this.pollingRepo.getPollingResultsByConstituency(cid, year),
           this.pollingRepo.getACSummary(cid, year),
@@ -1039,9 +1036,5 @@ export class ElectionAnalyticsService {
           pollingStations: analyzedStations,
           acSummary: acSummary || undefined
         };
-      },
-      ["polling-station-results"],
-      { revalidate: 86400, tags: [`polling-results-${constituencyId}-${year}`] }
-    )(constituencyId, year);
-  }
+  });
 }

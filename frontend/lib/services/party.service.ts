@@ -42,7 +42,19 @@ export class PartyService {
   async getPartyBySlug(slug: string) {
     return unstable_cache(
       async (s: string) => {
-        return this.partyRepo.getPartyBySlug(s);
+        // Try direct ID lookups first without a full table scan
+        const direct = await this.partyRepo.getPartyBySlugDirect(s);
+        if (direct) return direct;
+
+        // Fallback: Use the fully cached all-parties array
+        const all = await this.getAllParties();
+        const normalizedSlug = s.toLowerCase().replace(/[^a-z0-9]/g, "");
+        return all.find((p: any) => {
+          const pNameNorm = (p.name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+          const pShortNorm = (p.short_name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+          const pSlugNorm = (p.slug || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+          return pNameNorm === normalizedSlug || pShortNorm === normalizedSlug || pSlugNorm === normalizedSlug;
+        }) || null;
       },
       ["party-by-slug"],
       { revalidate: 86400, tags: [`party-slug-${slug}`] }

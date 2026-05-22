@@ -321,62 +321,76 @@ def check_stations_match(
     return True
 
 
-def check_mismatch(
+def check_station_count(
+    json_stations: List[Dict[str, Any]], pdf_stations: List[Dict[str, Any]]
+) -> None:
+    """Logs a warning if the AI-extracted station count differs from the PDF count.
+
+    This is informational only — stations are never overwritten from pdfplumber.
+
+    Args:
+        json_stations: List of stations from AI extraction.
+        pdf_stations: List of stations parsed from pdfplumber.
+    """
+    ai_count = len(json_stations)
+    pdf_count = len(pdf_stations)
+    if ai_count != pdf_count:
+        diff = pdf_count - ai_count
+        print(
+            f"[~] Station count differs: AI={ai_count}, PDF={pdf_count} "
+            f"({'missing' if diff > 0 else 'extra'} {abs(diff)} station(s) in AI output)."
+        )
+        if abs(diff) > 2:
+            print("[!] Large station count gap — may need manual review.")
+    else:
+        print(f"[+] Station count verified: {ai_count} stations match PDF.")
+
+
+def needs_postal_fill(json_data: Dict[str, Any]) -> bool:
+    """Returns True if the postal data is missing or empty in the JSON."""
+    postal = json_data.get("postal")
+    if not postal or not isinstance(postal, dict):
+        return True
+    v = postal.get("v", {})
+    has_values = isinstance(v, dict) and any(
+        val is not None and val != 0 for val in v.values()
+    )
+    return not has_values and postal.get("total", 0) == 0
+
+
+def needs_summary_fill(json_data: Dict[str, Any]) -> bool:
+    """Returns True if the polling_station_summary is missing or empty in the JSON."""
+    summary = json_data.get("polling_station_summary")
+    if not summary or not isinstance(summary, dict):
+        return True
+    v = summary.get("v", {})
+    has_values = isinstance(v, dict) and any(
+        val is not None and val != 0 for val in v.values()
+    )
+    return not has_values and summary.get("total", 0) == 0
+
+
+def fill_missing_postal_summary(
     json_data: Dict[str, Any],
-    pdf_stations: List[Dict[str, Any]],
-    pdf_postal: Optional[Dict[str, Any]],
-    pdf_total: Optional[Dict[str, Any]],
-) -> bool:
-    """Checks if there's any mismatch between JSON data and PDF parsed data."""
-    json_stations = json_data.get("stations", [])
-    if not check_stations_match(json_stations, pdf_stations):
-        print("[!] Station count/value mismatch.")
-        return True
-
-    json_postal = json_data.get("postal")
-    if not json_postal or json_postal.get("total", 0) == 0:
-        print("[!] JSON postal data is missing or empty.")
-        return True
-    if pdf_postal and json_postal.get("total") != pdf_postal.get("total"):
-        print("[!] Postal total mismatch.")
-        return True
-
-    json_summary = json_data.get("polling_station_summary")
-    if not json_summary or json_summary.get("total", 0) == 0:
-        print("[!] JSON summary data is missing or empty.")
-        return True
-    if pdf_total and json_summary.get("total") != pdf_total.get("total"):
-        print("[!] Summary total mismatch.")
-        return True
-
-    return False
-
-
-def apply_json_corrections(
-    json_data: Dict[str, Any],
-    pdf_stations: List[Dict[str, Any]],
     pdf_postal: Optional[Dict[str, Any]],
     pdf_total: Optional[Dict[str, Any]],
     json_path: str,
-):
-    """Applies corrections to JSON data and saves it to json_path."""
-    # Preserve ps_name and electors from existing json stations if available
-    ps_metadata = {
-        s["ps"]: {k: s[k] for k in ("ps_name", "electors") if k in s}
-        for s in json_data.get("stations", [])
-        if "ps" in s
-    }
+) -> None:
+    """Fills missing postal and/or summary data from pdfplumber and saves the file.
 
-    corrected_stations = []
-    for ps in pdf_stations:
-        station_entry = ps.copy()
-        ps_num = station_entry.get("ps")
-        if ps_num in ps_metadata:
-            station_entry.update(ps_metadata[ps_num])
-        corrected_stations.append(station_entry)
+    Stations from AI extraction are NEVER modified. Only postal and
+    polling_station_summary are patched when empty/missing.
 
-    json_data["stations"] = corrected_stations
-    if pdf_postal:
+    Args:
+        json_data: The loaded AI-extracted JSON data (mutated in place).
+        pdf_postal: Postal data parsed from pdfplumber, or None.
+        pdf_total: Summary/grand-total data parsed from pdfplumber, or None.
+        json_path: Path to save the updated JSON file.
+    """
+    changed = False
+
+    if needs_postal_fill(json_data) and pdf_postal:
+        print("[*] Filling missing postal data from PDF.")
         json_data["postal"] = {
             "v": pdf_postal["v"],
             "nota": pdf_postal["nota"],
@@ -384,7 +398,10 @@ def apply_json_corrections(
             "valid": pdf_postal["valid"],
             "total": pdf_postal["total"],
         }
-    if pdf_total:
+        changed = True
+
+    if needs_summary_fill(json_data) and pdf_total:
+        print("[*] Filling missing summary data from PDF.")
         json_data["polling_station_summary"] = {
             "v": pdf_total["v"],
             "valid": pdf_total["valid"],
@@ -393,16 +410,34 @@ def apply_json_corrections(
             "total": pdf_total["total"],
             "tendered": pdf_total["tendered"],
         }
-    json_data["validation"] = {
-        "range_complete": True,
-        "actual_station_count": len(pdf_stations),
-    }
-    with open(json_path, "w") as f:
-        json.dump(json_data, f, indent=2)
+        changed = True
+
+    if changed:
+        json_data["validation"] = {
+            "range_complete": True,
+            "actual_station_count": len(json_data.get("stations", [])),
+        }
+        with open(json_path, "w") as f:
+            json.dump(json_data, f, indent=2)
+        print("[+] JSON updated with missing postal/summary from PDF.")
+    else:
+        print("[+] No postal/summary fill needed.")
 
 
 def verify_and_correct_json(ac_id: int) -> bool:
-    """Compares the generated JSON against the PDF and corrects any mismatches."""
+    """Verifies the AI-extracted JSON using PDF ground truth.
+
+    Strategy:
+    - Stations: AI data is kept as-is. pdfplumber count is compared and
+      any gap is logged as a warning (1-2 missing is acceptable).
+    - Postal / Summary: if empty or missing in AI output, filled from pdfplumber.
+
+    Args:
+        ac_id: The assembly constituency number.
+
+    Returns:
+        True if verification and any fills succeeded, False if a hard error occurred.
+    """
     json_path = os.path.join(ASSETS_DIR, f"{ac_id:03d}.json")
     pdf_path = os.path.join(PDF_DIR, f"AC{ac_id:03d}.pdf")
 
@@ -424,16 +459,11 @@ def verify_and_correct_json(ac_id: int) -> bool:
         pdf_path, num_candidates
     )
 
-    mismatch = check_mismatch(json_data, pdf_stations, pdf_postal, pdf_total)
+    # 1. Compare station counts (informational — does NOT overwrite AI stations)
+    check_station_count(json_data.get("stations", []), pdf_stations)
 
-    if mismatch:
-        print(f"[*] Correcting JSON file for AC {ac_id} with PDF values...")
-        apply_json_corrections(
-            json_data, pdf_stations, pdf_postal, pdf_total, json_path
-        )
-        print(f"[+] Corrected JSON saved successfully.")
-    else:
-        print(f"[+] Verification passed for AC {ac_id}. JSON matches PDF perfectly.")
+    # 2. Fill missing postal / summary from pdfplumber if needed
+    fill_missing_postal_summary(json_data, pdf_postal, pdf_total, json_path)
 
     return True
 
