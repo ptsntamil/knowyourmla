@@ -17,7 +17,7 @@ import StateHighlights from "@/components/state/StateHighlights";
 import CompositionInsights from "@/components/state/CompositionInsights";
 import DistrictExplorer from "@/components/state/DistrictExplorer";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function generateMetadata() {
   return buildMetadata({

@@ -173,7 +173,7 @@ export class ConstituencyService {
           stats: stats,
         };
       },
-      ["constituency-winner-history"],
+      ["constituency-winner-history", constituencyId],
       { revalidate: 86400, tags: [`constituency-history-${constituencyId}`] }
     )(constituencyId);
   }

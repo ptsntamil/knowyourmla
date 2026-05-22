@@ -56,7 +56,7 @@ export class PartyService {
           return pNameNorm === normalizedSlug || pShortNorm === normalizedSlug || pSlugNorm === normalizedSlug;
         }) || null;
       },
-      ["party-by-slug"],
+      ["party-by-slug", slug],
       { revalidate: 86400, tags: [`party-slug-${slug}`] }
     )(slug);
   }
@@ -79,7 +79,7 @@ export class PartyService {
           };
         });
       },
-      ["party-elections"],
+      ["party-elections", partyId],
       { revalidate: 86400, tags: [`party-elections-${partyId}`] }
     )(partyId);
   }
@@ -323,7 +323,7 @@ export class PartyService {
           })
         };
       },
-      ["party-analytics"],
+      ["party-analytics", partyId, year?.toString() || "all"],
       { revalidate: 86400, tags: [`party-analytics-${partyId}-${year}`] }
     )(partyId, year);
   }
@@ -373,7 +373,7 @@ export class PartyService {
           };
         });
       },
-      ["party-candidates-for-year"],
+      ["party-candidates-for-year", partyId, year?.toString() || "all"],
       { revalidate: 86400, tags: [`party-candidates-${partyId}-${year}`] }
     )(partyId, year);
   }

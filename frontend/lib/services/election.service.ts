@@ -59,7 +59,7 @@ export class ElectionService {
           category: item.category,
         };
       },
-      ["election-by-id"],
+      ["election-by-id", electionId],
       { revalidate: 86400, tags: [`election-${electionId}`] }
     )(electionId);
   }
