@@ -24,6 +24,7 @@ import { getPartyLogo } from "../utils/party-utils";
 import { normalizeEducation, normalizeProfession, normalizeTotalAssets, normalizeIncome, normalizeCriminalCases } from "../utils/profile-normalizers";
 import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
 import { categorizeEducation } from "../utils/insights";
+import { getSharedPartyInfo } from "./shared/party-cache";
 
 export class MLAService {
   private mlaRepo: MLARepository;
@@ -31,7 +32,6 @@ export class MLAService {
   private candidateRepo: CandidateRepository;
   private constituencyRepo: ConstituencyRepository;
   private partyRepo: PartyRepository;
-  private _partyCache: Record<string, any> | null = null;
 
   constructor(
     mlaRepo?: MLARepository,
@@ -47,40 +47,6 @@ export class MLAService {
     this.partyRepo = partyRepo || new PartyRepository();
   }
 
-  private async ensurePartyCache() {
-    if (this._partyCache === null) {
-      try {
-        const parties = await this.partyRepo.getAllParties();
-        this._partyCache = {};
-        for (const p of parties) {
-          const pk = (p.PK || "").toUpperCase();
-          const data = {
-            logo: getPartyLogo(p.short_name) || p.logo_url,
-            short_name: p.short_name,
-            color_bg: p.color_bg,
-            color_text: p.color_text,
-            color_border: p.color_border,
-          };
-          this._partyCache[pk] = data;
-          if (data.short_name) {
-            this._partyCache[`PARTY#${data.short_name.toUpperCase()}`] = data;
-          }
-          if (p.name) {
-            this._partyCache[`PARTY#${p.name.toUpperCase()}`] = data;
-          }
-        }
-      } catch (error) {
-        console.error("Error building party cache:", error);
-        this._partyCache = {};
-      }
-    }
-  }
-
-  private async getPartyInfo(partyId: string) {
-    if (!partyId) return { logo: null, short_name: null, color_bg: null, color_text: null, color_border: null };
-    await this.ensurePartyCache();
-    return this._partyCache?.[partyId.toUpperCase()] || { logo: null, short_name: null, color_bg: null, color_text: null, color_border: null };
-  }
 
   private slugify(name: string): string {
     if (!name) return "";
@@ -345,7 +311,7 @@ export class MLAService {
           const isWinner = Boolean(record.is_winner);
           const hasResults = Boolean(record.total_votes || record.winning_margin);
 
-          const partyInfo = await this.getPartyInfo(record.party_id);
+          const partyInfo = await getSharedPartyInfo(record.party_id);
 
           let districtName: string | undefined;
           const cid = record.constituency_id;
@@ -528,7 +494,7 @@ export class MLAService {
           const pId = winner.person_id;
           const personMeta = personMap[pId] || {};
           const displayName = personMeta.name || winner.candidate_name || "Unknown";
-          const partyInfo = await this.getPartyInfo(winner.party_id);
+          const partyInfo = await getSharedPartyInfo(winner.party_id);
 
           mlaList.push({
             person_id: pId,

@@ -39,10 +39,10 @@ export class PartyRepository {
   }
 
   /**
-   * Resolves a party by its slug.
-   * Priority: Direct PK -> MetadataIndex Search.
+   * Attempts to resolve a party by its slug using direct ID lookups.
+   * Returns null if it cannot be found directly.
    */
-  async getPartyBySlug(slug: string) {
+  async getPartyBySlugDirect(slug: string) {
     const normalizedSlug = slug.toLowerCase().replace(/[^a-z0-9]/g, "");
     
     // 1. Try direct PK lookup with normalized slug
@@ -53,13 +53,6 @@ export class PartyRepository {
     const upperShort = await this.getPartyById(`PARTY#${slug.toUpperCase()}`);
     if (upperShort) return upperShort;
 
-    // 3. Fallback: Query via MetadataIndex and match in-memory (limited volume)
-    const all = await this.getAllParties();
-    return all.find(p => {
-      const pNameNorm = (p.name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
-      const pShortNorm = (p.short_name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
-      const pSlugNorm = (p.slug || "").toLowerCase().replace(/[^a-z0-9]/g, "");
-      return pNameNorm === normalizedSlug || pShortNorm === normalizedSlug || pSlugNorm === normalizedSlug;
-    }) || null;
+    return null;
   }
 }

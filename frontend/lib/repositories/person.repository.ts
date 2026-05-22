@@ -11,15 +11,9 @@ export class PersonRepository {
   }
 
   async getPersonById(personId: string) {
-    const response = await this.client.query({
-      KeyConditionExpression: "PK = :pk AND SK = :sk",
-      ExpressionAttributeValues: {
-        ":pk": personId,
-        ":sk": "METADATA",
-      },
+    return this.client.get({
+      Key: { PK: personId, SK: "METADATA" },
     });
-
-    return response.length > 0 ? response[0] : null;
   }
 
   async getPersonByNormalizedName(normalizedName: string) {

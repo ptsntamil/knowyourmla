@@ -8,6 +8,7 @@ import { formatAssets, buildInsights, calculateAge, getDistributionData } from "
 import { normalizeEducation, normalizeTotalAssets } from "../utils/profile-normalizers";
 import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
 import { unstable_cache } from "next/cache";
+import { getCachedPartyInfoMap } from "./shared/party-cache";
 
 export interface StateOverviewResponse {
   totalConstituencies: number;
@@ -33,7 +34,6 @@ export class StateService {
   private personRepo: PersonRepository;
   private mlaRepo: MLARepository;
   private partyRepo: PartyRepository;
-  private _partyCache: Record<string, any> | null = null;
 
   constructor(
     districtRepo?: DistrictRepository,
@@ -49,40 +49,6 @@ export class StateService {
     this.partyRepo = partyRepo || new PartyRepository();
   }
 
-  private async ensurePartyCache() {
-    if (this._partyCache === null) {
-      try {
-        const parties = await this.partyRepo.getAllParties();
-        this._partyCache = {};
-        for (const p of parties) {
-          const pk = (p.PK || "").toUpperCase();
-          const data = {
-            logo: p.logo_url,
-            short_name: p.short_name,
-            color_bg: p.color_bg,
-            color_text: p.color_text,
-            color_border: p.color_border,
-          };
-          this._partyCache[pk] = data;
-          if (data.short_name) {
-            this._partyCache[`PARTY#${data.short_name.toUpperCase()}`] = data;
-          }
-          if (p.name) {
-            this._partyCache[`PARTY#${p.name.toUpperCase()}`] = data;
-          }
-        }
-      } catch (error) {
-        console.error("Error building party cache:", error);
-        this._partyCache = {};
-      }
-    }
-  }
-
-  private async getPartyInfo(partyId: string) {
-    if (!partyId) return { logo: null, short_name: null, color_bg: null, color_text: null, color_border: null };
-    await this.ensurePartyCache();
-    return this._partyCache?.[partyId.toUpperCase()] || { logo: null, short_name: null, color_bg: null, color_text: null, color_border: null };
-  }
 
   async getStateOverview(): Promise<StateOverviewResponse> {
     return unstable_cache(
@@ -104,9 +70,9 @@ export class StateService {
           return acc;
         }, {});
 
-        await this.ensurePartyCache();
+        const partyCache = await getCachedPartyInfoMap();
 
-        const mlaList: DistrictMLA[] = await Promise.all(currentWinners.map(async (w: any) => {
+        const mlaList: DistrictMLA[] = currentWinners.map((w: any) => {
           const person = personMap[w.person_id] || {};
           const constituency = constituencies.find((c: any) => c.PK === w.constituency_id);
 
@@ -117,7 +83,8 @@ export class StateService {
           const margin = normalizeTotalAssets(w.winning_margin || w.margin);
           const votes = normalizeTotalAssets(w.total_votes);
 
-          const partyInfo = await this.getPartyInfo(w.party_id);
+          const pId = w.party_id?.toUpperCase();
+          const partyInfo = (pId && partyCache[pId]) || { logo: null, short_name: null, color_bg: null, color_text: null, color_border: null };
           const partyShort = partyInfo.short_name || w.party_id?.replace("PARTY#", "") || "IND";
 
           return {
@@ -142,7 +109,7 @@ export class StateService {
             education: normalizeEducation(person.education || w.education)
           };
 
-        }));
+        });
 
         const insights = buildInsights(mlaList as any);
         const partySpread = new Set(mlaList.map(m => m.party)).size;
