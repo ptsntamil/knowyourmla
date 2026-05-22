@@ -56,11 +56,17 @@ export class StateService {
         const [districts, constituencies, winners] = await Promise.all([
           this.districtRepo.getAllDistricts(),
           this.constituencyRepo.getAllConstituencies(),
-          this.mlaRepo.getWinnersByYearRange(2026, 2031)
+          this.mlaRepo.getWinnersByYearRange(2021, 2031) // Expanded to include 2021 fallback
         ]);
 
-        // Filter only 2026 winners
-        const currentWinners = winners.filter((w: any) => parseInt(w.year) === 2026);
+        const { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } = await import("../constants/elections");
+        
+        // Filter latest winners. Fallback to previous election year if latest (2026) hasn't happened or has no data yet.
+        let currentWinners = winners.filter((w: any) => parseInt(w.year) === parseInt(LATEST_ELECTION_YEAR));
+        if (!currentWinners || currentWinners.length === 0) {
+          currentWinners = winners.filter((w: any) => parseInt(w.year) === parseInt(PREVIOUS_ELECTION_YEAR));
+        }
+
 
         // Fetch person details
         const personIds = Array.from(new Set(currentWinners.map((w: any) => w.person_id).filter(Boolean)));

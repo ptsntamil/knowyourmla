@@ -304,22 +304,26 @@ export class MLAService {
         let prevExpenses: number | null = null;
 
         const processedAnalyticsYears = new Set<number>();
-        const constituencyCache: Record<string, any> = {};
+        
+        // Hoist DB and Cache queries outside the loop
+        const uniquePartyIds = Array.from(new Set(candidatesData.map(c => c.party_id)));
+        const partyInfoList = await Promise.all(uniquePartyIds.map(id => getSharedPartyInfo(id)));
+        const partyMap = Object.fromEntries(uniquePartyIds.map((id, i) => [String(id), partyInfoList[i]]));
+        
+        const uniqueConstiIds = Array.from(new Set(candidatesData.map(c => c.constituency_id).filter(Boolean)));
+        const constiMetaList = await Promise.all(uniqueConstiIds.map(id => this.constituencyRepo.getConstituencyMetadata(id)));
+        const constituencyCache = Object.fromEntries(uniqueConstiIds.map((id, i) => [id, constiMetaList[i] || {}]));
 
         for (const record of candidatesData) {
           const year = parseInt(record.year || "0");
           const isWinner = Boolean(record.is_winner);
           const hasResults = Boolean(record.total_votes || record.winning_margin);
 
-          const partyInfo = await getSharedPartyInfo(record.party_id);
+          const partyInfo = partyMap[String(record.party_id)];
 
           let districtName: string | undefined;
           const cid = record.constituency_id;
           if (cid) {
-            if (!constituencyCache[cid]) {
-              const constiMeta = await this.constituencyRepo.getConstituencyMetadata(cid);
-              constituencyCache[cid] = constiMeta || {};
-            }
             const constiData = constituencyCache[cid];
             if (constiData && Object.keys(constiData).length > 0) {
               districtName = constiData.district_name || (constiData.district_id ? constiData.district_id.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()) : undefined);
@@ -438,7 +442,7 @@ export class MLAService {
 
         return { person: personDetail, history, analytics };
       },
-      ["mla-profile"],
+      ["mla-profile", identifier],
       { revalidate: 86400, tags: [`mla-profile-${identifier}`] }
     )(identifier);
   }
@@ -472,6 +476,11 @@ export class MLAService {
           return acc;
         }, {});
 
+        // Hoist party DB/Cache lookup outside the 234 constituency loop
+        const uniquePartyIds = Array.from(new Set(winners.map((w: any) => w.party_id)));
+        const partyInfoList = await Promise.all(uniquePartyIds.map(id => getSharedPartyInfo(id)));
+        const partyMap = Object.fromEntries(uniquePartyIds.map((id, i) => [String(id), partyInfoList[i]]));
+
         const mlaList: MLAListItem[] = [];
         for (const consti of constituencies) {
           const constId = consti.PK;
@@ -494,7 +503,7 @@ export class MLAService {
           const pId = winner.person_id;
           const personMeta = personMap[pId] || {};
           const displayName = personMeta.name || winner.candidate_name || "Unknown";
-          const partyInfo = await getSharedPartyInfo(winner.party_id);
+          const partyInfo = partyMap[String(winner.party_id)];
 
           mlaList.push({
             person_id: pId,
@@ -516,7 +525,7 @@ export class MLAService {
 
         return { mlas: mlaList, total: mlaList.length };
       },
-      ["current-mlas"],
+      ["current-mlas", year.toString()],
       { revalidate: 86400, tags: [`mlas-list-${year}`] }
     )(year);
   }

@@ -382,6 +382,9 @@ export class ElectionAnalyticsService {
           })
           .sort((a: PartyVoteShare, b: PartyVoteShare) => b.voteSharePercent - a.voteSharePercent);
 
+        // Create Constituency Map for O(1) lookups later
+        const constituencyMap = new Map(constituencies.map((c: any) => [c.PK, c]));
+
         // 3. Constituency Results (Mapped and filtered by official list)
         const constituencyResults: ConstituencyResult[] = constituencies.map((constituency: any) => {
           const cid = constituency.PK;
@@ -508,7 +511,7 @@ export class ElectionAnalyticsService {
           .slice(0, 100)
           .map(c => {
             const party = partyMap.get(c.party_id);
-            const constituency = constituencies.find(con => con.PK === c.constituency_id);
+            const constituency = constituencyMap.get(c.constituency_id);
             return {
               name: c.candidate_name,
               party: party?.name || c.party_id?.replace("PARTY#", ""),
@@ -536,7 +539,7 @@ export class ElectionAnalyticsService {
           .slice(0, 100)
           .map(c => {
             const party = partyMap.get(c.party_id);
-            const constituency = constituencies.find(con => con.PK === c.constituency_id);
+            const constituency = constituencyMap.get(c.constituency_id);
             return {
               name: c.candidate_name,
               party: party?.name || c.party_id?.replace("PARTY#", ""),
@@ -593,7 +596,7 @@ export class ElectionAnalyticsService {
           .map((c: any) => {
             const party = partyMap.get(c.party_id);
             const cid = c.constituency_id;
-            const constituency = constituencies.find((con: any) => con.PK === cid);
+            const constituency = constituencyMap.get(cid);
             const districtId = constituency?.district_id || c.district_id;
             const districtName = districtMap.get(districtId) || "N/A";
 
@@ -742,7 +745,7 @@ export class ElectionAnalyticsService {
           faq
         };
       },
-      ["election-overview"],
+      ["election-overview", year.toString()],
       { revalidate: 86400, tags: [`election-overview-${year}`] }
     )(year);
   }
@@ -824,7 +827,7 @@ export class ElectionAnalyticsService {
           summarySentence
         };
       },
-      ["constituency-election-result"],
+      ["constituency-election-result", constituencyId, year.toString()],
       { revalidate: 86400, tags: [`constituency-result-${constituencyId}-${year}`] }
     )(constituencyId, year);
   }

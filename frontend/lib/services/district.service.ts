@@ -112,7 +112,7 @@ export class DistrictService {
           stats: stats,
         };
       },
-      ["district-details"],
+      ["district-details", districtId],
       { revalidate: 86400, tags: [`district-detail-${districtId}`] }
     )(districtId);
   }
@@ -146,7 +146,7 @@ export class DistrictService {
 
         return { insights, mlas };
       },
-      ["district-insights"],
+      ["district-insights", districtId],
       { revalidate: 86400, tags: [`district-insights-${districtId}`] }
     )(districtId);
   }
@@ -157,10 +157,21 @@ export class DistrictService {
         const districtId = dId;
         const constituencies = await this.constituencyRepo.getConstituenciesByDistrict(districtId);
         
-        // 1. Get latest winners for these constituencies efficiently using YearIndex
-        const allWinners = await this.mlaRepo.getWinnersByYear(parseInt(LATEST_ELECTION_YEAR));
-        const constituencyIdSet = new Set(constituencies.map(c => c.PK));
-        const currentWinners = allWinners.filter(w => w.is_winner && constituencyIdSet.has(w.constituency_id));
+        // 1. Get latest winners for these constituencies
+        const winnerPromises = constituencies.map(c => this.constituencyRepo.getWinnerHistory(c.PK));
+        const winnersResults = await Promise.all(winnerPromises);
+        
+        let currentWinners = winnersResults.map(history => {
+          return history.find((h: any) => parseInt(h.year) === parseInt(LATEST_ELECTION_YEAR));
+        }).filter(Boolean);
+
+        // Fallback to previous election year if latest (2026) hasn't happened or has no data yet
+        if (currentWinners.length === 0) {
+          const { PREVIOUS_ELECTION_YEAR } = await import("../constants/elections");
+          currentWinners = winnersResults.map(history => {
+            return history.find((h: any) => parseInt(h.year) === parseInt(PREVIOUS_ELECTION_YEAR));
+          }).filter(Boolean);
+        }
 
         if (currentWinners.length === 0) return [];
 
@@ -212,7 +223,7 @@ export class DistrictService {
 
         return Promise.all(mlaPromises);
       },
-      ["district-mlas"],
+      ["district-mlas", districtId],
       { revalidate: 86400, tags: [`district-mlas-${districtId}`] }
     )(districtId);
   }
