@@ -19,7 +19,8 @@ import {
   ArrowRight,
   Filter,
   X,
-  Trophy
+  Trophy,
+  MapPin
 } from 'lucide-react';
 import Link from 'next/link';
 import { PollingStationAnalysis, PollingStationCandidateResult } from '@/lib/services/election-analytics.service';
@@ -352,10 +353,18 @@ const PollingStationTable: React.FC<PollingStationTableProps> = ({
                             {/* Candidate Breakdown */}
                             <div className="lg:col-span-2 space-y-8">
                               <div className="flex items-center justify-between">
-                                <h4 className="text-base font-black text-[#0D1B2A] flex items-center gap-4 uppercase tracking-[0.2em] italic">
-                                  <Target className="w-5 h-5 text-[#F4B63D]" />
-                                  {station.pollingStationNo === 'POSTAL' ? 'Postal Aggregate Results' : 'Comprehensive Performance'}
-                                </h4>
+                                <div className="flex flex-col gap-1">
+                                  <h4 className="text-base font-black text-[#0D1B2A] flex items-center gap-4 uppercase tracking-[0.2em] italic">
+                                    <Target className="w-5 h-5 text-[#F4B63D]" />
+                                    {station.pollingStationNo === 'POSTAL' ? 'Postal Aggregate Results' : 'Comprehensive Performance'}
+                                  </h4>
+                                  {station.pollingStationNo !== 'POSTAL' && station.pollingStationName && (
+                                    <div className="flex items-center gap-2 text-xs font-bold text-[#5C6773] mt-1 pl-9 uppercase tracking-wider">
+                                      <MapPin size={12} className="text-[#F4B63D]" />
+                                      <span>{station.pollingStationName}</span>
+                                    </div>
+                                  )}
+                                </div>
                                 <div className="px-4 py-1.5 bg-[#071120] text-white text-[9px] font-black uppercase tracking-[0.3em] rounded-full border border-white/10">
                                   {station.candidateResults.length} Candidates
                                 </div>
@@ -422,11 +431,17 @@ const PollingStationTable: React.FC<PollingStationTableProps> = ({
                               </div>
 
                               <div className="space-y-5">
-                                <div className="grid grid-cols-2 gap-5">
+                                <div className={`grid ${station.electors ? 'grid-cols-3' : 'grid-cols-2'} gap-5`}>
                                   <div className="bg-[#071120] p-4 rounded-2xl border border-white/10 text-center shadow-2xl">
                                     <div className="text-[9px] font-black text-white/40 uppercase tracking-[0.2em] mb-1">Valid Votes</div>
                                     <div className="text-sm font-black text-white">{station.validVotes.toLocaleString()}</div>
                                   </div>
+                                  {station.electors && (
+                                    <div className="bg-[#071120] p-4 rounded-2xl border border-white/10 text-center shadow-2xl">
+                                      <div className="text-[9px] font-black text-white/40 uppercase tracking-[0.2em] mb-1">Total Electors</div>
+                                      <div className="text-sm font-black text-white">{station.electors.toLocaleString()}</div>
+                                    </div>
+                                  )}
                                   <div className="bg-[#F4B63D] p-4 rounded-2xl border-2 border-[#071120]/10 text-center shadow-xl">
                                     <div className="text-[9px] font-black text-[#071120] uppercase tracking-[0.2em] mb-1">NOTA / Other</div>
                                     <div className="text-sm font-black text-[#071120]">{station.notaVotes.toLocaleString()}</div>

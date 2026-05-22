@@ -1,7 +1,8 @@
 import { DashboardCandidate } from "./dashboard.types";
 import { STATUS_MAP, ELECTION_YEAR_CURRENT, ELECTION_YEAR_PRIOR } from "./dashboard.constants";
 import { getPartyLogo, derivePartyShortName } from "@/lib/utils/party-utils";
-import { normalizeProfileEducation, normalizeProfileProfession, normalizeTotalAssets, normalizeCriminalCases } from "@/lib/utils/profile-normalizers";
+import { normalizeEducation, normalizeProfession, normalizeTotalAssets, normalizeCriminalCases } from "@/lib/utils/profile-normalizers";
+import { normalizeCandidateProfilePic } from "@/lib/utils/profile-pic.utils";
 
 /**
  * Maps raw candidate records and metadata into clean DashboardCandidate objects.
@@ -66,16 +67,12 @@ export function mapCandidatesToDashboardCandidates(
       isNewcomer,
       gender: person?.sex || c.sex || null,
       age,
-      education: normalizeProfileEducation(c.education || person?.education) || null,
-      profession: normalizeProfileProfession(c.profession || person?.profession) || null,
+      education: normalizeEducation(c.education || person?.education) || null,
+      profession: normalizeProfession(c.profession || person?.profession) || null,
       totalAssets: normalizeTotalAssets(c.total_assets),
       totalLiabilities: normalizeTotalAssets(c.total_liabilities),
       criminalCases: normalizeCriminalCases(c.criminal_cases),
-      profilePic: (() => {
-        const pic = (c.profile_pic || person?.profile_pic || null)?.replace(/^assets\/\d{4}\/photos\//, '/candidate/2026/photos/');
-        if (pic?.startsWith('candidate')) return `/${pic}`;
-        return pic;
-      })(),
+      profilePic: normalizeCandidateProfilePic(c.profile_pic || person?.profile_pic || null),
       priorOffice: c.prior_office || null,
       priorElection: (() => {
         const priorWinner = constituencyPriorWinners.get(c.constituency_id);

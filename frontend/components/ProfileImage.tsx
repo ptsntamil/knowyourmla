@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { normalizeCandidateProfilePic } from "@/lib/utils/profile-pic.utils";
 
 interface ProfileImageProps {
   src?: string | null;
@@ -14,11 +15,7 @@ const ProfileImage: React.FC<ProfileImageProps> = ({
   className = "w-full h-full object-cover",
 }) => {
   const [hasError, setHasError] = useState(false);
-  const normalizeSrc = (value?: string | null) => {
-    if (!value) return null;
-    // Ensure we always end up with the same public path prefix.
-    return value.replace(/^assets\/\d{4}\/photos\//, "/candidate/2026/photos/");
-  };
+  const normalizeSrc = (value?: string | null) => normalizeCandidateProfilePic(value);
 
   const [imgSrc, setImgSrc] = useState<string | null>(() => normalizeSrc(src));
 

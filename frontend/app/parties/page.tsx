@@ -3,13 +3,10 @@ import PartyFilters from "@/components/PartyFilters";
 import SEOHeader from "@/components/SEOHeader";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
-import { generateItemListSchema } from "@/lib/seo/jsonld";
-import SEOIntro from "@/components/seo/SEOIntro";
 import FAQSection from "@/components/seo/FAQSection";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ItemListSchema from "@/components/seo/ItemListSchema";
 
-export const dynamic = "force-dynamic";
 
 export async function generateMetadata() {
   return buildMetadata({

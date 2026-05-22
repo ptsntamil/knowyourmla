@@ -155,43 +155,44 @@ class PollingDataImporter:
         logger.warning(f"Could not resolve candidate: {name} ({party}) in {const_norm}")
         return None
 
-    def process_ac_file(self, file_path: str, dry_run: bool = False):
-        """Process a Form 20 JSON file for an entire AC."""
-        logger.info(f"Processing file: {file_path}")
-        with open(file_path, 'r') as f:
-            data = json.load(f)
+    def _calculate_totals(self, stations: List[Dict[str, Any]]) -> tuple:
+        """Calculate total votes for each candidate in this AC from stations.
 
-        meta = data.get('meta', {})
-        ac_name = meta.get('ac_name')
-        ac_no = meta.get('ac_no')
-        year = int(meta.get('year', 2026))
-        total_electors = int(meta.get('total_electors', 0))
-        
-        const_norm = canonicalize_constituency(ac_name)
-        const_id = f"CONSTITUENCY#{const_norm}"
-        
-        json_candidates = data.get('candidates', {})
-        stations = data.get('stations', [])
+        Args:
+            stations: List of stations from JSON.
 
-        # Pass 1: Calculate total votes for each candidate in this AC
-        candidate_totals = {}  # local_id -> total_votes
-        total_valid_votes = 0
-        total_nota_votes = 0
-        total_rejected_votes = 0
-        total_votes_polled = 0
+        Returns:
+            A tuple of (candidate_totals, total_valid, total_nota, total_rej, total_polled)
+        """
+        candidate_totals = {}
+        total_valid = 0
+        total_nota = 0
+        total_rej = 0
+        total_polled = 0
 
         for ps in stations:
             v_map = ps.get('v', {})
             for cid, votes in v_map.items():
                 candidate_totals[cid] = candidate_totals.get(cid, 0) + votes
-            
-            total_valid_votes += ps.get('valid', 0)
-            total_nota_votes += ps.get('nota', 0)
-            total_rejected_votes += ps.get('rej', 0)
-            total_votes_polled += ps.get('total', 0)
 
-        # Map local_id to db_candidate_pk
-        id_map = {} # local_id -> db_pk
+            total_valid += ps.get('valid', 0)
+            total_nota += ps.get('nota', 0)
+            total_rej += ps.get('rej', 0)
+            total_polled += ps.get('total', 0)
+
+        return candidate_totals, total_valid, total_nota, total_rej, total_polled
+
+    def _resolve_candidate_ids(self, json_candidates: Dict[str, Any], const_norm: str) -> Dict[str, str]:
+        """Resolve all JSON candidate IDs to database PKs.
+
+        Args:
+            json_candidates: Candidates dictionary from JSON.
+            const_norm: Normalized constituency name.
+
+        Returns:
+            A mapping of local candidate ID to DB PK.
+        """
+        id_map = {}
         for cid, info in json_candidates.items():
             db_pk = None
             if isinstance(info, str):
@@ -200,142 +201,201 @@ class PollingDataImporter:
             elif isinstance(info, dict):
                 name = info.get('name', '')
                 party = info.get('party', '') or info.get('party_name', '')
-                # Check for explicit candidate_id
                 db_pk = info.get('candidate_id') or info.get('canidate_id')
             else:
                 logger.error(f"Unexpected candidate info format for {cid}: {info}")
                 continue
-                
+
             if not db_pk:
                 db_pk = self.resolve_candidate(const_norm, name, party)
-            
+
             if db_pk:
                 id_map[cid] = db_pk
             else:
                 logger.error(f"Resolution failed for candidate {cid}: {name}")
+        return id_map
 
-        # Map candidate_totals to DB IDs
-        db_candidate_totals = {id_map[cid]: votes for cid, votes in candidate_totals.items() if cid in id_map}
-        db_candidate_totals["NOTA"] = total_nota_votes
+    def _build_station_item(
+        self,
+        ps: Dict[str, Any],
+        const_norm: str,
+        const_id: str,
+        year: int,
+        id_map: Dict[str, str],
+        candidate_totals: Dict[str, int]
+    ) -> Optional[Dict[str, Any]]:
+        """Build the station result item from station details.
 
-        # Pass 2: Ingest Polling Station Records
-        logger.info(f"Ingesting {len(stations)} polling stations for {ac_name}...")
-        
-        for ps in stations:
-            ps_val = ps.get('ps')
-            if ps_val in ['TOTAL_POLLING', 'TOTAL', 'SUMMARY']:
+        Args:
+            ps: Polling station dictionary.
+            const_norm: Normalized constituency name.
+            const_id: Constituency ID.
+            year: Election year.
+            id_map: Candidate ID mapping.
+            candidate_totals: Candidate total votes map.
+
+        Returns:
+            The item dictionary to insert, or None if skipped/invalid.
+        """
+        ps_val = ps.get('ps')
+        if ps_val in ['TOTAL_POLLING', 'TOTAL', 'SUMMARY']:
+            return None
+
+        try:
+            ps_no = str(ps_val).strip()
+            if not ps_no:
+                return None
+        except (ValueError, TypeError):
+            logger.error(f"Invalid polling station number: {ps_val}")
+            return None
+
+        v_map = ps.get('v', {})
+        ps_valid = int(ps.get('valid', 0))
+        ps_total = int(ps.get('total', 0))
+        ps_nota = int(ps.get('nota', 0))
+        ps_rej = int(ps.get('rej', 0))
+
+        results = {}
+        for cid, votes in v_map.items():
+            if cid not in id_map:
                 continue
-                
+            db_pk = id_map[cid]
+
+            share = round((votes / ps_valid * 100), 2) if ps_valid > 0 else 0
+            contribution = round((votes / candidate_totals[cid] * 100), 2) if candidate_totals.get(cid, 0) > 0 else 0
+
+            results[db_pk] = {
+                "votes": votes,
+                "vote_share_percentage": share,
+                "candidate_contribution_percentage": contribution
+            }
+
+        # Add NOTA to results
+        results["NOTA"] = {
+            "votes": ps_nota,
+            "vote_share_percentage": round((ps_nota / ps_valid * 100), 2) if ps_valid > 0 else 0
+        }
+
+        pk = f"CONSTITUENCY#{const_norm}#YEAR#{year}#PS#{ps_no}"
+        item = {
+            "PK": pk,
+            "SK": "METADATA",
+            "constituency_id": const_id,
+            "polling_station_no": ps_no,
+            "year": year,
+            "results": results,
+            "valid_votes": ps_valid,
+            "rejected_votes": ps_rej,
+            "nota_votes": ps_nota,
+            "total_votes_polled": ps_total,
+            "created_at": int(datetime.now(timezone.utc).timestamp())
+        }
+
+        # Parse ps_name and store under both ps_name and polling_station_name
+        ps_name = ps.get('ps_name')
+        if ps_name is not None:
+            item["ps_name"] = str(ps_name).strip()
+            item["polling_station_name"] = str(ps_name).strip()
+
+        # Parse electors and store under both electors and total_electors
+        electors = ps.get('electors')
+        if electors is not None:
             try:
-                ps_no = str(ps_val).strip()
-                if not ps_no:
-                    continue
+                item["electors"] = int(electors)
+                item["total_electors"] = int(electors)
             except (ValueError, TypeError):
-                logger.error(f"Invalid polling station number: {ps_val}")
+                pass
+
+        return item
+
+    def _build_postal_item(
+        self,
+        postal_data: Dict[str, Any],
+        const_norm: str,
+        const_id: str,
+        year: int,
+        id_map: Dict[str, str],
+        candidate_totals: Dict[str, int]
+    ) -> Dict[str, Any]:
+        """Build the postal votes item from postal details.
+
+        Args:
+            postal_data: Postal votes dictionary.
+            const_norm: Normalized constituency name.
+            const_id: Constituency ID.
+            year: Election year.
+            id_map: Candidate ID mapping.
+            candidate_totals: Candidate total votes map.
+
+        Returns:
+            The postal votes item dictionary.
+        """
+        p_v_map = postal_data.get('v', {})
+        p_valid = int(postal_data.get('valid', 0))
+        p_total = int(postal_data.get('total', 0))
+        p_nota = int(postal_data.get('nota', 0))
+        p_rej = int(postal_data.get('rej', 0))
+
+        p_results = {}
+        for cid, votes in p_v_map.items():
+            if cid not in id_map:
                 continue
-                
-            v_map = ps.get('v', {})
-            ps_valid = int(ps.get('valid', 0))
-            ps_total = int(ps.get('total', 0))
-            ps_nota = int(ps.get('nota', 0))
-            ps_rej = int(ps.get('rej', 0))
-            
-            results = {}
-            for cid, votes in v_map.items():
-                if cid not in id_map: continue
-                db_pk = id_map[cid]
-                
-                # Calculations
-                share = round((votes / ps_valid * 100), 2) if ps_valid > 0 else 0
-                contribution = round((votes / candidate_totals[cid] * 100), 2) if candidate_totals.get(cid, 0) > 0 else 0
-                
-                results[db_pk] = {
-                    "votes": votes,
-                    "vote_share_percentage": share,
-                    "candidate_contribution_percentage": contribution
-                }
-            
-            # Add NOTA to results
-            results["NOTA"] = {
-                "votes": ps_nota,
-                "vote_share_percentage": round((ps_nota / ps_valid * 100), 2) if ps_valid > 0 else 0
+            db_pk = id_map[cid]
+
+            share = round((votes / p_valid * 100), 2) if p_valid > 0 else 0
+            contribution = round((votes / candidate_totals[cid] * 100), 2) if candidate_totals.get(cid, 0) > 0 else 0
+
+            p_results[db_pk] = {
+                "votes": votes,
+                "vote_share_percentage": share,
+                "candidate_contribution_percentage": contribution
             }
 
-            pk = f"CONSTITUENCY#{const_norm}#YEAR#{year}#PS#{ps_no}"
-            item = {
-                "PK": pk,
-                "SK": "METADATA",
-                "constituency_id": const_id,
-                "polling_station_no": ps_no,
-                "year": year,
-                "results": results,
-                "valid_votes": ps_valid,
-                "rejected_votes": ps_rej,
-                "nota_votes": ps_nota,
-                "total_votes_polled": ps_total,
-                "created_at": int(datetime.now(timezone.utc).timestamp())
-            }
-            
-            item = convert_floats_to_decimal(item)
-            if dry_run:
-                if ps_no == 1: logger.info(f"Dry Run Sample Item: {json.dumps(item, indent=2, cls=DecimalEncoder)}")
-            else:
-                self.polling_table.put_item(Item=item)
+        p_results["NOTA"] = {
+            "votes": p_nota,
+            "vote_share_percentage": round((p_nota / p_valid * 100), 2) if p_valid > 0 else 0
+        }
 
-        # Pass 3: Ingest Postal Votes if present
-        postal_data = data.get('postal')
-        if postal_data:
-            logger.info(f"Ingesting postal votes for {ac_name}...")
-            p_v_map = postal_data.get('v', {})
-            p_valid = int(postal_data.get('valid', 0))
-            p_total = int(postal_data.get('total', 0))
-            p_nota = int(postal_data.get('nota', 0))
-            p_rej = int(postal_data.get('rej', 0))
-            
-            p_results = {}
-            for cid, votes in p_v_map.items():
-                if cid not in id_map: continue
-                db_pk = id_map[cid]
-                
-                # Calculations for postal
-                share = round((votes / p_valid * 100), 2) if p_valid > 0 else 0
-                contribution = round((votes / candidate_totals[cid] * 100), 2) if candidate_totals.get(cid, 0) > 0 else 0
-                
-                p_results[db_pk] = {
-                    "votes": votes,
-                    "vote_share_percentage": share,
-                    "candidate_contribution_percentage": contribution
-                }
-            
-            # Add NOTA to postal results
-            p_results["NOTA"] = {
-                "votes": p_nota,
-                "vote_share_percentage": round((p_nota / p_valid * 100), 2) if p_valid > 0 else 0
-            }
+        postal_pk = f"CONSTITUENCY#{const_norm}#YEAR#{year}"
+        return {
+            "PK": postal_pk,
+            "SK": "POSTAL",
+            "constituency_id": const_id,
+            "year": year,
+            "results": p_results,
+            "valid_votes": p_valid,
+            "rejected_votes": p_rej,
+            "nota_votes": p_nota,
+            "total_votes_polled": p_total,
+            "created_at": int(datetime.now(timezone.utc).timestamp())
+        }
 
-            postal_pk = f"CONSTITUENCY#{const_norm}#YEAR#{year}"
-            postal_item = {
-                "PK": postal_pk,
-                "SK": "POSTAL",
-                "constituency_id": const_id,
-                "year": year,
-                "results": p_results,
-                "valid_votes": p_valid,
-                "rejected_votes": p_rej,
-                "nota_votes": p_nota,
-                "total_votes_polled": p_total,
-                "created_at": int(datetime.now(timezone.utc).timestamp())
-            }
-            
-            postal_item = convert_floats_to_decimal(postal_item)
-            if dry_run:
-                logger.info(f"Dry Run Postal Item: {json.dumps(postal_item, indent=2, cls=DecimalEncoder)}")
-            else:
-                self.polling_table.put_item(Item=postal_item)
+    def _build_summary_item(
+        self,
+        const_norm: str,
+        const_id: str,
+        year: int,
+        db_candidate_totals: Dict[str, int],
+        total_valid_votes: int,
+        total_votes_polled: int,
+        total_electors: int
+    ) -> Dict[str, Any]:
+        """Build the AC summary item from totals.
 
-        # Pass 4: Ingest AC Summary Record
+        Args:
+            const_norm: Normalized constituency name.
+            const_id: Constituency ID.
+            year: Election year.
+            db_candidate_totals: Candidate total votes mapped by DB ID.
+            total_valid_votes: Total valid votes in constituency.
+            total_votes_polled: Total votes polled in constituency.
+            total_electors: Total registered electors in constituency.
+
+        Returns:
+            The AC summary item dictionary.
+        """
         summary_pk = f"CONSTITUENCY#{const_norm}#YEAR#{year}"
-        summary_item = {
+        return {
             "PK": summary_pk,
             "SK": "AC_SUMMARY",
             "constituency_id": const_id,
@@ -347,7 +407,71 @@ class PollingDataImporter:
             "poll_percentage": round((total_votes_polled / total_electors * 100), 2) if total_electors > 0 else 0,
             "created_at": int(datetime.now(timezone.utc).timestamp())
         }
-        
+
+    def process_ac_file(self, file_path: str, dry_run: bool = False):
+        """Process a Form 20 JSON file for an entire AC.
+
+        Args:
+            file_path: Path to the JSON file.
+            dry_run: If True, do not write to DynamoDB.
+        """
+        logger.info(f"Processing file: {file_path}")
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+
+        meta = data.get('meta', {})
+        ac_name = meta.get('ac_name')
+        year = int(meta.get('year', 2026))
+        total_electors = int(meta.get('total_electors', 0))
+
+        const_norm = canonicalize_constituency(ac_name)
+        const_id = f"CONSTITUENCY#{const_norm}"
+
+        json_candidates = data.get('candidates', {})
+        stations = data.get('stations', [])
+
+        # Pass 1: Calculate total votes for each candidate in this AC
+        candidate_totals, total_valid_votes, total_nota_votes, total_rejected_votes, total_votes_polled = \
+            self._calculate_totals(stations)
+
+        # Map local_id to db_candidate_pk
+        id_map = self._resolve_candidate_ids(json_candidates, const_norm)
+
+        # Map candidate_totals to DB IDs
+        db_candidate_totals = {id_map[cid]: votes for cid, votes in candidate_totals.items() if cid in id_map}
+        db_candidate_totals["NOTA"] = total_nota_votes
+
+        # Pass 2: Ingest Polling Station Records
+        logger.info(f"Ingesting {len(stations)} polling stations for {ac_name}...")
+
+        for ps in stations:
+            item = self._build_station_item(ps, const_norm, const_id, year, id_map, candidate_totals)
+            if item is None:
+                continue
+
+            item = convert_floats_to_decimal(item)
+            if dry_run:
+                if item.get("polling_station_no") == "1":
+                    logger.info(f"Dry Run Sample Item: {json.dumps(item, indent=2, cls=DecimalEncoder)}")
+            else:
+                self.polling_table.put_item(Item=item)
+
+        # Pass 3: Ingest Postal Votes if present
+        postal_data = data.get('postal')
+        if postal_data:
+            logger.info(f"Ingesting postal votes for {ac_name}...")
+            postal_item = self._build_postal_item(postal_data, const_norm, const_id, year, id_map, candidate_totals)
+            postal_item = convert_floats_to_decimal(postal_item)
+            if dry_run:
+                logger.info(f"Dry Run Postal Item: {json.dumps(postal_item, indent=2, cls=DecimalEncoder)}")
+            else:
+                self.polling_table.put_item(Item=postal_item)
+
+        # Pass 4: Ingest AC Summary Record
+        summary_item = self._build_summary_item(
+            const_norm, const_id, year, db_candidate_totals,
+            total_valid_votes, total_votes_polled, total_electors
+        )
         summary_item = convert_floats_to_decimal(summary_item)
         if dry_run:
             logger.info(f"Dry Run AC Summary: {json.dumps(summary_item, indent=2, cls=DecimalEncoder)}")

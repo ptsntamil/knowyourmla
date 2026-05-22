@@ -11,10 +11,11 @@ import {
   DistrictInsights,
   DistrictMLA 
 } from "@/types/models";
-import { formatAssets, normalizeEducation, buildInsights, calculateAge } from "../utils/insights";
+import { formatAssets, categorizeEducation, buildInsights, calculateAge } from "../utils/insights";
 import { getPartyLogo } from "../utils/party-utils";
 import { normalizeTotalAssets } from "../utils/profile-normalizers";
 import { LATEST_ELECTION_YEAR } from "../constants/elections";
+import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
 
 
 export class DistrictService {
@@ -204,7 +205,7 @@ export class DistrictService {
             partyLogoUrl: partyInfo.logo,
             assets,
             formattedAssets: formatAssets(assets),
-            image_url: person.image_url || w.profile_pic || null,
+            image_url: normalizeCandidateProfilePic(person.image_url || w.profile_pic) || undefined,
             isFresher: (w.total_wins !== undefined && w.total_wins !== null) ? Number(w.total_wins) === 1 : undefined,
             gender: gender || "unknown",
             education: person.education || w.education // Prioritize person-level education if available

@@ -9,8 +9,6 @@ import ResultSummaryEditorial from "@/components/election/ResultSummaryEditorial
 import FAQSection from "@/components/seo/FAQSection";
 import ShareButton from "@/components/ShareButton";
 
-export const dynamic = "force-dynamic";
-
 interface PageProps {
   params: Promise<{
     slug: string;

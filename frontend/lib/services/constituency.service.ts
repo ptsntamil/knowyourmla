@@ -9,6 +9,7 @@ import {
 } from "@/types/models";
 import { getPartyLogo } from "../utils/party-utils";
 import { normalizeTotalAssets, normalizeCriminalCases } from "../utils/profile-normalizers";
+import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
 
 export class ConstituencyService {
   private repository: ConstituencyRepository;
@@ -127,7 +128,7 @@ export class ConstituencyService {
           historyRecords.push({
             year,
             winner: winnerName,
-            profile_pic: personMeta.image_url || h.profile_pic,
+            profile_pic: normalizeCandidateProfilePic(personMeta.image_url || h.profile_pic),
             party: partyInfo,
             margin,
             person_id: h.person_id,

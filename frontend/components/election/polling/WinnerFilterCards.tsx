@@ -21,7 +21,7 @@ interface WinnerStats {
   partyName: string;
   partyShort: string;
   partyLogoUrl?: string;
-  profilePic?: string;
+  profilePic?: string | null;
   colorBg?: string;
   colorText?: string;
   colorBorder?: string;

@@ -3,6 +3,7 @@ import { CandidateRepository } from "../repositories/candidate.repository";
 import { PersonRepository } from "../repositories/person.repository";
 import { ElectionRepository } from "../repositories/election.repository";
 import { normalizeTotalAssets } from "../utils/profile-normalizers";
+import { categorizeEducation } from "../utils/insights";
 import { unstable_cache } from "next/cache";
 
 export class PartyService {
@@ -85,20 +86,6 @@ export class PartyService {
           "12th Pass", "10th Pass", "8th Pass", "5th Pass", "Literate", "Illiterate", "Others"
         ];
 
-        const normalizeEducation = (edu: any = "") => {
-          const e = (edu || "").toString().toLowerCase();
-          if (e.includes("doctor") || e.includes("phd")) return "Doctorate";
-          if (e.includes("post graduate") || e.includes("pg") || e.includes("master")) return "Post Graduate";
-          if (e.includes("professional") || e.includes("law") || e.includes("medicine") || e.includes("b.e") || e.includes("mbbs")) return "Graduate Professional";
-          if (e.includes("graduate") || e.includes("degree") || e.includes("b.a") || e.includes("b.sc") || e.includes("b.com")) return "Graduate";
-          if (e.includes("12") || e.includes("hsc") || e.includes("intermediate")) return "12th Pass";
-          if (e.includes("10") || e.includes("sslc") || e.includes("matric")) return "10th Pass";
-          if (e.includes("8")) return "8th Pass";
-          if (e.includes("5")) return "5th Pass";
-          if (e.includes("literate")) return "Literate";
-          if (e.includes("illiterate")) return "Illiterate";
-          return "Others";
-        };
 
         const normalizeOccupation = (prof: any = "") => {
           const p = (prof || "").toString().toLowerCase();
@@ -166,7 +153,7 @@ export class PartyService {
         const eduCounts: Record<string, number> = {};
         educationLevels.forEach(l => eduCounts[l] = 0);
         filteredCandidates.forEach((c: any) => {
-          const norm = normalizeEducation(c.education);
+          const norm = categorizeEducation(c.education);
           eduCounts[norm] = (eduCounts[norm] || 0) + 1;
         });
         const graduateCount = (eduCounts["Graduate"] || 0) + (eduCounts["Graduate Professional"] || 0) + (eduCounts["Post Graduate"] || 0) + (eduCounts["Doctorate"] || 0);
@@ -368,7 +355,7 @@ export class PartyService {
               criminal: criminal > 0,
               new: !hasPrevious,
               young: age < 40 && age > 18,
-              graduate: ["Graduate", "Graduate Professional", "Post Graduate", "Doctorate"].includes(this.normalizeEducationLocal(c.education)),
+              graduate: ["Graduate", "Graduate Professional", "Post Graduate", "Doctorate"].includes(categorizeEducation(c.education)),
               woman: isWoman
             }
           };
@@ -379,12 +366,5 @@ export class PartyService {
     )(partyId, year);
   }
 
-  private normalizeEducationLocal(edu: any = "") {
-    const e = (edu || "").toString().toLowerCase();
-    if (e.includes("doctor") || e.includes("phd")) return "Doctorate";
-    if (e.includes("post graduate") || e.includes("pg") || e.includes("master")) return "Post Graduate";
-    if (e.includes("professional") || e.includes("law") || e.includes("medicine") || e.includes("b.e") || e.includes("mbbs")) return "Graduate Professional";
-    if (e.includes("graduate") || e.includes("degree") || e.includes("b.a") || e.includes("b.sc") || e.includes("b.com")) return "Graduate";
-    return "Others";
-  }
+
 }

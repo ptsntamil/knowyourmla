@@ -7,6 +7,7 @@ import { CandidateRepository } from "../repositories/candidate.repository";
 import { PollingResultRepository, ACSummary } from "../repositories/polling-result.repository";
 import { getPartyLogo } from "../utils/party-utils";
 import { normalizeTotalAssets } from "../utils/profile-normalizers";
+import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
 import { unstable_cache } from "next/cache";
 
 export interface ElectionSummary {
@@ -91,7 +92,7 @@ export interface CandidateResultRow {
   partyColorText?: string;
   partyColorBorder?: string;
   partyLogoUrl?: string;
-  profilePic?: string;
+  profilePic?: string | null;
   personId?: string;
 }
 
@@ -140,7 +141,7 @@ export interface CandidateInsight {
   partyColorText?: string;
   partyColorBorder?: string;
   partyLogoUrl?: string;
-  profilePic?: string;
+  profilePic?: string | null;
   personId?: string;
   partyId: string;
 }
@@ -214,7 +215,7 @@ export interface PollingStationCandidateResult {
   partyColorText?: string;
   partyColorBorder?: string;
   partyLogoUrl?: string;
-  profilePic?: string;
+  profilePic?: string | null;
 }
 
 export interface PollingStationAnalysis {
@@ -234,7 +235,10 @@ export interface PollingStationAnalysis {
   candidateResults: PollingStationCandidateResult[];
   strongholdTag?: string;
   insights: string[];
+  pollingStationName?: string;
+  electors?: number;
 }
+
 
 export interface PostalVotes {
   votes: Record<string, number>;
@@ -518,7 +522,7 @@ export class ElectionAnalyticsService {
               partyColorText: party?.color_text,
               partyColorBorder: party?.color_border,
               partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
-              profilePic: c.profile_pic?.replace(/^assets\/\d{4}\/photos\//, '/candidate/'),
+              profilePic: normalizeCandidateProfilePic(c.profile_pic),
               personId: c.person_id?.replace("PERSON#", ""),
               partyId: c.party_id?.replace("PARTY#", "")
             };
@@ -546,7 +550,7 @@ export class ElectionAnalyticsService {
               partyColorText: party?.color_text,
               partyColorBorder: party?.color_border,
               partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
-              profilePic: c.profile_pic?.replace(/^assets\/\d{4}\/photos\//, '/candidate/'),
+              profilePic: normalizeCandidateProfilePic(c.profile_pic),
               personId: c.person_id?.replace("PERSON#", ""),
               partyId: c.party_id?.replace("PARTY#", "")
             };
@@ -606,7 +610,7 @@ export class ElectionAnalyticsService {
               partyColorText: party?.color_text,
               partyColorBorder: party?.color_border,
               partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
-              profilePic: c.profile_pic?.replace(/^assets\/\d{4}\/photos\//, '/candidate/'),
+              profilePic: normalizeCandidateProfilePic(c.profile_pic),
               personId: c.person_id?.replace("PERSON#", ""),
               partyId: c.party_id?.replace("PARTY#", "")
             };
@@ -791,7 +795,7 @@ export class ElectionAnalyticsService {
             partyColorText: party?.color_text,
             partyColorBorder: party?.color_border,
             partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
-            profilePic: c.profile_pic?.replace(/^assets\/\d{4}\/photos\//, '/candidate/'),
+            profilePic: normalizeCandidateProfilePic(c.profile_pic),
             personId: c.person_id?.replace("PERSON#", "")
           };
         });
@@ -873,7 +877,7 @@ export class ElectionAnalyticsService {
                 partyColorText: party?.color_text,
                 partyColorBorder: party?.color_border,
                 partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
-                profilePic: candidate?.profile_pic?.replace(/^assets\/\d{4}\/photos\//, '/candidate/'),
+                profilePic: normalizeCandidateProfilePic(candidate?.profile_pic),
               };
             })
             .sort((a, b) => b.votes - a.votes);
@@ -930,8 +934,11 @@ export class ElectionAnalyticsService {
             notaPercentage,
             candidateResults: resultsArray,
             strongholdTag,
-            insights
+            insights,
+            pollingStationName: ps.ps_name || ps.polling_station_name || undefined,
+            electors: ps.electors || ps.total_electors || undefined
           };
+
         });
 
         // Add Postal Votes as a special "Polling Station 0"
@@ -954,7 +961,7 @@ export class ElectionAnalyticsService {
                 partyColorText: party?.color_text,
                 partyColorBorder: party?.color_border,
                 partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
-                profilePic: candidate?.profile_pic?.replace(/^assets\/\d{4}\/photos\//, '/candidate/'),
+                profilePic: normalizeCandidateProfilePic(candidate?.profile_pic),
               };
             })
             .sort((a, b) => b.votes - a.votes);

@@ -1,16 +1,13 @@
 import { fetchMLAProfile } from "@/services/api";
-import { headers } from "next/headers";
 import Link from "next/link";
 import MLAHeader from "@/components/MLAHeader";
 import HistoryTable from "@/components/HistoryTable";
 import { AssetChart, VoteTrendChart, MarginTrendChart } from "@/components/AnalyticsCharts";
 import { buildMetadata } from "@/lib/seo/metadata";
-import { commonBreadcrumbs } from "@/lib/seo/breadcrumbs";
 import { generatePersonSchema } from "@/lib/seo/jsonld";
 import SEOIntro from "@/components/seo/SEOIntro";
 import AnswerSnippet from "@/components/seo/AnswerSnippet";
 import FAQSection from "@/components/seo/FAQSection";
-import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import JsonLd from "@/components/seo/JsonLd";
 import { AttendanceWidget, QuestionsWidget } from "@/components/MetricWidgets";
@@ -18,7 +15,6 @@ import IncomeDetailsTable from "@/components/IncomeDetailsTable";
 import ElectionExpensesWidget from "@/components/ElectionExpensesWidget";
 import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from "@/lib/constants/elections";
 
-export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -96,10 +92,6 @@ export default async function MLAProfilePage({ params }: PageProps) {
     }
   ];
 
-  const headersList = await headers();
-  const referer = headersList.get("referer") || "";
-  const isFromParty = referer.includes("/parties/") || referer.includes("/party/");
-
   const districtSlug = latestElection?.district_name?.toLowerCase().replace(/\s+/g, '-');
   const constituencySlug = latestElection?.constituency.toLowerCase().replace(/\s+/g, '-');
   const partySlug = latestElection?.party.toLowerCase().replace(/\s+/g, '-');
@@ -109,14 +101,10 @@ export default async function MLAProfilePage({ params }: PageProps) {
     { name: "TN", item: "/tn" },
   ];
 
-  if (isFromParty) {
-    breadcrumbItems.push({ name: party, item: `/parties/${partySlug}` });
-  } else {
-    if (latestElection?.district_name) {
-      breadcrumbItems.push({ name: latestElection.district_name, item: `/tn/districts/${districtSlug}` });
-    }
-    breadcrumbItems.push({ name: constituency, item: `/tn/constituency/${constituencySlug}` });
+  if (latestElection?.district_name) {
+    breadcrumbItems.push({ name: latestElection.district_name, item: `/tn/districts/${districtSlug}` });
   }
+  breadcrumbItems.push({ name: constituency, item: `/tn/constituency/${constituencySlug}` });
 
   breadcrumbItems.push({ name: profile.person.name, item: `/tn/mla/${slug}` });
 
@@ -130,7 +118,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
           name: profile.person.name,
           party: party,
           constituency: constituency,
-          image: profile.person.image_url
+          image: profile.person.image_url || undefined
         })}
       />
 
