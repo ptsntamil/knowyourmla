@@ -3,13 +3,13 @@ import { EmailService } from "@/lib/services/email.service";
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, url } = await request.json();
+    const { message, url, name, email } = await request.json();
     if (!message || !url) {
       return NextResponse.json({ error: "Missing message or url" }, { status: 400 });
     }
 
     const service = new EmailService();
-    const success = await service.sendFeedback(message, url);
+    const success = await service.sendFeedback(message, url, name, email);
     
     if (success) {
       return NextResponse.json({ status: "ok" });
