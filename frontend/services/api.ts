@@ -128,13 +128,13 @@ export async function fetchMLAs(year: number = parseInt(LATEST_ELECTION_YEAR)): 
   return res.json();
 }
 
-export async function submitFeedback(message: string, url: string): Promise<any> {
+export async function submitFeedback(message: string, url: string, name?: string, email?: string): Promise<any> {
   const res = await fetch(`${BASE_URL}/feedback`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ message, url }),
+    body: JSON.stringify({ message, url, name, email }),
   });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
