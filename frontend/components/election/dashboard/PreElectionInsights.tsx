@@ -5,6 +5,7 @@ import { DashboardInsights, ElectionInsightCandidate, ContestCard } from '@/lib/
 import PartyBadge from '@/components/ui/PartyBadge';
 import Link from 'next/link';
 import { Trophy, TrendingUp, AlertTriangle, Scale, Target, Users, MapPin, IndianRupee, Gavel } from 'lucide-react';
+import ProfileImage from '@/components/ProfileImage';
 import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from '@/lib/constants/elections';
 
 interface PreElectionInsightsProps {
@@ -79,11 +80,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
     <div key={`${c.name}-${idx}`} className="group p-6 flex items-center justify-between hover:bg-slate-50/20 transition-all">
       <div className="flex items-center gap-4 min-w-0">
         <div className="w-10 h-10 rounded-2xl border border-brand-gold/20 bg-slate-50 overflow-hidden flex items-center justify-center text-[10px] font-black text-brand-gold group-hover:border-brand-gold transition-all relative shrink-0 italic">
-          {c.profilePic ? (
-            <img src={c.profilePic} alt={c.name} className="w-full h-full object-cover" />
-          ) : (
-            <span>#{idx + 1}</span>
-          )}
+          <ProfileImage src={c.profilePic} alt={c.name} className="w-full h-full object-cover" />
         </div>
         <div className="min-w-0">
           <Link href={`/tn/mla/${c.personId}`} className="block">
