@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { Star, UserCheck, ChevronRight } from 'lucide-react';
 import { ElectionInsightCandidate } from '@/lib/elections/preElectionDashboard/dashboard.types';
 import PartyBadge from '@/components/ui/PartyBadge';
+import ProfileImage from '@/components/ProfileImage';
 
 interface SpecialFocusCandidatesProps {
   starCandidates: ElectionInsightCandidate[];
@@ -79,18 +80,11 @@ function CandidateFocusWidget({ candidate }: { candidate: ElectionInsightCandida
     <div className="group bg-white border border-slate-100 rounded-2xl p-4 transition-all duration-300 hover:shadow-xl hover:shadow-brand-gold/5 hover:-translate-y-0.5 flex items-center gap-4 relative overflow-hidden">
       {/* Profile Pic */}
       <div className="relative w-14 h-14 rounded-xl overflow-hidden bg-slate-50 border border-slate-100 shrink-0">
-        {candidate.profilePic ? (
-          <Image
-            src={candidate.profilePic}
-            alt={candidate.name}
-            fill
-            className="object-cover transition-transform duration-500 group-hover:scale-110"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center text-slate-200">
-            <UserCheck size={24} />
-          </div>
-        )}
+        <ProfileImage
+          src={candidate.profilePic}
+          alt={candidate.name}
+          className="object-cover transition-transform duration-500 group-hover:scale-110 w-full h-full"
+        />
       </div>
 
       {/* Info */}

@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Ignore candidate photos to prevent Vercel bloat
+public/candidate/2026/photos

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { User, IndianRupee, Gavel, ChevronRight } from 'lucide-react';
 import { DashboardCandidate } from '@/lib/elections/preElectionDashboard/dashboard.types';
 import PartyBadge from '@/components/ui/PartyBadge';
+import ProfileImage from '@/components/ProfileImage';
 import { sortByPartyOrder, getPartyRank } from '@/lib/elections/preElectionDashboard/dashboard.utils';
 
 interface CandidatePreviewProps {
@@ -46,11 +47,7 @@ export default function CandidatePreview({ candidates }: CandidatePreviewProps) 
             <div className="flex justify-between items-start">
               <div className="flex gap-4">
                 <Link href={`/tn/mla/${c.personId}`} className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center text-slate-400 shrink-0 overflow-hidden hover:opacity-80 transition-opacity">
-                  {c.profilePic ? (
-                    <img src={c.profilePic} className="w-full h-full object-cover" alt={c.name} />
-                  ) : (
-                    <User size={20} />
-                  )}
+                  <ProfileImage src={c.profilePic} alt={c.name} className="w-full h-full object-cover" />
                 </Link>
                 <div className="space-y-0.5">
                   <Link href={`/tn/mla/${c.personId}`}>

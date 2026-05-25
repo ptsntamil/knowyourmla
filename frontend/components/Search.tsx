@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { Search as SearchIcon, X, Loader2, MapPin, Users, Building2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
+import ProfileImage from "@/components/ProfileImage";
 
 interface SearchResult {
   id: string;
@@ -146,7 +146,7 @@ export default function Search() {
                   >
                     {result.type === "person" && result.image ? (
                       <div className="relative h-10 w-10 rounded-lg overflow-hidden shrink-0 border border-white/10">
-                        <Image src={result.image} alt={result.name} fill className="object-cover" />
+                        <ProfileImage src={result.image} alt={result.name} className="object-cover w-full h-full" />
                       </div>
                     ) : (
                       <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center shrink-0 border border-white/10 group-hover:border-brand-gold/30 transition-colors">

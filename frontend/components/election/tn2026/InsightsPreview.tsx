@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { ChevronRight, CreditCard, User, Gavel, Calendar } from 'lucide-react';
 import { DashboardInsights } from '@/lib/elections/preElectionDashboard/dashboard.types';
+import ProfileImage from '@/components/ProfileImage';
 
 interface InsightsPreviewProps {
   insights: DashboardInsights;
@@ -66,13 +67,7 @@ export default function InsightsPreview({ insights }: InsightsPreviewProps) {
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
                   <Link href={`/tn/mla/${h.data.personId}`} className="w-8 h-8 rounded-full bg-slate-100 overflow-hidden shrink-0 hover:opacity-80 transition-opacity">
-                    {h.data.profilePic ? (
-                      <img src={h.data.profilePic} className="w-full h-full object-cover" alt={h.data.name} />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-slate-400">
-                        <User size={14} />
-                      </div>
-                    )}
+                    <ProfileImage src={h.data.profilePic} alt={h.data.name} className="w-full h-full object-cover" />
                   </Link>
                   <div>
                     <Link href={`/tn/mla/${h.data.personId}`}>
