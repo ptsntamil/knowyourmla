@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { WinnerHistoryRecord } from "@/types/models";
+import { normalizeEducation } from "@/lib/utils/profile-normalizers";
 import ProfileImage from "@/components/ProfileImage";
 import Badge from "@/components/ui/Badge";
 import PartyBadge from "@/components/ui/PartyBadge";
@@ -39,11 +40,7 @@ export default function MLASnapshotCard({ mla, constituencyName }: MLASnapshotCa
   };
 
   const cleanEducation = (edu?: string) => {
-    if (!edu) return "Not Available";
-    if (edu.includes("Category:")) {
-      return edu.split(":")[1].trim().split(" ")[0].replace(/,/g, "");
-    }
-    return edu;
+    return normalizeEducation(edu) ?? "Not Available";
   };
 
   // 4) Insight Strip Zone Sentence

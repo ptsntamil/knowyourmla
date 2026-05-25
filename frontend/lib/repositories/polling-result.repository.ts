@@ -17,7 +17,11 @@ export interface PollingStationResult {
   total_votes_polled: number;
   total_electors?: number;
   created_at: number;
+  ps_name?: string;
+  polling_station_name?: string;
+  electors?: number;
 }
+
 
 export interface ACSummary {
   PK: string;
@@ -48,9 +52,17 @@ export class PollingResultRepository {
     return this.client.query({
       IndexName: "ConstituencyIndex",
       KeyConditionExpression: "constituency_id = :constituency_id",
+      FilterExpression: "SK = :sk AND #yr = :year",
       ExpressionAttributeValues: {
         ":constituency_id": cid,
-      }
+        ":sk": "METADATA",
+        ":year": year
+      },
+      ExpressionAttributeNames: {
+        "#yr": "year",
+        "#res": "results"
+      },
+      ProjectionExpression: "PK, SK, constituency_id, polling_station_no, #yr, #res, valid_votes, nota_votes, total_votes_polled, total_electors, ps_name, polling_station_name, electors"
     }) as Promise<PollingStationResult[]>;
   }
 
