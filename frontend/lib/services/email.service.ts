@@ -30,7 +30,7 @@ export class EmailService {
     }
   }
 
-  async sendFeedback(message: string, url: string): Promise<boolean> {
+  async sendFeedback(message: string, url: string, name?: string, email?: string): Promise<boolean> {
     const creds = await this.getCredentials();
     if (!creds || !creds.username || !creds.password) {
       console.error("Missing email credentials");
@@ -45,19 +45,25 @@ export class EmailService {
       },
     });
 
-    const mailOptions = {
+    const mailOptions: any = {
       from: creds.username,
       to: "ptsntamil1@gmail.com",
       subject: "User Feedback from KnowYourMLA",
       text: `
         User Feedback:
         --------------------------------------------------
-        ${message}
+        Name: ${name || 'Not provided'}
+        Email: ${email || 'Not provided'}
+        Message: ${message}
         --------------------------------------------------
         
         Submitted from URL: ${url}
       `,
     };
+
+    if (email) {
+      mailOptions.replyTo = email;
+    }
 
     try {
       await transporter.sendMail(mailOptions);
