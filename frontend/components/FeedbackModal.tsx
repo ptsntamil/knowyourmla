@@ -9,8 +9,12 @@ interface FeedbackModalProps {
   onClose: () => void;
 }
 
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose }) => {
   const [message, setMessage] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -20,6 +24,8 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose }) => {
     if (!isOpen) {
       setTimeout(() => {
         setMessage('');
+        setName('');
+        setEmail('');
         setStatus('idle');
         setErrorMessage('');
       }, 300);
@@ -32,11 +38,17 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose }) => {
     e.preventDefault();
     if (!message.trim()) return;
 
+    if (email.trim() && !EMAIL_REGEX.test(email.trim())) {
+      setStatus('error');
+      setErrorMessage('Please enter a valid email address.');
+      return;
+    }
+
     setIsSubmitting(true);
     setStatus('idle');
     
     try {
-      await submitFeedback(message, window.location.href);
+      await submitFeedback(message, window.location.href, name.trim(), email.trim());
       setStatus('success');
       setTimeout(() => {
         onClose();
@@ -76,15 +88,46 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose }) => {
             <div className="flex flex-col items-center justify-center py-10 text-center space-y-4 animate-in zoom-in-90 duration-300">
               <CheckCircle2 size={64} className="text-brand-green" />
               <div className="space-y-2">
-                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Thank You!</h3>
-                <p className="text-slate-600 dark:text-slate-400">Your feedback has been submitted successfully.</p>
+                <h3 className="text-xl font-bold text-slate-900 dark:text-white">Success!</h3>
+                <p className="text-slate-600 dark:text-slate-400">Thank you for your feedback.</p>
               </div>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <label htmlFor="feedback-name" className="block text-sm font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                    Name (Optional)
+                  </label>
+                  <input
+                    id="feedback-name"
+                    type="text"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Your name"
+                    className="w-full p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-brand-gold dark:focus:border-brand-gold focus:ring-0 outline-none transition-colors text-slate-900 dark:text-slate-100"
+                    disabled={isSubmitting}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <label htmlFor="feedback-email" className="block text-sm font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">
+                    Email (Optional)
+                  </label>
+                  <input
+                    id="feedback-email"
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="your.email@example.com"
+                    className="w-full p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-brand-gold dark:focus:border-brand-gold focus:ring-0 outline-none transition-colors text-slate-900 dark:text-slate-100"
+                    disabled={isSubmitting}
+                  />
+                </div>
+              </div>
+
               <div className="space-y-2">
                 <label htmlFor="feedback-message" className="block text-sm font-black text-slate-700 dark:text-slate-300 uppercase tracking-wider">
-                  Your Message
+                  Your Message <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="feedback-message"
@@ -92,7 +135,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose }) => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   placeholder="Tell us what's on your mind... (data corrections, feature requests, etc.)"
-                  className="w-full h-40 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-brand-gold dark:focus:border-brand-gold focus:ring-0 outline-none transition-colors resize-none text-slate-900 dark:text-slate-100"
+                  className="w-full h-32 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800 border-2 border-slate-100 dark:border-slate-700 focus:border-brand-gold dark:focus:border-brand-gold focus:ring-0 outline-none transition-colors resize-none text-slate-900 dark:text-slate-100"
                   disabled={isSubmitting}
                 />
               </div>
@@ -106,7 +149,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose }) => {
 
               <button
                 type="submit"
-                disabled={isSubmitting || !message.trim()}
+                disabled={isSubmitting || !message.trim() || (email.trim().length > 0 && !EMAIL_REGEX.test(email.trim()))}
                 className="w-full py-4 bg-brand-green hover:bg-brand-green/90 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-2xl font-black uppercase tracking-widest flex items-center justify-center gap-3 transition-all shadow-lg hover:shadow-brand-green/20"
               >
                 {isSubmitting ? (
