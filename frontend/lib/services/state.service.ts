@@ -5,7 +5,10 @@ import { MLARepository } from "../repositories/mla.repository";
 import { PartyRepository } from "../repositories/party.repository";
 import { DistrictMLA, DistrictInsights } from "@/types/models";
 import { formatAssets, buildInsights, calculateAge, getDistributionData } from "../utils/insights";
-import { normalizeProfileEducation, normalizeTotalAssets } from "../utils/profile-normalizers";
+import { normalizeEducation, normalizeTotalAssets } from "../utils/profile-normalizers";
+import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
+import { unstable_cache } from "next/cache";
+import { getCachedPartyInfoMap } from "./shared/party-cache";
 
 export interface StateOverviewResponse {
   totalConstituencies: number;
@@ -31,7 +34,6 @@ export class StateService {
   private personRepo: PersonRepository;
   private mlaRepo: MLARepository;
   private partyRepo: PartyRepository;
-  private _partyCache: Record<string, any> | null = null;
 
   constructor(
     districtRepo?: DistrictRepository,
@@ -47,132 +49,110 @@ export class StateService {
     this.partyRepo = partyRepo || new PartyRepository();
   }
 
-  private async ensurePartyCache() {
-    if (this._partyCache === null) {
-      try {
-        const parties = await this.partyRepo.getAllParties();
-        this._partyCache = {};
-        for (const p of parties) {
-          const pk = (p.PK || "").toUpperCase();
-          const data = {
-            logo: p.logo_url,
-            short_name: p.short_name,
-            color_bg: p.color_bg,
-            color_text: p.color_text,
-            color_border: p.color_border,
-          };
-          this._partyCache[pk] = data;
-          if (data.short_name) {
-            this._partyCache[`PARTY#${data.short_name.toUpperCase()}`] = data;
-          }
-          if (p.name) {
-            this._partyCache[`PARTY#${p.name.toUpperCase()}`] = data;
-          }
-        }
-      } catch (error) {
-        console.error("Error building party cache:", error);
-        this._partyCache = {};
-      }
-    }
-  }
-
-  private async getPartyInfo(partyId: string) {
-    if (!partyId) return { logo: null, short_name: null, color_bg: null, color_text: null, color_border: null };
-    await this.ensurePartyCache();
-    return this._partyCache?.[partyId.toUpperCase()] || { logo: null, short_name: null, color_bg: null, color_text: null, color_border: null };
-  }
 
   async getStateOverview(): Promise<StateOverviewResponse> {
-    const [districts, constituencies, winners] = await Promise.all([
-      this.districtRepo.getAllDistricts(),
-      this.constituencyRepo.getAllConstituencies(),
-      this.mlaRepo.getWinnersByYearRange(2026, 2031)
-    ]);
+    return unstable_cache(
+      async (): Promise<StateOverviewResponse> => {
+        const [districts, constituencies, winners] = await Promise.all([
+          this.districtRepo.getAllDistricts(),
+          this.constituencyRepo.getAllConstituencies(),
+          this.mlaRepo.getWinnersByYearRange(2021, 2031) // Expanded to include 2021 fallback
+        ]);
 
-    // Filter only 2021 winners
-    const currentWinners = winners.filter((w: any) => parseInt(w.year) === 2026);
+        const { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } = await import("../constants/elections");
+        
+        // Filter latest winners. Fallback to previous election year if latest (2026) hasn't happened or has no data yet.
+        let currentWinners = winners.filter((w: any) => parseInt(w.year) === parseInt(LATEST_ELECTION_YEAR));
+        if (!currentWinners || currentWinners.length === 0) {
+          currentWinners = winners.filter((w: any) => parseInt(w.year) === parseInt(PREVIOUS_ELECTION_YEAR));
+        }
 
-    // Fetch person details
-    const personIds = Array.from(new Set(currentWinners.map((w: any) => w.person_id).filter(Boolean)));
-    const persons = await this.personRepo.getPersonsByIds(personIds as string[]);
-    const personMap = persons.reduce((acc: any, p: any) => {
-      acc[p.PK] = p;
-      return acc;
-    }, {});
 
-    await this.ensurePartyCache();
+        // Fetch person details
+        const personIds = Array.from(new Set(currentWinners.map((w: any) => w.person_id).filter(Boolean)));
+        const persons = await this.personRepo.getPersonsByIds(personIds as string[]);
+        const personMap = persons.reduce((acc: any, p: any) => {
+          acc[p.PK] = p;
+          return acc;
+        }, {});
 
-    const mlaList: DistrictMLA[] = await Promise.all(currentWinners.map(async (w: any) => {
-      const person = personMap[w.person_id] || {};
-      const constituency = constituencies.find((c: any) => c.PK === w.constituency_id);
+        const partyCache = await getCachedPartyInfoMap();
 
-      const birthYear = person.birth_year || person.birthyear;
-      const age = calculateAge(birthYear) || (person.age ? parseInt(person.age) : null);
-      const gender = (person.sex || person.gender || "").toLowerCase();
-      const assets = normalizeTotalAssets(w.total_assets);
-      const margin = normalizeTotalAssets(w.winning_margin || w.margin);
-      const votes = normalizeTotalAssets(w.total_votes);
+        const mlaList: DistrictMLA[] = currentWinners.map((w: any) => {
+          const person = personMap[w.person_id] || {};
+          const constituency = constituencies.find((c: any) => c.PK === w.constituency_id);
 
-      const partyInfo = await this.getPartyInfo(w.party_id);
-      const partyShort = partyInfo.short_name || w.party_id?.replace("PARTY#", "") || "IND";
+          const birthYear = person.birth_year || person.birthyear;
+          const age = calculateAge(birthYear) || (person.age ? parseInt(person.age) : null);
+          const gender = (person.sex || person.gender || "").toLowerCase();
+          const assets = normalizeTotalAssets(w.total_assets);
+          const margin = normalizeTotalAssets(w.winning_margin || w.margin);
+          const votes = normalizeTotalAssets(w.total_votes);
 
-      return {
-        name: person.name || w.candidate_name || "Unknown",
-        age,
-        slug: (person.name || w.candidate_name || "Unknown").toLowerCase().replace(/[^a-z0-9]/g, "-"),
-        constituency: constituency?.name || w.constituency_id?.replace("CONSTITUENCY#", ""),
-        constituencyId: w.constituency_id,
-        party: partyShort,
-        partyShort: partyShort,
-        partyColor: partyInfo.color_bg,
-        partyColorText: partyInfo.color_text,
-        partyColorBorder: partyInfo.color_border,
-        partyLogoUrl: partyInfo.logo,
-        assets,
-        formattedAssets: formatAssets(assets),
-        margin,
-        votes,
-        image_url: person.image_url || w.profile_pic || null,
-        isFresher: (w.total_wins !== undefined && w.total_wins !== null) ? Number(w.total_wins) === 1 : undefined,
-        gender: gender || "unknown",
-        education: normalizeProfileEducation(person.education || w.education)
-      };
+          const pId = w.party_id?.toUpperCase();
+          const partyInfo = (pId && partyCache[pId]) || { logo: null, short_name: null, color_bg: null, color_text: null, color_border: null };
+          const partyShort = partyInfo.short_name || w.party_id?.replace("PARTY#", "") || "IND";
 
-    }));
+          return {
+            name: person.name || w.candidate_name || "Unknown",
+            age,
+            slug: (person.name || w.candidate_name || "Unknown").toLowerCase().replace(/[^a-z0-9]/g, "-"),
+            constituency: constituency?.name || w.constituency_id?.replace("CONSTITUENCY#", ""),
+            constituencyId: w.constituency_id,
+            party: partyShort,
+            partyShort: partyShort,
+            partyColor: partyInfo.color_bg,
+            partyColorText: partyInfo.color_text,
+            partyColorBorder: partyInfo.color_border,
+            partyLogoUrl: partyInfo.logo,
+            assets,
+            formattedAssets: formatAssets(assets),
+            margin,
+            votes,
+            image_url: normalizeCandidateProfilePic(person.image_url || w.profile_pic) || undefined,
+            isFresher: (w.total_wins !== undefined && w.total_wins !== null) ? Number(w.total_wins) === 1 : undefined,
+            gender: gender || "unknown",
+            education: normalizeEducation(person.education || w.education)
+          };
 
-    const insights = buildInsights(mlaList as any);
-    const partySpread = new Set(mlaList.map(m => m.party)).size;
+        });
 
-    // Calculate constituency count map
-    const districtCountMap: Record<string, number> = {};
-    constituencies.forEach((c: any) => {
-      if (c.district_id) {
-        districtCountMap[c.district_id] = (districtCountMap[c.district_id] || 0) + 1;
-      }
-    });
+        const insights = buildInsights(mlaList as any);
+        const partySpread = new Set(mlaList.map(m => m.party)).size;
 
-    return {
-      totalConstituencies: constituencies.length,
-      totalMLAs: mlaList.length,
-      totalDistricts: districts.length,
-      partySpread,
-      insights,
-      mlas: mlaList,
-      districts: districts.map((d: any) => ({
-        id: d.PK,
-        name: d.name,
-        slug: d.PK.replace("DISTRICT#", "").toLowerCase(),
-        total_constituencies: districtCountMap[d.PK] || d.total_constituencies || 0,
-        image_url: d.image_url
-      })),
-      districtCountMap,
-      distributions: {
-        party: getDistributionData(mlaList, 'party'),
-        education: getDistributionData(mlaList, 'education'),
-        gender: getDistributionData(mlaList, 'gender'),
-        age: getDistributionData(mlaList, 'age')
-      }
-    };
+        // Calculate constituency count map
+        const districtCountMap: Record<string, number> = {};
+        constituencies.forEach((c: any) => {
+          if (c.district_id) {
+            districtCountMap[c.district_id] = (districtCountMap[c.district_id] || 0) + 1;
+          }
+        });
 
+        return {
+          totalConstituencies: constituencies.length,
+          totalMLAs: mlaList.length,
+          totalDistricts: districts.length,
+          partySpread,
+          insights,
+          mlas: mlaList,
+          districts: districts.map((d: any) => ({
+            id: d.PK,
+            name: d.name,
+            slug: d.PK.replace("DISTRICT#", "").toLowerCase(),
+            total_constituencies: districtCountMap[d.PK] || d.total_constituencies || 0,
+            image_url: d.image_url
+          })),
+          districtCountMap,
+          distributions: {
+            party: getDistributionData(mlaList, 'party'),
+            education: getDistributionData(mlaList, 'education'),
+            gender: getDistributionData(mlaList, 'gender'),
+            age: getDistributionData(mlaList, 'age')
+          }
+        };
+      },
+      ["state-overview"],
+      { revalidate: 86400, tags: ["state-summary"] }
+    )();
   }
 }

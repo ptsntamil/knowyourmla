@@ -1,10 +1,13 @@
 import { DynamoDBWrapper } from "../dynamodb";
+import { ElectionRepository } from "./election.repository";
 
 export class MLARepository {
   private client: DynamoDBWrapper;
+  private electionRepo: ElectionRepository;
 
   constructor(tableName: string = process.env.CANDIDATES_TABLE || "knowyourmla_candidates") {
     this.client = new DynamoDBWrapper(tableName);
+    this.electionRepo = new ElectionRepository();
   }
 
   /**
@@ -29,15 +32,26 @@ export class MLARepository {
 
   /**
    * Fetches winners within a year range. 
-   * Note: Since year is Partition Key in YearIndex, we query each year.
+   * Note: Queries only valid election years dynamically fetched from the elections table.
    */
   async getWinnersByYearRange(startYear: number, endYear: number) {
-    const years = [];
-    for (let y = startYear; y <= endYear; y++) {
-      years.push(y);
+    const allElections = await this.electionRepo.getAllElections();
+    
+    // Filter for Assembly elections to isolate relevant years (includes bye-elections if defined)
+    const validYears = Array.from(new Set(
+      allElections
+        .filter(e => e.type === "Assembly")
+        .map(e => e.year)
+    ));
+
+    let targetYears = validYears.filter(y => y >= startYear && y <= endYear);
+
+    // Fallback if the elections table is empty or missing data
+    if (targetYears.length === 0) {
+      targetYears = [startYear];
     }
 
-    const results = await Promise.all(years.map(y => this.getWinnersByYear(y)));
+    const results = await Promise.all(targetYears.map(y => this.getWinnersByYear(y)));
     return results.flat();
   }
 

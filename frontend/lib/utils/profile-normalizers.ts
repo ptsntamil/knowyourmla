@@ -1,4 +1,4 @@
-export function normalizeProfileEducation(education: any): string | undefined {
+export function normalizeEducation(education: any): string | undefined {
   if (!education) return undefined;
   if (typeof education === "string") return education.trim() || undefined;
 
@@ -11,14 +11,14 @@ export function normalizeProfileEducation(education: any): string | undefined {
     if (hasStructuredEducation) {
       const sorted = [...education].sort((a: any, b: any) => Number(b?.year || 0) - Number(a?.year || 0));
       for (const item of sorted) {
-        const normalized = normalizeProfileEducation(item);
+        const normalized = normalizeEducation(item);
         if (normalized) return normalized;
       }
       return undefined;
     }
 
     for (const item of education) {
-      const normalized = normalizeProfileEducation(item);
+      const normalized = normalizeEducation(item);
       if (normalized) return normalized;
     }
     return undefined;
@@ -27,9 +27,9 @@ export function normalizeProfileEducation(education: any): string | undefined {
   if (typeof education === "object") {
     if ("self" in education || "spouse" in education || "dependents" in education) {
       return (
-        normalizeProfileEducation(education.self) ||
-        normalizeProfileEducation(education.spouse) ||
-        normalizeProfileEducation(education.dependents)
+        normalizeEducation(education.self) ||
+        normalizeEducation(education.spouse) ||
+        normalizeEducation(education.dependents)
       );
     }
 
@@ -49,13 +49,13 @@ export function normalizeProfileEducation(education: any): string | undefined {
   return undefined;
 }
 
-export function normalizeProfileProfession(profession: any): string | undefined {
+export function normalizeProfession(profession: any): string | undefined {
   if (!profession) return undefined;
   if (typeof profession === "string") return profession.trim() || undefined;
 
   if (Array.isArray(profession)) {
     for (const item of profession) {
-      const normalized = normalizeProfileProfession(item);
+      const normalized = normalizeProfession(item);
       if (normalized) return normalized;
     }
     return undefined;
@@ -64,9 +64,9 @@ export function normalizeProfileProfession(profession: any): string | undefined 
   if (typeof profession === "object") {
     if ("self" in profession || "spouse" in profession || "dependents" in profession) {
       return (
-        normalizeProfileProfession(profession.self) ||
-        normalizeProfileProfession(profession.spouse) ||
-        normalizeProfileProfession(profession.dependents)
+        normalizeProfession(profession.self) ||
+        normalizeProfession(profession.spouse) ||
+        normalizeProfession(profession.dependents)
       );
     }
 

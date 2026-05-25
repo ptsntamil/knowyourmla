@@ -95,6 +95,12 @@ export default async function PollingStationDetailPage({ params }: PageProps) {
               <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
                 Polling Station {number} Analysis
               </h1>
+              {station.pollingStationName && (
+                <div className="flex items-center gap-2 text-slate-500 font-bold text-lg mt-2">
+                  <MapPin size={20} className="text-blue-600 shrink-0" />
+                  <span>{station.pollingStationName}</span>
+                </div>
+              )}
             </div>
 
             <div className="bg-slate-900 text-white p-6 rounded-2xl shadow-xl flex items-center gap-6 min-w-[300px]">
@@ -117,7 +123,7 @@ export default async function PollingStationDetailPage({ params }: PageProps) {
           <MetricCard
             label="Total Votes Polled"
             value={station.totalVotes.toLocaleString()}
-            subValue={`Valid: ${station.validVotes.toLocaleString()}`}
+            subValue={`Valid: ${station.validVotes.toLocaleString()}${station.electors ? ` | Electors: ${station.electors.toLocaleString()}` : ''}`}
             icon={<Users className="text-blue-600" />}
           />
           <MetricCard
@@ -129,7 +135,7 @@ export default async function PollingStationDetailPage({ params }: PageProps) {
           <MetricCard
             label="Turnout Analysis"
             value={`${station?.turnoutPercentage.toFixed(1)}%`}
-            subValue={`Avg AC: ${result.avgTurnout.toFixed(1)}%`}
+            subValue={`Avg AC: ${result.avgTurnout.toFixed(1)}%${station.electors ? ` (${station.totalVotes.toLocaleString()} / ${station.electors.toLocaleString()})` : ''}`}
             icon={<TrendingUp className="text-purple-600" />}
           />
           <MetricCard

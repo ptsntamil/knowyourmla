@@ -37,7 +37,7 @@ export interface DistrictMLA {
   partyLogoUrl?: string;
   assets: number | null;
   formattedAssets: string;
-  image_url?: string;
+  image_url?: string | null;
   isFresher?: boolean;
   gender?: string;
   education?: string;
@@ -103,7 +103,7 @@ export interface PartyObj {
 export interface WinnerHistoryRecord {
   year: number;
   winner: string;
-  profile_pic?: string;
+  profile_pic?: string | null;
   party: PartyObj;
   margin: number;
   person_id?: string;
@@ -141,7 +141,7 @@ export interface ConstituencyWinnerHistoryResponse {
 export interface PersonDetail {
   person_id: string;
   name: string;
-  image_url?: string;
+  image_url?: string | null;
   education?: string;
   profession?: string;
   age?: number;

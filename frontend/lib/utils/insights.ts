@@ -1,5 +1,5 @@
 import { DistrictInsights, DistrictMLA } from "@/types/models";
-import { normalizeProfileEducation } from "./profile-normalizers";
+import { normalizeEducation } from "./profile-normalizers";
 
 /**
  * Formats a numeric asset value into a human-readable string (Cr, L).
@@ -18,11 +18,11 @@ export function formatAssets(value: number | null): string {
 /**
  * Normalizes education strings into standard categories.
  */
-export function normalizeEducation(edu: any): string {
+export function categorizeEducation(edu: any): string {
   if (!edu) return "Unknown";
-  
+
   // Extract string if it's a dict or array
-  const eduStr = typeof edu === "string" ? edu : normalizeProfileEducation(edu) || "";
+  const eduStr = typeof edu === "string" ? edu : normalizeEducation(edu) || "";
   if (!eduStr) return "Unknown";
 
   const e = eduStr.toLowerCase();
@@ -107,7 +107,7 @@ export function buildInsights(mlas: (DistrictMLA & { gender?: string; education?
 
   const eduCounts: Record<string, number> = {};
   mlas.forEach((m) => {
-    const edu = normalizeEducation(m.education || null);
+    const edu = categorizeEducation(m.education || null);
     eduCounts[edu] = (eduCounts[edu] || 0) + 1;
   });
   const sortedEdu = Object.entries(eduCounts).sort((a, b) => b[1] - a[1]);
@@ -173,7 +173,7 @@ export function getDistributionData(mlas: any[], field: 'party' | 'gender' | 'ed
   const counts: Record<string, { value: number, fill?: string }> = {};
   mlas.forEach(m => {
     let val = m[field === 'party' ? 'partyShort' : field] || m[field] || 'Unknown';
-    if (field === 'education') val = normalizeEducation(val);
+    if (field === 'education') val = categorizeEducation(val);
     if (field === 'gender') {
       val = val.toLowerCase();
       if (val.startsWith('m')) val = 'Male';
