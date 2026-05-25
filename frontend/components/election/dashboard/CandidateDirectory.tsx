@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { DashboardCandidate, DashboardFilterOptions } from '@/lib/elections/preElectionDashboard/dashboard.types';
 import PartyBadge from '@/components/ui/PartyBadge';
+import ProfileImage from '@/components/ProfileImage';
 import { Search, Filter, X, ChevronDown, User, IndianRupee, Gavel, GraduationCap, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getPartyRank } from '@/lib/elections/preElectionDashboard/dashboard.utils';
 
@@ -481,17 +482,11 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
                   <div className="flex items-center gap-5">
                     <Link href={`/tn/mla/${c.personId}`} className="relative block shrink-0">
                       <div className="relative">
-                        {c.profilePic ? (
-                          <img
-                            src={c.profilePic}
-                            alt={c.name}
-                            className="w-14 h-14 rounded-2xl object-cover bg-slate-100 border border-slate-100 group-hover:scale-105 transition-transform shadow-sm"
-                          />
-                        ) : (
-                          <div className="w-14 h-14 rounded-2xl bg-slate-100 border border-slate-100 flex items-center justify-center text-slate-400 group-hover:scale-105 transition-transform">
-                            <User size={24} />
-                          </div>
-                        )}
+                        <ProfileImage
+                          src={c.profilePic}
+                          alt={c.name}
+                          className="w-14 h-14 rounded-2xl object-cover bg-slate-100 border border-slate-100 group-hover:scale-105 transition-transform shadow-sm"
+                        />
                         {c.isIncumbent && (
                           <div className="absolute -top-1 -right-1 w-5 h-5 bg-brand-gold rounded-full border-2 border-white shadow-sm flex items-center justify-center" title="Incumbent">
                              <div className="w-1 h-1 bg-white rounded-full animate-pulse" />
@@ -626,13 +621,11 @@ export default function CandidateDirectory({ initialCandidates, filterOptions }:
             <div className="relative z-10 flex justify-between items-start">
               <div className="flex gap-5">
                 <Link href={`/tn/mla/${c.personId}`} className="relative shrink-0">
-                  {c.profilePic ? (
-                    <img src={c.profilePic} className="w-16 h-16 rounded-[1.25rem] object-cover ring-2 ring-white shadow-md" alt={c.name} />
-                  ) : (
-                    <div className="w-16 h-16 rounded-[1.25rem] bg-slate-100 flex items-center justify-center text-slate-400 border border-slate-100 ring-2 ring-white shadow-md">
-                      <User size={24} />
-                    </div>
-                  )}
+                  <ProfileImage 
+                    src={c.profilePic} 
+                    alt={c.name} 
+                    className="w-16 h-16 rounded-[1.25rem] object-cover ring-2 ring-white shadow-md" 
+                  />
                   {c.isIncumbent && (
                     <div className="absolute -top-1 -right-1 w-5 h-5 bg-brand-gold rounded-full border-2 border-white shadow-sm flex items-center justify-center">
                       <div className="w-1 h-1 bg-white rounded-full animate-pulse" />
