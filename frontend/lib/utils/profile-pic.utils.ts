@@ -24,11 +24,29 @@ export function normalizeCandidateProfilePic(raw: string | null | undefined): st
   // Case 1: "assets/<year>/photos/…" → "/candidate/<year>/photos/…"
   const assetsMatch = raw.match(/^assets\/(\d{4})\/photos\/(.+)$/);
   if (assetsMatch) {
-    return `/candidate/${assetsMatch[1]}/photos/${assetsMatch[2]}`;
+    const year = assetsMatch[1];
+    const file = assetsMatch[2];
+    
+    if (year === '2026') {
+      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'dioopnzii';
+      // Our upload script stripped the extension for the public ID
+      const filenameWithoutExt = file.replace(/\.[^/.]+$/, "");
+      return `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto/v1/knowyourmla/candidates/2026/${filenameWithoutExt}`;
+    }
+    return `/candidate/${year}/photos/${file}`;
   }
 
   // Case 2: "candidate/<year>/photos/…" (missing leading slash)
-  if (/^candidate\/\d{4}\/photos\//.test(raw)) {
+  const candidateMatch = raw.match(/^candidate\/(\d{4})\/photos\/(.+)$/);
+  if (candidateMatch) {
+    const year = candidateMatch[1];
+    const file = candidateMatch[2];
+    
+    if (year === '2026') {
+      const cloudName = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'dioopnzii';
+      const filenameWithoutExt = file.replace(/\.[^/.]+$/, "");
+      return `https://res.cloudinary.com/${cloudName}/image/upload/f_auto,q_auto/v1/knowyourmla/candidates/2026/${filenameWithoutExt}`;
+    }
     return `/${raw}`;
   }
 

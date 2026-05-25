@@ -68,6 +68,7 @@ frontend/.firebase/
 frontend/.firebaserc
 frontend/.firebaserc.tmp
 frontend/node_modules/
+scripts/node_modules/
 
 
 ### Terraform ###

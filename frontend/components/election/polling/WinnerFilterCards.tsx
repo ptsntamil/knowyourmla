@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import Image from 'next/image';
+import ProfileImage from '@/components/ProfileImage';
 import { 
   Trophy, 
   Target, 
@@ -172,19 +172,11 @@ const WinnerFilterCards: React.FC<WinnerFilterCardsProps> = ({
                       w-12 h-12 rounded-xl overflow-hidden bg-white border-2 transition-all
                       ${isActive ? 'border-[#F4B63D] shadow-lg' : 'border-[#F4B63D]/5 group-hover:border-[#F4B63D]/30'}
                     `}>
-                      {stat.profilePic ? (
-                        <Image 
-                          src={stat.profilePic} 
-                          alt={stat.name}
-                          width={48}
-                          height={48}
-                          className="object-cover w-full h-full"
-                        />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center bg-slate-50">
-                          <User className="w-6 h-6 text-slate-300" />
-                        </div>
-                      )}
+                      <ProfileImage 
+                        src={stat.profilePic} 
+                        alt={stat.name}
+                        className="object-cover w-full h-full"
+                      />
                     </div>
                     <div className="absolute -bottom-1.5 -right-1.5 shadow-lg">
                       <PartyBadge 
