@@ -357,6 +357,7 @@ export class MLAService {
             margin: isWinner && hasResults ? parseInt(record.winning_margin || "0") : undefined,
             margin_percent: isWinner && hasResults ? parseFloat(record.margin_percentage || "0") : undefined,
             assets: normalizeTotalAssets(record.total_assets || record.assets || "0"),
+            is_resigned: Boolean(record.is_resigned),
           });
 
           // For analytics trends (Assets, Income, Cases, etc.), we only need one data point per year.
@@ -518,6 +519,7 @@ export class MLAService {
             party_color_border: partyInfo.color_border,
             period: `${year}-${year + 5}`,
             education: categorizeEducation(personMeta.education || winner.education),
+            is_resigned: Boolean(winner.is_resigned),
           });
         }
 

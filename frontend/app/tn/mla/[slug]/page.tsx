@@ -59,7 +59,9 @@ export default async function MLAProfilePage({ params }: PageProps) {
   const isCurrent = latestElection?.year === parseInt(LATEST_ELECTION_YEAR) && isWinner;
   const isFormer = !isCurrent && profile.history.some((h: any) => h.winner === true);
 
-  const personalTitle = isCurrent ? "MLA" : (isFormer ? "Former MLA" : "Candidate");
+  const personalTitle = isCurrent 
+    ? (latestElection?.is_resigned ? "Former MLA (Resigned)" : "MLA") 
+    : (isFormer ? "Former MLA" : "Candidate");
 
   const criminalCases = profile.analytics?.criminal_case_trend?.length > 0
     ? profile.analytics.criminal_case_trend[profile.analytics.criminal_case_trend.length - 1].cases
@@ -149,6 +151,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
             vehicleAssets={profile.analytics.vehicle_assets}
             landAssets={profile.analytics.land_assets}
             personalTitle={personalTitle}
+            isResigned={Boolean(latestElection?.is_resigned)}
           />
         </div>
 

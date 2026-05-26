@@ -21,7 +21,7 @@ export default function HistoryTable({ history }: HistoryTableProps) {
         <tbody className="divide-y divide-slate-100">
           {history.map((record, index) => {
             const isUpcomingElection = record.year >= 2026 && record.results_declared === false;
-            const resultLabel = isUpcomingElection ? "CONTESTANT" : (record.winner ? "WON" : "LOST");
+            const resultLabel = isUpcomingElection ? "CONTESTANT" : (record.winner ? (record.is_resigned ? "WON (RESIGNED)" : "WON") : "LOST");
             const resultClass = isUpcomingElection
               ? "bg-blue-100 text-blue-700"
               : record.winner

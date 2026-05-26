@@ -361,6 +361,7 @@ export class PartyService {
             ...c,
             total_assets: assets,
             profile_pic: c.profile_pic || person?.profile_pic,
+            is_resigned: Boolean(c.is_resigned),
             badges: {
               winner: isWinner,
               crorepati: assets >= 10000000,
