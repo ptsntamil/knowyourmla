@@ -44,24 +44,31 @@ export default function ConstituencyList({ constituencies, mlas = [] }: Constitu
                 {mla ? (
                   <div className="space-y-3">
                     <Link href={`/tn/mla/${mla.slug}`} className="block group">
-                      <h5 className="text-lg font-black text-brand-dark group-hover:text-brand-gold transition-colors tracking-tight leading-tight">
+                      <h5 className={`text-lg font-black group-hover:text-brand-gold transition-colors tracking-tight leading-tight ${mla.is_resigned ? 'text-slate-400 line-through' : 'text-brand-dark'}`}>
                         {mla.name}
                       </h5>
                     </Link>
-                    <div 
-                      className="px-3 py-1.5 text-[9px] font-black rounded-full uppercase tracking-wider border flex items-center gap-2 w-fit shadow-sm transition-transform hover:scale-105 active:scale-95"
-                      style={{ 
-                        backgroundColor: mla.partyColor || '#f8fafc',
-                        color: mla.partyColorText || (mla.partyColor ? '#ffffff' : '#1e293b'),
-                        borderColor: mla.partyColorBorder || '#e2e8f0'
-                      }}
-                    >
-                      {mla.partyLogoUrl && (
-                        <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20">
-                          <img src={mla.partyLogoUrl} alt={mla.partyShort} className="w-3 h-3 object-contain" />
-                        </div>
+                    <div className="flex gap-2 items-center flex-wrap">
+                      <div 
+                        className="px-3 py-1.5 text-[9px] font-black rounded-full uppercase tracking-wider border flex items-center gap-2 w-fit shadow-sm transition-transform hover:scale-105 active:scale-95"
+                        style={{ 
+                          backgroundColor: mla.partyColor || '#f8fafc',
+                          color: mla.partyColorText || (mla.partyColor ? '#ffffff' : '#1e293b'),
+                          borderColor: mla.partyColorBorder || '#e2e8f0'
+                        }}
+                      >
+                        {mla.partyLogoUrl && (
+                          <div className="w-4 h-4 bg-white rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 border border-white/20">
+                            <img src={mla.partyLogoUrl} alt={mla.partyShort} className="w-3 h-3 object-contain" />
+                          </div>
+                        )}
+                        {mla.partyShort}
+                      </div>
+                      {mla.is_resigned && (
+                        <span className="px-3 py-1.5 text-[9px] font-black rounded-full uppercase tracking-wider border border-red-200 bg-red-50 text-red-600 shadow-sm">
+                          Vacant
+                        </span>
                       )}
-                      {mla.partyShort}
                     </div>
                   </div>
                 ) : (

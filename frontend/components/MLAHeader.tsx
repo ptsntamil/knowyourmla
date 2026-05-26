@@ -15,10 +15,11 @@ interface MLAHeaderProps {
    vehicleAssets?: any;
    landAssets?: any;
    personalTitle?: string;
+   isResigned?: boolean;
 }
 
-const ensureAbsoluteUrl = (url: string, base: string) => {
-   if (!url) return "";
+const ensureAbsoluteUrl = (url: any, base: string) => {
+   if (!url || typeof url !== "string") return "";
    if (url.startsWith("http")) return url;
    const cleanUrl = url.startsWith("@") ? url.substring(1) : url;
    return `${base}${cleanUrl}`;
@@ -26,7 +27,7 @@ const ensureAbsoluteUrl = (url: string, base: string) => {
 
 export default function MLAHeader({
    person, latestHistory, criminalCases, totalAssets, winRate,
-   goldAssets, vehicleAssets, landAssets, personalTitle = "Candidate"
+   goldAssets, vehicleAssets, landAssets, personalTitle = "Candidate", isResigned
 }: MLAHeaderProps) {
    // Assets Calculation Logic
    let totalGold = 0;
@@ -120,6 +121,11 @@ export default function MLAHeader({
                         <span className="px-5 py-2 bg-white/10 text-white text-[10px] font-black rounded-full uppercase tracking-widest border border-white/10">
                            {latestHistory?.constituency} Constituency
                         </span>
+                        {isResigned && (
+                           <span className="px-5 py-2 bg-red-500/20 text-red-100 text-[10px] font-black rounded-full uppercase tracking-widest border border-red-500/50">
+                              Resigned
+                           </span>
+                        )}
                         {person.age && (
                            <span className="px-5 py-2 bg-white/10 text-white text-[10px] font-black rounded-full uppercase tracking-widest border border-white/10">
                               {person.age} Years Old

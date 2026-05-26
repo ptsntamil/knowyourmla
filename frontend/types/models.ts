@@ -43,6 +43,7 @@ export interface DistrictMLA {
   education?: string;
   margin?: number | null;
   votes?: number | null;
+  is_resigned?: boolean;
 }
 
 export interface DistrictInsights {
@@ -118,6 +119,7 @@ export interface WinnerHistoryRecord {
   total_wins?: number;
   win_rate?: number;
   age?: number;
+  is_resigned?: boolean;
 }
 
 export interface ConstituencyStatYear {
@@ -168,6 +170,7 @@ export interface ElectionHistoryRecord {
   margin?: number | null;
   margin_percent?: number | null;
   assets?: string | number;
+  is_resigned?: boolean;
 }
 
 export interface WinRate {
@@ -246,6 +249,7 @@ export interface MLAListItem {
   period: string;
   image_url?: string;
   education?: string;
+  is_resigned?: boolean;
 }
 
 export interface MLAListResponse {

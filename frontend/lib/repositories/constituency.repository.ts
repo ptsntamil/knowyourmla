@@ -63,7 +63,7 @@ export class ConstituencyRepository {
         ":is_winner": true,
       },
       // Projection: Key details for historal winners list
-      ProjectionExpression: "PK, person_id, candidate_name, party_id, #year, winning_margin, margin_percentage, constituency_id, total_assets, education, total_wins, profile_pic",
+      ProjectionExpression: "PK, person_id, candidate_name, party_id, #year, winning_margin, margin_percentage, constituency_id, total_assets, education, total_wins, profile_pic, is_resigned",
       ExpressionAttributeNames: {
         "#year": "year"
       }

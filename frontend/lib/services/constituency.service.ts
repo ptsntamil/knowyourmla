@@ -141,6 +141,7 @@ export class ConstituencyService {
             total_wins: totalWins,
             win_rate: winRate,
             age: personMeta.birth_year ? new Date().getFullYear() - parseInt(personMeta.birth_year) : (personMeta.age ? parseInt(personMeta.age) : undefined),
+            is_resigned: Boolean(h.is_resigned),
           });
         }
 
