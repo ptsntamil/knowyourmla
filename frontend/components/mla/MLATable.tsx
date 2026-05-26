@@ -64,12 +64,19 @@ export default function MLATable({ mlas, searchQuery, selectedParty, onReset }: 
                 </td>
                 <td className="px-8 py-5">
                   {mla.person_id ? (
-                    <Link
-                      href={`/tn/mla/${mla.person_id.replace("PERSON#", "")}`}
-                      className="text-sm font-black text-slate-800 hover:text-brand-gold transition-colors block"
-                    >
-                      {mla.name}
-                    </Link>
+                    <div className="flex items-center gap-2">
+                      <Link
+                        href={`/tn/mla/${mla.person_id.replace("PERSON#", "")}`}
+                        className={`text-sm font-black hover:text-brand-gold transition-colors block ${mla.is_resigned ? 'text-slate-400 line-through' : 'text-slate-800'}`}
+                      >
+                        {mla.name}
+                      </Link>
+                      {mla.is_resigned && (
+                        <span className="px-2 py-0.5 bg-red-100 text-red-600 text-[8px] font-black uppercase tracking-widest rounded">
+                          Resigned
+                        </span>
+                      )}
+                    </div>
                   ) : (
                     <span className="text-sm font-medium text-slate-300 italic">Not Available</span>
                   )}

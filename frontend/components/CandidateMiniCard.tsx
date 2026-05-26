@@ -55,7 +55,10 @@ export default function CandidateMiniCard({ c }: CandidateMiniCardProps) {
             </div>
           )}
           {c.is_winner ? (
+            <>
              <span className="px-1.5 py-0.5 bg-emerald-100 dark:bg-emerald-900/40 text-[7px] font-black text-emerald-600 dark:text-emerald-400 rounded uppercase tracking-tighter">Winner</span>
+             {c.is_resigned && <span className="px-1.5 py-0.5 bg-red-100 dark:bg-red-900/40 text-[7px] font-black text-red-600 dark:text-red-400 rounded uppercase tracking-tighter">Resigned</span>}
+            </>
           ) : (
              <span className="px-1.5 py-0.5 bg-slate-100 dark:bg-slate-800 text-[7px] font-black text-slate-400 rounded uppercase tracking-tighter">Runner</span>
           )}

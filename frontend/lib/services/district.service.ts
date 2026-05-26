@@ -216,7 +216,8 @@ export class DistrictService {
             image_url: normalizeCandidateProfilePic(person.image_url || w.profile_pic) || undefined,
             isFresher: (w.total_wins !== undefined && w.total_wins !== null) ? Number(w.total_wins) === 1 : undefined,
             gender: gender || "unknown",
-            education: person.education || w.education // Prioritize person-level education if available
+            education: person.education || w.education, // Prioritize person-level education if available
+            is_resigned: Boolean(w.is_resigned)
           };
 
         });

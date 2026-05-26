@@ -26,7 +26,7 @@ export class MLARepository {
         ":winner": true,
         ":year": year,
       },
-      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, winning_margin, total_votes, total_assets, education, total_wins, margin_percentage, profile_pic",
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, winning_margin, total_votes, total_assets, education, total_wins, margin_percentage, profile_pic, is_resigned",
     });
   }
 
@@ -68,7 +68,7 @@ export class MLARepository {
       ExpressionAttributeValues: {
         ":year": year,
       },
-      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, total_votes, vote_percent, turnout_percent, total_assets, total_liabilities, age, sex, winning_margin, district_id, constituency_name, district_name, profile_pic, education, criminal_cases, profession, is_incumbent, new_comer, is_star_canidate, is_star_candidate, author_foused, author_focused, deposit_lost",
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, is_resigned, total_votes, vote_percent, turnout_percent, total_assets, total_liabilities, age, sex, winning_margin, district_id, constituency_name, district_name, profile_pic, education, criminal_cases, profession, is_incumbent, new_comer, is_star_canidate, is_star_candidate, author_foused, author_focused, deposit_lost",
     });
   }
 
@@ -88,7 +88,7 @@ export class MLARepository {
         ":year": year,
       },
       // Projection: Slightly more detail for constituency-level candidate list
-      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, total_assets, criminal_cases, education, profile_pic, winning_margin, total_votes, is_incumbent, new_comer",
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, is_resigned, total_assets, criminal_cases, education, profile_pic, winning_margin, total_votes, is_incumbent, new_comer",
     });
   }
 }

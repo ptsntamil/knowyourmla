@@ -18,7 +18,7 @@ export class CandidateRepository {
         ":person_id": personId,
       },
       // Projection: All necessary fields for the profile and analytics
-      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, winning_margin, margin_percentage, total_assets, assets, total_votes, vote_percent, criminal_cases, election_expenses, itr_history, income_itr, gold_assets, silver_assets, vehicle_assets, land_assets, education, profession, profile_pic, district_name, district_id",
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, is_resigned, winning_margin, margin_percentage, total_assets, assets, total_votes, vote_percent, criminal_cases, election_expenses, itr_history, income_itr, gold_assets, silver_assets, vehicle_assets, land_assets, education, profession, profile_pic, district_name, district_id",
       ExpressionAttributeNames: {
         "#year": "year",
       },
@@ -35,7 +35,7 @@ export class CandidateRepository {
       ExpressionAttributeValues: {
         ":party_id": partyId,
       },
-      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, total_assets, criminal_cases, education, profession, profile_pic, deposit_lost",
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, is_resigned, total_assets, criminal_cases, education, profession, profile_pic, deposit_lost",
       ExpressionAttributeNames: {
         "#year": "year",
       },
@@ -59,7 +59,7 @@ export class CandidateRepository {
         ":party_id": partyId,
         ":year": year,
       },
-      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, total_assets, criminal_cases, education, profession, profile_pic, deposit_lost",
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, is_resigned, total_assets, criminal_cases, education, profession, profile_pic, deposit_lost",
     });
   }
 
@@ -78,7 +78,7 @@ export class CandidateRepository {
         ":constituency_id": constituencyId,
         ":year": year,
       },
-      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, total_votes, vote_percent, total_assets, criminal_cases, education, profession, profile_pic, winning_margin, margin_percentage",
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, is_resigned, total_votes, vote_percent, total_assets, criminal_cases, education, profession, profile_pic, winning_margin, margin_percentage",
     });
   }
 }

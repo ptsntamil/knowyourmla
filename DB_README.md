@@ -274,6 +274,8 @@ Full affidavit details for every candidate (winner and loser) in every election 
 | `new_comer` | Boolean | `True` if the candidate has no prior election history (exactly one total candidate record) |
 | `is_incumbent` | Boolean | `True` if the candidate was a winner in the previous general election (2021) or any subsequent bye-election |
 | `deposit_lost` | Boolean | `True` if the candidate failed to secure more than one-sixth (16.7%) of the total valid votes cast |
+| `is_resigned` | Boolean | `True` if the candidate resigned from their post during their term |
+| `resignation_date` | String | Date of resignation (optional) |
 | `createdtime` | String | ISO 8601 formatted creation timestamp |
 
 ### Sample Record
@@ -351,6 +353,8 @@ Full affidavit details for every candidate (winner and loser) in every election 
   "new_comer": false,
   "is_incumbent": true,
   "deposit_lost": false,
+  "is_resigned": false,
+  "resignation_date": null,
   "createdtime": "2026-02-26T11:12:06.000000+00:00"
 }
 ```
