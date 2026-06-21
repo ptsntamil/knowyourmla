@@ -162,6 +162,9 @@ export interface DepositLostPartyStats {
   partyName: string;
   partyShort: string;
   seatsContested: number;
+  districtsWon: number;
+  secondPlaces: number;
+  thirdPlaces: number;
   depositLostCount: number;
   depositSavedCount: number;
   depositLossPercentage: number;
@@ -645,6 +648,9 @@ export class ElectionAnalyticsService {
               partyName: party?.name || pId.replace("PARTY#", ""),
               partyShort: party?.short_name || pId.replace("PARTY#", ""),
               seatsContested: 0,
+              districtsWon: 0,
+              secondPlaces: 0,
+              thirdPlaces: 0,
               depositLostCount: 0,
               depositSavedCount: 0,
               depositLossPercentage: 0,
@@ -666,8 +672,56 @@ export class ElectionAnalyticsService {
           }
         });
 
+        const districtWinsByParty = new Map<string, Set<string>>();
+
+        // Calculate 2nd and 3rd places by iterating over constituency results
+        constituencies.forEach((constituency: any) => {
+            const cid = constituency.PK.toUpperCase();
+            const candidates = candidatesByConstituency.get(cid) || [];
+            
+            // Sort by votes
+            const sorted = [...candidates].sort((a, b) => (b.total_votes || 0) - (a.total_votes || 0));
+            
+            // Track 2nd place
+            if (sorted[1]) {
+                const pId = sorted[1].party_id;
+                if (pId && partyStatsMap.has(pId)) {
+                    partyStatsMap.get(pId)!.secondPlaces++;
+                }
+            }
+
+            // Track 3rd place
+            if (sorted[2]) {
+                const pId = sorted[2].party_id;
+                if (pId && partyStatsMap.has(pId)) {
+                    partyStatsMap.get(pId)!.thirdPlaces++;
+                }
+            }
+
+            // Track districts won
+            if (sorted[0] && sorted[0].is_winner) {
+                const winner = sorted[0];
+                const pId = winner.party_id;
+                if (pId && partyStatsMap.has(pId)) {
+                    const districtId = constituency?.district_id || winner.district_id;
+                    if (districtId) {
+                        if (!districtWinsByParty.has(pId)) {
+                            districtWinsByParty.set(pId, new Set<string>());
+                        }
+                        districtWinsByParty.get(pId)!.add(districtId);
+                    }
+                }
+            }
+        });
+
+        // Set districtsWon for each party
+        for (const [pId, districts] of districtWinsByParty.entries()) {
+            if (partyStatsMap.has(pId)) {
+                partyStatsMap.get(pId)!.districtsWon = districts.size;
+            }
+        }
+
         const depositLostAnalysis = Array.from(partyStatsMap.values())
-          .filter(s => s.depositLostCount > 0)
           .map(s => {
             s.depositLossPercentage = s.seatsContested > 0 ? (s.depositLostCount / s.seatsContested) * 100 : 0;
             return s;

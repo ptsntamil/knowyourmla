@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { fetchConstituencies } from '@/services/api';
 import { generateXml, slugify } from '@/lib/sitemap-utils';
 import { LATEST_ELECTION_YEAR } from '@/lib/constants/elections';
-import { ElectionAnalyticsService } from '@/lib/services/election-analytics.service';
 
 export const dynamic = 'force-dynamic';
 
@@ -10,7 +9,6 @@ export async function GET() {
   const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
   const tnBaseUrl = `${domain}/tn`;
   const currentYear = LATEST_ELECTION_YEAR;
-  const service = new ElectionAnalyticsService();
 
   try {
     const constituencies = await fetchConstituencies();
@@ -32,26 +30,6 @@ export async function GET() {
           changeFrequency: 'daily',
           priority: 0.8,
         });
-
-        try {
-          // Fetch exact, cached active polling stations for this constituency
-          const result = await service.getPollingStationResults(constituencyId, parseInt(currentYear));
-          if (result && result.pollingStations) {
-            result.pollingStations.forEach((station) => {
-              // Ignore special 'POSTAL' polling station or other custom keys
-              if (station.pollingStationNo && station.pollingStationNo !== 'POSTAL') {
-                urls.push({
-                  url: `${baseUrl}/polling-station/${station.pollingStationNo}`,
-                  lastModified: new Date(),
-                  changeFrequency: 'weekly',
-                  priority: 0.6,
-                });
-              }
-            });
-          }
-        } catch (err) {
-          console.error(`Error fetching polling stations for sitemap of ${slug}:`, err);
-        }
       })
     );
 

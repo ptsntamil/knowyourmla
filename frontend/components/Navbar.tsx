@@ -194,7 +194,7 @@ export default function Navbar({ elections = [] }: NavbarProps) {
         {isMenuOpen && (
           <div className="md:hidden bg-brand-dark border-t border-white/5 px-4 py-6 space-y-4 animate-in slide-in-from-top duration-300">
             {/* 2026 Dashboard */}
-            <Link
+            {/* <Link
               href="/tn/elections/2026/dashboard"
               onClick={() => setIsMenuOpen(false)}
               className={`relative block w-full text-slate-400 hover:text-white px-5 py-4 rounded-xl transition-all text-xs font-black uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${isActive("/tn/elections/2026/dashboard") ? "bg-white/5 text-brand-gold" : ""}`}
@@ -203,7 +203,7 @@ export default function Navbar({ elections = [] }: NavbarProps) {
               <span className="ml-2 bg-brand-gold text-brand-dark text-[8px] font-black px-1.5 py-0.5 rounded shadow-lg">
                 NEW
               </span>
-            </Link>
+            </Link> */}
 
             {/* MLAs */}
             <Link

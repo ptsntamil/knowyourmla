@@ -42,9 +42,9 @@ Return ONLY polling stations within this range.
 * valid vote totals
 * candidate alignment
 
-11. The `polling_station_summary` MUST be the aggregate sum of both individual station votes (EVM) and postal votes.
-12. Introduce an `evm_totals` field within `polling_station_summary` to specifically represent the sum of all EVM votes.
-13. Use row `Postal Ballot Votes` to extract Postal votes.
+11. Extract `polling_station_summary` directly from the "Total Votes Polled" row or "Total" column in the Form-20 table (typically labeled "Total No. of Votes Polled", "Total Votes Polled", "Total", or the Tamil equivalent). This represents the grand aggregate sum of both EVM and postal votes.
+12. Extract or calculate `evm_totals` from the "Total" row of the EVM voting section (before postal ballots are added) to represent the sum of all EVM votes.
+13. Use the `Postal Ballot Votes` row to extract Postal votes.
 14. IDENTIFYING POLLING STATIONS (`ps`, `ps_name`, and `electors` fields):
     * EXCLUDE the "SL. NO." (Serial Number) column completely. Do not use it for anything.
     * Use ONLY the "Polling Station No." column for the `ps` value.

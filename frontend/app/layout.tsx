@@ -4,7 +4,6 @@ import "./globals.css";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next";
 import NoteBanner from "@/components/layout/NoteBanner";
 
 import { ElectionRepository } from "@/lib/repositories/election.repository";
@@ -88,7 +87,6 @@ export default async function RootLayout({
         </div>
         <Footer />
         <Analytics />
-        <SpeedInsights />
       </body>
     </html>
   );

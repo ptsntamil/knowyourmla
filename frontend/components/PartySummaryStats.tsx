@@ -1,4 +1,4 @@
-import { Trophy, Users, CheckCircle2, TrendingUp, Star, Calendar, TrendingDown, ShieldAlert } from "lucide-react";
+import { Trophy, Users, CheckCircle2, TrendingUp, Star, Calendar, TrendingDown, ShieldAlert, Map, Medal } from "lucide-react";
 
 interface PartySummaryStatsProps {
   stats: any;
@@ -34,6 +34,26 @@ export default function PartySummaryStats({ stats, depositLost, isYearView }: Pa
       icon: <Trophy className="w-5 h-5" />,
       color: "bg-brand-gold/10 text-brand-gold",
     },
+    ...(isYearView ? [
+      {
+        label: "Districts Won",
+        value: depositLost?.districtsWon || 0,
+        icon: <Map className="w-5 h-5" />,
+        color: "bg-indigo-500/10 text-indigo-500",
+      },
+      {
+        label: "2nd Places",
+        value: depositLost?.secondPlaces || 0,
+        icon: <Medal className="w-5 h-5" />,
+        color: "bg-cyan-500/10 text-cyan-500",
+      },
+      {
+        label: "3rd Places",
+        value: depositLost?.thirdPlaces || 0,
+        icon: <Star className="w-5 h-5" />,
+        color: "bg-orange-500/10 text-orange-500",
+      }
+    ] : []),
     {
       label: isYearView ? "Deposit Lost" : "Best Performance",
       value: isYearView ? (depositLost?.depositLostCount || 0) : (stats.bestYear || "N/A"),
@@ -50,7 +70,7 @@ export default function PartySummaryStats({ stats, depositLost, isYearView }: Pa
   ];
 
   return (
-    <div id="overview" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 sm:gap-6">
+    <div id="overview" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
       {metrics.map((metric, idx) => (
         <div
           key={idx}
