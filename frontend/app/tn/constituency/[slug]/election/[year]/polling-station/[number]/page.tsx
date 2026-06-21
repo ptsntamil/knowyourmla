@@ -39,13 +39,15 @@ export async function generateMetadata({ params }: PageProps) {
   if (!station) return buildMetadata({
     title: `Polling Station ${number} Results Not Found`,
     description: `Results for Polling Station ${number} in ${slug} are not available at this time.`,
-    path: `/tn/constituency/${slug}/election/${year}/polling-station/${number}`
+    path: `/tn/constituency/${slug}/election/${year}/polling-station/${number}`,
+    noIndex: true
   });
 
   return buildMetadata({
     title: `Polling Station ${number} Results ${year} — ${result?.constituencyName} Constituency`,
     description: `Detailed booth-level results for Polling Station ${number} in ${result?.constituencyName}. Winner: ${station.winnerName} with ${station.winnerVoteShare.toFixed(1)}% vote share.`,
-    path: `/tn/constituency/${slug}/election/${year}/polling-station/${number}`
+    path: `/tn/constituency/${slug}/election/${year}/polling-station/${number}`,
+    noIndex: true
   });
 }
 

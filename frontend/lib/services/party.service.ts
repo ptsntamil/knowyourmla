@@ -5,6 +5,7 @@ import { ElectionRepository } from "../repositories/election.repository";
 import { normalizeTotalAssets } from "../utils/profile-normalizers";
 import { categorizeEducation } from "../utils/insights";
 import { unstable_cache } from "next/cache";
+import { ElectionAnalyticsService } from "./election-analytics.service";
 
 export class PartyService {
   private partyRepo: PartyRepository;
@@ -245,7 +246,66 @@ export class PartyService {
             seatsContested: totalContested,
             depositLostCount,
             depositSavedCount,
-            depositLossPercentage: totalContested > 0 ? (depositLostCount / totalContested) * 100 : 0
+            depositLossPercentage: totalContested > 0 ? (depositLostCount / totalContested) * 100 : 0,
+            districtsWon: 0,
+            secondPlaces: 0,
+            thirdPlaces: 0
+          };
+          
+          // Also fetch election overview to get districts won, 2nd, and 3rd places
+          const electionService = new ElectionAnalyticsService();
+          const electionData = await electionService.getElectionOverview(yr);
+          
+          if (electionData && electionData.insights && electionData.insights.depositLostAnalysis) {
+              const partyStats = electionData.insights.depositLostAnalysis.find((s: any) => s.partyId === pId);
+              if (partyStats) {
+                  depositLostStats.districtsWon = partyStats.districtsWon || 0;
+                  depositLostStats.secondPlaces = partyStats.secondPlaces || 0;
+                  depositLostStats.thirdPlaces = partyStats.thirdPlaces || 0;
+              } else {
+                  depositLostStats.districtsWon = 0;
+                  depositLostStats.secondPlaces = 0;
+                  depositLostStats.thirdPlaces = 0;
+              }
+          }
+        } else {
+          // All years view - aggregate across all available years
+          const availableYears = Array.from(new Set(allCandidates.map((c: any) => c.year))).sort((a, b) => b - a);
+          const electionService = new ElectionAnalyticsService();
+          
+          let totalDistrictsWon = 0;
+          let totalSecondPlaces = 0;
+          let totalThirdPlaces = 0;
+          const yearlyBreakdown: Record<number, { districtsWon: number; secondPlaces: number; thirdPlaces: number }> = {};
+          
+          for (const year of availableYears) {
+              const electionData = await electionService.getElectionOverview(year);
+              if (electionData && electionData.insights && electionData.insights.depositLostAnalysis) {
+                  const partyStats = electionData.insights.depositLostAnalysis.find((s: any) => s.partyId === pId);
+                  if (partyStats) {
+                      const yrDistrictsWon = partyStats.districtsWon || 0;
+                      const yrSecondPlaces = partyStats.secondPlaces || 0;
+                      const yrThirdPlaces = partyStats.thirdPlaces || 0;
+                      
+                      totalDistrictsWon += yrDistrictsWon;
+                      totalSecondPlaces += yrSecondPlaces;
+                      totalThirdPlaces += yrThirdPlaces;
+                      
+                      yearlyBreakdown[year] = {
+                          districtsWon: yrDistrictsWon,
+                          secondPlaces: yrSecondPlaces,
+                          thirdPlaces: yrThirdPlaces
+                      };
+                  }
+              }
+          }
+          
+          depositLostStats = {
+              seatsContested: totalContested,
+              districtsWon: totalDistrictsWon,
+              secondPlaces: totalSecondPlaces,
+              thirdPlaces: totalThirdPlaces,
+              yearlyBreakdown
           };
         }
 

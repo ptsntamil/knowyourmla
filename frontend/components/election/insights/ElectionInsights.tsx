@@ -13,6 +13,7 @@ import LeastCrowdedContests from './LeastCrowdedContests';
 import WomenRepresentationSummary from './WomenRepresentationSummary';
 import WomenWinners from './WomenWinners';
 import DepositLostAnalysis from './DepositLostAnalysis';
+import PartyPerformanceAnalysis from './PartyPerformanceAnalysis';
 
 interface ElectionInsightsProps {
   insights: ElectionInsightsType;
@@ -88,6 +89,17 @@ export default function ElectionInsights({ insights, year, isTeaser = false }: E
           {!isTeaser && <WomenWinners data={insights.womenRepresentation.winners} year={year} />}
         </div>
       </div>
+
+      {/* Party Performance Analysis */}
+      {!isTeaser && insights.depositLostAnalysis && insights.depositLostAnalysis.length > 0 && (
+        <div className="space-y-10">
+          <div className="flex items-center gap-3">
+            <BarChart3 className="text-slate-300" size={18} />
+            <h3 className="text-xs font-black text-slate-400 uppercase tracking-[0.3em]">Party Performance Analysis</h3>
+          </div>
+          <PartyPerformanceAnalysis stats={insights.depositLostAnalysis} />
+        </div>
+      )}
 
       {/* Deposit Lost Analysis */}
       {!isTeaser && insights.depositLostAnalysis && insights.depositLostAnalysis.length > 0 && (

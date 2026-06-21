@@ -1,15 +1,15 @@
 "use client";
 
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { DepositLostPartyStats } from '@/lib/services/election-analytics.service';
 import PartyBadge from '@/components/ui/PartyBadge';
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Trophy, Map, Medal, Star, Users, ChevronLeft, ChevronRight } from 'lucide-react';
 
-interface DepositLostAnalysisProps {
+interface PartyPerformanceAnalysisProps {
   stats: DepositLostPartyStats[];
 }
 
-export default function DepositLostAnalysis({ stats }: DepositLostAnalysisProps) {
+export default function PartyPerformanceAnalysis({ stats }: PartyPerformanceAnalysisProps) {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 20;
@@ -17,16 +17,10 @@ export default function DepositLostAnalysis({ stats }: DepositLostAnalysisProps)
   if (!stats || stats.length === 0) {
     return (
       <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-8 text-center">
-        <p className="text-slate-500 dark:text-slate-400 font-medium">No deposit loss data available for this election.</p>
+        <p className="text-slate-500 dark:text-slate-400 font-medium">No performance data available for this election.</p>
       </div>
     );
   }
-
-  // Calculate overall totals
-  const totalContested = stats.reduce((sum, s) => sum + s.seatsContested, 0);
-  const totalLost = stats.reduce((sum, s) => sum + s.depositLostCount, 0);
-  const totalSaved = stats.reduce((sum, s) => sum + s.depositSavedCount, 0);
-  const overallLossPercentage = totalContested > 0 ? (totalLost / totalContested) * 100 : 0;
 
   const filteredStats = useMemo(() => {
     return stats
@@ -34,38 +28,24 @@ export default function DepositLostAnalysis({ stats }: DepositLostAnalysisProps)
       .filter(party => 
         party.partyName.toLowerCase().includes(searchTerm.toLowerCase()) || 
         party.partyShort.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      ).sort((a, b) => (b.districtsWon || 0) - (a.districtsWon || 0) || (b.secondPlaces || 0) - (a.secondPlaces || 0) || b.seatsContested - a.seatsContested);
   }, [stats, searchTerm]);
 
   const totalPages = Math.ceil(filteredStats.length / itemsPerPage);
-  
-  React.useEffect(() => {
+
+  useEffect(() => {
     setCurrentPage(1);
   }, [searchTerm]);
 
-  const currentData = filteredStats.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const currentData = useMemo(() => {
+    return filteredStats.slice(
+      (currentPage - 1) * itemsPerPage,
+      currentPage * itemsPerPage
+    );
+  }, [filteredStats, currentPage]);
 
   return (
     <div className="space-y-6">
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div className="bg-rose-50 dark:bg-rose-900/10 p-5 rounded-2xl border border-rose-100 dark:border-rose-900/20">
-          <p className="text-[10px] font-black text-rose-500 uppercase tracking-widest mb-1">Deposit Lost</p>
-          <p className="text-2xl font-black text-rose-600 dark:text-rose-400">{totalLost.toLocaleString()}</p>
-        </div>
-        <div className="bg-emerald-50 dark:bg-emerald-900/10 p-5 rounded-2xl border border-emerald-100 dark:border-emerald-900/20">
-          <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest mb-1">Deposit Saved</p>
-          <p className="text-2xl font-black text-emerald-600 dark:text-emerald-400">{totalSaved.toLocaleString()}</p>
-        </div>
-        <div className="bg-brand-gold/10 p-5 rounded-2xl border border-brand-gold/20">
-          <p className="text-[10px] font-black text-brand-gold uppercase tracking-widest mb-1">Overall Loss %</p>
-          <p className="text-2xl font-black text-brand-gold">{overallLossPercentage.toFixed(1)}%</p>
-        </div>
-      </div>
-
       {/* Toolbar */}
       <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
         <div className="relative w-full sm:w-96">
@@ -90,9 +70,9 @@ export default function DepositLostAnalysis({ stats }: DepositLostAnalysisProps)
               <tr className="bg-slate-50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
                 <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Party</th>
                 <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right whitespace-nowrap">Contested</th>
-                <th className="px-6 py-4 text-[10px] font-black text-rose-500 uppercase tracking-widest text-right whitespace-nowrap">Lost</th>
-                <th className="px-6 py-4 text-[10px] font-black text-emerald-500 uppercase tracking-widest text-right whitespace-nowrap">Saved</th>
-                <th className="px-6 py-4 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right whitespace-nowrap">Loss %</th>
+                <th className="px-6 py-4 text-[10px] font-black text-indigo-500 uppercase tracking-widest text-right whitespace-nowrap">District Footprint</th>
+                <th className="px-6 py-4 text-[10px] font-black text-cyan-500 uppercase tracking-widest text-right whitespace-nowrap">2nd</th>
+                <th className="px-6 py-4 text-[10px] font-black text-orange-500 uppercase tracking-widest text-right whitespace-nowrap">3rd</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
@@ -128,15 +108,13 @@ export default function DepositLostAnalysis({ stats }: DepositLostAnalysisProps)
                       <span className="text-sm font-bold text-slate-600 dark:text-slate-300">{party.seatsContested}</span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <span className="text-sm font-black text-rose-500">{party.depositLostCount}</span>
+                      <span className="text-sm font-black text-indigo-500">{party.districtsWon || 0}</span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <span className="text-sm font-bold text-emerald-500">{party.depositSavedCount}</span>
+                      <span className="text-sm font-black text-cyan-500">{party.secondPlaces || 0}</span>
                     </td>
                     <td className="px-6 py-4 text-right">
-                      <span className="text-sm font-black text-brand-dark dark:text-slate-200">
-                        {party.depositLossPercentage.toFixed(1)}%
-                      </span>
+                      <span className="text-sm font-black text-orange-500">{party.thirdPlaces || 0}</span>
                     </td>
                   </tr>
                 ))
@@ -150,7 +128,7 @@ export default function DepositLostAnalysis({ stats }: DepositLostAnalysisProps)
             </tbody>
           </table>
         </div>
-        
+
         {/* Pagination Controls */}
         {totalPages > 1 && (
           <div className="px-6 py-4 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between bg-slate-50/50 dark:bg-slate-800/30">

@@ -37,12 +37,12 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
     const ogImage = `/og/party/${slug.toLowerCase()}/${year || 'all'}/stats`;
 
     const title = year
-      ? `${shortName} Deposit Lost Candidates & Election Performance ${year} | KnowYourMLA`
-      : `${partyName} (${shortName}) in Tamil Nadu: MLAs, Vote Share, Election Performance`;
+      ? `${shortName} Election Performance ${year}: District Footprint, 2nd & 3rd Places | KnowYourMLA`
+      : `${partyName} (${shortName}) Tamil Nadu: Election Trends, Districts Won, 2nd & 3rd Places | KnowYourMLA`;
 
     const description = year
-      ? `Explore party-wise deposit lost analysis, candidates who lost deposits, constituency performance, and election insights in Tamil Nadu elections.`
-      : `Explore ${partyName} (${shortName}) performance in Tamil Nadu including current MLAs, vote share across assembly elections, seats won, election trends, and political insights on KnowYourMLA.`;
+      ? `Get detailed election performance of ${partyName} (${shortName}) in Tamil Nadu ${year}. Check contested seats, district footprints, 2nd and 3rd place finishes, and deposit lost stats.`
+      : `Explore ${partyName} (${shortName}) performance in Tamil Nadu: current MLAs, vote share trends, district footprints, 2nd/3rd place finishes, and deposit lost statistics.`;
 
     const keywords = [
       `${partyName} Party`,
@@ -55,11 +55,21 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
 
     if (year) {
       keywords.push(
+        "district footprint",
+        "second place finishes",
+        "third place finishes",
         "deposit lost candidates",
         "party deposit lost seats",
         "candidates who lost deposit in election",
         "deposit lost analysis Tamil Nadu election",
         "which party lost most deposits"
+      );
+    } else {
+      keywords.push(
+        "districts won by party",
+        "runner up constituencies",
+        "third place constituencies",
+        "historical election performance"
       );
     }
 
@@ -133,11 +143,23 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
     {
       question: `How has ${party.short_name}'s voter support changed over time?`,
       answer: `Voter support for ${party.short_name}, measured by total votes and vote share percentage, has evolved across different assembly cycles. You can track these trends through our interactive charts documenting their performance since 2011.`
+    },
+    {
+      question: `What is the district footprint of ${party.short_name} in Tamil Nadu elections?`,
+      answer: `${party.name} (${party.short_name})'s district footprint represents the number of unique districts in Tamil Nadu where the party won at least one assembly seat. You can view their district footprint, runner-up (2nd place), and third-place finishes on this page.`
     }
   ];
 
   if (!isAllElections && election) {
     faqs.push(
+      {
+        question: `What was the district footprint of ${party.short_name} in the ${election} Tamil Nadu election?`,
+        answer: `During the ${election} assembly elections, candidates from ${party.short_name} won seats in ${analytics?.depositLost?.districtsWon || 0} unique districts across Tamil Nadu.`
+      },
+      {
+        question: `How many 2nd and 3rd place finishes did ${party.short_name} secure in ${election}?`,
+        answer: `In the ${election} Tamil Nadu Assembly elections, ${party.short_name} candidates finished in 2nd place (runner-up) in ${analytics?.depositLost?.secondPlaces || 0} constituencies and in 3rd place in ${analytics?.depositLost?.thirdPlaces || 0} constituencies.`
+      },
       {
         question: `What does "deposit lost" mean in elections for ${party.short_name}?`,
         answer: `A candidate loses their security deposit when they fail to secure a minimum of one-sixth (16.67%) of the total valid votes polled in their respective constituency during an election.`
@@ -155,6 +177,16 @@ export default async function PartyPage({ params, searchParams }: PageProps) {
         answer: `Deposit lost analysis helps identify the geographic strength and core base of ${party.short_name}. It distinguishes regions of strong voter support from areas where campaigns failed to gain minimal traction.`
       }
     );
+  }
+
+  if (isAllElections) {
+    const stats2026 = analytics?.depositLost?.yearlyBreakdown?.[2026];
+    if (stats2026) {
+      faqs.push({
+        question: `How many 2nd and 3rd place finishes did ${party.short_name} secure in 2026?`,
+        answer: `In the 2026 Tamil Nadu Assembly elections, ${party.short_name} candidates finished in 2nd place (runner-up) in ${stats2026.secondPlaces} constituencies and in 3rd place in ${stats2026.thirdPlaces} constituencies.`
+      });
+    }
   }
 
   return (
