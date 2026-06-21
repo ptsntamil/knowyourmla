@@ -1,3 +1,5 @@
+import React from "react";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { fetchConstituencyWinners } from "@/services/api";
@@ -13,7 +15,20 @@ import ConstituencyPreElectionOverlay from "@/components/election/dashboard/Cons
 import ShareButton from "@/components/ShareButton";
 import { LAST_COMPLETED_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from "@/lib/constants/elections";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  try {
+    const { fetchConstituencies } = await import("@/services/api");
+    const constituencies = await fetchConstituencies();
+    return (constituencies || []).map((c: any) => ({
+      slug: c.id?.replace('CONSTITUENCY#', '') || c.constituency_name?.toLowerCase().replace(/\s+/g, '-'),
+    }));
+  } catch (error) {
+    console.error("Failed to generate static params for constituencies:", error);
+    return [];
+  }
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -69,10 +84,16 @@ export default async function ConstituencyPage({ params }: PageProps) {
   // Parallel fetch for history and pre-election overlay (if enabled)
   const showPreElection = process.env.NEXT_PUBLIC_ENABLE_2026_PRE_ELECTION === "true";
 
-  const [data, overlayData] = await Promise.all([
-    fetchConstituencyWinners(constituencyId),
-    showPreElection ? getConstituencyPreElectionOverlayData(slug) : Promise.resolve(null)
-  ]);
+  let data, overlayData;
+  try {
+    [data, overlayData] = await Promise.all([
+      fetchConstituencyWinners(constituencyId),
+      showPreElection ? getConstituencyPreElectionOverlayData(slug) : Promise.resolve(null)
+    ]);
+    if (!data || !data.history || data.history.length === 0) return notFound();
+  } catch (error) {
+    return notFound();
+  }
 
   const currentWinner = data.history[0]; // Assuming sorted descending by year
   const latestVoterTurnout = data.stats?.find((stat: any) => parseFloat(stat.poll_percentage) > 0);

@@ -3,7 +3,7 @@ import { fetchConstituencies } from '@/services/api';
 import { generateXml, slugify } from '@/lib/sitemap-utils';
 import { AVAILABLE_ELECTION_YEARS } from '@/lib/constants/elections';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 86400;
 
 export async function GET() {
   const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';

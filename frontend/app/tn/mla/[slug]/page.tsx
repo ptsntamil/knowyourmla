@@ -1,4 +1,5 @@
 import { fetchMLAProfile } from "@/services/api";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import MLAHeader from "@/components/MLAHeader";
 import HistoryTable from "@/components/HistoryTable";
@@ -18,6 +19,34 @@ import { LATEST_ELECTION_YEAR, LAST_COMPLETED_ELECTION_YEAR } from "@/lib/consta
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  try {
+    const { fetchMLAs } = await import("@/services/api");
+    const { AVAILABLE_ELECTION_YEARS } = await import("@/lib/constants/elections");
+    
+    const years = AVAILABLE_ELECTION_YEARS.map((y: string) => parseInt(y));
+    const results = await Promise.allSettled(years.map((year: number) => fetchMLAs(year)));
+
+    let allMlas: any[] = [];
+    results.forEach((res) => {
+      if (res.status === 'fulfilled') {
+        allMlas = [...allMlas, ...(res.value?.mlas || [])];
+      }
+    });
+
+    const uniqueMlas = Array.from(new Map(allMlas.map(m => [m.slug, m])).values());
+    
+    return uniqueMlas.filter((m: any) => m.slug).map((m: any) => ({
+      slug: m.slug,
+    }));
+  } catch (error) {
+    console.error("Failed to generate static params for MLAs:", error);
+    return [];
+  }
 }
 
 export async function generateMetadata({ params }: PageProps) {
@@ -53,7 +82,13 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function MLAProfilePage({ params }: PageProps) {
   const { slug } = await params;
-  const profile = await fetchMLAProfile(slug);
+  let profile;
+  try {
+    profile = await fetchMLAProfile(slug);
+    if (!profile) return notFound();
+  } catch (error) {
+    return notFound();
+  }
   const latestElection = profile.history?.[0];
   const isWinner = latestElection?.winner === true;
   const isCurrent = latestElection?.year === parseInt(LATEST_ELECTION_YEAR) && isWinner;

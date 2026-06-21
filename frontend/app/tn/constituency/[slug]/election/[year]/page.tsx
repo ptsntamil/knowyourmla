@@ -9,6 +9,28 @@ import ResultSummaryEditorial from "@/components/election/ResultSummaryEditorial
 import FAQSection from "@/components/seo/FAQSection";
 import ShareButton from "@/components/ShareButton";
 
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  try {
+    const { fetchConstituencies } = await import("@/services/api");
+    const { AVAILABLE_ELECTION_YEARS } = await import("@/lib/constants/elections");
+    const constituencies = await fetchConstituencies();
+    const params: { slug: string; year: string }[] = [];
+    
+    (constituencies || []).forEach((c: any) => {
+      const slug = c.id?.replace('CONSTITUENCY#', '') || c.constituency_name?.toLowerCase().replace(/\s+/g, '-');
+      AVAILABLE_ELECTION_YEARS.forEach((year: string | number) => {
+        params.push({ slug, year: year.toString() });
+      });
+    });
+    
+    return params;
+  } catch (e) {
+    return [];
+  }
+}
+
 interface PageProps {
   params: Promise<{
     slug: string;
@@ -49,10 +71,12 @@ export default async function ConstituencyElectionResultPage({ params }: PagePro
   const yearNum = parseInt(year);
   const constituencyId = `CONSTITUENCY#${slug}`;
 
-  const result = await service.getConstituencyElectionResult(constituencyId, yearNum);
-
-  if (!result) {
-    notFound();
+  let result;
+  try {
+    result = await service.getConstituencyElectionResult(constituencyId, yearNum);
+    if (!result) return notFound();
+  } catch (error) {
+    return notFound();
   }
 
   const districtSlug = result.districtName.toLowerCase().replace(/\s+/g, '-');

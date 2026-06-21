@@ -14,6 +14,10 @@ import { commonBreadcrumbs } from '@/lib/seo/breadcrumbs';
 import { buildMetadata } from '@/lib/seo/metadata';
 import { AVAILABLE_ELECTION_YEARS } from '@/lib/constants/elections';
 
+export const revalidate = 86400;
+
+
+
 interface PageProps {
   params: Promise<{ year: string }>;
 }
@@ -49,10 +53,12 @@ export default async function ElectionPage({ params }: PageProps) {
   }
 
   const electionService = new ElectionAnalyticsService();
-  const data = await electionService.getElectionOverview(yearNum);
-
-  if (!data) {
-    notFound();
+  let data;
+  try {
+    data = await electionService.getElectionOverview(yearNum);
+    if (!data) return notFound();
+  } catch (error) {
+    return notFound();
   }
 
   const { summary, seatsByParty, voteShareByParty, constituencyResults, insights, faq } = data;

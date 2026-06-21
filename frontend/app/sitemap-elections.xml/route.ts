@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { AVAILABLE_ELECTION_YEARS, LATEST_ELECTION_YEAR } from '@/lib/constants/elections';
 import { fetchParties } from '@/services/api';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 86400;
 
 export async function GET() {
   const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';

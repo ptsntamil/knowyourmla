@@ -19,18 +19,20 @@ export async function generateMetadata({ params }: PageProps) {
   const { year } = await params;
 
   return buildMetadata({
-    title: `Deposit Lost Analysis in Tamil Nadu Elections ${year} | Party-wise Insights`,
-    description: `Explore party-wise deposit lost analysis, candidates who lost deposits, constituency performance, and election insights in Tamil Nadu elections.`,
+    title: `Tamil Nadu Election ${year} Insights: Party Performance & Deposit Lost Analysis | KnowYourMLA`,
+    description: `Detailed party-wise performance metrics for the Tamil Nadu Assembly Election ${year}. Analyze district footprints, 2nd & 3rd place finishes, and security deposits lost/saved by all contesting parties.`,
     path: `/tn/elections/${year}/insights`,
     image: `/tn/elections/${year}/opengraph-image?type=closest`,
     keywords: [
       `Tamil Nadu Election ${year} Insights`,
       `TN Election ${year} Analysis`,
+      `party performance analysis`,
+      `district footprint by party`,
+      `second place finishes by party`,
+      `third place finishes by party`,
       `deposit lost candidates`,
       `party deposit lost seats`,
-      `candidates who lost deposit in election`,
-      `deposit lost analysis Tamil Nadu election`,
-      `which party lost most deposits`
+      `deposit lost analysis Tamil Nadu election`
     ]
   });
 }
@@ -57,6 +59,14 @@ export default async function ElectionInsightsPage({ params }: PageProps) {
   const { summary, insights } = data;
 
   const faqs = [
+    {
+      question: `What is the 'District Footprint' of a party in the ${year} Tamil Nadu election?`,
+      answer: `The district footprint represents the total number of unique districts in Tamil Nadu where a political party won at least one constituency in the ${year} assembly election. It serves as a measure of a party's geographic reach and spread across the state.`
+    },
+    {
+      question: `Which parties secured the most runner-up (2nd place) and 3rd place finishes in ${year}?`,
+      answer: `The Party Performance Analysis section above documents the exact number of 2nd place (runner-up) and 3rd place finishes for all contesting parties (including DMK, AIADMK, TVK, etc.) in the ${year} Tamil Nadu assembly election.`
+    },
     {
       question: "What does \"deposit lost\" mean in elections?",
       answer: `A candidate is said to have lost their security deposit when they fail to secure a minimum of one-sixth (16.67%) of the total valid votes polled in their respective constituency during an election.`

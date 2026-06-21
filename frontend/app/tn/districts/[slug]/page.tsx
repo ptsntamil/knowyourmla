@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { fetchConstituencies, fetchDistrictDetails, fetchDistrictInsights } from "@/services/api";
 import ConstituencyList from "@/components/ConstituencyList";
 import CoverImage from "@/components/CoverImage";
@@ -14,7 +15,20 @@ import ItemListSchema from "@/components/seo/ItemListSchema";
 import ShareButton from "@/components/ShareButton";
 import { LAST_COMPLETED_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from "@/lib/constants/elections";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  try {
+    const { fetchDistricts } = await import("@/services/api");
+    const districts = await fetchDistricts();
+    return (districts || []).map((d: any) => ({
+      slug: d.id || d.district_name?.toLowerCase().replace(/\s+/g, '-'),
+    }));
+  } catch (error) {
+    console.error("Failed to generate static params for districts:", error);
+    return [];
+  }
+}
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -50,11 +64,17 @@ export default async function DistrictPage({ params }: PageProps) {
   const districtId = `DISTRICT#${normalizedSlug}`;
   const districtNameDisplay = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
 
-  const [constituencies, districtDetails, insightsResponse] = await Promise.all([
-    fetchConstituencies(districtId),
-    fetchDistrictDetails(districtId),
-    fetchDistrictInsights(districtId)
-  ]);
+  let constituencies, districtDetails, insightsResponse;
+  try {
+    [constituencies, districtDetails, insightsResponse] = await Promise.all([
+      fetchConstituencies(districtId),
+      fetchDistrictDetails(districtId),
+      fetchDistrictInsights(districtId)
+    ]);
+    if (!districtDetails) return notFound();
+  } catch (error) {
+    return notFound();
+  }
 
   const { insights, mlas } = insightsResponse;
 

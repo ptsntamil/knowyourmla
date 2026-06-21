@@ -39,6 +39,30 @@ const nextConfig: NextConfig = {
       destination: "/tn/mla/:slug",
       permanent: true,
     },
+    {
+      source: "/parties/:slug",
+      has: [
+        {
+          type: "query",
+          key: "election",
+          value: "(?<year>\\d{4})",
+        },
+      ],
+      destination: "/parties/:slug/:year",
+      permanent: true,
+    },
+    {
+      source: "/parties/:slug",
+      has: [
+        {
+          type: "query",
+          key: "election",
+          value: "all",
+        },
+      ],
+      destination: "/parties/:slug",
+      permanent: true,
+    },
   ],
 };
 

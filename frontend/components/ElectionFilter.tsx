@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Filter, ChevronDown } from "lucide-react";
 
 interface ElectionOption {
@@ -11,21 +11,19 @@ interface ElectionOption {
 
 interface ElectionFilterProps {
   options: ElectionOption[];
+  basePath: string;
+  currentElection: string;
 }
 
-export default function ElectionFilter({ options }: ElectionFilterProps) {
+export default function ElectionFilter({ options, basePath, currentElection }: ElectionFilterProps) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const currentElection = searchParams.get("election") || "all";
 
   const handleChange = (value: string) => {
-    const params = new URLSearchParams(searchParams.toString());
     if (value === "all") {
-      params.delete("election");
+      router.push(basePath);
     } else {
-      params.set("election", value);
+      router.push(`${basePath}/${value}`);
     }
-    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   return (
