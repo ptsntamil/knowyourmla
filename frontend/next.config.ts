@@ -39,6 +39,11 @@ const nextConfig: NextConfig = {
       destination: "/tn/mla/:slug",
       permanent: true,
     },
+    {
+      source: "/tn/elections/:year/pre-election-insights",
+      destination: "/tn/elections/:year",
+      permanent: true,
+    },
   ],
 };
 
