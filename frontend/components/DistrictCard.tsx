@@ -16,7 +16,7 @@ export default function DistrictCard({ district, constituencyCount }: DistrictCa
       <div className="absolute top-0 right-0 w-24 h-24 bg-brand-gold/5 rounded-full -mr-12 -mt-12 blur-2xl group-hover:bg-brand-green/10 transition-colors" />
       
       <h3 className="text-2xl font-black text-brand-dark group-hover:text-brand-green transition-colors capitalize tracking-tighter leading-none mb-2">
-        {district.name.toLowerCase()}
+        {(district.name || district.id?.replace("DISTRICT#", "") || "").toLowerCase()}
       </h3>
       <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-8">
         {constituencyCount} Constituencies

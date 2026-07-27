@@ -4,6 +4,7 @@ export interface DistrictResponse {
   slug?: string;
   total_constituencies?: number;
   image_url?: string;
+  representatives?: DistrictRepresentative[];
 }
 
 export interface DistrictStatYear {
@@ -14,6 +15,11 @@ export interface DistrictStatYear {
   third_gender?: number;
 }
 
+export interface DistrictRepresentative {
+  name: string;
+  person_id: string;
+}
+
 export interface DistrictDetailResponse {
   id: string;
   name: string;
@@ -21,6 +27,7 @@ export interface DistrictDetailResponse {
   total_constituencies?: number;
   image_url?: string;
   stats: DistrictStatYear[];
+  representatives?: DistrictRepresentative[];
 }
 
 export interface DistrictMLA {
@@ -154,6 +161,10 @@ export interface PersonDetail {
     twitter?: string;
     instagram?: string;
   };
+  district_representatives?: {
+    id: string;
+    name: string;
+  }[];
 }
 
 export interface ElectionHistoryRecord {
@@ -274,3 +285,21 @@ export interface ElectionResponse {
   type: string;
   category: string;
 }
+
+export interface MinisterItem {
+  candidate_id: string;
+  person_id: string;
+  name: string;
+  designation: string;
+  portfolios: string[];
+  profile_pic: string;
+  constituency?: string;
+  constituency_id?: string;
+  party?: string;
+  party_logo_url?: string;
+  party_color_bg?: string;
+  party_color_text?: string;
+  party_color_border?: string;
+  representative_districts?: { name: string; slug: string }[];
+}
+

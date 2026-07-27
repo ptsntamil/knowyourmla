@@ -7,7 +7,8 @@ import {
   DistrictDetailResponse,
   DistrictInsights,
   DistrictInsightsResponse,
-  PartyObj
+  PartyObj,
+  MinisterItem
 } from "@/types/models";
 import { LATEST_ELECTION_YEAR } from "@/lib/constants/elections";
 
@@ -220,6 +221,20 @@ export async function fetchPartyCandidates(slug: string, year?: number): Promise
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch party candidates: ${res.status} ${res.statusText} - ${errorBody}`);
+  }
+  return res.json();
+}
+
+export async function fetchCabinetList(year: string = "2021"): Promise<MinisterItem[]> {
+  if (isServer && USE_V2_API) {
+    const { PortfolioService } = await import("@/lib/services/portfolio.service");
+    const service = new PortfolioService();
+    return service.getCabinetList(year);
+  }
+  const res = await fetch(`${BASE_URL}/cabinet?year=${year}`, { next: { revalidate: REVALIDATE_TIME } });
+  if (!res.ok) {
+    const errorBody = await res.text().catch(() => "No error body");
+    throw new Error(`Failed to fetch cabinet list: ${res.status} ${res.statusText} - ${errorBody}`);
   }
   return res.json();
 }

@@ -131,6 +131,20 @@ export default function MLAHeader({
                               {person.age} Years Old
                            </span>
                         )}
+                        {person.district_representatives && person.district_representatives.length > 0 && (
+                           <div className="flex gap-2">
+                              {person.district_representatives.map(d => (
+                                 <a 
+                                    key={d.id} 
+                                    href={`/tn/districts/${d.id}`}
+                                    className="px-5 py-2 bg-brand-gold/20 hover:bg-brand-gold/40 text-brand-light-gold text-[10px] font-black rounded-full uppercase tracking-widest border border-brand-gold/50 flex items-center gap-1 transition-all"
+                                 >
+                                    <MapPin size={12} className="inline-block" />
+                                    <span>Rep: {d.name}</span>
+                                 </a>
+                              ))}
+                           </div>
+                        )}
                         <ShareButton
                            title={`${person.name} ${personalTitle} Profile`}
                            text={`Check out ${person.name}'s ${personalTitle} profile on KnowYourMLA.`}

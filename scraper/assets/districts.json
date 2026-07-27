@@ -86,7 +86,9 @@
     "id": "8",
     "name": "KANCHEEPURAM",
     "normalized_name": "kancheepuram",
-    "alias": [],
+    "alias": [
+      "kanchipuram"
+    ],
     "state_id": "STATE#tamilnadu"
   },
   {
@@ -95,7 +97,9 @@
     "id": "9",
     "name": "KANNIYAKUMARI",
     "normalized_name": "kanniyakumari",
-    "alias": [],
+    "alias": [
+      "kanyakumari"
+    ],
     "state_id": "STATE#tamilnadu"
   },
   {
@@ -221,7 +225,10 @@
     "id": "21",
     "name": "THE NILGIRIS",
     "normalized_name": "thenilgiris",
-    "alias": [],
+    "alias": [
+      "nilgiris",
+      "niligiris"
+    ],
     "state_id": "STATE#tamilnadu"
   },
   {
@@ -239,7 +246,9 @@
     "id": "23",
     "name": "THIRUVALLUR",
     "normalized_name": "thiruvallur",
-    "alias": [],
+    "alias": [
+      "tiruvallur"
+    ],
     "state_id": "STATE#tamilnadu"
   },
   {
@@ -248,7 +257,9 @@
     "id": "25",
     "name": "THIRUVARUR",
     "normalized_name": "thiruvarur",
-    "alias": [],
+    "alias": [
+      "tiruvarur"
+    ],
     "state_id": "STATE#tamilnadu"
   },
   {
@@ -266,7 +277,9 @@
     "id": "27",
     "name": "TIRUCHIRAPPALLI",
     "normalized_name": "tiruchirappalli",
-    "alias": [],
+    "alias": [
+      "trichy"
+    ],
     "state_id": "STATE#tamilnadu"
   },
   {
@@ -284,7 +297,9 @@
     "id": "37",
     "name": "TIRUPATHUR",
     "normalized_name": "tirupathur",
-    "alias": [],
+    "alias": [
+      "tirupattur"
+    ],
     "state_id": "STATE#tamilnadu"
   },
   {
@@ -320,7 +335,9 @@
     "id": "31",
     "name": "VILLUPPURAM",
     "normalized_name": "villuppuram",
-    "alias": [],
+    "alias": [
+      "villupuram"
+    ],
     "state_id": "STATE#tamilnadu"
   },
   {

@@ -714,3 +714,82 @@ resource "aws_dynamodb_table" "knowyourmla_polling_results" {
     Env     = "prod"
   }
 }
+
+resource "aws_dynamodb_table" "knowyourmla_portfolios" {
+  name         = "knowyourmla_portfolios"
+  billing_mode = "PAY_PER_REQUEST"
+
+  hash_key  = "PK"
+  range_key = "SK"
+
+  attribute {
+    name = "PK"
+    type = "S"
+  }
+
+  attribute {
+    name = "SK"
+    type = "S"
+  }
+
+  attribute {
+    name = "CandidateIndexPK"
+    type = "S"
+  }
+
+  attribute {
+    name = "CandidateIndexSK"
+    type = "S"
+  }
+
+  attribute {
+    name = "ActiveCabinetIndexPK"
+    type = "S"
+  }
+
+  attribute {
+    name = "ActiveCabinetIndexSK"
+    type = "S"
+  }
+
+  # GSI for MLA Profile: "What portfolios did this MLA hold?"
+  global_secondary_index {
+    name            = "CandidateIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "CandidateIndexPK"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "CandidateIndexSK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI for Active Cabinet: "Who is in the current cabinet?"
+  global_secondary_index {
+    name            = "ActiveCabinetIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "ActiveCabinetIndexPK"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "ActiveCabinetIndexSK"
+      key_type       = "RANGE"
+    }
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
+  tags = {
+    Project = "KnowYourMLA"
+    Env     = "prod"
+  }
+}

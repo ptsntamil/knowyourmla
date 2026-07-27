@@ -16,15 +16,23 @@ export class DistrictRepository {
    * DistrictService and StateService.
    */
   async getAllDistricts() {
-    return this.client.query({
+    const results = await this.client.query({
       IndexName: "MetadataIndex",
       KeyConditionExpression: "SK = :sk",
       ExpressionAttributeValues: { ":sk": "METADATA" },
       ProjectionExpression:
-        "PK, #name, normalized_name, alias, state_id, total_constituencies, image_url, description",
+        "PK, #name, normalized_name, alias, state_id, total_constituencies, image_url, description, representatives",
       ExpressionAttributeNames: {
         "#name": "name",
       },
+    });
+
+    return results.map(d => {
+      if (!d.name && d.PK) {
+        const slug = d.PK.replace("DISTRICT#", "");
+        d.name = slug.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+      }
+      return d;
     });
   }
 
