@@ -3,6 +3,7 @@ import { PersonRepository } from "../repositories/person.repository";
 import { CandidateRepository } from "../repositories/candidate.repository";
 import { ConstituencyRepository } from "../repositories/constituency.repository";
 import { PartyRepository } from "../repositories/party.repository";
+import { DistrictRepository } from "../repositories/district.repository";
 import { unstable_cache } from "next/cache";
 import {
   MLAProfileResponse,
@@ -32,19 +33,22 @@ export class MLAService {
   private candidateRepo: CandidateRepository;
   private constituencyRepo: ConstituencyRepository;
   private partyRepo: PartyRepository;
+  private districtRepo: DistrictRepository;
 
   constructor(
     mlaRepo?: MLARepository,
     personRepo?: PersonRepository,
     candidateRepo?: CandidateRepository,
     constituencyRepo?: ConstituencyRepository,
-    partyRepo?: PartyRepository
+    partyRepo?: PartyRepository,
+    districtRepo?: DistrictRepository
   ) {
     this.mlaRepo = mlaRepo || new MLARepository();
     this.personRepo = personRepo || new PersonRepository();
     this.candidateRepo = candidateRepo || new CandidateRepository();
     this.constituencyRepo = constituencyRepo || new ConstituencyRepository();
     this.partyRepo = partyRepo || new PartyRepository();
+    this.districtRepo = districtRepo || new DistrictRepository();
   }
 
 
@@ -409,6 +413,16 @@ export class MLAService {
 
         const latestRecord = candidatesData.length > 0 ? candidatesData[candidatesData.length - 1] : {} as any;
 
+        const allDistricts = await this.districtRepo.getAllDistricts();
+        const representedDistricts = allDistricts
+          .filter((d: any) => 
+            d.representatives?.some((r: any) => r.person_id === actualPersonId)
+          )
+          .map((d: any) => ({
+            id: d.PK.replace("DISTRICT#", ""),
+            name: d.name || d.PK.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase())
+          }));
+
         const personDetail: PersonDetail = {
           person_id: actualPersonId,
           name: personData.name || "Unknown",
@@ -418,6 +432,7 @@ export class MLAService {
           age: (personData.birth_year || personData.birthyear) ? new Date().getFullYear() - parseInt(personData.birth_year || personData.birthyear) : (personData.age ? parseInt(personData.age) : undefined),
           gender: personData.sex || undefined,
           social_profiles: personData.social_profiles || undefined,
+          district_representatives: representedDistricts.length > 0 ? representedDistricts : undefined,
         };
 
         const analytics: MLAAnalytics = {
