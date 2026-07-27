@@ -18,14 +18,14 @@ export default function DistrictExplorer({ districts, countMap }: DistrictExplor
 
   const filteredAndSortedDistricts = useMemo(() => {
     return districts
-      .filter(d => d.name.toLowerCase().includes(searchQuery.toLowerCase()))
+      .filter(d => (d.name || "").toLowerCase().includes(searchQuery.toLowerCase()))
       .sort((a, b) => {
-        const countA = countMap[a.id] || 0;
-        const countB = countMap[b.id] || 0;
+        const countA = a.total_constituencies || countMap[a.id] || 0;
+        const countB = b.total_constituencies || countMap[b.id] || 0;
 
         switch (sortBy) {
-          case 'name-asc': return a.name.localeCompare(b.name);
-          case 'name-desc': return b.name.localeCompare(a.name);
+          case 'name-asc': return (a.name || "").localeCompare(b.name || "");
+          case 'name-desc': return (b.name || "").localeCompare(a.name || "");
           case 'const-desc': return countB - countA;
           case 'const-asc': return countA - countB;
           default: return 0;
@@ -80,7 +80,7 @@ export default function DistrictExplorer({ districts, countMap }: DistrictExplor
             <DistrictCard
               key={district.id}
               district={district}
-              constituencyCount={countMap[district.id] || 0}
+              constituencyCount={district.total_constituencies || countMap[district.id] || 0}
             />
           ))}
         </div>

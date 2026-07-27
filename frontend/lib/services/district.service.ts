@@ -47,13 +47,18 @@ export class DistrictService {
     return unstable_cache(
       async () => {
         const districts = await this.districtRepo.getAllDistricts();
-        districts.sort((a: any, b: any) => (a.name || "").localeCompare(b.name || ""));
+        districts.sort((a: any, b: any) => {
+          const nameA = a.name || a.PK.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase());
+          const nameB = b.name || b.PK.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase());
+          return nameA.localeCompare(nameB);
+        });
         return districts.map((d: any) => ({
           id: d.PK,
-          name: d.name,
+          name: d.name || d.PK.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()),
           slug: d.PK.replace("DISTRICT#", "").toLowerCase(),
           total_constituencies: d.total_constituencies || 0,
           image_url: d.image_url,
+          representatives: d.representatives || [],
         }));
       },
       ["districts-list"],
@@ -110,6 +115,7 @@ export class DistrictService {
           total_constituencies: district.total_constituencies || 0,
           image_url: district.image_url,
           stats: stats,
+          representatives: district.representatives || [],
         };
       },
       ["district-details", districtId],

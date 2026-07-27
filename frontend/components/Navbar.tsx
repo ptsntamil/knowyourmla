@@ -101,8 +101,13 @@ export default function Navbar({ elections = [] }: NavbarProps) {
             </Link>
 
             {/* MLAs Link */}
-            <Link href="/tn/mla/list" className={linkClasses(isActive("/tn/mla/list"))}>
+            <Link href="/tn/mla/list" className={linkClasses(isActive("/tn/mla/list") && !isActive("/tn/ministers"))}>
               MLAs
+            </Link>
+
+            {/* Ministers Link */}
+            <Link href="/tn/ministers" className={linkClasses(isActive("/tn/ministers"))}>
+              Ministers
             </Link>
 
             {/* Parties Link */}
@@ -209,9 +214,18 @@ export default function Navbar({ elections = [] }: NavbarProps) {
             <Link
               href="/tn/mla/list"
               onClick={() => setIsMenuOpen(false)}
-              className={`block w-full text-slate-400 hover:text-white px-5 py-4 rounded-xl transition-all text-xs font-black uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${isActive("/tn/mla/list") ? "bg-white/5 text-brand-gold" : ""}`}
+              className={`block w-full text-slate-400 hover:text-white px-5 py-4 rounded-xl transition-all text-xs font-black uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${isActive("/tn/mla/list") && !isActive("/tn/ministers") ? "bg-white/5 text-brand-gold" : ""}`}
             >
               MLAs
+            </Link>
+
+            {/* Ministers */}
+            <Link
+              href="/tn/ministers"
+              onClick={() => setIsMenuOpen(false)}
+              className={`block w-full text-slate-400 hover:text-white px-5 py-4 rounded-xl transition-all text-xs font-black uppercase tracking-widest outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${isActive("/tn/ministers") ? "bg-white/5 text-brand-gold" : ""}`}
+            >
+              Ministers
             </Link>
 
             {/* Parties */}

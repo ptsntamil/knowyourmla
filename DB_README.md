@@ -628,6 +628,63 @@ Polling station level results and AC-wide aggregates extracted from Form 20 data
 
 ---
 
+## Table 10 — `knowyourmla_portfolios`
+
+Master registry for ministerial portfolios and their historical assignments, as well as pre-aggregated cabinet rosters for fast frontend reads.
+
+| Entity Type | PK | SK |
+|---|---|---|
+| **Master Record** | `PORTFOLIO#{normalized_name}` | `METADATA` |
+| **Assignment** | `PORTFOLIO#{normalized_name}` | `ASSIGNMENT#{start_date}#{candidate_id}` |
+| **Cabinet Roster** | `CABINET#{year}` | `CURRENT_ROSTER` |
+
+### Assignment Record (Adjacency List)
+
+| Field | Type | Description |
+|---|---|---|
+| `entity_type` | String | `PORTFOLIO_ASSIGNMENT` |
+| `candidate_id` | String | FK → `knowyourmla_candidates` PK |
+| `person_id` | String | FK → `knowyourmla_persons` PK |
+| `designation` | String | Specific title (e.g. `Minister for Health`) |
+| `start_date` | String | Assignment start date (YYYY-MM-DD) |
+| `end_date` | String | Assignment end date (or `null` if active) |
+| `is_active` | Boolean | `true` if currently holding this portfolio |
+| `CandidateIndexPK` | String | Copied `candidate_id` for GSI |
+| `CandidateIndexSK` | String | `ASSIGNMENT#{start_date}` for GSI sorting |
+| `ActiveCabinetIndexPK` | String | `CABINET#{year}` for active cabinet filtering |
+| `ActiveCabinetIndexSK` | String | `PORTFOLIO#{normalized_name}` |
+
+### Pre-aggregated Cabinet Roster
+
+For ultra-fast, 1-RCU reads of the entire cabinet list page.
+
+```json
+{
+  "PK": "CABINET#2021",
+  "SK": "CURRENT_ROSTER",
+  "last_updated": 1771825000,
+  "ministers": [
+    {
+      "candidate_id": "AFFIDAVIT#2021#504",
+      "person_id": "PERSON#...",
+      "name": "M.K. STALIN",
+      "designation": "Honourable Chief Minister",
+      "portfolios": ["Public", "General Administration", "Police"],
+      "profile_pic": "https://..."
+    }
+  ]
+}
+```
+
+### GSIs on `knowyourmla_portfolios`
+
+| GSI | Partition Key | Sort Key | Use Case |
+|---|---|---|---|
+| `CandidateIndex` | `CandidateIndexPK` | `CandidateIndexSK` | What portfolios did this MLA hold over time? |
+| `ActiveCabinetIndex` | `ActiveCabinetIndexPK` | `ActiveCabinetIndexSK` | Who is holding what in the current active cabinet? |
+
+---
+
 - **Project:** KnowYourMLA
 - **Database:** AWS DynamoDB
 - **Region:** `ap-south-2`
