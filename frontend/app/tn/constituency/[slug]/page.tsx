@@ -13,7 +13,7 @@ import ConstituencyPreElectionOverlay from "@/components/election/dashboard/Cons
 import ShareButton from "@/components/ShareButton";
 import { LAST_COMPLETED_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from "@/lib/constants/elections";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 interface PageProps {
   params: Promise<{ slug: string }>;
