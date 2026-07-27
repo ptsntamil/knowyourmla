@@ -20,7 +20,7 @@ const getSiteUrl = () => {
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`;
   return "http://localhost:3000";
 };
-const REVALIDATE_TIME = Number(process.env.REVALIDATE_TIME) || 3600;
+const REVALIDATE_TIME = Number(process.env.REVALIDATE_TIME) || 86400;
 const SITE_URL = getSiteUrl();
 
 const BASE_URL = USE_V2_API
@@ -33,7 +33,7 @@ export async function fetchDistricts(): Promise<DistrictResponse[]> {
     const service = new DistrictService();
     return service.getAllDistricts();
   }
-  const res = await fetch(`${BASE_URL}/districts`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${BASE_URL}/districts`, { next: { revalidate: REVALIDATE_TIME } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch districts: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -47,7 +47,7 @@ export async function fetchDistrictDetails(districtId: string): Promise<District
     const service = new DistrictService();
     return service.getDistrictDetails(districtId);
   }
-  const res = await fetch(`${BASE_URL}/districts/${encodeURIComponent(districtId)}`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${BASE_URL}/districts/${encodeURIComponent(districtId)}`, { next: { revalidate: REVALIDATE_TIME } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch district details: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -61,7 +61,7 @@ export async function fetchDistrictInsights(districtId: string): Promise<Distric
     const service = new DistrictService();
     return service.getDistrictInsights(districtId);
   }
-  const res = await fetch(`${BASE_URL}/districts/${encodeURIComponent(districtId)}/insights`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${BASE_URL}/districts/${encodeURIComponent(districtId)}/insights`, { next: { revalidate: REVALIDATE_TIME } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch district insights: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -78,7 +78,7 @@ export async function fetchConstituencies(district_id?: string): Promise<Constit
   const url = district_id
     ? `${BASE_URL}/constituencies?district_id=${encodeURIComponent(district_id)}`
     : `${BASE_URL}/constituencies`;
-  const res = await fetch(url, { next: { revalidate: 3600 } });
+  const res = await fetch(url, { next: { revalidate: REVALIDATE_TIME } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch constituencies: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -92,7 +92,7 @@ export async function fetchConstituencyWinners(constituencyId: string): Promise<
     const service = new ConstituencyService();
     return service.getWinnerHistory(constituencyId);
   }
-  const res = await fetch(`${BASE_URL}/constituencies/${encodeURIComponent(constituencyId)}/winners`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${BASE_URL}/constituencies/${encodeURIComponent(constituencyId)}/winners`, { next: { revalidate: REVALIDATE_TIME } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch constituency winners: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -106,7 +106,7 @@ export async function fetchMLAProfile(identifier: string): Promise<MLAProfileRes
     const service = new MLAService();
     return service.getMLAProfile(identifier);
   }
-  const res = await fetch(`${BASE_URL}/mlas/${encodeURIComponent(identifier)}/profile`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${BASE_URL}/mlas/${encodeURIComponent(identifier)}/profile`, { next: { revalidate: REVALIDATE_TIME } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch MLA profile: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -120,7 +120,7 @@ export async function fetchMLAs(year: number = parseInt(LATEST_ELECTION_YEAR)): 
     const service = new MLAService();
     return service.getCurrentMLAs(year);
   }
-  const res = await fetch(`${BASE_URL}/mlas?year=${year}`, { next: { revalidate: 3600 } });
+  const res = await fetch(`${BASE_URL}/mlas?year=${year}`, { next: { revalidate: REVALIDATE_TIME } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch MLAs: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -150,7 +150,7 @@ export async function fetchParties(): Promise<any[]> {
     const service = new PartyService();
     parties = await service.getAllParties();
   } else {
-    const res = await fetch(`${BASE_URL}/parties`, { next: { revalidate: 3600 } });
+    const res = await fetch(`${BASE_URL}/parties`, { next: { revalidate: REVALIDATE_TIME } });
     if (!res.ok) {
       const errorBody = await res.text().catch(() => "No error body");
       throw new Error(`Failed to fetch parties: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -197,7 +197,7 @@ export async function fetchPartyDetails(slug: string, year?: string): Promise<an
   const url = year && year !== "all"
     ? `${BASE_URL}/parties/${encodeURIComponent(slug)}?year=${year}`
     : `${BASE_URL}/parties/${encodeURIComponent(slug)}`;
-  const res = await fetch(url, { next: { revalidate: 3600 } });
+  const res = await fetch(url, { next: { revalidate: REVALIDATE_TIME } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch party details: ${res.status} ${res.statusText} - ${errorBody}`);
@@ -216,7 +216,7 @@ export async function fetchPartyCandidates(slug: string, year?: number): Promise
   const url = year
     ? `${BASE_URL}/parties/${encodeURIComponent(slug)}/candidates?year=${year}`
     : `${BASE_URL}/parties/${encodeURIComponent(slug)}/candidates`;
-  const res = await fetch(url, { next: { revalidate: 3600 } });
+  const res = await fetch(url, { next: { revalidate: REVALIDATE_TIME } });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");
     throw new Error(`Failed to fetch party candidates: ${res.status} ${res.statusText} - ${errorBody}`);

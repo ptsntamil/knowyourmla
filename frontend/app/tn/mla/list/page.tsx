@@ -14,7 +14,7 @@ import SectionHeader from "@/components/ui/SectionHeader";
 import Badge from "@/components/ui/Badge";
 import { LATEST_ELECTION_YEAR } from "@/lib/constants/elections";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export async function generateMetadata() {
   const currentYear = parseInt(LATEST_ELECTION_YEAR);
