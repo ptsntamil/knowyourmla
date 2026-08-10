@@ -16,6 +16,15 @@ export class ConstituencyRepository {
   }
 
   /**
+   * Fetches a single constituency by its PK.
+   */
+  async getConstituencyById(constituencyId: string) {
+    return this.clientConstituency.get({
+      Key: { PK: constituencyId, SK: "METADATA" },
+    });
+  }
+
+  /**
    * Fetches all constituencies (METADATA) using MetadataIndex.
    */
   async getAllConstituencies() {

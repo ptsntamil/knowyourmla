@@ -6,41 +6,41 @@ import re
 
 
 dynamodb = boto3.resource('dynamodb', region_name='ap-south-2')
-persons_table = dynamodb.Table('knowyourmla_persons')
 districts_table = dynamodb.Table('knowyourmla_districts')
+candidates_table = dynamodb.Table('knowyourmla_candidates')
 
 overrides = {
     'aadhavarjuna': 'PERSON#aadhavarjuna_rajendran',
     'nanand': 'PERSON#anandn_narayanasamy',
     'mariawilson': 'PERSON#UNKNOWN_mariawilson',
-    'pvenkatraman': 'PERSON#UNKNOWN_pvenkataramanan',
+    'pvenkatraman': 'AFFIDAVIT#2026#1932',
     'vanniarasu': 'PERSON#24c12f8c3d4a78a3a6370c4da630ae92',
-    'kasengotaiyan': 'PERSON#UNKNOWN_kasengottaiyan',
-    'skirthana': 'PERSON#UNKNOWN_skeerthana',
+    'kasengotaiyan': 'AFFIDAVIT#2026#1067',
+    'skirthana': 'AFFIDAVIT#2026#1428',
     'kgarunraj': 'PERSON#arunrajkg_ganesankp',
-    'vishwanath': 'PERSON#UNKNOWN_pviswanathan',
+    'vishwanath': 'AFFIDAVIT#2026#515',
     'srajeshkumar': 'PERSON#e2b083ad4b0e41423f2ce5c04ba01e45',
-    'rnirmalkumar': 'PERSON#nirmalkumarr_raja',
+    'rnirmalkumar': 'AFFIDAVIT#2026#1661',
     'rajmohan': 'PERSON#rajmohan_arumugam',
-    'rkumar': 'PERSON#752b75a238a75c162075b24b6b59330f',
+    'rkumar': 'AFFIDAVIT#2026#1232',
     'kthennarasu': 'PERSON#thennarasuk_kanniyappan',
-    'rvranjitkumar': 'PERSON#UNKNOWN_rvranjithkumar',
-    'tsarathkumar': 'PERSON#UNKNOWN_tsarathkumar',
+    'rvranjitkumar': 'AFFIDAVIT#2026#704',
+    'tsarathkumar': 'AFFIDAVIT#2026#1116',
     'vgandhiraj': 'PERSON#vgandhiraj_vadivel',
     'vinoth': 'PERSON#anot_2',
     'ramesh': 'PERSON#ramesh_srinivasan',
     'cvijayalakshmi': 'PERSON#cvijayalakshmi_balaraman',
     'tlokeshtamilselvan': 'PERSON#logeshtamilselvand_dhanabal',
-    'kamali': 'PERSON#UNKNOWN_skamali',
+    'kamali': 'AFFIDAVIT#2026#1192',
     'mvijaybalaji': 'PERSON#mvijaybalaji_mathialagan',
     'vsampathkumar': 'PERSON#vsampathkumar_mvelayutham',
-    'jmohamedfarvez': 'PERSON#UNKNOWN_jmohamedfarvas',
+    'jmohamedfarvez': 'AFFIDAVIT#2026#1112',
     'tkprabhu': 'PERSON#drprabhutk_thuraikarunanidhi',
     'kjagedeeswari': 'PERSON#jegadeshwarik_kumaravel',
     'srinath': 'PERSON#srinath_alnath',
-    'madanraja': 'PERSON#UNKNOWN_madanraja',
-    'vijaytamilanparthiban': 'PERSON#UNKNOWN_avijaytamilanparthiban',
-    'rajiv': 'PERSON#UNKNOWN_vkrajeev',
+    'madanraja': 'AFFIDAVIT#2026#1725',
+    'vijaytamilanparthiban': 'AFFIDAVIT#2026#950',
+    'rajiv': 'AFFIDAVIT#2026#2037',
     'kvignesh': 'PERSON#vigneshk_kathirvelpandian'
 }
 
@@ -102,15 +102,34 @@ for line in lines:
     districts = [d.strip() for d in district_part.split(' and ')]
     
     norm = normalize_name(person_name)
-    person_id = overrides.get(norm)
+    id_val = overrides.get(norm)
     
-    if not person_id:
+    if not id_val:
         print(f"ERROR: No override for {person_name} ({norm})")
         continue
 
+    if id_val.startswith('AFFIDAVIT#'):
+        candidate_id = id_val
+    else:
+        person_id = id_val
+        # Fetch candidate_id for this person_id
+        candidates_response = candidates_table.query(
+            IndexName='PersonIndex',
+            KeyConditionExpression=Key('person_id').eq(person_id)
+        )
+        candidates = candidates_response.get('Items', [])
+        
+        if not candidates:
+            print(f"ERROR: No candidate found in DB for {person_id}")
+            continue
+            
+        # Get the most recent candidate record dynamically (e.g., 2026 over 2021)
+        latest_candidate = max(candidates, key=lambda x: x.get('year', 0))
+        candidate_id = latest_candidate.get('PK')
+
     rep_obj = {
         'name': person_name,
-        'person_id': person_id
+        'candidate_id': candidate_id
     }
 
     for d in districts:
@@ -138,7 +157,7 @@ for line in lines:
         try:
             districts_table.update_item(
                 Key={'PK': pk, 'SK': 'METADATA'},
-                UpdateExpression="SET representatives = list_append(if_not_exists(representatives, :empty_list), :rep)",
+                UpdateExpression="SET inChargeMinisters = list_append(if_not_exists(inChargeMinisters, :empty_list), :rep)",
                 ExpressionAttributeValues={
                     ':rep': [rep_obj],
                     ':empty_list': []

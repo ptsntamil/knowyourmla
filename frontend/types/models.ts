@@ -20,6 +20,11 @@ export interface DistrictRepresentative {
   person_id: string;
 }
 
+export interface DistrictInChargeMinister {
+  name: string;
+  candidate_id: string;
+}
+
 export interface DistrictDetailResponse {
   id: string;
   name: string;
@@ -28,6 +33,7 @@ export interface DistrictDetailResponse {
   image_url?: string;
   stats: DistrictStatYear[];
   representatives?: DistrictRepresentative[];
+  inChargeMinisters?: DistrictMLA[];
 }
 
 export interface DistrictMLA {
@@ -36,6 +42,7 @@ export interface DistrictMLA {
   slug: string;
   constituency: string;
   constituencyId: string;
+  candidateId?: string;
   party: string;
   partyShort: string;
   partyColor?: string;
