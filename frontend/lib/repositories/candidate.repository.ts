@@ -8,6 +8,15 @@ export class CandidateRepository {
   }
 
   /**
+   * Fetches a candidate record by its ID (AFFIDAVIT#...).
+   */
+  async getCandidateById(candidateId: string) {
+    return this.client.get({
+      Key: { PK: candidateId, SK: "DETAILS" },
+    });
+  }
+
+  /**
    * Fetches the election history for a person using PersonIndex.
    */
   async getPersonHistory(personId: string) {

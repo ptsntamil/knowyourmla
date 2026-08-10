@@ -108,6 +108,43 @@ export class DistrictService {
 
         const stats = Object.values(statsMap).sort((a, b) => b.year - a.year);
 
+        const inChargeMinisters: DistrictMLA[] = [];
+        if (district.inChargeMinisters && district.inChargeMinisters.length > 0) {
+          for (const inc of district.inChargeMinisters) {
+            if (!inc.candidate_id) continue;
+            
+            const candidateRecord = await this.candidateRepo.getCandidateById(inc.candidate_id);
+            if (!candidateRecord) continue;
+            
+            const personRecord = await this.personRepo.getPersonById(candidateRecord.person_id);
+            if (!personRecord) continue;
+
+            const constituency = await this.constituencyRepo.getConstituencyById(candidateRecord.constituency_id);
+            const partyInfo = await getSharedPartyInfo(candidateRecord.party_id);
+            
+            inChargeMinisters.push({
+              name: personRecord.name || candidateRecord.candidate_name,
+              age: calculateAge(personRecord.birth_year || personRecord.birthyear) || (personRecord.age ? parseInt(personRecord.age) : null),
+              slug: (personRecord.name || candidateRecord.candidate_name).toLowerCase().replace(/[^a-z0-9]/g, "-"),
+              constituency: constituency?.name || candidateRecord.constituency_id?.replace("CONSTITUENCY#", ""),
+              constituencyId: candidateRecord.constituency_id,
+              candidateId: candidateRecord.PK,
+              party: partyInfo.short_name || candidateRecord.party_id?.replace("PARTY#", "") || "IND",
+              partyShort: partyInfo.short_name || candidateRecord.party_id?.replace("PARTY#", "") || "IND",
+              partyColor: partyInfo.color_bg,
+              partyColorText: partyInfo.color_text,
+              partyColorBorder: partyInfo.color_border,
+              partyLogoUrl: partyInfo.logo,
+              assets: normalizeTotalAssets(candidateRecord.total_assets),
+              formattedAssets: formatAssets(normalizeTotalAssets(candidateRecord.total_assets)),
+              image_url: normalizeCandidateProfilePic(personRecord.image_url || candidateRecord.profile_pic) || undefined,
+              gender: (personRecord.sex || personRecord.gender || "").toLowerCase() || "unknown",
+              education: personRecord.education || candidateRecord.education,
+              is_resigned: Boolean(candidateRecord.is_resigned)
+            });
+          }
+        }
+
         return {
           id: district.PK,
           name: district.name,
@@ -116,9 +153,10 @@ export class DistrictService {
           image_url: district.image_url,
           stats: stats,
           representatives: district.representatives || [],
+          inChargeMinisters: inChargeMinisters
         };
       },
-      ["district-details", districtId],
+      ["district-details-v2", districtId],
       { revalidate: 86400, tags: [`district-detail-${districtId}`] }
     )(districtId);
   }

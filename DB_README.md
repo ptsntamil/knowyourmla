@@ -109,6 +109,7 @@ Master registry of all Tamil Nadu assembly constituencies. One record per consti
 | `normalized_name` | String | Lowercase, alphanumeric only (e.g. `kolathur`) |
 | `district_id` | String | FK → `knowyourmla_districts` PK |
 | `type` | String | Reservation type: `GEN`, `SC`, or `ST` |
+| `demographic` | String | Demographic category: `Urban`, `Semi Urban`, or `Rural` |
 | `id` | String | Original Myneta `constituency_id` (optional, populated by `extract_constituencies.py`) |
 | `source_url` | String | Source Myneta URL for the constituency (optional) |
 | `aliases` | List | Normalized aliases found in data (e.g. `["peryakulam", "rknagar"]`) |
@@ -125,6 +126,7 @@ Master registry of all Tamil Nadu assembly constituencies. One record per consti
   "normalized_name": "kolathur",
   "district_id": "DISTRICT#chennai",
   "type": "GEN",
+  "demographic": "Urban",
   "id": "49",
   "source_url": "https://www.myneta.info/TamilNadu2021/index.php?action=show_candidates&constituency_id=49",
   "aliases": ["drradhakrishnanagar", "rknagar"],
@@ -507,6 +509,8 @@ Master registry of districts.
 | `normalized_name` | String | Lowercase, alphanumeric only |
 | `alias` | List | Alternative names |
 | `state_id` | String | FK → `knowyourmla_states` PK |
+| `representatives` | List | Legacy array of `{"name": "...", "person_id": "PERSON#..."}` objects |
+| `inChargeMinisters` | List | Array of `{"name": "...", "candidate_id": "AFFIDAVIT#..."}` objects |
 
 ### Sample Record
 
@@ -518,11 +522,17 @@ Master registry of districts.
   "name": "ARIYALUR",
   "normalized_name": "ariyalur",
   "alias": [],
-  "state_id": "STATE#tamilnadu"
+  "state_id": "STATE#tamilnadu",
+  "inChargeMinisters": [
+    {
+      "name": "S. S. Sivasankar",
+      "candidate_id": "AFFIDAVIT#2026#123"
+    }
+  ]
 }
 ```
 
-> **Seeder:** Populated by `scraper/extract_districts.py`.
+> **Seeder:** Populated by `scraper/extract_districts.py` and updated by `scraper/update_district_reps.py`.
 
 ---
 

@@ -72,9 +72,9 @@ export default function MinistersTable({ ministers, searchQuery, selectedPortfol
                       </div>
                     )}
                     <div>
-                      {minister.person_id && !minister.person_id.startsWith("PERSON#UNKNOWN") ? (
+                      {minister.candidate_id && !minister.candidate_id.startsWith("AFFIDAVIT#UNKNOWN") ? (
                         <Link
-                          href={`/tn/mla/${minister.person_id.replace("PERSON#", "")}`}
+                          href={`/tn/mla/${minister.candidate_id.replace("AFFIDAVIT#", "")}`}
                           className="text-sm font-black text-slate-800 hover:text-brand-gold transition-colors block"
                         >
                           {minister.name}
