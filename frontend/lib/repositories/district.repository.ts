@@ -21,7 +21,7 @@ export class DistrictRepository {
       KeyConditionExpression: "SK = :sk",
       ExpressionAttributeValues: { ":sk": "METADATA" },
       ProjectionExpression:
-        "PK, #name, normalized_name, alias, state_id, total_constituencies, image_url, description, representatives",
+        "PK, #name, normalized_name, alias, state_id, total_constituencies, image_url, description, representatives, inChargeMinisters",
       ExpressionAttributeNames: {
         "#name": "name",
       },

@@ -18,6 +18,38 @@ export async function generateMetadata() {
 export default function NewsListPage() {
   const blogs = [
     {
+      title: "Did the Vijay Factor Increase Voter Turnout? A Data-Driven Investigation",
+      slug: "did-vijay-factor-increase-voter-turnout",
+      date: "August 10, 2026",
+      readTime: "5 min",
+      description: "Did Vijay's political debut increase voter participation in Tamil Nadu? Explore constituency-wise votes polled, urban-rural voting trends, and TVK vote share analysis.",
+      category: "Investigation"
+    },
+    {
+      title: "TVK Vote Share vs Voter Turnout: Constituency Level Analysis",
+      href: "/tn/analysis/tvk-vote-share-turnout-constituency-level",
+      date: "August 10, 2026",
+      readTime: "4 min",
+      description: "Explore whether constituencies where TVK secured a higher vote share also experienced larger increases in actual votes polled between 2021 and 2026.",
+      category: "Analysis"
+    },
+    {
+      title: "Urban vs Rural Voting Trends in Tamil Nadu (2026)",
+      href: "/tn/analysis/urban-rural-2026-comparison",
+      date: "August 9, 2026",
+      readTime: "4 min",
+      description: "An interactive analysis comparing voter turnout patterns between urban, semi-urban, and rural constituencies across Tamil Nadu.",
+      category: "Analysis"
+    },
+    {
+      title: "Tamil Nadu Voters Trend Analysis (2016-2026)",
+      href: "/tn/analysis/voters-trend",
+      date: "August 9, 2026",
+      readTime: "5 min",
+      description: "Dive into the historical voter participation trends, gender-based voting patterns, and demographic shifts over the last three assembly elections.",
+      category: "Analysis"
+    },
+    {
       title: "18 MLAs with 100% Assembly Attendance in Tamil Nadu (2021–2026)",
       slug: "tamil-nadu-mlas-100-percent-attendance-2021-2026",
       date: "March 21, 2026",
@@ -58,7 +90,7 @@ export default function NewsListPage() {
           {blogs.map((blog, idx) => (
             <Link 
               key={idx} 
-              href={`/news/${blog.slug}`}
+              href={blog.href || `/news/${blog.slug}`}
               className="group bg-white rounded-[32px] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col h-full"
             >
               {/* Card Image Placeholder / Category */}

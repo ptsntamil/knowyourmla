@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { fetchConstituencies, fetchDistrictDetails, fetchDistrictInsights } from "@/services/api";
+import { fetchConstituencies, fetchDistrictDetails, fetchDistrictInsights, fetchCabinetList } from "@/services/api";
 import ConstituencyList from "@/components/ConstituencyList";
 import CoverImage from "@/components/CoverImage";
 import DistrictInsights from "@/components/district/DistrictInsights";
@@ -50,13 +50,20 @@ export default async function DistrictPage({ params }: PageProps) {
   const districtId = `DISTRICT#${normalizedSlug}`;
   const districtNameDisplay = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
 
-  const [constituencies, districtDetails, insightsResponse] = await Promise.all([
+  const [constituencies, districtDetails, insightsResponse, cabinetList] = await Promise.all([
     fetchConstituencies(districtId),
     fetchDistrictDetails(districtId),
-    fetchDistrictInsights(districtId)
+    fetchDistrictInsights(districtId),
+    fetchCabinetList(LAST_COMPLETED_ELECTION_YEAR.toString())
   ]);
 
   const { insights, mlas } = insightsResponse;
+
+  const inChargeMinistersArray = districtDetails.inChargeMinisters || [];
+  const inChargeMinister = inChargeMinistersArray.length > 0 ? {
+    ...inChargeMinistersArray[0],
+    designation: cabinetList.find(m => m.candidate_id === inChargeMinistersArray[0].candidateId)?.designation || "District In-charge Minister"
+  } : null;
 
   const latestStats = districtDetails.stats && districtDetails.stats.length > 0 ? districtDetails.stats[0] : null;
 
@@ -164,13 +171,57 @@ export default async function DistrictPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* Constituencies Section */}
+        {/* Representatives Section */}
         <div className="pt-24 border-t border-slate-100 dark:border-slate-800 space-y-12">
           <div>
-            <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Constituencies</h2>
-            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Legislative segments within {slug} district</p>
+            <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Representatives</h2>
+            <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">Elected leaders representing {slug} district</p>
           </div>
-          <ConstituencyList constituencies={constituencies} mlas={mlas} />
+
+          {inChargeMinister && (
+            <div className="mb-12">
+              <div className="bg-brand-gold/5 border border-brand-gold/20 p-8 rounded-[2.5rem] flex flex-col md:flex-row items-center md:items-start gap-8 hover:shadow-xl hover:border-brand-gold/40 transition-all group relative overflow-hidden">
+                <div className="w-32 h-32 rounded-full overflow-hidden shrink-0 border-4 border-white shadow-lg">
+                  {inChargeMinister.image_url ? (
+                    <img src={inChargeMinister.image_url} alt={inChargeMinister.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <div className="w-full h-full bg-slate-200 flex items-center justify-center text-slate-400">
+                      <svg className="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1 text-center md:text-left space-y-3">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 bg-brand-gold/10 text-brand-gold text-[10px] font-black uppercase tracking-widest rounded-lg border border-brand-gold/20">
+                    <span>🏛</span> District In-charge Minister
+                  </div>
+                  <div>
+                    <h3 className="text-2xl font-black text-brand-dark uppercase tracking-tight leading-tight group-hover:text-brand-gold transition-colors">
+                      {inChargeMinister.name}
+                    </h3>
+                    <p className="text-sm font-bold text-slate-600 mt-1">{inChargeMinister.designation}</p>
+                  </div>
+                  <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                    District In-charge Minister – {districtNameDisplay}
+                  </p>
+                </div>
+                <div className="mt-4 md:mt-0 md:self-center shrink-0">
+                  <Link
+                    href={`/tn/mla/${inChargeMinister.name.toLowerCase().replace(/[^a-z0-9]/g, "-")}`}
+                    className="inline-flex items-center gap-2 bg-white text-[10px] font-black text-brand-dark uppercase tracking-[0.2em] px-6 py-3 rounded-full border border-slate-200 hover:border-brand-gold hover:text-brand-gold transition-all shadow-sm hover:shadow-md"
+                  >
+                    View Profile <span aria-hidden="true">&rarr;</span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div>
+            <h3 className="text-xl font-black text-brand-dark uppercase tracking-tight mb-6">Constituencies</h3>
+            <ConstituencyList constituencies={constituencies} mlas={mlas} />
+          </div>
         </div>
 
         <div className="bg-brand-dark rounded-[3rem] p-10 mt-20 mb-20 relative overflow-hidden group shadow-2xl shadow-brand-dark/20 text-center sm:text-left">
