@@ -188,7 +188,7 @@ export default function VijayTurnoutAnalysisPage() {
               This analysis uses <strong>Votes Polled</strong> as the primary comparison metric. Turnout percentage alone may be misleading because the total electoral roll was significantly reduced after the Special Intensive Revision (SIR), which artificially inflates turnout percentages.
             </p>
 
-            <div className="grid gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm">
                 <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Formula 1</div>
                 <h4 className="text-lg font-bold text-brand-dark mb-3">Votes Added</h4>
@@ -224,7 +224,7 @@ export default function VijayTurnoutAnalysisPage() {
                 <p className="text-xs text-slate-500 italic">Turnout percentage is presented only as supporting information because the electoral roll changed after SIR.</p>
               </div>
 
-              <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm lg:col-span-2">
+              <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm md:col-span-2">
                 <div className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">Deep Analysis: The 3.62 Lakh Additional Voters</div>
                 <h4 className="text-lg font-bold text-brand-dark mb-3">Calculating the "Vijay Factor" Residual Impact</h4>
                 <div className="bg-slate-50 p-4 rounded-xl border border-slate-100 mb-4 font-mono text-sm space-y-2 text-slate-700">
