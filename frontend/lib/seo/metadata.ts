@@ -28,6 +28,8 @@ export function buildMetadata({
   const ogImage = image || "/logo.png";
 
   const result: Metadata = {
+    applicationName: siteName,
+    appleWebApp: { title: siteName },
     title: title,
     description,
     keywords,

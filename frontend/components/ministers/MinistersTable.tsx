@@ -47,7 +47,7 @@ export default function MinistersTable({ ministers, searchQuery, selectedPortfol
               <th className="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Minister</th>
               <th className="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] w-1/3">Portfolios</th>
               <th className="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Constituency</th>
-              <th className="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">District Rep</th>
+              <th className="px-8 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">District In-charge</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
