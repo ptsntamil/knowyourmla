@@ -45,10 +45,10 @@ export async function generateMetadata() {
   const topMinisters = ministerNames.slice(0, 3).join(", ");
 
   return buildMetadata({
-    title: `Tamil Nadu Ministers List ${currentYear}-${nextYear} | Cabinet Ministers`,
-    description: `Complete list of Cabinet Ministers in Tamil Nadu for the ${currentYear}-${nextYear} assembly including ${topMinisters}. View portfolios, contact details, and district representatives.`,
+    title: `Tamil Nadu Ministers List ${currentYear}-${nextYear} | Cabinet & District In-charge Ministers`,
+    description: `Complete list of Cabinet Ministers in Tamil Nadu for the ${currentYear}-${nextYear} assembly including ${topMinisters}. View portfolios, contact details, and district in-charge ministers.`,
     path: "/tn/ministers",
-    keywords: [`Ministers List ${currentYear}`, `Tamil Nadu Ministers`, `Cabinet Ministers TN`, "Tamil Nadu Portfolios", "TN Politics", ...dynamicKeywords]
+    keywords: [`Ministers List ${currentYear}`, `Tamil Nadu Ministers`, `Cabinet Ministers TN`, `District In-charge Minister Tamil Nadu`, "Tamil Nadu Portfolios", "TN Politics", ...dynamicKeywords]
   });
 }
 
@@ -101,6 +101,10 @@ export default async function MinistersListPage() {
     {
       question: "Can I find which minister represents my constituency?",
       answer: "Yes, you can use the search bar above to type your constituency name and see if your elected MLA is a serving Cabinet Minister."
+    },
+    {
+      question: "What is a District In-charge Minister in Tamil Nadu?",
+      answer: "A District In-charge Minister is a cabinet minister appointed by the Chief Minister to oversee the development projects and administrative reviews of a specific district."
     }
   ];
 
@@ -132,8 +136,8 @@ export default async function MinistersListPage() {
       
       <main className="max-w-7xl mx-auto px-4 py-16 space-y-12">
         <SEOIntro 
-          h1="Tamil Nadu Cabinet Ministers"
-          intro="This page provides the complete Tamil Nadu Ministers list with their respective portfolios, constituencies, and party information. Browse the active cabinet members serving the state."
+          h1="Tamil Nadu Cabinet & District In-charge Ministers"
+          intro="This page provides the complete Tamil Nadu Ministers list with their respective portfolios, constituencies, district in-charge assignments, and party information. Browse the active cabinet members serving the state."
         />
 
         <SectionHeader 
