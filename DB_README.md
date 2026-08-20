@@ -647,6 +647,8 @@ Master registry for ministerial portfolios and their historical assignments, as 
 | **Master Record** | `PORTFOLIO#{normalized_name}` | `METADATA` |
 | **Assignment** | `PORTFOLIO#{normalized_name}` | `ASSIGNMENT#{start_date}#{candidate_id}` |
 | **Cabinet Roster** | `CABINET#{year}` | `CURRENT_ROSTER` |
+| **Department Master** | `DEPARTMENT#{normalized_name}` | `METADATA` |
+| **Department History**| `DEPARTMENT#{normalized_name}` | `HISTORY#{start_date}` |
 
 ### Assignment Record (Adjacency List)
 

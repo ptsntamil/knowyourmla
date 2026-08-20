@@ -33,10 +33,12 @@ export async function generateMetadata({ params }: PageProps) {
   });
 
   return buildMetadata({
-    title: `${result.constituencyName} Polling Station Wise Results ${year} | Booth Level Vote Share`,
-    description: `View ${result.constituencyName} polling station wise election results ${year} including booth level vote share, candidate performance, turnout, winning margin, and strongest polling stations.`,
+    title: `Polling Stations in ${result.constituencyName} - ${year} Booth Level Results`,
+    description: `Get the complete list of polling stations in ${result.constituencyName} and view ${year} booth wise election results, vote share, candidate performance, and turnout.`,
     path: `/tn/constituency/${slug}/election/${year}/polling-stations`,
     keywords: [
+      `polling stations in ${result.constituencyName}`,
+      `list of polling stations in ${result.constituencyName}`,
       `${result.constituencyName} polling station results`,
       `${result.constituencyName} booth level results`,
       `${result.constituencyName} booth wise vote share`,
@@ -121,9 +123,11 @@ export default async function PollingStationsPage({ params }: PageProps) {
               
               <div className="space-y-3">
                 <h1 className="text-4xl md:text-6xl font-black text-white tracking-tighter leading-none">
-                  <span className="text-[#F4B63D]">{result.constituencyName}</span><br />
-                  Polling Station Results
+                  Polling Stations in <span className="text-[#F4B63D]">{result.constituencyName}</span>
                 </h1>
+                <p className="text-2xl md:text-3xl text-white/80 font-bold tracking-tight">
+                  & {year} Booth Results
+                </p>
                 <div className="w-24 h-1.5 bg-[#F4B63D] rounded-full" />
               </div>
 
