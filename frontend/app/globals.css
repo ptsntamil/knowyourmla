@@ -46,6 +46,7 @@
   --color-brand-yellow: #BDA523;
   --color-page-bg: #F5EEDC;
   --color-border: var(--border);
+  --font-sans: 'Inter', system-ui, sans-serif;
 }
 
 body {
