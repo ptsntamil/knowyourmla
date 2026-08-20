@@ -72,9 +72,9 @@ export default function MinistersTable({ ministers, searchQuery, selectedPortfol
                       </div>
                     )}
                     <div>
-                      {minister.candidate_id && !minister.candidate_id.startsWith("AFFIDAVIT#UNKNOWN") ? (
+                      {minister.person_id && !minister.person_id.startsWith("PERSON#UNKNOWN") ? (
                         <Link
-                          href={`/tn/mla/${minister.candidate_id.replace("AFFIDAVIT#", "")}`}
+                          href={`/tn/mla/${minister.person_id.replace("PERSON#", "")}`}
                           className="text-sm font-black text-slate-800 hover:text-brand-gold transition-colors block"
                         >
                           {minister.name}
@@ -91,12 +91,29 @@ export default function MinistersTable({ ministers, searchQuery, selectedPortfol
                   </div>
                 </td>
                 <td className="px-8 py-6 align-top">
-                  <div className="flex flex-wrap gap-1.5">
-                    {minister.portfolios.map((p, idx) => (
-                      <span key={idx} className="inline-block px-2.5 py-1 bg-slate-100 text-slate-600 text-[10px] font-bold rounded-md leading-tight">
-                        {p}
-                      </span>
-                    ))}
+                  <div className="flex flex-wrap gap-2">
+                    {minister.portfolios.map((p, idx) => {
+                      const slug = p.toLowerCase().replace(/[^a-z0-9]/g, "");
+                      return (
+                        <div key={idx} className="inline-flex flex-col gap-0.5 bg-slate-50 border border-slate-100 rounded-lg p-2 shadow-sm">
+                          <span className="text-xs font-black text-slate-700 px-1 leading-tight">{p}</span>
+                          <div className="flex items-center gap-1.5 mt-1">
+                            <Link href={`/tn/portfolios/${slug}`} className="text-[9px] font-black uppercase tracking-wider text-brand-dark hover:text-brand-gold bg-white border border-slate-200 hover:border-brand-gold/30 px-2 py-0.5 rounded shadow-sm transition-all group/link flex items-center">
+                              Portfolio
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5 ml-0.5 opacity-0 group-hover/link:opacity-100 transition-opacity" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                              </svg>
+                            </Link>
+                            {/* <Link href={`/tn/departments/${slug}`} className="text-[9px] font-black uppercase tracking-wider text-brand-dark hover:text-brand-gold bg-white border border-slate-200 hover:border-brand-gold/30 px-2 py-0.5 rounded shadow-sm transition-all group/link flex items-center">
+                              Dept
+                              <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5 ml-0.5 opacity-0 group-hover/link:opacity-100 transition-opacity" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                              </svg>
+                            </Link> */}
+                          </div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </td>
                 <td className="px-8 py-6 align-top">

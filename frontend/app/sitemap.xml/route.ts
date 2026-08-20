@@ -12,7 +12,9 @@ export async function GET() {
     'sitemap-constituencies.xml',
     'sitemap-mlas.xml',
     'sitemap-elections.xml',
-    'sitemap-polling-stations.xml'
+    'sitemap-polling-stations.xml',
+    'sitemap-portfolios.xml',
+    // 'sitemap-departments.xml'
   ];
 
   const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>

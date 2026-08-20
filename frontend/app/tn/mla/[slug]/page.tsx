@@ -3,6 +3,7 @@ import Link from "next/link";
 import MLAHeader from "@/components/MLAHeader";
 import HistoryTable from "@/components/HistoryTable";
 import { AssetChart, VoteTrendChart, MarginTrendChart } from "@/components/AnalyticsCharts";
+import MinistryTimeline from "@/components/ministers/MinistryTimeline";
 import { buildMetadata } from "@/lib/seo/metadata";
 import { generatePersonSchema } from "@/lib/seo/jsonld";
 import SEOIntro from "@/components/seo/SEOIntro";
@@ -58,6 +59,10 @@ export default async function MLAProfilePage({ params }: PageProps) {
   const isWinner = latestElection?.winner === true;
   const isCurrent = latestElection?.year === parseInt(LATEST_ELECTION_YEAR) && isWinner;
   const isFormer = !isCurrent && profile.history.some((h: any) => h.winner === true);
+
+  const { PortfolioService } = await import("@/lib/services/portfolio.service");
+  const portfolioService = new PortfolioService();
+  const ministryHistory = await portfolioService.getMinisterProfileHistory(profile.person.person_id);
 
   const personalTitle = isCurrent 
     ? (latestElection?.is_resigned ? "Former MLA (Resigned)" : "MLA") 
@@ -228,6 +233,10 @@ export default async function MLAProfilePage({ params }: PageProps) {
                 <HistoryTable history={profile.history} />
               </div>
             </section>
+
+            {ministryHistory && ministryHistory.length > 0 && (
+              <MinistryTimeline history={ministryHistory} />
+            )}
 
             <section className="space-y-8">
               <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter">Income Details</h2>

@@ -310,3 +310,62 @@ export interface MinisterItem {
   representative_districts?: { name: string; slug: string }[];
 }
 
+export interface MinistryHistoryRecord {
+  id: string;
+  person_id: string;
+  candidate_id: string;
+  portfolio_names: string[];
+  designation: string;
+  chief_minister: string;
+  government: string;
+  start_date: string;
+  end_date: string | null;
+  duration: number | null;
+  reason_for_end: string | null;
+  is_additional_charge: boolean;
+  cabinet_event: string;
+  cabinet_id: string;
+  notes: string | null;
+  created_at?: number;
+  updated_at?: number;
+}
+
+export interface PortfolioHistoryRecord {
+  id: string;
+  portfolio_name: string;
+  minister_id: string;
+  start_date: string;
+  end_date: string | null;
+  duration: number | null;
+  previous_minister: string | null;
+  next_minister: string | null;
+  cabinet_event: string;
+  event_type?: string | null;
+  reason_for_change: string | null;
+  government: string;
+  cabinet?: string;
+  chief_minister: string;
+  created_at?: number;
+  updated_at?: number;
+}
+
+export interface DepartmentHistoryRecord {
+  id: string;
+  department_name: string;
+  minister_id: string;
+  start_date: string;
+  end_date: string | null;
+  duration?: number | null;
+  parent_department?: string | null;
+  child_department?: string | null;
+  change_type: string | null;
+  event_type?: string | null;
+  reason_for_change?: string | null;
+  government: string;
+  chief_minister: string;
+  cabinet?: string;
+  cabinet_event: string;
+  notes?: string | null;
+  created_at?: number;
+  updated_at?: number;
+}
