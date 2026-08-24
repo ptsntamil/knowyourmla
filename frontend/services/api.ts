@@ -129,6 +129,17 @@ export async function fetchMLAs(year: number = parseInt(LATEST_ELECTION_YEAR)): 
   return res.json();
 }
 
+export async function fetchMLAVehicles(year: number = parseInt(LATEST_ELECTION_YEAR)): Promise<any> {
+  if (isServer && USE_V2_API) {
+    const { MLAService } = await import("@/lib/services/mla.service");
+    const service = new MLAService();
+    return service.getMLAVehicles(year);
+  }
+  // Not used in V1, fallback to fetchMLAs if really needed or just throw error if client side.
+  throw new Error("fetchMLAVehicles is only supported on server");
+}
+
+
 export async function submitFeedback(message: string, url: string, name?: string, email?: string): Promise<any> {
   const res = await fetch(`${BASE_URL}/feedback`, {
     method: "POST",

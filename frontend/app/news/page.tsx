@@ -18,6 +18,14 @@ export async function generateMetadata() {
 export default function NewsListPage() {
   const blogs = [
     {
+      title: "Tamil Nadu MLAs and Their Cars: An Analysis of Election Affidavits",
+      slug: "tn-mlas-cars-vehicles-analysis-2026",
+      date: "August 24, 2026",
+      readTime: "5 min",
+      description: "Discover how many cars Tamil Nadu MLAs own, who drives premium cars like Audi and Benz, and the details of the TN government scheme providing cars and allowances.",
+      category: "Analysis"
+    },
+    {
       title: "Did the Vijay Factor Increase Voter Turnout? A Data-Driven Investigation",
       slug: "did-vijay-factor-increase-voter-turnout",
       date: "August 10, 2026",

@@ -8,6 +8,8 @@ import { unstable_cache } from "next/cache";
 import {
   MLAProfileResponse,
   MLAListResponse,
+  MLAVehicleItem,
+  MLAVehicleResponse,
   MLAListItem,
   PersonDetail,
   ElectionHistoryRecord,
@@ -525,6 +527,7 @@ export class MLAService {
             person_id: pId,
             slug: this.slugify(displayName),
             name: displayName,
+            image_url: normalizeCandidateProfilePic(winner.profile_pic || personMeta.image_url) || null,
             constituency: consti.name || constId.replace("CONSTITUENCY#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()),
             constituency_id: constId,
             party: winner.party_id ? (partyInfo.short_name || winner.party_id.replace("PARTY#", "")).toUpperCase() : "",
@@ -544,6 +547,68 @@ export class MLAService {
       },
       ["current-mlas", year.toString()],
       { revalidate: 86400, tags: [`mlas-list-${year}`] }
+    )(year);
+  }
+
+  async getMLAVehicles(year: number = parseInt(LATEST_ELECTION_YEAR)): Promise<MLAVehicleResponse> {
+    return unstable_cache(
+      async (yr: number): Promise<MLAVehicleResponse> => {
+        const constituencies = await this.constituencyRepo.getAllConstituencies();
+        let winners = await this.mlaRepo.getWinnersWithVehiclesByYear(yr);
+        
+        const personIds = Array.from(new Set(winners.map((w: any) => w.person_id).filter((id: string) => id)));
+        const persons = await this.personRepo.getPersonsByIds(personIds as string[]);
+        const personMap = persons.reduce((acc: any, p: any) => {
+          acc[p.PK] = p;
+          return acc;
+        }, {});
+
+        const allDistricts = await this.districtRepo.getAllDistricts();
+        const districtMap = allDistricts.reduce((acc: any, d: any) => {
+          acc[d.PK] = d.name;
+          return acc;
+        }, {});
+        
+        const uniquePartyIds = Array.from(new Set(winners.map((w: any) => w.party_id)));
+        const partyInfoList = await Promise.all(uniquePartyIds.map(id => getSharedPartyInfo(id)));
+        const partyMap = Object.fromEntries(uniquePartyIds.map((id, i) => [String(id), partyInfoList[i]]));
+
+        const mlaList: MLAVehicleItem[] = [];
+        for (const consti of constituencies) {
+          const constId = consti.PK;
+          const winner = winners.find((w: any) => w.constituency_id === constId);
+          if (!winner) continue;
+
+          const pId = winner.person_id;
+          const personMeta = personMap[pId] || {};
+          const displayName = personMeta.name || winner.candidate_name || "Unknown";
+          const partyInfo = partyMap[String(winner.party_id)];
+          const district = consti.district_id ? districtMap[consti.district_id] : "Unknown";
+
+          mlaList.push({
+            person_id: pId,
+            slug: this.slugify(displayName),
+            name: displayName,
+            image_url: normalizeCandidateProfilePic(winner.profile_pic || personMeta.image_url) || null,
+            constituency: consti.name || constId.replace("CONSTITUENCY#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()),
+            constituency_id: constId,
+            district,
+            party: winner.party_id ? (partyInfo?.short_name || winner.party_id.replace("PARTY#", "")).toUpperCase() : "",
+            party_logo_url: partyInfo?.logo,
+            party_color_bg: partyInfo?.color_bg,
+            party_color_text: partyInfo?.color_text,
+            party_color_border: partyInfo?.color_border,
+            period: `${yr}-${yr + 5}`,
+            vehicle_assets: winner.vehicle_assets || null,
+            is_resigned: Boolean(winner.is_resigned),
+          });
+        }
+
+        mlaList.sort((a, b) => a.constituency.localeCompare(b.constituency));
+        return { mlas: mlaList, total: mlaList.length };
+      },
+      ["mla-vehicles", year.toString()],
+      { revalidate: 86400, tags: [`mla-vehicles-${year}`] }
     )(year);
   }
 }

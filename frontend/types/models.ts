@@ -274,6 +274,17 @@ export interface MLAListResponse {
   mlas: MLAListItem[];
   total: number;
 }
+
+export interface MLAVehicleItem extends MLAListItem {
+  district?: string;
+  vehicle_assets?: any;
+  current_position?: string;
+}
+
+export interface MLAVehicleResponse {
+  mlas: MLAVehicleItem[];
+  total: number;
+}
 export interface CandidateHistoryRecordShort {
   year: number;
   constituency: string;

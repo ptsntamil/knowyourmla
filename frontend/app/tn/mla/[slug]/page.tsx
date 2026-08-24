@@ -1,5 +1,6 @@
 import { fetchMLAProfile } from "@/services/api";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import MLAHeader from "@/components/MLAHeader";
 import HistoryTable from "@/components/HistoryTable";
 import { AssetChart, VoteTrendChart, MarginTrendChart } from "@/components/AnalyticsCharts";
@@ -54,7 +55,14 @@ export async function generateMetadata({ params }: PageProps) {
 
 export default async function MLAProfilePage({ params }: PageProps) {
   const { slug } = await params;
-  const profile = await fetchMLAProfile(slug);
+  
+  let profile;
+  try {
+    profile = await fetchMLAProfile(slug);
+  } catch (error) {
+    notFound();
+  }
+
   const latestElection = profile.history?.[0];
   const isWinner = latestElection?.winner === true;
   const isCurrent = latestElection?.year === parseInt(LATEST_ELECTION_YEAR) && isWinner;

@@ -79,6 +79,7 @@ export default function AttendanceNewsPage() {
         title={title}
         publishDate={publishDate}
         readingTime={readingTime}
+        shareUrl={`${process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla-info.vercel.app"}${articleUrl}`}
       />
 
       <main className="max-w-4xl mx-auto px-4 md:px-8 py-16">
