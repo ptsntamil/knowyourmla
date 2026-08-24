@@ -71,14 +71,9 @@ export default function MlaCarsNewsPage() {
       />
       <ArticleHeader
         title={title}
-        date={publishDate}
+        publishDate={publishDate}
         readingTime={readingTime}
         shareUrl={`${process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla-info.vercel.app"}${articleUrl}`}
-        breadcrumbs={[
-          { label: 'Home', href: '/' },
-          { label: 'News', href: '/news' },
-          { label: 'MLA Vehicle Analysis' }
-        ]}
       />
 
       <main className="max-w-4xl mx-auto px-4 py-12 md:py-20">
