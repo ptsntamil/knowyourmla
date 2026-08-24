@@ -31,6 +31,25 @@ export class MLARepository {
   }
 
   /**
+   * Fetches all winners for a specific year including vehicle_assets.
+   */
+  async getWinnersWithVehiclesByYear(year: number) {
+    return this.client.query({
+      IndexName: "YearIndex",
+      KeyConditionExpression: "#year = :year",
+      FilterExpression: "is_winner = :winner",
+      ExpressionAttributeNames: {
+        "#year": "year",
+      },
+      ExpressionAttributeValues: {
+        ":winner": true,
+        ":year": year,
+      },
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, vehicle_assets, profile_pic, is_resigned",
+    });
+  }
+
+  /**
    * Fetches winners within a year range. 
    * Note: Queries only valid election years dynamically fetched from the elections table.
    */

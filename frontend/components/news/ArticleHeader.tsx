@@ -1,14 +1,16 @@
 import React from 'react';
 import Link from 'next/link';
 import { Calendar, Clock, ChevronRight } from 'lucide-react';
+import SocialShare from './SocialShare';
 
 interface ArticleHeaderProps {
   title: string;
   publishDate: string;
   readingTime: string;
+  shareUrl?: string;
 }
 
-const ArticleHeader: React.FC<ArticleHeaderProps> = ({ title, publishDate, readingTime }) => {
+const ArticleHeader: React.FC<ArticleHeaderProps> = ({ title, publishDate, readingTime, shareUrl }) => {
   return (
     <header className="bg-[#16232e] text-white pt-24 pb-16 px-4 md:px-8">
       <div className="max-w-4xl mx-auto">
@@ -26,8 +28,9 @@ const ArticleHeader: React.FC<ArticleHeaderProps> = ({ title, publishDate, readi
           {title}
         </h1>
 
-        {/* Metadata */}
-        <div className="flex flex-wrap items-center gap-6 text-sm font-bold text-slate-400 bg-white/5 w-fit px-6 py-3 rounded-2xl border border-white/10">
+        {/* Metadata & Share */}
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <div className="flex flex-wrap items-center gap-6 text-sm font-bold text-slate-400 bg-white/5 w-fit px-6 py-3 rounded-2xl border border-white/10">
           <div className="flex items-center gap-2">
             <Calendar size={16} className="text-brand-gold" />
             <span>{publishDate}</span>
@@ -36,6 +39,13 @@ const ArticleHeader: React.FC<ArticleHeaderProps> = ({ title, publishDate, readi
             <Clock size={16} className="text-brand-gold" />
             <span>{readingTime} Read</span>
           </div>
+        </div>
+        
+        {shareUrl && (
+          <div className="bg-white/5 px-4 py-2 rounded-2xl border border-white/10">
+             <SocialShare url={shareUrl} title={title} />
+          </div>
+        )}
         </div>
       </div>
     </header>

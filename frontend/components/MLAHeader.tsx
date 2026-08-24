@@ -3,6 +3,7 @@ import { User, GraduationCap, Briefcase, AlertCircle, Coins, Car, MapPin, Facebo
 import ProfileImage from "./ProfileImage";
 import ShareButton from "./ShareButton";
 import Badge from "./ui/Badge";
+import VehicleCountCard from "./VehicleCountCard";
 import PartyBadge from "./ui/PartyBadge";
 
 interface MLAHeaderProps {
@@ -255,15 +256,7 @@ export default function MLAHeader({
                </div>
             </div>
 
-            <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4 hover:shadow-md hover:scale-[1.02] transition-all duration-200 group">
-               <div className="p-3 bg-blue-500/10 text-blue-500 rounded-2xl flex-shrink-0 group-hover:bg-blue-500/20 transition-colors">
-                  <Car size={24} />
-               </div>
-               <div className="flex flex-col overflow-hidden">
-                  <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-black tracking-widest mb-1">Vehicles</span>
-                  <span className="text-sm font-black text-brand-dark dark:text-slate-200 uppercase truncate">{vehicleCount}</span>
-               </div>
-            </div>
+            <VehicleCountCard vehicleCount={vehicleCount} vehicleAssets={vehicleAssets} />
 
             <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4 hover:shadow-md hover:scale-[1.02] transition-all duration-200 group relative">
                <Badge variant="brand" size="xs" className="absolute top-2 right-4">Beta</Badge>

@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import { Twitter, MessageCircle, Share2 } from 'lucide-react';
 
@@ -27,16 +28,33 @@ const SocialShare: React.FC<SocialShareProps> = ({ url, title }) => {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest mr-2 flex items-center gap-2">
+      <button 
+        onClick={async () => {
+          try {
+            if (navigator.share) {
+              await navigator.share({
+                title: title,
+                url: url
+              });
+            } else {
+              await navigator.clipboard.writeText(url);
+              alert('Link copied to clipboard!');
+            }
+          } catch (err) {
+            console.error('Error sharing:', err);
+          }
+        }}
+        className="text-[10px] font-black text-slate-400 hover:text-brand-gold uppercase tracking-widest mr-2 flex items-center gap-2 cursor-pointer transition-colors relative z-[9999] pointer-events-auto"
+      >
         <Share2 size={12} /> Share
-      </span>
+      </button>
       {shareLinks.map((link) => (
         <a
           key={link.name}
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          className={`w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-white transition-all transform hover:scale-110 ${link.color}`}
+          className={`relative z-[9999] cursor-pointer pointer-events-auto w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:text-white transition-all transform hover:scale-110 ${link.color}`}
           title={`Share on ${link.name}`}
         >
           {link.icon}
