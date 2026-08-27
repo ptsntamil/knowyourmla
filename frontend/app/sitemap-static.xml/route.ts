@@ -12,6 +12,7 @@ export async function GET() {
     { url: tnBaseUrl, lastModified: new Date(), changeFrequency: 'daily', priority: 1.0 },
     { url: `${tnBaseUrl}/mla/list`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
     { url: `${tnBaseUrl}/ministers`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
+    { url: `${tnBaseUrl}/party/tvk/manifesto`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${domain}/parties`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
     { url: `${domain}/news`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
         { url: `${domain}/news/tamil-nadu-mlas-100-percent-attendance-2021-2026`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },

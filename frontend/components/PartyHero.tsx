@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { Activity } from "lucide-react";
 import ShareButton from "./ShareButton";
 import { getPartyLogo } from "@/lib/utils/party-utils";
 
@@ -57,6 +59,14 @@ export default function PartyHero({ party, analytics }: PartyHeroProps) {
                 <span className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-[10px] font-black rounded-xl uppercase tracking-widest border border-slate-200/50 dark:border-slate-700/50 shadow-sm">
                   Active in TN
                 </span>
+                {party.short_name === 'TVK' || party.normalized_name === 'tamilagavettrikazhagam' ? (
+                  <Link 
+                    href="/tn/party/tamilagavettrikazhagam/manifesto"
+                    className="flex items-center gap-1.5 px-4 py-2 bg-brand-gold text-brand-dark hover:bg-brand-gold/90 text-[10px] font-black rounded-xl uppercase tracking-widest shadow-md transition-all border border-brand-gold/50"
+                  >
+                    <Activity size={14} /> Manifesto Tracker
+                  </Link>
+                ) : null}
                 <ShareButton
                   title={`${party.name} Election History & Analytics`}
                   text={`Check out ${party.name}'s election performance and candidate analytics on KnowYourMLA.`}
