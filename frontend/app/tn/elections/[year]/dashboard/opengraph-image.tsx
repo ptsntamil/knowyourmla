@@ -7,7 +7,8 @@ export const size = OG_SIZE;
 export const contentType = 'image/png';
 
 export default async function Image() {
-  const year = 2026;
+  const displayYear = "2026";
+  const urlYear = 2026;
   
   try {
     const data = await getTamilNaduPreElectionDashboardData();

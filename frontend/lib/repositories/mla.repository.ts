@@ -45,7 +45,7 @@ export class MLARepository {
         ":winner": true,
         ":year": year,
       },
-      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, vehicle_assets, profile_pic, is_resigned",
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, vehicle_assets, asset_breakup, profile_pic, is_resigned",
     });
   }
 
@@ -71,6 +71,30 @@ export class MLARepository {
     }
 
     const results = await Promise.all(targetYears.map(y => this.getWinnersByYear(y)));
+    return results.flat();
+  }
+
+  /**
+   * Fetches winners within a year range including vehicle_assets.
+   */
+  async getWinnersWithVehiclesByYearRange(startYear: number, endYear: number) {
+    const allElections = await this.electionRepo.getAllElections();
+    
+    // Filter for Assembly elections to isolate relevant years (includes bye-elections if defined)
+    const validYears = Array.from(new Set(
+      allElections
+        .filter(e => e.type === "Assembly")
+        .map(e => e.year)
+    ));
+
+    let targetYears = validYears.filter(y => y >= startYear && y <= endYear);
+
+    // Fallback if the elections table is empty or missing data
+    if (targetYears.length === 0) {
+      targetYears = [startYear];
+    }
+
+    const results = await Promise.all(targetYears.map(y => this.getWinnersWithVehiclesByYear(y)));
     return results.flat();
   }
 

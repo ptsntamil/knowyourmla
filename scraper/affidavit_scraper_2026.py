@@ -9,7 +9,7 @@ import shutil
 import tempfile
 import threading
 from concurrent.futures import ThreadPoolExecutor
-from urllib.parse import urljoin
+from urllib.parse import urljoin, quote, quote_plus
 from playwright.sync_api import sync_playwright
 from playwright_stealth import Stealth
 
@@ -18,11 +18,17 @@ BASE_URL = "https://affidavit.eci.gov.in"
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 ASSETS_DIR = os.path.join(SCRIPT_DIR, "assets/2026/affidavits")
 PHOTOS_DIR = os.path.join(SCRIPT_DIR, "assets/2026/photos")
-METADATA_FILE = os.path.join(SCRIPT_DIR, "tn_2026_candidates.json")
+METADATA_FILE = os.path.join(SCRIPT_DIR, "tn_bye_election_candidates.json")
 CHECKPOINT_FILE = os.path.join(SCRIPT_DIR, "crawl_checkpoint.json")
 USER_DATA_DIR = os.path.join(tempfile.gettempdir(), "eci_playwright_profile")
 file_lock = threading.Lock()
 checkpoint_lock = threading.Lock()
+ELECTION_TYPE_CODE = "34-AC-BYE-4-63"
+ELECTION_TYPE = "AC - BYE"
+ELECTION_CODE = "34-AC-BYE-4-63"
+ELECTION = "Assembly BYE-Election-SEP-OCT-2026"
+STATE_CODE = "S22"
+SUBMIT_NAME = "100"
 
 # Logging setup
 logging.basicConfig(
@@ -51,6 +57,15 @@ def get_composite_key(cand):
     const = normalize_value(cand.get('constituency', '')).lower()
     party = normalize_value(cand.get('party_name', '')).lower()
     return f"{name}|{const}|{party}"
+
+def get_custom_filter_url(page_num=1):
+    """Generates the direct CandidateCustomFilter URL with URL-encoded parameters."""
+    encoded_election_type = quote_plus(ELECTION_TYPE_CODE)
+    encoded_election = quote_plus(ELECTION_CODE)
+    return (
+        f"https://affidavit.eci.gov.in/CandidateCustomFilter?"
+        f"electionType={encoded_election_type}&election={encoded_election}&states={STATE_CODE}&phase=2&submitName={SUBMIT_NAME}&page={page_num}"
+    )
 
 def init_browser(p, headless=True, proxy=None):
     """Initializes a new browser instance with preferences to force PDF downloads."""
@@ -128,13 +143,13 @@ def select_filters(page):
     if target_election:
         page.select_option("select#electionType", label=target_election)
     else:
-        page.select_option("select#electionType", label="Assembly GEN-BYE-Election-MAR-MAY-2026")
+        page.select_option("select#electionType", label=ELECTION_TYPE)
     
     time.sleep(2)
     
     logger.info("Waiting for Election Type dropdown...")
     page.wait_for_function("() => document.querySelectorAll('select#election option').length > 1", timeout=15000)
-    page.select_option("select#election", label="AC - GENERAL")
+    page.select_option("select#election", label=ELECTION)
     time.sleep(1)
 
     logger.info("Selecting State...")
@@ -436,14 +451,10 @@ def main():
                         except Exception as e:
                             logger.warning(f"Failed to read checkpoint: {e}")
 
-                if page_num > 1:
-                    # Hardcoded URL as requested for jumping
-                    jump_url = f"https://affidavit.eci.gov.in/CandidateCustomFilter?electionType=32-AC-GENERAL-3-60&election=32-AC-GENERAL-3-60&states=S22&phase=2&submitName=100&page={page_num}"
-                    logger.info(f"Jumping directly to page {page_num}: {jump_url}")
-                    page.goto(jump_url, wait_until="load", timeout=60000)
-                    time.sleep(random.uniform(3, 5))
-                else:
-                    select_filters(page)
+                jump_url = get_custom_filter_url(page_num)
+                logger.info(f"Navigating directly to page {page_num}: {jump_url}")
+                page.goto(jump_url, wait_until="load", timeout=60000)
+                time.sleep(random.uniform(3, 5))
 
                 while True:
                     logger.info(f"Scraping results page {page_num}...")
@@ -483,7 +494,7 @@ def main():
                             logger.warning(f"Timeout or error advancing to page {page_num + 1}: {e}")
                             # Final attempt to recover via page parameter
                             page_num += 1
-                            recovery_url = f"https://affidavit.eci.gov.in/CandidateCustomFilter?electionType=32-AC-GENERAL-3-60&election=32-AC-GENERAL-3-60&states=S22&phase=2&submitName=100&page={page_num}"
+                            recovery_url = get_custom_filter_url(page_num)
                             logger.info(f"Attempting recovery by navigating to: {recovery_url}")
                             page.goto(recovery_url, wait_until="load", timeout=60000)
                     

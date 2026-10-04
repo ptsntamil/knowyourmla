@@ -6,12 +6,14 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { commonBreadcrumbs } from '@/lib/seo/breadcrumbs';
 import { buildMetadata } from '@/lib/seo/metadata';
 
-export async function generateMetadata() {
-  const year = 2026;
+export async function generateMetadata({ params }: { params: Promise<{ year: string }> }) {
+  const { year } = await params;
+  const urlYear = year;
+  const displayYear = urlYear === "202610" ? "2026 Bye-Election" : urlYear;
   return buildMetadata({
-    title: `Tamil Nadu Party Candidate Rollout ${year} | Live Tracker`,
-    description: `Track the progress of candidate announcements by DMK, AIADMK, BJP, NTK and other major parties in Tamil Nadu for the ${year} Assembly Election.`,
-    path: `/tn/elections/${year}/parties`,
+    title: `Tamil Nadu Party Candidate Rollout ${displayYear} | Live Tracker`,
+    description: `Track the progress of candidate announcements by DMK, AIADMK, BJP, NTK and other major parties in Tamil Nadu for the ${displayYear} Assembly Election.`,
+    path: `/tn/elections/${urlYear}/parties`,
     keywords: [
       `TN party rollout 2026`,
       `DMK candidate list 2026`,
@@ -21,9 +23,12 @@ export async function generateMetadata() {
   });
 }
 
-export default async function PartiesTrackerPage() {
-  const year = 2026;
-  const data = await getTamilNaduPreElectionDashboardData();
+export default async function PartiesTrackerPage({ params }: { params: Promise<{ year: string }> }) {
+  const { year } = await params;
+  const urlYear = year;
+  const displayYear = urlYear === "202610" ? "2026 Bye-Election" : urlYear;
+  const priorYear = urlYear === "202610" ? 2026 : 2021;
+  const data = await getTamilNaduPreElectionDashboardData(urlYear, priorYear);
 
   if (!data) {
     notFound();
@@ -37,8 +42,8 @@ export default async function PartiesTrackerPage() {
         items={[
           commonBreadcrumbs.home,
           { name: "Elections", item: "/tn/elections" },
-          { name: `Tamil Nadu ${year} Overview`, item: `/tn/elections/${year}/dashboard` },
-          { name: "Parties", item: `/tn/elections/${year}/parties` }
+          { name: `Tamil Nadu ${displayYear} Overview`, item: `/tn/elections/${urlYear}/dashboard` },
+          { name: "Parties", item: `/tn/elections/${urlYear}/parties` }
         ]}
       />
 

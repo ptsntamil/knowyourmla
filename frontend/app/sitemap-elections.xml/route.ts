@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { AVAILABLE_ELECTION_YEARS, LATEST_ELECTION_YEAR } from '@/lib/constants/elections';
+import { ELECTION_YEAR_CURRENT } from '@/lib/elections/preElectionDashboard/dashboard.constants';
 import { fetchParties } from '@/services/api';
 
 export const dynamic = 'force-dynamic';
@@ -22,13 +23,21 @@ export async function GET() {
     electionPages.push({ loc: `${domain}/tn/elections/${year}/insights`, priority: '0.7', changefreq: 'yearly' });
   });
 
-  // Adding latest election Pages
+  // Adding active upcoming election pages
+  const upcomingYear = ELECTION_YEAR_CURRENT;
+  electionPages.push({ loc: `${domain}/tn/elections/${upcomingYear}/dashboard`, priority: '1.0', changefreq: 'hourly' });
+  electionPages.push({ loc: `${domain}/tn/elections/${upcomingYear}/candidates`, priority: '1.0', changefreq: 'hourly' });
+  electionPages.push({ loc: `${domain}/tn/elections/${upcomingYear}/constituencies`, priority: '0.9', changefreq: 'daily' });
+  electionPages.push({ loc: `${domain}/tn/elections/${upcomingYear}/parties`, priority: '0.9', changefreq: 'daily' });
+  electionPages.push({ loc: `${domain}/tn/elections/${upcomingYear}/insights`, priority: '0.9', changefreq: 'daily' });
+
+  // Adding latest completed election Pages
   const currentYear = LATEST_ELECTION_YEAR;
-  electionPages.push({ loc: `${domain}/tn/elections/${currentYear}/dashboard`, priority: '1.0', changefreq: 'daily' });
-  electionPages.push({ loc: `${domain}/tn/elections/${currentYear}/candidates`, priority: '0.9', changefreq: 'daily' });
-  electionPages.push({ loc: `${domain}/tn/elections/${currentYear}/constituencies`, priority: '0.9', changefreq: 'daily' });
-  electionPages.push({ loc: `${domain}/tn/elections/${currentYear}/parties`, priority: '0.8', changefreq: 'daily' });
-  electionPages.push({ loc: `${domain}/tn/elections/${currentYear}/insights`, priority: '0.8', changefreq: 'daily' });
+  electionPages.push({ loc: `${domain}/tn/elections/${currentYear}/dashboard`, priority: '0.9', changefreq: 'yearly' });
+  electionPages.push({ loc: `${domain}/tn/elections/${currentYear}/candidates`, priority: '0.9', changefreq: 'yearly' });
+  electionPages.push({ loc: `${domain}/tn/elections/${currentYear}/constituencies`, priority: '0.9', changefreq: 'yearly' });
+  electionPages.push({ loc: `${domain}/tn/elections/${currentYear}/parties`, priority: '0.8', changefreq: 'yearly' });
+  electionPages.push({ loc: `${domain}/tn/elections/${currentYear}/insights`, priority: '0.8', changefreq: 'yearly' });
 
   // Adding 2026 Party Filter Pages
   try {
@@ -38,9 +47,9 @@ export async function GET() {
         const partyShort = p.short_name || p.PK?.replace('PARTY#', '');
         if (partyShort) {
           electionPages.push({
-            loc: `${domain}/tn/elections/${currentYear}/dashboard?party=${partyShort}`,
+            loc: `${domain}/tn/elections/${upcomingYear}/dashboard?party=${partyShort}`,
             priority: '0.6',
-            changefreq: 'daily'
+            changefreq: 'hourly'
           });
         }
       });

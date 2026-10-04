@@ -1,6 +1,6 @@
 import React from 'react';
 import { History, TrendingUp, Users } from 'lucide-react';
-import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from '@/lib/constants/elections';
+import { ELECTION_YEAR_CURRENT as LATEST_ELECTION_YEAR, ELECTION_YEAR_PRIOR as PREVIOUS_ELECTION_YEAR } from "@/lib/elections/preElectionDashboard/dashboard.constants";
 
 interface ConstituencyHistoricalComparisonProps {
   lastElection?: {

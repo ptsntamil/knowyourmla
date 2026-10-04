@@ -18,25 +18,30 @@ import SpecialFocusCandidates from '@/components/election/tn2026/SpecialFocusCan
 import ElectionQuickView from '@/components/election/tn2026/ElectionQuickView';
 import VotersCountSection from '@/components/election/dashboard/VotersCountSection';
 
-export async function generateMetadata() {
-  const year = 2026;
+export async function generateMetadata({ params }: { params: Promise<{ year: string }> }) {
+  const { year } = await params;
+  const urlYear = year;
+  const displayYear = urlYear === "202610" ? "2026 Bye-Election" : urlYear;
   return buildMetadata({
-    title: `Tamil Nadu Assembly Election ${year} Dashboard | Candidate Tracking & Voter Stats`,
-    description: `Central hub for tracking announced candidates and electoral statistics across Tamil Nadu for the upcoming ${year} Assembly Election. Explore constituency-wise electorate data, candidate profiles, and party rollout strategies.`,
-    path: `/tn/elections/${year}/dashboard`,
+    title: `Tamil Nadu Assembly ${displayYear} Dashboard | Candidate Tracking & Voter Stats`,
+    description: `Central hub for tracking announced candidates and electoral statistics across Tamil Nadu for the upcoming ${displayYear}. Explore constituency-wise electorate data, candidate profiles, and party rollout strategies.`,
+    path: `/tn/elections/${urlYear}/dashboard`,
     keywords: [
-      `Tamil Nadu Election ${year} candidates`,
-      `Tamil Nadu Assembly Election ${year} voter count`,
-      `TN election electorate statistics ${year}`,
-      `TN election tracker ${year}`,
-      `constituency-wise candidates TN ${year}`
+      `Tamil Nadu Election ${displayYear} candidates`,
+      `Tamil Nadu Assembly Election ${displayYear} voter count`,
+      `TN election electorate statistics ${displayYear}`,
+      `TN election tracker ${displayYear}`,
+      `constituency-wise candidates TN ${displayYear}`
     ]
   });
 }
 
-export default async function PreElectionDashboardPage() {
-  const year = 2026;
-  const data = await getTamilNaduPreElectionDashboardData();
+export default async function PreElectionDashboardPage({ params }: { params: Promise<{ year: string }> }) {
+  const { year } = await params;
+  const urlYear = year;
+  const displayYear = urlYear === "202610" ? "2026 Bye-Election" : urlYear;
+  const priorYear = urlYear === "202610" ? 2026 : 2021; // Simple fallback
+  const data = await getTamilNaduPreElectionDashboardData(urlYear, priorYear);
 
   if (!data) {
     notFound();
@@ -50,14 +55,14 @@ export default async function PreElectionDashboardPage() {
         items={[
           commonBreadcrumbs.home,
           { name: "Elections", item: "/tn/elections" },
-          { name: `Tamil Nadu ${year} Overview`, item: `/tn/elections/${year}/dashboard` }
+          { name: `Tamil Nadu ${displayYear} Overview`, item: `/tn/elections/${urlYear}/dashboard` }
         ]}
       />
 
       <DashboardHero
-        title={`Tamil Nadu Assembly Election ${year}`}
+        title={`Tamil Nadu Assembly ${displayYear}`}
         description="The central intelligence hub for the 2026 state assembly elections. Track candidates, contests, and real-time insights."
-        subtitle="Explore the complete list of MLA candidates contesting in the Tamil Nadu Assembly Election 2026. Browse constituency-wise candidates, party-wise announcements, and key election insights across all 234 constituencies."
+        subtitle={`Explore the list of MLA candidates contesting in the Tamil Nadu Assembly ${displayYear}. Browse constituency-wise candidates and key election insights.`}
       />
 
       <main className="max-w-7xl mx-auto px-4 py-12 space-y-24">
@@ -82,7 +87,7 @@ export default async function PreElectionDashboardPage() {
 
         {/* 2. Quick Navigation CTA Row */}
         <section id="quick-nav">
-          <ElectionQuickView />
+          <ElectionQuickView urlYear={urlYear} />
         </section>
 
         {/* 3. Insights Preview */}
@@ -102,7 +107,7 @@ export default async function PreElectionDashboardPage() {
 
         {/* 4. Candidate Preview */}
         <section id="candidates-preview" className="pt-12 border-t border-slate-100">
-          <CandidatePreview candidates={candidates} />
+          <CandidatePreview candidates={candidates} urlYear={urlYear} />
         </section>
 
         {/* 5. Constituency Preview */}
@@ -117,7 +122,7 @@ export default async function PreElectionDashboardPage() {
 
         {/* 6. SEO Content */}
         <section id="about" className="pt-16 border-t border-slate-200">
-          <ElectionDashboardSEOContent insights={insights} />
+          <ElectionDashboardSEOContent insights={insights} urlYear={urlYear} />
         </section>
 
         {/* 7. FAQ Section */}

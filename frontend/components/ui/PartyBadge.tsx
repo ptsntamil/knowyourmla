@@ -76,7 +76,7 @@ export default function PartyBadge({
           )}
         </div>
       )}
-      {showName && party}
+      {showName && (displayShortName || party)}
     </>
   );
 

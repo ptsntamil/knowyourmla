@@ -4,21 +4,21 @@ import React from 'react';
 import Link from 'next/link';
 import { Users, MapPin, Landmark, BarChart2, ArrowRight } from 'lucide-react';
 
-export default function ElectionQuickView() {
+export default function ElectionQuickView({ urlYear = 2026 }: { urlYear?: string | number }) {
   const navItems = [
     {
       title: "Explore Candidates",
       subtitle: "Browse announced candidates across Tamil Nadu",
       icon: Users,
-      href: "/tn/elections/2026/candidates",
+      href: `/tn/elections/${urlYear}/candidates`,
       color: "bg-blue-50 text-blue-600 border-blue-100",
       hover: "hover:border-blue-200 hover:shadow-blue-900/5"
     },
     {
       title: "Explore Constituencies",
-      subtitle: "Analyze contest dynamics across 234 seats",
+      subtitle: "Analyze contest dynamics across seats",
       icon: MapPin,
-      href: "/tn/elections/2026/constituencies",
+      href: `/tn/elections/${urlYear}/constituencies`,
       color: "bg-emerald-50 text-emerald-600 border-emerald-100",
       hover: "hover:border-emerald-200 hover:shadow-emerald-900/5"
     },
@@ -26,7 +26,7 @@ export default function ElectionQuickView() {
       title: "View Party Tracker",
       subtitle: "Track party-wise rollout and strategy",
       icon: Landmark,
-      href: "/tn/elections/2026/parties",
+      href: `/tn/elections/${urlYear}/parties`,
       color: "bg-purple-50 text-purple-600 border-purple-100",
       hover: "hover:border-purple-200 hover:shadow-purple-900/5"
     },
@@ -34,7 +34,7 @@ export default function ElectionQuickView() {
       title: "View Insights",
       subtitle: "Deep dive into financial and criminal data",
       icon: BarChart2,
-      href: "/tn/elections/2026/pre-election-insights",
+      href: `/tn/elections/${urlYear}/pre-election-insights`,
       color: "bg-amber-50 text-amber-600 border-amber-100",
       hover: "hover:border-amber-200 hover:shadow-amber-900/5"
     }

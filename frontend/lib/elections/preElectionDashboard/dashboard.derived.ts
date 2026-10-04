@@ -67,6 +67,7 @@ export function buildContestCards(
       lastWinner: priorWinner?.candidate_name || null,
       lastWinnerParty: priorWinnerParty?.name || null,
       lastWinnerPartyShort: priorWinnerParty?.short_name || priorWinner?.party_id?.replace("PARTY#", "") || "IND",
+      lastWinnerYear: priorWinner?.year || parseInt(PREVIOUS_ELECTION_YEAR) || null,
       lastMargin,
       isOpenSeat,
       isIncumbentRecontest,

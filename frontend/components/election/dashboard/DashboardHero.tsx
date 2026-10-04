@@ -54,9 +54,8 @@ export default function DashboardHero({ title, description, subtitle }: Dashboar
 
           <div className="pt-6 flex flex-col items-center gap-8">
             <ShareButton 
-              title="Tamil Nadu Assembly Election 2026 Dashboard"
-              text="Explore the complete list of MLA candidates and election insights for Tamil Nadu 2026."
-              url="/tn/elections/2026/dashboard"
+              title={title}
+              text={description}
               label="Share Dashboard"
             />
 

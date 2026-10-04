@@ -278,6 +278,7 @@ export interface MLAListResponse {
 export interface MLAVehicleItem extends MLAListItem {
   district?: string;
   vehicle_assets?: any;
+  asset_breakup?: any;
   current_position?: string;
 }
 

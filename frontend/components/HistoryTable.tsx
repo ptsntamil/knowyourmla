@@ -1,5 +1,6 @@
 import { ElectionHistoryRecord } from "@/types/models";
 import PartyBadge from "@/components/ui/PartyBadge";
+import { formatHistoryTerm } from "@/lib/constants/elections";
 
 interface HistoryTableProps {
   history: ElectionHistoryRecord[];
@@ -33,7 +34,9 @@ export default function HistoryTable({ history }: HistoryTableProps) {
 
             return (
               <tr key={index} className="hover:bg-slate-50/30 transition-colors">
-                <td className="px-6 py-4 font-black text-brand-dark text-lg">{record.year}</td>
+                <td className="px-6 py-4 font-black text-brand-dark text-lg">
+                  {formatHistoryTerm(record.year, index > 0 ? history[index - 1].year : undefined)}
+                </td>
                 <td className="px-6 py-4 text-slate-600 font-medium capitalize">{record.constituency.toLowerCase()}</td>
                 <td className="px-6 py-4">
                   <PartyBadge

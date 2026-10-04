@@ -33,7 +33,7 @@ export default function ConstituencyPreviewCard({ contest }: ConstituencyPreview
         <div className="bg-slate-50/50 rounded-2xl p-4 border border-slate-50 space-y-3">
           <div className="flex items-center gap-1.5 opacity-60">
             <History size={12} className="text-slate-400" />
-            <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">2021 Results</span>
+            <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">{contest.lastWinnerYear || 'Previous'} Results</span>
           </div>
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
@@ -47,9 +47,6 @@ export default function ConstituencyPreviewCard({ contest }: ConstituencyPreview
               ) : (
                 <p className="text-xs font-bold text-slate-700 leading-tight">N/A</p>
               )}
-              {/* <p className="text-[8px] font-black text-slate-400 uppercase tracking-widest">
-                {contest.lastWinnerPartyShort || "IND"}
-              </p> */}
             </div>
             <PartyBadge 
               party={contest.lastWinnerParty || "Independent"}
@@ -61,12 +58,12 @@ export default function ConstituencyPreviewCard({ contest }: ConstituencyPreview
           </div>
         </div>
 
-        {/* 2026 Candidates */}
+        {/* Current Candidates */}
         <div className="space-y-3 flex-grow">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-1.5 opacity-60">
               <Users size={12} className="text-slate-400" />
-              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">2026 Candidates</span>
+              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest">Candidates</span>
             </div>
             <span className="text-xs font-black text-brand-dark bg-slate-100 px-2 py-0.5 rounded-lg">
               {contest.candidateCount}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { User, Flag, TrendingUp, Users } from 'lucide-react';
-import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from '@/lib/constants/elections';
+import { ELECTION_YEAR_CURRENT as LATEST_ELECTION_YEAR, ELECTION_YEAR_PRIOR as PREVIOUS_ELECTION_YEAR } from "@/lib/elections/preElectionDashboard/dashboard.constants";
 
 interface ConstituencyContestSnapshotProps {
   currentMLA?: {
@@ -51,7 +51,7 @@ export default function ConstituencyContestSnapshot({
       color: "text-brand-green"
     },
     {
-      label: `${LATEST_ELECTION_YEAR} Candidates`,
+      label: `Candidates`,
       value: isLive ? candidateCount.toString() : "Awaited",
       subValue: isLive ? "Announced" : "Coming Soon",
       icon: Users,

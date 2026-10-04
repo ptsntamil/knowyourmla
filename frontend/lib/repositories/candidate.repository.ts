@@ -27,7 +27,7 @@ export class CandidateRepository {
         ":person_id": personId,
       },
       // Projection: All necessary fields for the profile and analytics
-      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, is_resigned, winning_margin, margin_percentage, total_assets, assets, total_votes, vote_percent, criminal_cases, election_expenses, itr_history, income_itr, gold_assets, silver_assets, vehicle_assets, land_assets, education, profession, profile_pic, district_name, district_id",
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, is_winner, is_resigned, winning_margin, margin_percentage, total_assets, assets, total_votes, vote_percent, criminal_cases, election_expenses, itr_history, income_itr, gold_assets, silver_assets, vehicle_assets, asset_breakup, land_assets, education, profession, profile_pic, district_name, district_id",
       ExpressionAttributeNames: {
         "#year": "year",
       },

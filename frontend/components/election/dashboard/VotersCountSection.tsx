@@ -28,7 +28,7 @@ export default function VotersCountSection({ stats }: VotersCountSectionProps) {
              <h2 className="text-3xl md:text-5xl font-black text-brand-dark uppercase tracking-tighter italic">Total Electorate</h2>
           </div>
           <p className="text-slate-500 font-medium max-w-2xl leading-relaxed">
-            The official voter strength for the 2026 Assembly Election across all 234 constituencies. 
+            The official voter strength for the 2026 Assembly Election across the contesting constituencies. 
             Demographic distribution highlights the scale of democratic participation in Tamil Nadu.
           </p>
         </div>

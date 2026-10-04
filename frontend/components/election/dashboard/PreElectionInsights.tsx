@@ -6,10 +6,11 @@ import PartyBadge from '@/components/ui/PartyBadge';
 import Link from 'next/link';
 import { Trophy, TrendingUp, AlertTriangle, Scale, Target, Users, MapPin, IndianRupee, Gavel } from 'lucide-react';
 import ProfileImage from '@/components/ProfileImage';
-import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from '@/lib/constants/elections';
+import { ELECTION_YEAR_CURRENT as LATEST_ELECTION_YEAR, ELECTION_YEAR_PRIOR as PREVIOUS_ELECTION_YEAR } from "@/lib/elections/preElectionDashboard/dashboard.constants";
 
 interface PreElectionInsightsProps {
   insights: DashboardInsights;
+  urlYear?: string | number;
 }
 
 const SECTION_DESCRIPTIONS = {
@@ -20,7 +21,7 @@ const SECTION_DESCRIPTIONS = {
   contestingPatterns: "Strategic patterns in candidate placement and regional focus by political parties."
 };
 
-export default function PreElectionInsightsSection({ insights }: PreElectionInsightsProps) {
+export default function PreElectionInsightsSection({ insights, urlYear = 2026 }: PreElectionInsightsProps) {
 
   const CardWrapper = ({ title, icon: Icon, children, href, footerHref, footerLabel }: { title: string, icon: any, children: React.ReactNode, href?: string, footerHref?: string, footerLabel?: string }) => {
     const content = (
@@ -242,7 +243,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
           <CardWrapper 
             title="Richest Candidates" 
             icon={IndianRupee}
-            footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates?sortBy=assets&sortOrder=desc`}
+            footerHref={`/tn/elections/${urlYear}/candidates?sortBy=assets&sortOrder=desc`}
             footerLabel="View Full List"
           >
             {insights.richestCandidates.slice(0, 5).map((c, idx) => renderCandidateItem(c, idx))}
@@ -251,7 +252,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
           <CardWrapper 
             title="Youngest Candidates" 
             icon={TrendingUp}
-            footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates?sortBy=age&sortOrder=asc`}
+            footerHref={`/tn/elections/${urlYear}/candidates?sortBy=age&sortOrder=asc`}
             footerLabel="View Full List"
           >
             {insights.youngestCandidates.slice(0, 5).map((c, idx) => renderCandidateItem(c, idx))}
@@ -261,7 +262,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
             <CardWrapper 
               title="Highest Criminal Record" 
               icon={Gavel}
-              footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates?sortBy=cases&sortOrder=desc`}
+              footerHref={`/tn/elections/${urlYear}/candidates?sortBy=cases&sortOrder=desc`}
               footerLabel="View Full List"
             >
               {insights.mostCriminalCases.slice(0, 5).map((c, idx) => renderCandidateItem(c, idx))}
@@ -281,7 +282,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
           <CardWrapper 
             title="Multi-Seat Contestants" 
             icon={Trophy}
-            footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates?q=Multi-Seat`}
+            footerHref={`/tn/elections/${urlYear}/candidates?q=Multi-Seat`}
             footerLabel="View Analysis"
           >
             {insights.multiConstituencyCandidates && insights.multiConstituencyCandidates.length > 0 ? (
@@ -314,7 +315,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
           <CardWrapper 
             title={`Closest ${PREVIOUS_ELECTION_YEAR} Contests`} 
             icon={Target}
-            footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/constituencies?pattern=Close%20Margin`}
+            footerHref={`/tn/elections/${urlYear}/constituencies?pattern=Close%20Margin`}
             footerLabel="Explore Seats"
           >
             {insights.closestLastElectionSeats.slice(0, 5).map((c, idx) =>
@@ -325,7 +326,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
           <CardWrapper 
             title="Most Crowded Contests" 
             icon={Users}
-            footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/constituencies?q=Multi-Corner`}
+            footerHref={`/tn/elections/${urlYear}/constituencies?q=Multi-Corner`}
             footerLabel="Explore Seats"
           >
             {insights.multiCornerContests.slice(0, 5).map((c, idx) =>
@@ -390,7 +391,7 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
             <CardWrapper 
               title="Contesting Patterns" 
               icon={MapPin}
-              footerHref={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates?contestType=cross_constituency`}
+              footerHref={`/tn/elections/${urlYear}/candidates?contestType=cross_constituency`}
               footerLabel="View Candidates"
             >
               <div className="p-8 space-y-8">
@@ -444,19 +445,19 @@ export default function PreElectionInsightsSection({ insights }: PreElectionInsi
         <p className="text-slate-400 text-sm font-medium italic">Based on {LATEST_ELECTION_YEAR} declared candidates so far</p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link 
-            href={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates`}
+            href={`/tn/elections/${urlYear}/candidates`}
             className="px-8 py-3 bg-white border border-slate-200 text-brand-dark font-black uppercase tracking-widest text-xs italic rounded-2xl hover:border-brand-gold hover:text-brand-gold transition-all"
           >
             Explore All Candidates
           </Link>
           <Link 
-            href={`/tn/elections/${LATEST_ELECTION_YEAR}/constituencies`}
+            href={`/tn/elections/${urlYear}/constituencies`}
             className="px-8 py-3 bg-white border border-slate-200 text-brand-dark font-black uppercase tracking-widest text-xs italic rounded-2xl hover:border-brand-gold hover:text-brand-gold transition-all"
           >
             View All Constituencies
           </Link>
           <Link 
-            href={`/tn/elections/${LATEST_ELECTION_YEAR}/dashboard`}
+            href={`/tn/elections/${urlYear}/dashboard`}
             className="px-8 py-3 bg-brand-dark text-white font-black uppercase tracking-widest text-xs italic rounded-2xl hover:bg-brand-gold hover:text-brand-dark transition-all"
           >
             Back to Dashboard

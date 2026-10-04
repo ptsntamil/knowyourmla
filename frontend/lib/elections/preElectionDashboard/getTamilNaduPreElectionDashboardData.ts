@@ -4,7 +4,7 @@ import { ConstituencyRepository } from "../../repositories/constituency.reposito
 import { DistrictRepository } from "../../repositories/district.repository";
 import { PersonRepository } from "../../repositories/person.repository";
 import {
-  ELECTION_YEAR_CURRENT,
+  currentYear,
   ELECTION_YEAR_PRIOR,
   ELECTION_STATE
 } from "./dashboard.constants";
@@ -21,10 +21,10 @@ import { sortByPartyOrder } from "./dashboard.utils";
 import { cache } from "react";
 
 /**
- * Single source of truth for the Tamil Nadu Pre-Election Dashboard 2026.
+ * Single source of truth for the Tamil Nadu Pre-Election Dashboard.
  * Aggregates data from DynamoDB, normalizes it, and derives advanced metrics/insights.
  */
-export const getTamilNaduPreElectionDashboardData = cache(async (): Promise<PreElectionDashboardPayload | null> => {
+export const getTamilNaduPreElectionDashboardData = cache(async (currentYear: number | string, priorYear: number | string): Promise<PreElectionDashboardPayload | null> => {
   const mlaRepo = new MLARepository();
   const partyRepo = new PartyRepository();
   const constituencyRepo = new ConstituencyRepository();
@@ -40,15 +40,15 @@ export const getTamilNaduPreElectionDashboardData = cache(async (): Promise<PreE
       constituencies,
       districts
     ] = await Promise.all([
-      mlaRepo.getAllCandidatesByYear(ELECTION_YEAR_CURRENT),
-      mlaRepo.getWinnersByYear(ELECTION_YEAR_PRIOR),
+      mlaRepo.getAllCandidatesByYear(Number(currentYear)),
+      mlaRepo.getWinnersByYear(Number(priorYear)),
       partyRepo.getAllParties(),
       constituencyRepo.getAllConstituencies(),
       districtRepo.getAllDistricts()
     ]);
 
     if (!candidates2026 || candidates2026.length === 0) {
-      console.warn(`No candidate data found for ${ELECTION_YEAR_CURRENT} ${ELECTION_STATE} Assembly Election.`);
+      console.warn(`No candidate data found for ${currentYear} ${ELECTION_STATE} Assembly Election.`);
       // We still return early if we want, but usually better to return empty dashboard structure
     }
 
@@ -84,7 +84,13 @@ export const getTamilNaduPreElectionDashboardData = cache(async (): Promise<PreE
       constituencyPriorWinners
     });
 
-    const contests = buildContestCards(dashboardCandidates, constituencies, {
+    // Filter constituencies for bye-elections so we don't show all 234 if it's just 2 seats
+    const isByeElection = currentYear.toString().length > 4;
+    const relevantConstituencies = isByeElection 
+      ? constituencies.filter((c: any) => dashboardCandidates.some(dc => dc.constituencyId === c.PK.replace("CONSTITUENCY#", "")))
+      : constituencies;
+
+    const contests = buildContestCards(dashboardCandidates, relevantConstituencies, {
       districtMap,
       constituencyPriorWinners,
       partyMap
@@ -96,7 +102,7 @@ export const getTamilNaduPreElectionDashboardData = cache(async (): Promise<PreE
       dashboardCandidates,
       contests,
       partyRollout.length,
-      constituencies
+      relevantConstituencies
     );
 
     const insights = buildPreElectionInsights(dashboardCandidates, contests);
@@ -112,7 +118,7 @@ export const getTamilNaduPreElectionDashboardData = cache(async (): Promise<PreE
     };
 
   } catch (error) {
-    console.error(`Error aggregating dashboard data for ${ELECTION_YEAR_CURRENT} ${ELECTION_STATE}:`, error);
+    console.error(`Error aggregating dashboard data for ${currentYear} ${ELECTION_STATE}:`, error);
     return null;
   }
 });

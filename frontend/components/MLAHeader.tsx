@@ -6,6 +6,8 @@ import Badge from "./ui/Badge";
 import VehicleCountCard from "./VehicleCountCard";
 import PartyBadge from "./ui/PartyBadge";
 
+import AssetBreakupCard from "./AssetBreakupCard";
+
 interface MLAHeaderProps {
    person: PersonDetail;
    latestHistory?: ElectionHistoryRecord;
@@ -15,6 +17,7 @@ interface MLAHeaderProps {
    goldAssets?: any;
    vehicleAssets?: any;
    landAssets?: any;
+   assetBreakup?: any;
    personalTitle?: string;
    isResigned?: boolean;
 }
@@ -28,7 +31,7 @@ const ensureAbsoluteUrl = (url: any, base: string) => {
 
 export default function MLAHeader({
    person, latestHistory, criminalCases, totalAssets, winRate,
-   goldAssets, vehicleAssets, landAssets, personalTitle = "Candidate", isResigned
+   goldAssets, vehicleAssets, landAssets, assetBreakup, personalTitle = "Candidate", isResigned
 }: MLAHeaderProps) {
    // Assets Calculation Logic
    let totalGold = 0;
@@ -222,15 +225,7 @@ export default function MLAHeader({
                   </div>
                </div>
 
-               <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-4 hover:shadow-md hover:scale-[1.02] transition-all duration-200 group">
-                  <div className="p-3 bg-brand-gold/10 text-brand-gold rounded-2xl flex-shrink-0 group-hover:bg-brand-gold/20 transition-colors">
-                     <User size={24} />
-                  </div>
-                  <div className="flex flex-col">
-                     <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-black tracking-widest mb-1">Assets</span>
-                     <span className="text-sm font-black text-brand-dark dark:text-slate-200 uppercase" title={totalAssets || "₹ 0.00 Cr"}>{totalAssets || "₹ 0.00 Cr"}</span>
-                  </div>
-               </div>
+               <AssetBreakupCard totalAssets={totalAssets} assetBreakup={assetBreakup} />
             </div>
          </div>
 

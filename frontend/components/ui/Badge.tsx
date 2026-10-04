@@ -2,7 +2,7 @@ import React from "react";
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: "brand" | "gold" | "slate" | "outline";
+  variant?: "brand" | "gold" | "slate" | "outline" | "red";
   size?: "xs" | "sm" | "md";
   className?: string;
   dot?: boolean;
@@ -22,6 +22,7 @@ export default function Badge({
     gold: "bg-brand-gold text-white shadow-sm",
     slate: "bg-slate-100 text-slate-500 border border-slate-200",
     outline: "bg-transparent border border-slate-200 text-slate-600",
+    red: "bg-red-500 text-white shadow-sm",
   };
 
   const sizes = {

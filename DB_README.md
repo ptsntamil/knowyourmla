@@ -269,6 +269,7 @@ Full affidavit details for every candidate (winner and loser) in every election 
 | `total_votes` | Number | Total votes polled in the AC (for winners) or total votes received by candidate (for others) |
 | `winning_margin` | Number | Margin of victory in votes (for winners) |
 | `margin_percentage` | Number | Margin of victory as percentage (for winners) |
+| `asset_breakup` | Map | Categorized breakdown of assets (cash_in_hand, bank_deposits, movable, immovable) |
 | `gold_assets` | Map | Categorized gold details (self, spouse, dependents) |
 | `silver_assets` | Map | Categorized silver details (self, spouse, dependents) |
 | `vehicle_assets` | Map | Categorized vehicle details (self, spouse, dependents) |
@@ -555,8 +556,10 @@ Master registry of elections.
 | Field | Type | Description |
 |---|---|---|
 | `year` | Number | Election year |
+| `year_code` | Number | Optional identifier for specific bye-elections (e.g. `202610`) |
 | `type` | String | Election type: `Assembly` or `Lok Sabha` |
 | `category` | String | Election category: `General` or `Bye-Election` |
+| `constituencies` | List | Optional list of constituency slugs (e.g., `["dharapuram", "madurantakam"]`). Empty/missing implies all constituencies. |
 | `created_at` | Number | Unix timestamp |
 
 ### Sample Record

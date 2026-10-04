@@ -5,15 +5,16 @@ import { useRouter, useSearchParams, usePathname } from 'next/navigation';
 import { ContestCard, DashboardFilterOptions } from '@/lib/elections/preElectionDashboard/dashboard.types';
 import Link from 'next/link';
 import PartyBadge from '@/components/ui/PartyBadge';
-import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from '@/lib/constants/elections';
+import { ELECTION_YEAR_CURRENT as LATEST_ELECTION_YEAR, ELECTION_YEAR_PRIOR as PREVIOUS_ELECTION_YEAR } from "@/lib/elections/preElectionDashboard/dashboard.constants";
 import { Search, MapPin, Users, History, ArrowRight, X, Filter, ChevronDown, LayoutGrid, Target, Zap } from 'lucide-react';
 
 interface ConstituencyContestExplorerProps {
   contests: ContestCard[];
   filters?: DashboardFilterOptions;
+  urlYear?: string | number;
 }
 
-export default function ConstituencyContestExplorer({ contests, filters }: ConstituencyContestExplorerProps) {
+export default function ConstituencyContestExplorer({ contests, filters, urlYear = 2026 }: ConstituencyContestExplorerProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -124,7 +125,7 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
               </h1>
             </div>
             <p className="text-slate-500 font-medium text-sm md:text-base max-w-2xl">
-              Real-time intelligence across Tamil Nadu's 234 assembly seats. Tracking candidates, incumbent defenses, and key electoral shifts for {LATEST_ELECTION_YEAR}.
+              Real-time intelligence across the contesting assembly seats. Tracking candidates, incumbent defenses, and key electoral shifts for {LATEST_ELECTION_YEAR}.
             </p>
           </div>
 
@@ -404,7 +405,7 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
           <h2 className="text-2xl md:text-3xl font-black text-brand-dark uppercase tracking-tighter italic">Tamil Nadu Constituency Contests {LATEST_ELECTION_YEAR}</h2>
           <div className="prose prose-slate prose-sm text-slate-500 font-medium max-w-none space-y-4">
             <p>
-              The {LATEST_ELECTION_YEAR} Tamil Nadu Legislative Assembly election is set to be one of the most dynamic in the state's political history. This constituency explorer provides a comprehensive portal into all 234 assembly seats, allowing voters and analysts to track candidates as they are announced by major alliances.
+              The {LATEST_ELECTION_YEAR} Tamil Nadu Legislative Assembly election is set to be one of the most dynamic in the state's political history. This constituency explorer provides a comprehensive portal into all contesting assembly seats, allowing voters and analysts to track candidates as they are announced by major alliances.
             </p>
             <p>
               Using our advanced pattern analysis, you can quickly identify <strong>Open Seats</strong> where an incumbent is not seeking re-election, <strong>Multi-Cornered Contests</strong> where three or more major parties have a significant presence, and <strong>Close Margin Seats</strong> from the {PREVIOUS_ELECTION_YEAR} election that are likely to be battlegrounds again.
@@ -421,19 +422,19 @@ export default function ConstituencyContestExplorer({ contests, filters }: Const
         <p className="text-slate-400 text-sm font-medium italic">Based on {LATEST_ELECTION_YEAR} declared candidates so far</p>
         <div className="flex flex-wrap justify-center gap-4">
           <Link 
-            href={`/tn/elections/${LATEST_ELECTION_YEAR}/candidates`}
+            href={`/tn/elections/${urlYear}/candidates`}
             className="px-8 py-3 bg-white border border-slate-200 text-brand-dark font-black uppercase tracking-widest text-xs italic rounded-2xl hover:border-brand-gold hover:text-brand-gold transition-all"
           >
             Explore All Candidates
           </Link>
           <Link 
-            href={`/tn/elections/${LATEST_ELECTION_YEAR}/constituencies`}
+            href={`/tn/elections/${urlYear}/constituencies`}
             className="px-8 py-3 bg-white border border-slate-200 text-brand-dark font-black uppercase tracking-widest text-xs italic rounded-2xl hover:border-brand-gold hover:text-brand-gold transition-all"
           >
             View All Constituencies
           </Link>
           <Link 
-            href={`/tn/elections/${LATEST_ELECTION_YEAR}/dashboard`}
+            href={`/tn/elections/${urlYear}/dashboard`}
             className="px-8 py-3 bg-brand-dark text-white font-black uppercase tracking-widest text-xs italic rounded-2xl hover:bg-brand-gold hover:text-brand-dark transition-all"
           >
             Back to Dashboard
