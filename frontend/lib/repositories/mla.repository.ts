@@ -45,7 +45,7 @@ export class MLARepository {
         ":winner": true,
         ":year": year,
       },
-      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, vehicle_assets, profile_pic, is_resigned",
+      ProjectionExpression: "PK, person_id, candidate_name, constituency_id, party_id, #year, vehicle_assets, asset_breakup, profile_pic, is_resigned",
     });
   }
 

@@ -454,6 +454,7 @@ export class MLAService {
           silver_assets: this.parseSilverAssets(latestRecord.silver_assets, latestRecord.gold_assets) || null,
           vehicle_assets: latestRecord.vehicle_assets || null,
           land_assets: latestRecord.land_assets || null,
+          asset_breakup: latestRecord.asset_breakup || null,
         };
 
         history.sort((a, b) => b.year - a.year);

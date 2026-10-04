@@ -163,6 +163,7 @@ export default async function MLAProfilePage({ params }: PageProps) {
             goldAssets={profile.analytics.gold_assets}
             vehicleAssets={profile.analytics.vehicle_assets}
             landAssets={profile.analytics.land_assets}
+            assetBreakup={profile.analytics.asset_breakup}
             personalTitle={personalTitle}
             isResigned={Boolean(latestElection?.is_resigned)}
           />
