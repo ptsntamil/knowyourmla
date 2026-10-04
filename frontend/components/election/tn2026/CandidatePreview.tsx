@@ -8,9 +8,10 @@ import { sortByPartyOrder, getPartyRank } from '@/lib/elections/preElectionDashb
 
 interface CandidatePreviewProps {
   candidates: DashboardCandidate[];
+  urlYear?: string | number;
 }
 
-export default function CandidatePreview({ candidates }: CandidatePreviewProps) {
+export default function CandidatePreview({ candidates, urlYear = 2026 }: CandidatePreviewProps) {
   // Show top 6 for a nice grid, sorted primarily by constituency then party priority
   const previewCandidates = [...candidates]
     .sort((a, b) => {
@@ -34,7 +35,7 @@ export default function CandidatePreview({ candidates }: CandidatePreviewProps) 
         </div>
 
         <Link
-          href="/tn/elections/2026/candidates"
+          href={`/tn/elections/${urlYear}/candidates`}
           className="hidden sm:flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-brand-gold hover:text-brand-dark transition-colors group"
         >
           View All Candidates <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -85,7 +86,7 @@ export default function CandidatePreview({ candidates }: CandidatePreviewProps) 
 
       <div className="sm:hidden pt-4">
         <Link
-          href="/tn/elections/2026/candidates"
+          href={`/tn/elections/${urlYear}/candidates`}
           className="flex items-center justify-center gap-2 w-full py-4 bg-slate-100 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] text-slate-600"
         >
           View All Candidates <ChevronRight size={14} />

@@ -124,13 +124,13 @@ export default async function MinistersListPage() {
       <ItemListSchema items={itemListData} />
       
       <CoverImage title="Tamil Nadu Ministers">
-        <div className="flex flex-col items-center space-y-4">
-          <Badge variant="brand" size="sm" dot>Current Cabinet</Badge>
-          <nav className="flex justify-center items-center space-x-2 text-sm font-black uppercase tracking-widest text-slate-300">
+        <div className="flex flex-col items-start space-y-4">
+          <nav className="flex flex-wrap items-center gap-y-2 gap-x-3 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
             <Link href="/tn" className="hover:text-white transition-colors">Home</Link>
-            <span className="opacity-50">/</span>
+            <span className="text-white/20">/</span>
             <span className="text-brand-gold">Ministers</span>
           </nav>
+          <Badge variant="brand" size="sm" dot>Current Cabinet</Badge>
         </div>
       </CoverImage>
       

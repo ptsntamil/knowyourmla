@@ -67,6 +67,9 @@ export class StateService {
           currentWinners = winners.filter((w: any) => parseInt(w.year) === parseInt(PREVIOUS_ELECTION_YEAR));
         }
 
+        // Exclude resigned MLAs from the current active roster
+        currentWinners = currentWinners.filter((w: any) => w.is_resigned !== true);
+
 
         // Fetch person details
         const personIds = Array.from(new Set(currentWinners.map((w: any) => w.person_id).filter(Boolean)));

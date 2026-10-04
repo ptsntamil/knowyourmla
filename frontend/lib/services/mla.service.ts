@@ -22,7 +22,7 @@ import {
   CriminalCaseRecord,
   ElectionExpenseRecord
 } from "@/types/models";
-import { LATEST_ELECTION_YEAR } from "../constants/elections";
+import { LATEST_ELECTION_YEAR, getAssemblyPeriod } from "../constants/elections";
 import { getPartyLogo } from "../utils/party-utils";
 import { normalizeEducation, normalizeProfession, normalizeTotalAssets, normalizeIncome, normalizeCriminalCases } from "../utils/profile-normalizers";
 import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
@@ -473,13 +473,14 @@ export class MLAService {
 
         let winners;
         if (year === 2021) {
-          winners = await this.mlaRepo.getWinnersByYearRange(2021, 2026);
+          winners = await this.mlaRepo.getWinnersByYearRange(2021, 202599); // up to just before 2026 general
         } else if (year === 2026) {
-          winners = await this.mlaRepo.getWinnersByYear(2026);
+          winners = await this.mlaRepo.getWinnersByYearRange(2026, 202699); // includes 202610 bye-elections
         } else {
-          winners = await this.mlaRepo.getWinnersByYear(year);
+          winners = await this.mlaRepo.getWinnersByYearRange(year, year + 99); // fallback for any year to include its bye-elections
         }
 
+        // Sort ascending so later bye-elections overwrite general elections in the winnerMap
         winners.sort((a: any, b: any) => parseInt(a.year || "0") - parseInt(b.year || "0"));
 
         const personIds = Array.from(new Set(winners.map((w: any) => w.person_id).filter((id: string) => id)));
@@ -512,7 +513,7 @@ export class MLAService {
               constituency: consti.name || constId.replace("CONSTITUENCY#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()),
               constituency_id: constId,
               party: "",
-              period: `${year}-${year + 5}`,
+              period: getAssemblyPeriod(year),
               education: "Unknown",
             });
             continue;
@@ -535,7 +536,7 @@ export class MLAService {
             party_color_bg: partyInfo.color_bg,
             party_color_text: partyInfo.color_text,
             party_color_border: partyInfo.color_border,
-            period: `${year}-${year + 5}`,
+            period: getAssemblyPeriod(year),
             education: categorizeEducation(personMeta.education || winner.education),
             is_resigned: Boolean(winner.is_resigned),
           });
@@ -554,8 +555,17 @@ export class MLAService {
     return unstable_cache(
       async (yr: number): Promise<MLAVehicleResponse> => {
         const constituencies = await this.constituencyRepo.getAllConstituencies();
-        let winners = await this.mlaRepo.getWinnersWithVehiclesByYear(yr);
-        
+        let winners;
+        if (yr === 2021) {
+          winners = await this.mlaRepo.getWinnersWithVehiclesByYearRange(2021, 202599);
+        } else if (yr === 2026) {
+          winners = await this.mlaRepo.getWinnersWithVehiclesByYearRange(2026, 202699);
+        } else {
+          winners = await this.mlaRepo.getWinnersWithVehiclesByYearRange(yr, yr + 99);
+        }
+
+        // Sort ascending so later bye-elections come last (meaning they'll override earlier in any find operations if we adjusted to findLast)
+        winners.sort((a: any, b: any) => parseInt(a.year || "0") - parseInt(b.year || "0"));        
         const personIds = Array.from(new Set(winners.map((w: any) => w.person_id).filter((id: string) => id)));
         const persons = await this.personRepo.getPersonsByIds(personIds as string[]);
         const personMap = persons.reduce((acc: any, p: any) => {
@@ -573,10 +583,15 @@ export class MLAService {
         const partyInfoList = await Promise.all(uniquePartyIds.map(id => getSharedPartyInfo(id)));
         const partyMap = Object.fromEntries(uniquePartyIds.map((id, i) => [String(id), partyInfoList[i]]));
 
+        const winnerMap = winners.reduce((acc: any, w: any) => {
+          acc[w.constituency_id] = w;
+          return acc;
+        }, {});
+
         const mlaList: MLAVehicleItem[] = [];
         for (const consti of constituencies) {
           const constId = consti.PK;
-          const winner = winners.find((w: any) => w.constituency_id === constId);
+          const winner = winnerMap[constId];
           if (!winner) continue;
 
           const pId = winner.person_id;
@@ -598,7 +613,7 @@ export class MLAService {
             party_color_bg: partyInfo?.color_bg,
             party_color_text: partyInfo?.color_text,
             party_color_border: partyInfo?.color_border,
-            period: `${yr}-${yr + 5}`,
+            period: getAssemblyPeriod(yr),
             vehicle_assets: winner.vehicle_assets || null,
             is_resigned: Boolean(winner.is_resigned),
           });

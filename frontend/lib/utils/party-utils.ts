@@ -50,11 +50,20 @@ export function derivePartyShortName(name?: string | null): string {
   const normalized = name.trim();
   if (NON_PARTY_NAMES.includes(normalized.toLowerCase())) return "IND";
 
-  const acronym = normalized
+  const words = normalized
     .split(/\s+/)
-    .filter(word => word.length > 0 && !["of", "and", "the", "&", "a"].includes(word.toLowerCase()))
+    .filter(word => word.length > 0 && !["of", "and", "the", "&", "a", "party"].includes(word.toLowerCase()));
+
+  if (words.length === 1) {
+    // If it's a single word (like "DMK" or "AIADMK"), return it as is but uppercased.
+    // If it's very long, slice it, but typically acronyms are passed as-is.
+    return words[0].length <= 8 ? words[0].toUpperCase() : words[0].slice(0, 3).toUpperCase();
+  }
+
+  const acronym = words
     .map(word => word[0].toUpperCase())
     .join("");
 
-  return acronym || normalized.slice(0, 3).toUpperCase();
+  // Remove non-alphanumeric chars (e.g. if a word was "(DMK)")
+  return acronym.replace(/[^A-Z]/g, "") || normalized.slice(0, 3).toUpperCase();
 }

@@ -6,12 +6,12 @@ import { usePathname } from 'next/navigation';
 import { LayoutDashboard, Users, MapPin, Landmark, Lightbulb, BarChart3 } from 'lucide-react';
 
 const TABS = [
-  { name: 'Overview', href: '/tn/elections/2026/dashboard', icon: LayoutDashboard },
-  { name: 'Candidates', href: '/tn/elections/2026/candidates', icon: Users },
-  { name: 'Constituencies', href: '/tn/elections/2026/constituencies', icon: MapPin },
-  { name: 'Parties', href: '/tn/elections/2026/parties', icon: Landmark },
-  { name: 'Insights', href: '/tn/elections/2026/pre-election-insights', icon: Lightbulb },
-  { name: 'Results', href: '/tn/elections/2026', icon: BarChart3 },
+  { name: 'Overview', href: '/tn/elections/202610/dashboard', icon: LayoutDashboard },
+  { name: 'Candidates', href: '/tn/elections/202610/candidates', icon: Users },
+  { name: 'Constituencies', href: '/tn/elections/202610/constituencies', icon: MapPin },
+  { name: 'Parties', href: '/tn/elections/202610/parties', icon: Landmark },
+  { name: 'Insights', href: '/tn/elections/202610/pre-election-insights', icon: Lightbulb },
+  { name: 'Results', href: '/tn/elections/202610', icon: BarChart3 },
 ];
 
 export default function ElectionNavTabs() {

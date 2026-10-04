@@ -53,6 +53,7 @@ export interface ContestCard {
   lastWinner?: string | null;
   lastWinnerParty?: string | null;
   lastWinnerPartyShort?: string | null;
+  lastWinnerYear?: number | null;
   lastMargin?: number | null;
   isOpenSeat: boolean;
   isIncumbentRecontest: boolean;

@@ -5,7 +5,7 @@ export default function ElectionDashboardFAQ() {
   const faq = [
     {
       question: "Who are the candidates in the Tamil Nadu Assembly Election 2026?",
-      answer: "The Tamil Nadu Assembly Election 2026 includes candidates contesting across all 234 constituencies. You can explore the full MLA candidate list by constituency, district, or party using this dashboard."
+      answer: "The Tamil Nadu Assembly Election 2026 includes candidates contesting across the contesting constituencies. You can explore the full MLA candidate list by constituency, district, or party using this dashboard."
     },
     {
       question: "How can I find the candidate list for my constituency?",

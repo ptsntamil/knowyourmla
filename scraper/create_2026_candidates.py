@@ -316,7 +316,8 @@ class PersonResolver2026:
     def find_person_by_name_heuristic(self, name: str, last_name: str, age: int, year: int) -> Optional[str]:
         """Fallback name-based resolution similar to enrichment.py."""
         norm_name = normalize_name(name)
-        birth_year = year - age
+        base_election_year = int(str(year)[:4])
+        birth_year = base_election_year - age
         
         try:
             # Query by NameIndex
@@ -368,11 +369,11 @@ class PersonResolver2026:
         except Exception as e:
             logger.warning(f"Failed to update person {person_id}: {e}")
 
-    def get_or_create_person(self, cand_data: Dict, dry_run: bool = False) -> tuple[str, bool]:
+    def get_or_create_person(self, cand_data: Dict, election_year: int = 2026, dry_run: bool = False) -> tuple[str, bool]:
         """Returns (person_id, is_new)."""
         name = cand_data.get("name", "")
         last_name = cand_data.get("Father's / Husband's Name", "")
-        age = int(cand_data.get("age", 0))
+        age = int(cand_data.get("age", 0) or cand_data.get("Age", 0))
         extracted = cand_data.get("extracted_data") or {}
         pan = self.get_pan_from_extracted(extracted)
 
@@ -386,7 +387,7 @@ class PersonResolver2026:
                 logger.info(f"Resolved person {person_id} via PAN {pan}")
             else:
                 # 2. Try Name fallback
-                person_id = self.find_person_by_name_heuristic(name, last_name, age, 2026)
+                person_id = self.find_person_by_name_heuristic(name, last_name, age, election_year)
                 if person_id:
                     logger.info(f"Resolved person {person_id} via name/relation/age")
         else:
@@ -444,17 +445,18 @@ class PersonResolver2026:
             final_id = f"{base_id}_{suffix}"
             suffix += 1
 
+        base_election_year = int(str(election_year)[:4])
         person_item = {
             "PK": final_id,
             "SK": "METADATA",
             "name": name,
             "lastname": last_name,
             "normalized_name": short_name,
-            "birth_year": 2026 - age,
-            "sex": cand_data.get("sex"),
+            "birth_year": base_election_year - age,
+            "sex": cand_data.get("sex") or cand_data.get("Gender"),
             "pan_number": pan.upper() if pan else final_id.split("#")[-1],
             "social_profiles": social_profiles if social_profiles else None,
-            "address": cand_data.get("address"),
+            "address": cand_data.get("address") or cand_data.get("Address"),
             "created_at": int(time.time()),
             "createdtime": datetime.now(timezone.utc).isoformat()
         }
@@ -640,7 +642,15 @@ def process_simple_assets(asset_data: Any, asset_type: str) -> Dict:
             
     return {}
 
-def enrich_candidates(json_path: str, start: int = 0, limit: int = None, dry_run: bool = False):
+def enrich_candidates(
+    json_path: str,
+    election_year: int = 2026,
+    election_type: str = "General",
+    election_level: str = "Assembly",
+    start: int = 0,
+    limit: int = None,
+    dry_run: bool = False
+):
     """Enrich already-created candidate records that are missing extraction data.
 
     Scans the JSON file for candidates where:
@@ -652,6 +662,9 @@ def enrich_candidates(json_path: str, start: int = 0, limit: int = None, dry_run
 
     Args:
         json_path: Path to the candidates JSON file.
+        election_year: Election year (e.g., 2026).
+        election_type: Election type (e.g., General or ByePoll).
+        election_level: Election level (e.g., Lok Sabha or Assembly).
         start: Zero-based start index.
         limit: Maximum number of items to process.
         dry_run: If True, no writes to DynamoDB are made.
@@ -686,7 +699,7 @@ def enrich_candidates(json_path: str, start: int = 0, limit: int = None, dry_run
             stats["skipped"] += 1
             continue
 
-        pk = item.get("db_candidate_pk") or f"AFFIDAVIT#2026#{i+1}"
+        pk = item.get("db_candidate_pk") or f"AFFIDAVIT#{election_year}#{i+1}"
         person_id = item.get("db_person_id") or item.get("person_id")
         extracted = item.get("extracted_data") or {}
 
@@ -695,6 +708,8 @@ def enrich_candidates(json_path: str, start: int = 0, limit: int = None, dry_run
         try:
             # Build enrichment update expression
             enrich_fields = {
+                "age": int(extracted.get("age", 0) or item.get("Age", 0)),
+                "sex": (extracted.get("gender") or item.get("Gender", "Unknown")).capitalize(),
                 "total_assets": convert_floats_to_decimal({"v": extracted.get("total_assets", 0)})["v"],
                 "total_liabilities": convert_floats_to_decimal({"v": extracted.get("total_liabilities", 0)})["v"],
                 "criminal_cases": extracted.get("criminal_cases", 0),
@@ -704,11 +719,15 @@ def enrich_candidates(json_path: str, start: int = 0, limit: int = None, dry_run
                 "gold_assets": process_simple_assets(extracted.get("gold_details") or extracted.get("gold_assets", {}), "gold"),
                 "silver_assets": process_simple_assets(extracted.get("silver_details") or extracted.get("silver_assets", {}), "silver"),
                 "vehicle_assets": process_simple_assets(extracted.get("vehicle_assets", {}), "vehicle"),
+                "asset_breakup": extracted.get("asset_breakup", {}),
                 "land_assets": process_land_assets(extracted.get("land_assets", {})),
                 "income_itr": get_latest_income_map(flatten_itr_history(extracted.get("itr_history", {}))),
                 "profile_pic": item.get("photo_path"),
                 "extraction_status": "complete",
                 "enriched_at": datetime.now(timezone.utc).isoformat(),
+                "election_level":election_level,
+                "election_type":election_type,
+                "election_id": f"ELECTION#{str(election_year)[:4]}#{election_level.upper().replace(' ', '')}#{election_type.upper().replace('-', '').replace(' ', '')}"
             }
             enrich_fields = convert_floats_to_decimal(enrich_fields)
 
@@ -770,7 +789,26 @@ def enrich_candidates(json_path: str, start: int = 0, limit: int = None, dry_run
     logger.info(f"[ENRICH] Done. Enriched: {stats['enriched']}, Skipped: {stats['skipped']}, Failed: {stats['failed']}")
 
 
-def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_run: bool = False):
+def process_candidates(
+    json_path: str,
+    election_year: int = 2026,
+    election_type: str = "General",
+    election_level: str = "Assembly",
+    start: int = 0,
+    limit: int = None,
+    dry_run: bool = False
+):
+    """Process candidate records and save to DynamoDB.
+
+    Args:
+        json_path: Path to the candidate JSON file.
+        election_year: Election year (e.g., 2026).
+        election_type: Election type (e.g., General or ByePoll).
+        election_level: Election level (e.g., Lok Sabha or Assembly).
+        start: Zero-based start index.
+        limit: Maximum number of items to process.
+        dry_run: If True, simulate actions without modifying DynamoDB.
+    """
     if not os.path.exists(json_path):
         logger.error(f"File not found: {json_path}")
         return
@@ -803,7 +841,7 @@ def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_ru
 
         try:
             # 1. Resolve Person
-            person_id, is_new = resolver.get_or_create_person(item, dry_run=dry_run)
+            person_id, is_new = resolver.get_or_create_person(item, election_year=election_year, dry_run=dry_run)
             
             if is_new:
                 stats["new_persons"] += 1
@@ -814,7 +852,7 @@ def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_ru
             group_id = resolver.get_group_id(person_id) if person_id != "PERSON#NEW_PLACEHOLDER" else None
             
             # 3. Prepare Candidate Record
-            pk = f"AFFIDAVIT#2026#{i+1}"
+            pk = f"AFFIDAVIT#{election_year}#{i+1}"
             extracted = item.get("extracted_data") or {}
             has_extraction = bool(item.get("extracted_data"))
             
@@ -823,10 +861,14 @@ def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_ru
                 "SK": "DETAILS",
                 "person_id": person_id,
                 "constituency_id": f"CONSTITUENCY#{canonicalize_constituency(constituency)}",
-                "year": 2026,
-                "election_type": "Assembly",
+                "year": election_year,
+                "election_type": election_type,
+                "election_level": election_level,
+                "election_id": f"ELECTION#{str(election_year)[:4]}#{election_level.upper().replace(' ', '')}#{election_type.upper().replace('-', '').replace(' ', '')}",
                 "candidate_name": name,
                 "party_id": resolver.resolve_party_id(item.get("party_name")),
+                "age": int(extracted.get("age", 0) or item.get("Age", 0)),
+                "sex": (extracted.get("gender") or item.get("Gender", "Unknown")).capitalize(),
                 "total_assets": extracted.get("total_assets", 0),
                 "total_liabilities": extracted.get("total_liabilities", 0),
                 "criminal_cases": extracted.get("criminal_cases", 0),
@@ -838,6 +880,7 @@ def process_candidates(json_path: str, start: int = 0, limit: int = None, dry_ru
                 "gold_assets": process_simple_assets(extracted.get("gold_details") or extracted.get("gold_assets", {}), "gold"),
                 "silver_assets": process_simple_assets(extracted.get("silver_details") or extracted.get("silver_assets", {}), "silver"),
                 "vehicle_assets": process_simple_assets(extracted.get("vehicle_assets", {}), "vehicle"),
+                "asset_breakup": extracted.get("asset_breakup", {}),
                 "land_assets": process_land_assets(extracted.get("land_assets", {})),
                 "income_itr": get_latest_income_map(flatten_itr_history(extracted.get("itr_history", {}))),
                 "group_id": group_id,
@@ -881,7 +924,7 @@ def save_json(data, path):
     os.replace(temp_path, path)
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Create 2026 candidate records in DynamoDB.")
+    parser = argparse.ArgumentParser(description="Create candidate records in DynamoDB.")
     parser.add_argument("--start", type=int, default=0, help="Start index (0-based)")
     parser.add_argument("--limit", type=int, default=None, help="Number of items to process")
     parser.add_argument("--dryrun", action="store_true", help="Perform a dry run")
@@ -891,10 +934,47 @@ if __name__ == "__main__":
         action="store_true",
         help="Enrich existing candidate records that have extraction_status=missing with full extracted details"
     )
+    parser.add_argument(
+        "--election_year", "--election-year", "--year",
+        dest="election_year",
+        type=int,
+        default=2026,
+        help="Election year (e.g. 2026)"
+    )
+    parser.add_argument(
+        "--election_type", "--election-type",
+        dest="election_type",
+        type=str,
+        default="General",
+        help="Election type: General or ByePoll"
+    )
+    parser.add_argument(
+        "--election_level", "--election-level",
+        dest="election_level",
+        type=str,
+        default="Assembly",
+        help="Election level: Lok Sabha or Assembly"
+    )
 
     args = parser.parse_args()
 
     if args.enrich:
-        enrich_candidates(args.file, start=args.start, limit=args.limit, dry_run=args.dryrun)
+        enrich_candidates(
+            args.file,
+            election_year=args.election_year,
+            election_type=args.election_type,
+            election_level=args.election_level,
+            start=args.start,
+            limit=args.limit,
+            dry_run=args.dryrun
+        )
     else:
-        process_candidates(args.file, start=args.start, limit=args.limit, dry_run=args.dryrun)
+        process_candidates(
+            args.file,
+            election_year=args.election_year,
+            election_type=args.election_type,
+            election_level=args.election_level,
+            start=args.start,
+            limit=args.limit,
+            dry_run=args.dryrun
+        )

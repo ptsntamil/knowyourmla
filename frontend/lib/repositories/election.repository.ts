@@ -4,8 +4,10 @@ export interface ElectionRecord {
   PK: string;
   SK: string;
   year: number;
+  year_code?: number; // Specific identifier for bye-elections (e.g., 202610)
   type: string;
   category: string;
+  constituencies?: string[]; // Array of slugs for bye-elections
   created_at: number;
 }
 

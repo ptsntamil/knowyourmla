@@ -6,14 +6,16 @@ import BreadcrumbSchema from '@/components/seo/BreadcrumbSchema';
 import { commonBreadcrumbs } from '@/lib/seo/breadcrumbs';
 import { buildMetadata } from '@/lib/seo/metadata';
 
-export async function generateMetadata() {
-  const year = 2026;
+export async function generateMetadata({ params }: { params: Promise<{ year: string }> }) {
+  const { year } = await params;
+  const urlYear = year;
+  const displayYear = urlYear === "202610" ? "2026 Bye-Election" : urlYear;
   return buildMetadata({
-    title: `Tamil Nadu MLA Candidates ${year} – Full List`,
-    description: `Explore all announced candidates for the ${year} Tamil Nadu Assembly Election. Filter by party, district, education, assets, and criminal cases.`,
-    path: `/tn/elections/${year}/candidates`,
+    title: `Tamil Nadu MLA Candidates ${displayYear} – Full List`,
+    description: `Explore all announced candidates for the ${displayYear} Tamil Nadu Assembly Election. Filter by party, district, education, assets, and criminal cases.`,
+    path: `/tn/elections/${urlYear}/candidates`,
     keywords: [
-      `TN candidates ${year}`,
+      `TN candidates ${displayYear}`,
       `Tamil Nadu MLA candidate list 2026`,
       `TN election candidate search`,
       `Tamil Nadu assembly candidates data`
@@ -21,9 +23,12 @@ export async function generateMetadata() {
   });
 }
 
-export default async function CandidatesExplorerPage() {
-  const year = 2026;
-  const data = await getTamilNaduPreElectionDashboardData();
+export default async function CandidatesExplorerPage({ params }: { params: Promise<{ year: string }> }) {
+  const { year } = await params;
+  const urlYear = year;
+  const displayYear = urlYear === "202610" ? "2026 Bye-Election" : urlYear;
+  const priorYear = urlYear === "202610" ? 2026 : 2021;
+  const data = await getTamilNaduPreElectionDashboardData(urlYear, priorYear);
 
   if (!data) {
     notFound();
@@ -37,8 +42,8 @@ export default async function CandidatesExplorerPage() {
         items={[
           commonBreadcrumbs.home,
           { name: "Elections", item: "/tn/elections" },
-          { name: `Tamil Nadu ${year} Overview`, item: `/tn/elections/${year}/dashboard` },
-          { name: "Candidates", item: `/tn/elections/${year}/candidates` }
+          { name: `Tamil Nadu ${displayYear} Overview`, item: `/tn/elections/${urlYear}/dashboard` },
+          { name: "Candidates", item: `/tn/elections/${urlYear}/candidates` }
         ]}
       />
 

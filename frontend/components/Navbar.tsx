@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 import FeedbackModal from "./FeedbackModal";
 import Search from "./Search";
 import { Menu, X, ChevronDown } from "lucide-react";
-import { LATEST_ELECTION_YEAR, AVAILABLE_ELECTION_YEARS } from "@/lib/constants/elections";
+import { LATEST_ELECTION_YEAR, AVAILABLE_ELECTION_YEARS, ELECTION_LABELS } from "@/lib/constants/elections";
 
 export interface ElectionItem {
   year: number;
@@ -21,7 +21,7 @@ interface NavbarProps {
 export default function Navbar({ elections = [] }: NavbarProps) {
   const currentElections = elections.length > 0 ? elections : AVAILABLE_ELECTION_YEARS.map(year => ({
     year: parseInt(year),
-    label: `${year} Assembly`
+    label: ELECTION_LABELS[year] || `${year} Assembly`
   }));
   const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -91,10 +91,10 @@ export default function Navbar({ elections = [] }: NavbarProps) {
           <div className="hidden md:flex gap-8 items-center">
             {/* LATEST_ELECTION_YEAR Dashboard Link */}
             <Link
-              href={`/tn/elections/${LATEST_ELECTION_YEAR}/dashboard`}
-              className={`relative ${linkClasses(isActive(`/tn/elections/${LATEST_ELECTION_YEAR}/dashboard`))}`}
+              href="/tn/elections/202610/dashboard"
+              className={`relative ${linkClasses(isActive("/tn/elections/202610/dashboard"))}`}
             >
-              {LATEST_ELECTION_YEAR} Dashboard
+              2026 Bye-election
               <span className="absolute -top-3 -right-4 bg-brand-gold text-brand-dark text-[8px] font-black px-1.5 py-0.5 rounded shadow-lg animate-pulse">
                 NEW
               </span>
@@ -174,15 +174,15 @@ export default function Navbar({ elections = [] }: NavbarProps) {
           {/* Mobile Menu Button & Quick Links */}
           <div className="flex md:hidden items-center gap-2">
             <Link
-              href="/tn/elections/2026/dashboard"
+              href="/tn/elections/202610/dashboard"
               className={`px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5 transition-all
-                ${isActive("/tn/elections/2026/dashboard")
+                ${isActive("/tn/elections/202610/dashboard")
                   ? "bg-brand-gold text-brand-dark"
                   : "bg-brand-gold/10 text-brand-gold border border-brand-gold/20"}
               `}
             >
-              2026
-              <span className={`w-1 h-1 rounded-full animate-pulse ${isActive("/tn/elections/2026/dashboard") ? "bg-brand-dark" : "bg-brand-gold"}`}></span>
+              2026 BYE
+              <span className={`w-1 h-1 rounded-full animate-pulse ${isActive("/tn/elections/202610/dashboard") ? "bg-brand-dark" : "bg-brand-gold"}`}></span>
             </Link>
             <Search />
             <button

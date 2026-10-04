@@ -1,13 +1,14 @@
 import { Share2, ShieldCheck, Zap, IndianRupee, Gavel, User, TrendingUp, Target, Award, Calendar, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 import { DashboardInsights } from '@/lib/elections/preElectionDashboard/dashboard.types';
-import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from '@/lib/constants/elections';
+import { ELECTION_YEAR_CURRENT as urlYear, ELECTION_YEAR_PRIOR as PREVIOUS_ELECTION_YEAR } from "@/lib/elections/preElectionDashboard/dashboard.constants";
 
 interface ElectionDashboardSEOContentProps {
   insights: DashboardInsights;
+  urlYear?: string | number;
 }
 
-export default function ElectionDashboardSEOContent({ insights }: ElectionDashboardSEOContentProps) {
+export default function ElectionDashboardSEOContent({ insights, urlYear = 2026 }: ElectionDashboardSEOContentProps) {
   return (
     <article className="max-w-none text-slate-600 space-y-12">
       <div className="bg-white border border-slate-100 rounded-[3rem] p-8 md:p-20 shadow-xl shadow-slate-200/50 relative overflow-hidden">
@@ -16,7 +17,7 @@ export default function ElectionDashboardSEOContent({ insights }: ElectionDashbo
         <div className="relative z-10 space-y-10">
           <div className="space-y-4">
             <h2 className="text-3xl md:text-5xl font-black text-brand-dark uppercase tracking-tighter italic leading-none">
-              Tamil Nadu Assembly <br />Election {LATEST_ELECTION_YEAR} Overview
+              Tamil Nadu Assembly <br />Election {urlYear} Overview
             </h2>
             <div className="w-20 h-2 bg-brand-gold rounded-full"></div>
           </div>
@@ -24,10 +25,10 @@ export default function ElectionDashboardSEOContent({ insights }: ElectionDashbo
           <div className="grid lg:grid-cols-2 gap-12">
             <div className="space-y-6">
               <p className="text-lg leading-relaxed font-medium">
-                This Tamil Nadu Assembly Election {LATEST_ELECTION_YEAR} dashboard provides a comprehensive view of all announced MLA candidates across constituencies. Beyond candidate profiles, the platform now provides official electoral statistics, allowing users to analyze the total electorate strength and gender-wise voter distribution across Tamil Nadu's 234 seats.
+                This Tamil Nadu Assembly Election {urlYear} dashboard provides a comprehensive view of all announced MLA candidates across constituencies. Beyond candidate profiles, the platform now provides official electoral statistics, allowing users to analyze the total electorate strength and gender-wise voter distribution across Tamil Nadu's contesting seats.
               </p>
               <p className="text-sm leading-loose text-slate-500">
-                The platform covers all 234 constituencies in Tamil Nadu, allowing users to quickly find candidates contesting in their constituency and compare profiles across parties.
+                The platform covers the contesting constituencies in Tamil Nadu, allowing users to quickly find candidates contesting in their constituency and compare profiles across parties.
               </p>
             </div>
 
@@ -48,7 +49,7 @@ export default function ElectionDashboardSEOContent({ insights }: ElectionDashbo
                 </div>
                 <div className="space-y-2">
                   <h3 className="text-sm font-black text-brand-dark uppercase tracking-widest italic">Real-Time Rollout</h3>
-                  <p className="text-xs font-medium text-slate-500 leading-relaxed">Unlike static lists, our dashboard updates as parties release candidate names, allowing you to track the momentum of the {LATEST_ELECTION_YEAR} election cycle dynamically.</p>
+                  <p className="text-xs font-medium text-slate-500 leading-relaxed">Unlike static lists, our dashboard updates as parties release candidate names, allowing you to track the momentum of the {urlYear} election cycle dynamically.</p>
                 </div>
               </div>
 
@@ -164,7 +165,7 @@ export default function ElectionDashboardSEOContent({ insights }: ElectionDashbo
                   </div>
                   <p className="text-sm leading-relaxed text-slate-500">
                     High-profile figures and key leadership from major alliances including DMK, AIADMK, BJP, and NTK. 
-                    These candidates often dictate the narrative of the {LATEST_ELECTION_YEAR} election cycle.
+                    These candidates often dictate the narrative of the {urlYear} election cycle.
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {insights.starCandidates.slice(0, 10).map((c, i) => (
@@ -209,7 +210,7 @@ export default function ElectionDashboardSEOContent({ insights }: ElectionDashbo
               <div className="max-w-3xl">
                 <h3 className="text-xl font-black text-brand-dark uppercase tracking-tight italic mb-4">Battleground Constituencies</h3>
                 <p className="text-sm leading-relaxed text-slate-500">
-                  Analyzing constituencies where the {PREVIOUS_ELECTION_YEAR} results were decided by razor-thin margins and identifying new multi-cornered contests for {LATEST_ELECTION_YEAR}.
+                  Analyzing constituencies where the {PREVIOUS_ELECTION_YEAR} results were decided by razor-thin margins and identifying new multi-cornered contests for {urlYear}.
                 </p>
               </div>
 
@@ -234,7 +235,7 @@ export default function ElectionDashboardSEOContent({ insights }: ElectionDashbo
 
                 {/* Multi-Corner */}
                 <div className="bg-white border border-slate-100 p-6 rounded-[2rem] shadow-sm space-y-4">
-                  <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-3">Multi-Corner Contests ({LATEST_ELECTION_YEAR})</h4>
+                  <h4 className="text-[10px] font-black text-slate-400 uppercase tracking-widest border-b border-slate-50 pb-3">Multi-Corner Contests ({urlYear})</h4>
                   <div className="space-y-4">
                     {insights.multiCornerContests.slice(0, 4).map((seat, i) => (
                       <div key={`multi-corner-${i}`} className="flex justify-between items-center">

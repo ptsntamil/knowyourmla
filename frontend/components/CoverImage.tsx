@@ -4,9 +4,10 @@ interface CoverImageProps {
   title: string;
   subtitle?: string;
   children?: React.ReactNode;
+  titleBadge?: React.ReactNode;
 }
 
-export default function CoverImage({ title, subtitle, children }: CoverImageProps) {
+export default function CoverImage({ title, subtitle, children, titleBadge }: CoverImageProps) {
   return (
     <div className="relative h-[300px] md:h-[400px] w-full overflow-hidden flex items-center justify-center text-white bg-brand-dark">
       <div className="absolute inset-0 z-0 h-full w-full">
@@ -35,9 +36,16 @@ export default function CoverImage({ title, subtitle, children }: CoverImageProp
         )}
 
         <div className="max-w-4xl">
-          <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-6 leading-none drop-shadow-2xl">
-            {title}
-          </h1>
+          <div className="flex flex-col md:flex-row md:items-end gap-4 mb-6">
+            <h1 className="text-5xl md:text-7xl font-black uppercase tracking-tighter leading-none drop-shadow-2xl">
+              {title}
+            </h1>
+            {titleBadge && (
+              <div className="pb-1">
+                {titleBadge}
+              </div>
+            )}
+          </div>
           {subtitle && (
             <div className="flex items-center gap-4">
               <div className="w-12 h-1 bg-brand-gold rounded-full" />

@@ -18,11 +18,30 @@ export default function IncomeDetailsTable({ itrHistory }: IncomeDetailsTablePro
     );
   }
 
+  // Normalize YYYY-YYYY to YYYY-YY to avoid duplicates like "2024-2025" and "2024-25"
+  const normalizedItrHistory: Record<string, Record<string, number>> = {};
+  Object.keys(itrHistory).forEach((rel) => {
+    normalizedItrHistory[rel] = {};
+    Object.keys(itrHistory[rel]).forEach((yr) => {
+      if (!yr || yr.toLowerCase() === "none") return;
+      let normalizedYr = yr.trim();
+      const match = normalizedYr.match(/^(\d{4})-(\d{4})$/);
+      if (match) {
+        normalizedYr = `${match[1]}-${match[2].substring(2)}`;
+      }
+      
+      const existingValue = normalizedItrHistory[rel][normalizedYr] || 0;
+      const newValue = Number(itrHistory[rel][yr]) || 0;
+      if (newValue > existingValue || existingValue === 0) {
+        normalizedItrHistory[rel][normalizedYr] = newValue;
+      }
+    });
+  });
+
   // Get all unique year ranges across all relations for row headers
   const yearRanges = Array.from(
-    new Set(Object.values(itrHistory).flatMap((years) => Object.keys(years)))
-  ).filter(yr => yr && yr.toLowerCase() !== "none")
-   .sort((a, b) => b.localeCompare(a)); // Sort latest first
+    new Set(Object.values(normalizedItrHistory).flatMap((years) => Object.keys(years)))
+  ).sort((a, b) => b.localeCompare(a)); // Sort latest first
 
   // Pagination calculations
   const totalPages = Math.ceil(yearRanges.length / pageSize);
@@ -32,12 +51,12 @@ export default function IncomeDetailsTable({ itrHistory }: IncomeDetailsTablePro
   );
 
   // Get all relations for column headers
-  const relations = Object.keys(itrHistory)
+  const relations = Object.keys(normalizedItrHistory)
     .filter(rel => {
       if (!rel || rel.toLowerCase() === "none") return false;
       if (rel.toLowerCase() === "self") return true;
 
-      const years = itrHistory[rel];
+      const years = normalizedItrHistory[rel];
       return Object.values(years).some(amt => amt && Number(amt) > 0);
     })
     .sort((a, b) => {
@@ -89,7 +108,7 @@ export default function IncomeDetailsTable({ itrHistory }: IncomeDetailsTablePro
                 <tr key={yr} className="hover:bg-slate-50/30 transition-colors">
                   <td className="px-6 py-4 font-black text-brand-dark text-lg">{yr}</td>
                   {relations.map((rel) => {
-                    const amount = itrHistory[rel]?.[yr];
+                    const amount = normalizedItrHistory[rel]?.[yr];
                     if (amount !== undefined && amount !== null) {
                         const numericAmount = typeof amount === 'string' ? parseFloat(amount) : amount;
                         if (!isNaN(numericAmount)) {

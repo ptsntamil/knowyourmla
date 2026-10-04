@@ -75,6 +75,30 @@ export class MLARepository {
   }
 
   /**
+   * Fetches winners within a year range including vehicle_assets.
+   */
+  async getWinnersWithVehiclesByYearRange(startYear: number, endYear: number) {
+    const allElections = await this.electionRepo.getAllElections();
+    
+    // Filter for Assembly elections to isolate relevant years (includes bye-elections if defined)
+    const validYears = Array.from(new Set(
+      allElections
+        .filter(e => e.type === "Assembly")
+        .map(e => e.year)
+    ));
+
+    let targetYears = validYears.filter(y => y >= startYear && y <= endYear);
+
+    // Fallback if the elections table is empty or missing data
+    if (targetYears.length === 0) {
+      targetYears = [startYear];
+    }
+
+    const results = await Promise.all(targetYears.map(y => this.getWinnersWithVehiclesByYear(y)));
+    return results.flat();
+  }
+
+  /**
    * Fetches all candidates for a specific year using YearIndex.
    */
   async getAllCandidatesByYear(year: number) {

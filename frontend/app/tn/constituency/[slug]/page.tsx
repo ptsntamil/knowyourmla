@@ -11,7 +11,9 @@ import PartyBadge from "@/components/ui/PartyBadge";
 import { getConstituencyPreElectionOverlayData } from "@/lib/elections/preElectionDashboard/getConstituencyPreElectionOverlayData";
 import ConstituencyPreElectionOverlay from "@/components/election/dashboard/ConstituencyPreElectionOverlay";
 import ShareButton from "@/components/ShareButton";
-import { LAST_COMPLETED_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from "@/lib/constants/elections";
+import { LAST_COMPLETED_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR, formatHistoryTerm } from "@/lib/constants/elections";
+import { ElectionRepository } from "@/lib/repositories/election.repository";
+import { ELECTION_YEAR_CURRENT } from "@/lib/elections/preElectionDashboard/dashboard.constants";
 
 export const revalidate = 86400;
 
@@ -24,7 +26,15 @@ export async function generateMetadata({ params }: PageProps) {
   const constituencyId = `CONSTITUENCY#${slug}`;
   const constituencyName = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
 
-  const showPreElection = process.env.NEXT_PUBLIC_ENABLE_2026_PRE_ELECTION === "true";
+  const electionRepo = new ElectionRepository();
+  const baseYear = parseInt(ELECTION_YEAR_CURRENT.toString().substring(0, 4));
+  const activeElection = await electionRepo.getElectionByYear(baseYear, "Assembly", "ByeElection");
+  
+  const targetConstituencies = activeElection?.constituencies || [];
+  // If targetConstituencies is empty, we assume general election (applies to all). If populated, it's a bye-election.
+  const showPreElection = targetConstituencies.length > 0 
+    ? targetConstituencies.some(c => c.toLowerCase() === slug.toLowerCase()) 
+    : process.env.NEXT_PUBLIC_ENABLE_2026_PRE_ELECTION === "true";
 
   // Fetch both historical and pre-election data for SEO
   const [data, overlay] = await Promise.all([
@@ -33,7 +43,12 @@ export async function generateMetadata({ params }: PageProps) {
   ]);
 
   const currentWinner = data.history[0];
-  const mlaInfo = currentWinner ? `currently represented by ${currentWinner.winner} (${currentWinner.party.short_name || currentWinner.party.name})` : "check current MLA and candidates";
+  const isResigned = currentWinner?.is_resigned === true;
+  const mlaInfo = currentWinner 
+    ? isResigned 
+      ? `previously represented by ${currentWinner.winner} (${currentWinner.party.short_name || currentWinner.party.name}) but currently vacant`
+      : `currently represented by ${currentWinner.winner} (${currentWinner.party.short_name || currentWinner.party.name})` 
+    : "check current MLA and candidates";
 
   let title = `${constituencyName} MLA | Current MLA, Candidates & Election Details`;
   let description = `Check the current MLA of ${constituencyName}, ${mlaInfo}, candidate list, party details, and constituency information on KnowYourMLA.`;
@@ -67,7 +82,14 @@ export default async function ConstituencyPage({ params }: PageProps) {
   const constituencyName = slug.charAt(0).toUpperCase() + slug.slice(1).toLowerCase();
 
   // Parallel fetch for history and pre-election overlay (if enabled)
-  const showPreElection = process.env.NEXT_PUBLIC_ENABLE_2026_PRE_ELECTION === "true";
+  const electionRepo = new ElectionRepository();
+  const baseYear = parseInt(ELECTION_YEAR_CURRENT.toString().substring(0, 4));
+  const activeElection = await electionRepo.getElectionByYear(baseYear, "Assembly", "ByeElection");
+  
+  const targetConstituencies = activeElection?.constituencies || [];
+  const showPreElection = targetConstituencies.length > 0 
+    ? targetConstituencies.some(c => c.toLowerCase() === slug.toLowerCase()) 
+    : process.env.NEXT_PUBLIC_ENABLE_2026_PRE_ELECTION === "true";
 
   const [data, overlayData] = await Promise.all([
     fetchConstituencyWinners(constituencyId),
@@ -81,7 +103,9 @@ export default async function ConstituencyPage({ params }: PageProps) {
     {
       question: `Who is the current MLA of ${constituencyName}?`,
       answer: currentWinner
-        ? `${currentWinner.winner} from ${currentWinner.party.name} is the current MLA of ${constituencyName} constituency.`
+        ? currentWinner.is_resigned === true
+          ? `The seat for ${constituencyName} is currently vacant due to the resignation of the previously elected MLA, ${currentWinner.winner} from ${currentWinner.party.name}.`
+          : `${currentWinner.winner} from ${currentWinner.party.name} is the current MLA of ${constituencyName} constituency.`
         : `Information about the current MLA of ${constituencyName} is being updated.`
     },
     {
@@ -124,6 +148,8 @@ export default async function ConstituencyPage({ params }: PageProps) {
     breadcrumbItems.push({ name: districtName, item: `/tn/districts/${districtSlug}` });
   }
 
+  const isResigned = currentWinner?.is_resigned === true;
+
   breadcrumbItems.push({ name: constituencyName, item: `/tn/constituency/${slug}` });
 
   return (
@@ -134,6 +160,13 @@ export default async function ConstituencyPage({ params }: PageProps) {
 
       <CoverImage
         title={`${slug}`}
+        titleBadge={isResigned ? (
+          <div className="flex items-center gap-2">
+            <span className="bg-red-500/10 text-red-200 border border-red-500/20 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+              Vacant Seat
+            </span>
+          </div>
+        ) : undefined}
         subtitle={`Historical election data and representative details for the ${slug} constituency.`}
       >
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
@@ -317,7 +350,9 @@ export default async function ConstituencyPage({ params }: PageProps) {
                 <tbody className="divide-y divide-slate-50">
                   {data.history.map((record: any, i: number) => (
                     <tr key={i} className="hover:bg-slate-50 transition-colors">
-                      <td className="px-10 py-8 font-black text-brand-dark">{record.year}</td>
+                      <td className="px-10 py-8 font-black text-brand-dark">
+                        {formatHistoryTerm(record.year, i > 0 ? data.history[i - 1].year : undefined)}
+                      </td>
                       <td className="px-10 py-8">
                         {record.person_id || record.slug ? (
                           <Link

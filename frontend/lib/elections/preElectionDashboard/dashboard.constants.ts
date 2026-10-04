@@ -1,7 +1,7 @@
 import { LATEST_ELECTION_YEAR, PREVIOUS_ELECTION_YEAR } from "@/lib/constants/elections";
 
-export const ELECTION_YEAR_CURRENT = parseInt(LATEST_ELECTION_YEAR);
-export const ELECTION_YEAR_PRIOR = parseInt(PREVIOUS_ELECTION_YEAR);
+export const ELECTION_YEAR_CURRENT = 202610; // Bye-election
+export const ELECTION_YEAR_PRIOR = 2026; // Compare against general election
 export const ELECTION_STATE = "Tamil Nadu";
 export const ELECTION_TYPE = "Assembly";
 

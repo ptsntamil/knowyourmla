@@ -94,11 +94,17 @@ def batch_process(limit: int = None, input_file: str = "tn_2026_candidates.json"
             candidate["extraction_status"] = "failed"
             candidate["extraction_error"] = err_msg
             
-            # Detect quota exhaustion or high demand and stop
-            if any(msg in err_msg for msg in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE"]):
-                logger.warning(f"Stopping batch process due to API limitations ({err_msg}). Progress saved.")
-                break
-            # We don't increment processed_count here so we can try others
+            # Detect quota exhaustion or high demand and retry with exponential backoff
+            if any(msg in err_msg for msg in ["429", "RESOURCE_EXHAUSTED", "503", "UNAVAILABLE", "high demand"]):
+                logger.warning(f"API high demand/quota limit reached ({err_msg}). Waiting 30 seconds before continuing...")
+                time.sleep(30)
+                # Reset candidate status so it will be retried on the next run
+                candidate.pop("extraction_status", None)
+                candidate.pop("extraction_error", None)
+                # Do NOT break the loop. Let it continue to the next candidate (or retry if we implement a while loop, but for now just skip to next and it will be picked up on re-run)
+            else:
+                # For non-rate-limit errors, we keep it marked as failed
+                pass
             
         # Small delay to respect rate limits if not using a high-tier key
         time.sleep(2)

@@ -35,7 +35,8 @@ export function mapCandidatesToDashboardCandidates(
     const birthYear = person?.birth_year || c.birth_year;
     let age = null;
     if (birthYear) {
-      const calculatedAge = ELECTION_YEAR_CURRENT - parseInt(birthYear);
+      const electionYearForAge = parseInt(ELECTION_YEAR_CURRENT.toString().substring(0, 4));
+      const calculatedAge = electionYearForAge - parseInt(birthYear);
       if (calculatedAge > 0 && calculatedAge < 120) {
         age = calculatedAge;
       }

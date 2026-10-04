@@ -6,7 +6,7 @@ import { Share2, Link, Check, X } from "lucide-react";
 interface ShareButtonProps {
   title: string;
   text: string;
-  url: string;
+  url?: string;
   label?: string;
 }
 
@@ -17,7 +17,9 @@ const ShareButton: React.FC<ShareButtonProps> = ({ title, text, url, label = "Sh
   const shareData = {
     title,
     text,
-    url: typeof window !== "undefined" ? window.location.origin + url : url,
+    url: typeof window !== "undefined" 
+      ? (url ? window.location.origin + url : window.location.href) 
+      : (url || ""),
   };
 
   const handleShare = async () => {

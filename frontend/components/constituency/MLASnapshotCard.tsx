@@ -43,8 +43,12 @@ export default function MLASnapshotCard({ mla, constituencyName }: MLASnapshotCa
     return normalizeEducation(edu) ?? "Not Available";
   };
 
+  const isResigned = mla.is_resigned === true;
+
   // 4) Insight Strip Zone Sentence
-  const insightSentence = `${mla.winner} is the incumbent MLA of ${constituencyName}, elected in ${mla.year} from ${mla.party.short_name || mla.party.name} with a winning margin of ${mla.margin.toLocaleString()} votes.`;
+  const insightSentence = isResigned
+    ? `${mla.winner} was elected in ${mla.year} from ${mla.party.short_name || mla.party.name} with a winning margin of ${mla.margin.toLocaleString()} votes, but has since resigned.`
+    : `${mla.winner} is the incumbent MLA of ${constituencyName}, elected in ${mla.year} from ${mla.party.short_name || mla.party.name} with a winning margin of ${mla.margin.toLocaleString()} votes.`;
 
   const metrics = [
     {
@@ -112,9 +116,13 @@ export default function MLASnapshotCard({ mla, constituencyName }: MLASnapshotCa
                 </div>
                 <div className="text-center md:text-left space-y-3">
                   <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                    <Badge variant="gold" size="xs">Incumbent MLA</Badge>
-                    {mla.total_wins === 1 && <Badge variant="slate" size="xs" className="bg-white/10 text-white border-white/5">First-time MLA</Badge>}
-                    {mla.total_wins && mla.total_wins > 1 && <Badge variant="slate" size="xs" className="bg-white/10 text-white border-white/5">Re-elected</Badge>}
+                    {isResigned ? (
+                      <Badge variant="red" size="xs">Resigned</Badge>
+                    ) : (
+                      <Badge variant="gold" size="xs">Incumbent MLA</Badge>
+                    )}
+                    {mla.total_wins === 1 && !isResigned && <Badge variant="slate" size="xs" className="bg-white/10 text-white border-white/5">First-time MLA</Badge>}
+                    {mla.total_wins && mla.total_wins > 1 && !isResigned && <Badge variant="slate" size="xs" className="bg-white/10 text-white border-white/5">Re-elected</Badge>}
                   </div>
                   <h3 className="text-3xl md:text-4xl font-black text-white uppercase tracking-tighter leading-none">
                     {mla.winner}
