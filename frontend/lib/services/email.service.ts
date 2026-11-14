@@ -30,7 +30,13 @@ export class EmailService {
     }
   }
 
-  async sendFeedback(message: string, url: string, name?: string, email?: string): Promise<boolean> {
+  async sendFeedback(
+    message: string, 
+    url: string, 
+    name?: string, 
+    email?: string, 
+    subject?: string
+  ): Promise<boolean> {
     const creds = await this.getCredentials();
     if (!creds || !creds.username || !creds.password) {
       console.error("Missing email credentials");
@@ -45,12 +51,13 @@ export class EmailService {
       },
     });
 
+    const recipient = process.env.FEEDBACK_RECIPIENT_EMAIL || "ptsntamil1@gmail.com";
     const mailOptions: any = {
       from: creds.username,
-      to: "ptsntamil1@gmail.com",
-      subject: "User Feedback from KnowYourMLA",
+      to: recipient,
+      subject: subject || "User Feedback from KnowYourMLA",
       text: `
-        User Feedback:
+        ${subject || 'User Feedback'}:
         --------------------------------------------------
         Name: ${name || 'Not provided'}
         Email: ${email || 'Not provided'}

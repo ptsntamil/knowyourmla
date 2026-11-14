@@ -16,6 +16,8 @@ interface PageProps {
   }>;
 }
 
+export const revalidate = 86400;
+
 const service = new ElectionAnalyticsService();
 
 export async function generateMetadata({ params }: PageProps) {

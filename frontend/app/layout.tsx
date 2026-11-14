@@ -11,7 +11,7 @@ import WebSiteSchema from "@/components/seo/WebSiteSchema";
 export const metadata: Metadata = {
   applicationName: "KnowYourMLA",
   appleWebApp: { title: "KnowYourMLA" },
-  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla-info.vercel.app"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla.info"),
   title: {
     default: "KnowYourMLA - Tamil Nadu MLA Directory & Election History",
     template: "%s | KnowYourMLA",
@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   keywords: ["KnowYourMLA", "MLA", "Tamil Nadu Politics", "Election Data", "Constituency Analysis"],
   robots: "index, follow",
   alternates: {
-    canonical: process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla-info.vercel.app",
+    canonical: process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla.info",
   },
   openGraph: {
     title: "KnowYourMLA - Tamil Nadu MLA Directory & Election History",
     description: "Comprehensive source for MLA information, election history, and performance analytics across Tamil Nadu constituencies.",
-    url: process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla-info.vercel.app",
+    url: process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla.info",
     siteName: "KnowYourMLA",
     images: [
       {

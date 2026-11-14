@@ -6,7 +6,7 @@ import { AVAILABLE_ELECTION_YEARS } from '@/lib/constants/elections';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
+  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla.info';
   const tnBaseUrl = `${domain}/tn`;
 
   try {

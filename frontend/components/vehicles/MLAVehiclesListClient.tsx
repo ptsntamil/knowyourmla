@@ -238,9 +238,9 @@ function MlaVehicleRow({ mla, isExpanded, onToggle }: { mla: any, isExpanded: bo
           <div className="flex flex-col items-center gap-1">
             <span className="text-lg font-black text-slate-800">{mla.totalVehicles}</span>
             <div className="flex gap-1">
-              {mla.has4Wheeler && <Car className="w-3.5 h-3.5 text-blue-500" title="4-Wheeler" />}
-              {mla.has2Wheeler && <Bike className="w-3.5 h-3.5 text-green-500" title="2-Wheeler" />}
-              {mla.hasTractor ? <Tractor className="w-3.5 h-3.5 text-amber-600" title="Tractor/JCB" /> : (mla.hasHeavy && <Truck className="w-3.5 h-3.5 text-orange-500" title="Heavy/Commercial" />)}
+              {mla.has4Wheeler && <span title="4-Wheeler"><Car className="w-3.5 h-3.5 text-blue-500" /></span>}
+              {mla.has2Wheeler && <span title="2-Wheeler"><Bike className="w-3.5 h-3.5 text-green-500" /></span>}
+              {mla.hasTractor ? <span title="Tractor/JCB"><Tractor className="w-3.5 h-3.5 text-amber-600" /></span> : (mla.hasHeavy && <span title="Heavy/Commercial"><Truck className="w-3.5 h-3.5 text-orange-500" /></span>)}
             </div>
           </div>
         </td>

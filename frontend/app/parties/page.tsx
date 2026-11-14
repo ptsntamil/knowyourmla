@@ -8,6 +8,8 @@ import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ItemListSchema from "@/components/seo/ItemListSchema";
 
 
+export const revalidate = 86400;
+
 export async function generateMetadata() {
   return buildMetadata({
     title: "Political Parties in Tamil Nadu | Election History & Analysis",

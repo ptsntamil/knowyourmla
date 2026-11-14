@@ -11,6 +11,8 @@ import {
 
 // export const runtime = 'edge';
 
+export const revalidate = 86400;
+
 export async function GET(
   request: Request,
   { params }: { params: Promise<{ district: string; type: string }> }

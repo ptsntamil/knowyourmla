@@ -69,9 +69,20 @@ class ElectionCSVImporter:
             return None
         return val.strip()
 
-    def parse_bool(self, val: str) -> bool:
-        if not val: return False
-        return val.lower() in ["true", "yes", "1", "incumbent"]
+    def parse_bool(self, val: Any) -> bool:
+        """Parses a boolean from various string or primitive representations.
+
+        Args:
+            val: Input value (string, bool, or int).
+
+        Returns:
+            Boolean representation of value.
+        """
+        if not val:
+            return False
+        if isinstance(val, bool):
+            return val
+        return str(val).strip().lower() in ["true", "yes", "1", "incumbent", "t", "y"]
 
     def parse_int(self, val: str) -> int:
         if not val: return 0
@@ -89,85 +100,220 @@ class ElectionCSVImporter:
         except (ValueError, TypeError, Exception):
             return Decimal('0')
 
-    def process_row(self, row: Dict, dry_run: bool = False, row_index: int = -1, processed_constituencies: Optional[set] = None):
-        year = str(row.get('Year'))
-        if not year or year == 'Year': return
+    def _format_candidate_pk(self, candidate_id: str, year: str) -> str:
+        """Formats candidate_id into standard candidate PK.
+
+        Args:
+            candidate_id: Raw candidate ID or PK.
+            year: Election year.
+
+        Returns:
+            Formatted DynamoDB PK for knowyourmla_candidates.
+        """
+        clean_id = str(candidate_id).strip()
+        if clean_id.startswith("AFFIDAVIT#"):
+            return clean_id
+        if clean_id.startswith(f"{year}#"):
+            return f"AFFIDAVIT#{clean_id}"
+        return f"AFFIDAVIT#{year}#{clean_id}"
+
+    def _match_by_explicit_candidate_id(self, candidate_id: str, year: str) -> Dict[str, Any]:
+        """Matches candidate using explicit candidate_id from CSV.
+
+        Args:
+            candidate_id: Candidate identifier or PK from CSV.
+            year: Election year.
+
+        Returns:
+            Dictionary with pk, person_id, and is_update flag.
+        """
+        pk = self._format_candidate_pk(candidate_id, year)
+        person_id = None
+        is_update = True
+        try:
+            resp = self.candidates_table.get_item(Key={'PK': pk, 'SK': 'DETAILS'})
+            item = resp.get('Item')
+            if item:
+                person_id = item.get('person_id')
+                logger.debug(f"Matched existing candidate by candidate_id {pk} (person: {person_id})")
+            else:
+                logger.info(f"Explicit candidate_id {pk} provided; updating/creating candidate record.")
+        except ClientError as e:
+            logger.error(f"Error fetching candidate with PK {pk}: {e}")
+        return {'pk': pk, 'person_id': person_id, 'is_update': is_update}
+
+    def _resolve_nota_candidate(self, const_id: str, year: str) -> Dict[str, Any]:
+        """Resolves PK and update status for NOTA candidate.
+
+        Args:
+            const_id: Constituency ID.
+            year: Election year.
+
+        Returns:
+            Dictionary with pk, person_id, and is_update flag.
+        """
+        pk = f"AFFIDAVIT#{year}#NOTA#{const_id.split('#')[-1]}"
+        is_update = False
+        try:
+            resp = self.candidates_table.get_item(Key={'PK': pk, 'SK': 'DETAILS'})
+            if 'Item' in resp:
+                is_update = True
+        except ClientError:
+            pass
+        return {'pk': pk, 'person_id': 'PERSON#nota', 'is_update': is_update}
+
+    def _resolve_candidate_match(
+        self,
+        row: Dict,
+        details: AffidavitData,
+        year: str,
+        const_id: str,
+        party_id: str,
+        is_nota: bool,
+        dry_run: bool
+    ) -> Dict[str, Any]:
+        """Resolves candidate PK, person_id, and update status.
+
+        Args:
+            row: CSV row dictionary.
+            details: Prepared AffidavitData.
+            year: Election year.
+            const_id: Constituency ID.
+            party_id: Political party ID.
+            is_nota: True if candidate is NOTA.
+            dry_run: True if running dry run.
+
+        Returns:
+            Dictionary with pk, person_id, and is_update.
+        """
+        if is_nota:
+            return self._resolve_nota_candidate(const_id, year)
+
+        raw_candidate_id = (
+            row.get('candidate_id')
+            or row.get('Candidate_ID')
+            or row.get('Candidate_Id')
+            or row.get('candidateId')
+            or row.get('Candidate_id')
+            or row.get('CANDIDATE_ID')
+        )
+        candidate_id = self.clean_val(str(raw_candidate_id)) if raw_candidate_id is not None else None
+        if candidate_id:
+            return self._match_by_explicit_candidate_id(candidate_id, year)
+
+        return self._find_matching_candidate(details, year, const_id, party_id, dry_run)
+
+    def _resolve_person_identity(
+        self,
+        details: AffidavitData,
+        year: str,
+        person_id: Optional[str],
+        dry_run: bool
+    ) -> str:
+        """Resolves person_id through IdentityResolver with optional override.
+
+        Args:
+            details: Candidate affidavit details.
+            year: Election year.
+            person_id: Pre-matched person_id override if found.
+            dry_run: Whether running in dry-run mode.
+
+        Returns:
+            Resolved person_id string.
+        """
+        if not person_id:
+            return self.resolver.get_or_create_person(details, year, cid=0, dry_run=dry_run)
+        return self.resolver.get_or_create_person(
+            details, year, cid=0, dry_run=dry_run, person_id_override=person_id
+        )
+
+    def _maybe_update_constituency_stats(
+        self,
+        row: Dict,
+        const_id: str,
+        year: str,
+        processed_constituencies: Optional[set]
+    ) -> None:
+        """Updates constituency aggregate statistics once per constituency.
+
+        Args:
+            row: CSV row dictionary.
+            const_id: Constituency ID.
+            year: Election year.
+            processed_constituencies: Set tracking already updated constituencies.
+        """
+        if processed_constituencies is None or const_id in processed_constituencies:
+            return
+
+        ac_valid_votes = self.parse_int(row.get('Valid_Votes'))
+        ac_electors = self.parse_int(row.get('Electors'))
+        ac_poll_percent = self.parse_decimal(row.get('Turnout_Percentage'))
+        if ac_valid_votes or ac_electors:
+            self._update_constituency_stats(const_id, year, ac_valid_votes, ac_electors, ac_poll_percent)
+            processed_constituencies.add(const_id)
+
+    def process_row(
+        self,
+        row: Dict,
+        dry_run: bool = False,
+        row_index: int = -1,
+        processed_constituencies: Optional[set] = None
+    ) -> Optional[str]:
+        """Processes a single CSV row of election data.
+
+        Args:
+            row: Dictionary containing row fields from CSV.
+            dry_run: Whether to simulate without writing to database.
+            row_index: 1-based index of row for logging.
+            processed_constituencies: Set of constituency IDs already updated.
+
+        Returns:
+            Status string 'created', 'updated', or None if skipped.
+        """
+        year = str(row.get('Year') or '').strip()
+        if not year or year == 'Year':
+            return None
 
         candidate_name = self.clean_val(row.get('Candidate', ''))
-        if not candidate_name: return
-        
-        constituency_name = row.get('Constituency_Name')
-        party_name = row.get('Party')
+        if not candidate_name:
+            return None
 
-        # Handle NOTA candidate specially
+        constituency_name = row.get('Constituency_Name')
         is_nota = candidate_name.lower() in ["none of the above", "nota", "none of the above (nota)"]
-        
+
         if is_nota:
             candidate_name = "None Of The Above"
-            person_id = "PERSON#nota"
             party_id = "PARTY#nota"
             logger.info(f"Processing NOTA for {constituency_name} ({year})")
         else:
+            party_id = self.resolver.resolve_party_id(row.get('Party'))
             logger.info(f"Processing candidate {candidate_name} ({constituency_name})")
-
-        # 1. Resolve Location & Party
-        district_name = row.get('District_Name')
 
         const_id = self.resolver.get_or_create_constituency(constituency_name, dry_run=dry_run)
         if not self._validate_constituency(const_id, constituency_name, candidate_name, row_index):
-            return
+            return None
 
-        if not is_nota:
-            party_id = self.resolver.resolve_party_id(party_name)
-        
-        dist_id = self.resolver.resolve_district_id(district_name)
-
-        # 2. Prepare Metadata for Resolver
+        dist_id = self.resolver.resolve_district_id(row.get('District_Name'))
         details = self._prepare_affidavit_details(row, candidate_name, constituency_name, party_id, dist_id)
 
-        # 3. Match candidate (skip resolution for NOTA)
-        if is_nota:
-            # For NOTA, we generate a stable PK based on constituency and year
-            pk = f"AFFIDAVIT#{year}#NOTA#{const_id.split('#')[-1]}"
-            is_update = False
-            # Check if this NOTA record already exists
-            try:
-                resp = self.candidates_table.get_item(Key={'PK': pk, 'SK': 'DETAILS'})
-                if 'Item' in resp: is_update = True
-            except ClientError: pass
-        else:
-            match_result = self._find_matching_candidate(details, year, const_id, party_id, dry_run)
-            pk = match_result['pk']
-            person_id = match_result['person_id']
-            is_update = match_result['is_update']
+        match_result = self._resolve_candidate_match(row, details, year, const_id, party_id, is_nota, dry_run)
+        pk = match_result['pk']
+        person_id = match_result['person_id']
+        is_update = match_result['is_update']
+
+        if not is_nota:
+            person_id = self._resolve_person_identity(details, year, person_id, dry_run)
 
         if dry_run:
-            if not person_id and not is_nota:
-                person_id = self.resolver.get_or_create_person(details, year, cid=0, dry_run=dry_run)
             self._log_dry_run_action(candidate_name, constituency_name, year, person_id, pk, is_update)
             return "updated" if is_update else "created"
 
-        # 4. Resolve Person (if not already found via matching and not NOTA)
-        if not is_nota:
-            if not person_id:
-                person_id = self.resolver.get_or_create_person(details, year, cid=0, dry_run=dry_run)
-            else:
-                self.resolver.get_or_create_person(details, year, cid=0, dry_run=dry_run, person_id_override=person_id)
+        self._maybe_update_constituency_stats(row, const_id, year, processed_constituencies)
 
-        # 5. Update Constituency Statistics (only once per AC)
-        if processed_constituencies is not None and const_id not in processed_constituencies:
-            ac_valid_votes = self.parse_int(row.get('Valid_Votes'))
-            ac_electors = self.parse_int(row.get('Electors'))
-            ac_poll_percent = self.parse_decimal(row.get('Turnout_Percentage'))
-            if ac_valid_votes or ac_electors:
-                self._update_constituency_stats(const_id, year, ac_valid_votes, ac_electors, ac_poll_percent)
-                processed_constituencies.add(const_id)
-
-        # 6. Save/Update Candidate
         label = "winner stats" if details.position == 1 else "stats"
         action = "Updating" if is_update else "Creating"
         logger.info(f"  [{action}] {label} for {candidate_name} ({pk})")
-        
+
         self._update_candidate(pk, person_id, const_id, dist_id, party_id, details, year)
         return "updated" if is_update else "created"
 
@@ -182,11 +328,37 @@ class ElectionCSVImporter:
             logger.error(f"Row {row_index}: Error querying constituency {const_id}: {e}")
             return False
 
-    def _prepare_affidavit_details(self, row: Dict, candidate_name: str, constituency_name: str, party_id: str, dist_id: str) -> AffidavitData:
+    def _prepare_affidavit_details(
+        self,
+        row: Dict,
+        candidate_name: str,
+        constituency_name: str,
+        party_id: str,
+        dist_id: str
+    ) -> AffidavitData:
+        """Prepares an AffidavitData instance from CSV row data.
+
+        Args:
+            row: Dictionary containing row fields.
+            candidate_name: Cleaned candidate name.
+            constituency_name: Constituency name.
+            party_id: Resolved party ID.
+            dist_id: Resolved district ID.
+
+        Returns:
+            AffidavitData object.
+        """
         pid_val = row.get('pid')
+        turncoat_val = (
+            row.get('Turncoat')
+            or row.get('turncoat')
+            or row.get('is_turncoat')
+            or row.get('Is_Turncoat')
+            or row.get('Turn_Coat')
+        )
         return AffidavitData(
             candidate_name=candidate_name,
-            lastname=None, # This is not available in TCPD data
+            lastname=None,
             age=self.parse_int(row.get('Age')),
             sex=self.clean_val(row.get('Sex')),
             tcpd_pid=self.clean_val(pid_val) if pid_val else None,
@@ -198,75 +370,120 @@ class ElectionCSVImporter:
             winning_margin=self.parse_int(row.get('Margin')),
             margin_percentage=self.parse_decimal(row.get('Margin_Percentage')),
             is_incumbent=self.parse_bool(row.get('Incumbent')),
-            is_turncoat=self.parse_bool(row.get('Turncoat')),
+            is_turncoat=self.parse_bool(turncoat_val),
             no_terms=self.parse_int(row.get('No_Terms')),
             candidate_type=self.clean_val(row.get('Candidate_Type')),
             candidacy_type=self.clean_val(row.get('Election_Type', 'General')),
             deposit_lost=self.parse_bool(row.get('Deposit_Lost'))
         )
 
-    def _find_matching_candidate(self, details: AffidavitData, year: str, const_id: str, party_id: str, dry_run: bool) -> Dict:
-        pk = None
+    def _generate_fallback_candidate_pk(self, details: AffidavitData, year: str, const_id: str) -> str:
+        """Generates deterministic fallback candidate PK.
+
+        Args:
+            details: Candidate affidavit details.
+            year: Election year.
+            const_id: Constituency ID.
+
+        Returns:
+            DynamoDB PK string.
+        """
+        if details.tcpd_pid:
+            return f"AFFIDAVIT#{year}#T#{details.tcpd_pid}"
+        hash_input = f"{year}_{const_id}_{details.candidate_name}".encode('utf-8')
+        safe_pid = f"fallback_{hashlib.md5(hash_input).hexdigest()[:8]}"
+        return f"AFFIDAVIT#{year}#T#{safe_pid}"
+
+    def _match_same_year(
+        self,
+        same_year_pool: List[Dict],
+        party_id: str,
+        year: str,
+        details: AffidavitData,
+        fallback_pk: str
+    ) -> Optional[Dict[str, Any]]:
+        """Handles candidate matching for same election year.
+
+        Args:
+            same_year_pool: Candidates in same constituency and election year.
+            party_id: Political party ID.
+            year: Election year.
+            details: Candidate affidavit details.
+            fallback_pk: Fallback PK if creating new identity.
+
+        Returns:
+            Match dict if resolved, or None to fall through to cross-year.
+        """
+        same_party = next((c for c in same_year_pool if c.get('party_id') == party_id), None)
+        if same_party:
+            logger.debug(f"Matched existing candidate {same_party['PK']} ({same_party.get('candidate_name')}) for year {year}")
+            return {'pk': same_party['PK'], 'person_id': same_party.get('person_id'), 'is_update': True}
+
+        if not details.is_turncoat:
+            logger.info(f"Name similarity found in {year} but Party ({party_id}) does not match existing records. Forcing new identity.")
+            return {'pk': fallback_pk, 'person_id': None, 'is_update': False}
+
+        turncoat_matches = [c for c in same_year_pool if self._check_age_match(c, year, details.age)]
+        if turncoat_matches:
+            matched = turncoat_matches[0]
+            logger.info(f"Turncoat matched person {matched.get('person_id')} from party {matched.get('party_id')} in {year}")
+            return {'pk': fallback_pk, 'person_id': matched.get('person_id'), 'is_update': False}
+
+        return None
+
+    def _find_matching_candidate(
+        self,
+        details: AffidavitData,
+        year: str,
+        const_id: str,
+        party_id: str,
+        dry_run: bool,
+        candidate_id: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """Finds matching candidate record in DynamoDB.
+
+        Args:
+            details: Affidavit data of candidate.
+            year: Election year.
+            const_id: Constituency ID.
+            party_id: Political party ID.
+            dry_run: Whether running in dry-run mode.
+            candidate_id: Optional explicit candidate ID.
+
+        Returns:
+            Dictionary with pk, person_id, and is_update flag.
+        """
+        if candidate_id:
+            return self._match_by_explicit_candidate_id(candidate_id, year)
+
+        pk = self._generate_fallback_candidate_pk(details, year, const_id)
         person_id = None
         is_update = False
-        
-        # Generate a fallback PK
-        safe_pid = details.tcpd_pid
-        if not safe_pid:
-            hash_input = f"{year}_{const_id}_{details.candidate_name}".encode('utf-8')
-            safe_pid = f"fallback_{hashlib.md5(hash_input).hexdigest()[:8]}"
-        pk = f"AFFIDAVIT#{year}#T#{safe_pid}"
 
         try:
-            # logger.info(f"Constituency ID: {const_id}")
             resp = self.candidates_table.query(
                 IndexName='ConstituencyIndex',
                 KeyConditionExpression=Key('constituency_id').eq(const_id)
             )
-            candidates = resp.get('Items', [])
-            
-            # logger.info(f"Total candidates for constituency: {len(candidates)}")
-            # 1. Filter by Name Similarity
-            name_matches = self._get_name_matches(candidates, details.candidate_name)
-            # print(f"Names {name_matches}")
+            name_matches = self._get_name_matches(resp.get('Items', []), details.candidate_name)
             if not name_matches:
                 return {'pk': pk, 'person_id': person_id, 'is_update': is_update}
 
-            # 2. Tiered Matching Strategy
-            # Use separate pools for Same Year (Updates) vs Cross Year (Links)
             same_year_pool = [c for c in name_matches if str(c.get('year')) == str(year)]
-            cross_year_pool = [c for c in name_matches if str(c.get('year')) != str(year)]
-            # print(f"Same Year {same_year_pool}")
-            # print(f"Cross Year {cross_year_pool}")
-            # A. Same-Year Handle if only one candidate(Update case)
-            # if len(same_year_pool) == 1:
-            #     pk = same_year_pool[0]['PK']
-            #     person_id = same_year_pool[0].get('person_id')
-            #     is_update = True
-            #     logger.debug(f"    Matched existing candidate {pk} ({same_year_pool[0].get('candidate_name')}) for contest year {year}")
-            #     return {'pk': pk, 'person_id': person_id, 'is_update': is_update}
-            # print(f"Party id: {party_id} ----- {same_year_pool[0].get('party_id')}")
-            # A.a Multiple Candidates with same name party match for same-year updates
-            same_year_record = next((c for c in same_year_pool if c.get('party_id') == party_id ), None)
-            if same_year_record:
-                pk = same_year_record['PK']
-                person_id = same_year_record.get('person_id')
-                is_update = True
-                logger.debug(f"    Matched existing candidate {pk} ({same_year_record.get('candidate_name')}) for contest year {year}")
-                return {'pk': pk, 'person_id': person_id, 'is_update': is_update}
-            elif same_year_pool:
-                # Same name candidate exists in this year but with DIFFERENT party
-                # Force new person creation for this candidate to be safe
-                logger.info(f"    Name similarity found in {year} but Party ({party_id}) does not match existing records. Forcing new identity.")
-                return {'pk': pk, 'person_id': None, 'is_update': False}
+            if same_year_pool:
+                same_year_result = self._match_same_year(same_year_pool, party_id, year, details, pk)
+                if same_year_result is not None:
+                    return same_year_result
 
-            # B. Cross-Year Handle (Link case)
+            cross_year_pool = [c for c in name_matches if str(c.get('year')) != str(year)]
             if cross_year_pool:
-                best_matches = self._apply_tiebreak_logic(cross_year_pool, party_id, year, details.age)
+                best_matches = self._apply_tiebreak_logic(
+                    cross_year_pool, party_id, year, details.age, is_turncoat=bool(details.is_turncoat)
+                )
                 if best_matches:
                     person_id = best_matches[0].get('person_id')
                     c_year = best_matches[0].get('year')
-                    logger.info(f"    Fallback Link: Matched person {person_id} from year {c_year} in same constituency (Name/Party priority)")
+                    logger.info(f"Fallback Link: Matched person {person_id} from year {c_year} in same constituency (Turncoat={details.is_turncoat})")
 
         except ClientError as e:
             logger.debug(f"Candidate constituency lookup failed: {e}")
@@ -276,45 +493,79 @@ class ElectionCSVImporter:
     def _get_name_matches(self, candidates: List[Dict], target_name: str) -> List[Dict]:
         """Filters candidates by name similarity."""
         name_matches = []
-        # logger.info(f"Target name: {target_name}")
         target_stripped = strip_initials(target_name) or normalize_name(target_name)
         for c in candidates:
-            # logger.info(f"Candidate: {c.get('candidate_name')}")
             c_name = c.get('candidate_name', '')
             c_stripped = strip_initials(c_name) or normalize_name(c_name)
             if names_are_similar(target_stripped, c_stripped) or names_are_similar(target_name, c_name):
                 name_matches.append(c)
         return name_matches
 
-    def _apply_tiebreak_logic(self, name_matches: List[Dict], party_id: str, year: str, age: Optional[int]) -> List[Dict]:
-        """Applies priority logic to narrow down cross-year matches."""
-        # 1. Potential suitable candidates must match (Party OR (Independent AND Age))
-        potentially_suitable = []
-        for c in name_matches:
-            is_party_match = (c.get('party_id') == party_id)
-            # Age-based matching only allowed for cross-year OR as tie-break for independents
-            is_age_matched = self._check_age_match(c, year, age)
-            
-            # Allow link if party matches OR if it's an independent with matching age
-            if is_party_match or (party_id == 'PARTY#independent' and is_age_matched):
-                potentially_suitable.append(c)
-        
-        if not potentially_suitable:
+    def _is_suitable_cross_year_candidate(
+        self,
+        candidate: Dict,
+        party_id: str,
+        year: str,
+        age: Optional[int],
+        is_turncoat: bool
+    ) -> bool:
+        """Determines if a candidate record is suitable for cross-year linking.
+
+        Args:
+            candidate: Candidate dictionary from database.
+            party_id: Target party ID.
+            year: Target election year.
+            age: Target candidate age.
+            is_turncoat: Whether candidate switched party.
+
+        Returns:
+            True if candidate is suitable for linking, False otherwise.
+        """
+        if candidate.get('party_id') == party_id:
+            return True
+        if not self._check_age_match(candidate, year, age):
+            return False
+        return is_turncoat or (party_id == 'PARTY#independent')
+
+    def _apply_tiebreak_logic(
+        self,
+        name_matches: List[Dict],
+        party_id: str,
+        year: str,
+        age: Optional[int],
+        is_turncoat: bool = False
+    ) -> List[Dict]:
+        """Applies priority logic to narrow down cross-year matches.
+
+        Args:
+            name_matches: List of candidate records matching name.
+            party_id: Target candidate party ID.
+            year: Target election year.
+            age: Target candidate age.
+            is_turncoat: Whether candidate switched party.
+
+        Returns:
+            List of best candidate matches.
+        """
+        suitable = [
+            c for c in name_matches
+            if self._is_suitable_cross_year_candidate(c, party_id, year, age, is_turncoat)
+        ]
+        if not suitable:
             return []
 
-        # 2. Priority 1: Match Party
-        party_matches = [c for c in potentially_suitable if c.get('party_id') == party_id]
-        if party_matches:
-            best_matches = party_matches
+        if not is_turncoat:
+            party_matches = [c for c in suitable if c.get('party_id') == party_id]
+            best_matches = party_matches or suitable
         else:
-            best_matches = potentially_suitable
+            best_matches = suitable
 
-        # 3. Priority 2: Match Age (Secondary tie-break)
         if len(best_matches) > 1:
             age_matches = [c for c in best_matches if self._check_age_match(c, year, age)]
             if age_matches:
                 best_matches = age_matches
-        
+
+        best_matches.sort(key=lambda x: int(x.get('year') or 0), reverse=True)
         return best_matches
 
     def _check_age_match(self, c: Dict, year: str, current_age: Optional[int]) -> bool:

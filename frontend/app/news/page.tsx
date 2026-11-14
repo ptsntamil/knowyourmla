@@ -18,6 +18,14 @@ export async function generateMetadata() {
 export default function NewsListPage() {
   const blogs = [
     {
+      title: "Tamil Nadu Election 2026: How Political Parties Reported Their Election Expenditure",
+      slug: "2026-tamil-nadu-election-expenditure-party-wise-analysis",
+      date: "October 10, 2026",
+      readTime: "6 min",
+      description: "An in-depth civic data analysis of the election expenditure reports submitted by major political parties for the 2026 Tamil Nadu Assembly elections.",
+      category: "Analysis"
+    },
+    {
       title: "Tamil Nadu MLAs and Their Cars: An Analysis of Election Affidavits",
       slug: "tn-mlas-cars-vehicles-analysis-2026",
       date: "August 24, 2026",
@@ -68,7 +76,14 @@ export default function NewsListPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-page-bg flex flex-col">
+    <div className="min-h-screen bg-page-bg dark:bg-slate-950 flex flex-col text-slate-800 dark:text-slate-200 transition-colors">
+      <BreadcrumbSchema
+        items={[
+          commonBreadcrumbs.home,
+          { name: "News", item: "/news" }
+        ]}
+      />
+
       <CoverImage 
         title="News & Analysis" 
         subtitle="Deep dives into Tamil Nadu's political data, legislative performance, and constituency insights."
@@ -83,7 +98,7 @@ export default function NewsListPage() {
       <main className="flex-1 max-w-7xl mx-auto px-4 py-16 w-full">
         <div className="flex justify-between items-end mb-12">
             <div>
-                <h2 className="text-3xl font-black text-brand-dark uppercase tracking-tighter mb-2">Latest Articles</h2>
+                <h2 className="text-3xl font-black text-brand-dark dark:text-white uppercase tracking-tighter mb-2">Latest Articles</h2>
                 <p className="text-xs font-bold text-slate-400 uppercase tracking-widest">In-depth reporting on civic performance</p>
             </div>
             <div className="hidden md:block">
@@ -99,7 +114,7 @@ export default function NewsListPage() {
             <Link 
               key={idx} 
               href={blog.href || `/news/${blog.slug}`}
-              className="group bg-white rounded-[32px] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col h-full"
+              className="group bg-white dark:bg-slate-900 rounded-[32px] overflow-hidden border border-slate-100 dark:border-slate-800 shadow-sm hover:shadow-2xl hover:-translate-y-2 transition-all duration-500 flex flex-col h-full"
             >
               {/* Card Image Placeholder / Category */}
               <div className="h-48 bg-[#16232e] p-8 flex flex-col justify-end relative overflow-hidden">
@@ -114,23 +129,23 @@ export default function NewsListPage() {
 
               {/* Card Body */}
               <div className="p-8 flex-1 flex flex-col">
-                <p className="text-slate-500 text-sm font-medium leading-relaxed mb-6 line-clamp-3">
+                <p className="text-slate-500 dark:text-slate-300 text-sm font-medium leading-relaxed mb-6 line-clamp-3">
                   {blog.description}
                 </p>
 
-                <div className="mt-auto pt-6 border-t border-slate-50 flex items-center justify-between">
+                <div className="mt-auto pt-6 border-t border-slate-50 dark:border-slate-800 flex items-center justify-between">
                   <div className="flex items-center gap-4 text-[10px] font-black text-slate-400 uppercase tracking-wider">
                     <div className="flex items-center gap-1.5">
-                      <Calendar size={14} className="text-slate-300" />
+                      <Calendar size={14} className="text-slate-300 dark:text-slate-500" />
                       {blog.date}
                     </div>
                     <div className="flex items-center gap-1.5">
-                      <Clock size={14} className="text-slate-300" />
+                      <Clock size={14} className="text-slate-300 dark:text-slate-500" />
                       {blog.readTime}
                     </div>
                   </div>
                   
-                  <div className="w-8 h-8 rounded-full bg-slate-50 flex items-center justify-center text-slate-300 group-hover:bg-brand-dark group-hover:text-brand-gold transition-all">
+                  <div className="w-8 h-8 rounded-full bg-slate-50 dark:bg-slate-800 flex items-center justify-center text-slate-300 dark:text-slate-400 group-hover:bg-brand-dark dark:group-hover:bg-brand-gold group-hover:text-brand-gold dark:group-hover:text-brand-dark transition-all">
                     <ArrowRight size={16} />
                   </div>
                 </div>
@@ -140,8 +155,8 @@ export default function NewsListPage() {
         </div>
 
         {blogs.length === 0 && (
-          <div className="bg-white rounded-[40px] p-20 text-center border border-dashed border-slate-200">
-            <h3 className="text-xl font-black text-brand-dark uppercase tracking-tight mb-2">No articles found</h3>
+          <div className="bg-white dark:bg-slate-900 rounded-[40px] p-20 text-center border border-dashed border-slate-200 dark:border-slate-800">
+            <h3 className="text-xl font-black text-brand-dark dark:text-white uppercase tracking-tight mb-2">No articles found</h3>
             <p className="text-slate-400 font-bold uppercase text-[10px] tracking-widest">Check back soon for new analysis</p>
           </div>
         )}

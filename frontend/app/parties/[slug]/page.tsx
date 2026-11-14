@@ -18,7 +18,7 @@ import FAQSection from "@/components/seo/FAQSection";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import VoteShareByElectionSection from "@/components/party/VoteShareByElectionSection";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 86400;
 
 interface PageProps {
   params: Promise<{ slug: string }>;

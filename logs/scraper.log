@@ -150977,3 +150977,463 @@ TypeError: Float types are not supported. Use Decimal types instead.
 2026-05-18 10:02:57,637 [INFO] election_importer: Processing candidate M. MOHAN (THIRU-VI-KA-NAGAR)
 2026-05-18 10:02:57,757 [INFO] election_importer:   [Updating] stats for M. MOHAN (AFFIDAVIT#2026#3565)
 2026-05-18 10:02:57,784 [INFO] election_importer: Finished. Created: 1, Updated: 23. Successfully processed 24 records across 1 constituencies.
+2026-10-20 07:43:16,603 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-10-20 08:33:32,492 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-10-20 08:33:32,522 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-10-20 08:33:32,698 [INFO] enrichment_pipeline: Loaded 127 parties (364 lookup keys)
+2026-10-20 08:33:32,698 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-10-20 08:33:32,736 [INFO] enrichment_pipeline: Loaded 38 districts (48 lookup keys)
+2026-10-20 08:33:32,737 [INFO] election_importer: Processing candidate K.MARAGATHAM KUMARAVEL (MADURANTAKAM)
+2026-10-20 08:33:32,861 [INFO] election_importer:     Name similarity found in 2026 but Party (PARTY#tamilagavettrikazhagam) does not match existing records. Forcing new identity.
+2026-10-20 08:33:32,973 [INFO] election_importer:           Action: Found existing Person: PERSON#marakatamkomaral
+2026-10-20 08:33:32,973 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_bc4e078b
+2026-10-20 08:33:32,973 [INFO] election_importer: Processing candidate I.PARANTHAMEN (MADURANTAKAM)
+2026-10-20 08:33:33,159 [INFO] election_importer:     Fallback Link: Matched person PERSON#ee5260c00768a1801c31a6312ca96a19 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:33,159 [INFO] election_importer:           Action: Found existing Person: PERSON#ee5260c00768a1801c31a6312ca96a19
+2026-10-20 08:33:33,159 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_9647ec52
+2026-10-20 08:33:33,159 [INFO] election_importer: Processing candidate S.KANITHASAMPATH (MADURANTAKAM)
+2026-10-20 08:33:33,253 [INFO] election_importer:     Fallback Link: Matched person PERSON#3e6eba6832d3073b from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:33,253 [INFO] election_importer:           Action: Found existing Person: PERSON#3e6eba6832d3073b
+2026-10-20 08:33:33,254 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_b3285111
+2026-10-20 08:33:33,254 [INFO] election_importer: Processing candidate G.JANAKIRAMAN (MADURANTAKAM)
+2026-10-20 08:33:33,345 [INFO] election_importer:           Action: Found existing Person: PERSON#gjanakiraman_kgovindasamy
+2026-10-20 08:33:33,345 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#752
+2026-10-20 08:33:33,345 [INFO] election_importer: Processing candidate SUGANTHI.P (MADURANTAKAM)
+2026-10-20 08:33:33,432 [INFO] election_importer:     Name similarity found in 2026 but Party (PARTY#communistpartyofindiamarxist) does not match existing records. Forcing new identity.
+2026-10-20 08:33:33,683 [INFO] election_importer:           Action: Found existing Person: PERSON#sokanta
+2026-10-20 08:33:33,684 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_e2948924
+2026-10-20 08:33:33,684 [INFO] election_importer: Processing candidate KRISHNAKANTH.E (MADURANTAKAM)
+2026-10-20 08:33:33,902 [INFO] election_importer:           Action: Found existing Person: PERSON#krasnakant
+2026-10-20 08:33:33,902 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_61f5d546
+2026-10-20 08:33:33,902 [INFO] election_importer: Processing NOTA for MADURANTAKAM (2026)
+2026-10-20 08:33:33,969 [INFO] election_importer:           Action: Found existing Person: PERSON#nota
+2026-10-20 08:33:33,969 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#NOTA#madurantakam
+2026-10-20 08:33:33,970 [INFO] election_importer: Processing candidate P.N.R.BASKARAN (MADURANTAKAM)
+2026-10-20 08:33:34,523 [INFO] election_importer:           Action: Found existing Person: PERSON#paskaran_6
+2026-10-20 08:33:34,523 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_c6ea98b0
+2026-10-20 08:33:34,523 [INFO] election_importer: Processing candidate NAVINDAR.V (MADURANTAKAM)
+2026-10-20 08:33:34,802 [INFO] election_importer:           Action: Found existing Person: PERSON#nantar
+2026-10-20 08:33:34,803 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_56932a5a
+2026-10-20 08:33:34,803 [INFO] election_importer: Processing candidate RAJAMANI (MADURANTAKAM)
+2026-10-20 08:33:35,039 [INFO] election_importer:           Action: Found existing Person: PERSON#rasamana_3
+2026-10-20 08:33:35,040 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_088e87fd
+2026-10-20 08:33:35,040 [INFO] election_importer: Processing candidate KAYALVIZHI (MADURANTAKAM)
+2026-10-20 08:33:35,580 [INFO] election_importer:     Fallback Link: Matched person PERSON#ezhile_eagambaram from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:35,580 [INFO] election_importer:           Action: Found existing Person: PERSON#ezhile_eagambaram
+2026-10-20 08:33:35,580 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_720e1fc0
+2026-10-20 08:33:35,580 [INFO] election_importer: Processing candidate EZHIL.E (MADURANTAKAM)
+2026-10-20 08:33:35,770 [INFO] election_importer:     Fallback Link: Matched person PERSON#ezhile_eagambaram from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:35,771 [INFO] election_importer:           Action: Found existing Person: PERSON#ezhile_eagambaram
+2026-10-20 08:33:35,771 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_e2cc2829
+2026-10-20 08:33:35,771 [INFO] election_importer: Processing candidate M.MANOKAR (MADURANTAKAM)
+2026-10-20 08:33:35,952 [INFO] election_importer:           Action: Found existing Person: PERSON#manokar
+2026-10-20 08:33:35,952 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_b4abcac5
+2026-10-20 08:33:35,952 [INFO] election_importer: Processing candidate K.ELAIYARASU (MADURANTAKAM)
+2026-10-20 08:33:36,052 [INFO] election_importer:     Fallback Link: Matched person PERSON#0c7ac90b98619ccf from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:36,052 [INFO] election_importer:           Action: Found existing Person: PERSON#0c7ac90b98619ccf
+2026-10-20 08:33:36,052 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_34ccb643
+2026-10-20 08:33:36,052 [INFO] election_importer: Processing candidate RANJITHAM.M (MADURANTAKAM)
+2026-10-20 08:33:36,142 [INFO] election_importer:           Action: Found existing Person: PERSON#ranjithamm_muthu
+2026-10-20 08:33:36,142 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#2002
+2026-10-20 08:33:36,142 [INFO] election_importer: Processing candidate N.SATHIS KUMAR (MADURANTAKAM)
+2026-10-20 08:33:36,658 [INFO] election_importer:           Action: Found existing Person: PERSON#sataskomar_7
+2026-10-20 08:33:36,658 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_c66d8aab
+2026-10-20 08:33:36,659 [INFO] election_importer: Processing candidate K.BHUVANESWARI (MADURANTAKAM)
+2026-10-20 08:33:36,836 [INFO] election_importer:     Fallback Link: Matched person PERSON#d1801f6f0a2160fc from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:36,836 [INFO] election_importer:           Action: Found existing Person: PERSON#d1801f6f0a2160fc
+2026-10-20 08:33:36,836 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_20f2c075
+2026-10-20 08:33:36,836 [INFO] election_importer: Processing candidate DR.G.MOORTHY (MADURANTAKAM)
+2026-10-20 08:33:37,173 [INFO] election_importer:           Action: Found existing Person: PERSON#mot_4
+2026-10-20 08:33:37,173 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_0c0a5733
+2026-10-20 08:33:37,173 [INFO] election_importer: Processing candidate LOGESH.K (MADURANTAKAM)
+2026-10-20 08:33:37,452 [INFO] election_importer:           Action: Found existing Person: PERSON#lokas
+2026-10-20 08:33:37,453 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_7f353ded
+2026-10-20 08:33:37,453 [INFO] election_importer: Processing candidate S.MURUGAN (MADURANTAKAM)
+2026-10-20 08:33:37,695 [INFO] election_importer:           Action: Found existing Person: PERSON#morokan_11
+2026-10-20 08:33:37,696 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_9fa35604
+2026-10-20 08:33:37,696 [INFO] election_importer: Processing candidate M.KADIRVEL (MADURANTAKAM)
+2026-10-20 08:33:37,879 [INFO] election_importer:           Action: Found existing Person: PERSON#mkadirvel_mariyappan
+2026-10-20 08:33:37,879 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#1806
+2026-10-20 08:33:37,879 [INFO] election_importer: Processing candidate S.ARUMUGAM (MADURANTAKAM)
+2026-10-20 08:33:37,964 [INFO] election_importer:     Fallback Link: Matched person PERSON#1a47a1f27f7e4b57 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:37,964 [INFO] election_importer:           Action: Found existing Person: PERSON#1a47a1f27f7e4b57
+2026-10-20 08:33:37,964 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_bfa7146e
+2026-10-20 08:33:37,964 [INFO] election_importer: Processing candidate M.JEGAN (MADURANTAKAM)
+2026-10-20 08:33:38,347 [INFO] election_importer:           Action: Found existing Person: PERSON#sakan_4
+2026-10-20 08:33:38,348 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_3d3c7025
+2026-10-20 08:33:38,348 [INFO] election_importer: Processing candidate G.RAJASEKAR (MADURANTAKAM)
+2026-10-20 08:33:38,448 [INFO] election_importer:     Fallback Link: Matched person PERSON#ef7cb7222d5ef035 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:38,449 [INFO] election_importer:           Action: Found existing Person: PERSON#ef7cb7222d5ef035
+2026-10-20 08:33:38,449 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_a5ae6a29
+2026-10-20 08:33:38,449 [INFO] election_importer: Processing candidate J.RAVIKUMAR (MADURANTAKAM)
+2026-10-20 08:33:38,537 [INFO] election_importer:     Fallback Link: Matched person PERSON#12871448cd1df539 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:38,537 [INFO] election_importer:           Action: Found existing Person: PERSON#12871448cd1df539
+2026-10-20 08:33:38,537 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_4996f781
+2026-10-20 08:33:38,537 [INFO] election_importer: Processing candidate V.MUTHUSELVAM (MADURANTAKAM)
+2026-10-20 08:33:38,627 [INFO] election_importer:     Fallback Link: Matched person PERSON#05ffb32c9fda715b from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:38,627 [INFO] election_importer:           Action: Found existing Person: PERSON#05ffb32c9fda715b
+2026-10-20 08:33:38,627 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_2e22a312
+2026-10-20 08:33:38,627 [INFO] election_importer: Processing candidate M.G.RAMU (MADURANTAKAM)
+2026-10-20 08:33:38,713 [INFO] election_importer:     Fallback Link: Matched person PERSON#6abaabe20b28395f from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:38,713 [INFO] election_importer:           Action: Found existing Person: PERSON#6abaabe20b28395f
+2026-10-20 08:33:38,713 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_6f2ce359
+2026-10-20 08:33:38,713 [INFO] election_importer: Processing candidate K.ARUMUGAM (MADURANTAKAM)
+2026-10-20 08:33:39,279 [INFO] election_importer:     Fallback Link: Matched person PERSON#1a47a1f27f7e4b57 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:39,279 [INFO] election_importer:           Action: Found existing Person: PERSON#1a47a1f27f7e4b57
+2026-10-20 08:33:39,279 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_70a2ec37
+2026-10-20 08:33:39,279 [INFO] election_importer: Processing candidate SATHYABAMA.P (DHARAPURAM)
+2026-10-20 08:33:39,471 [INFO] election_importer:     Name similarity found in 2026 but Party (PARTY#tamilagavettrikazhagam) does not match existing records. Forcing new identity.
+2026-10-20 08:33:39,603 [INFO] election_importer:           Action: Found existing Person: PERSON#satapama
+2026-10-20 08:33:39,604 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_94eb74fb
+2026-10-20 08:33:39,604 [INFO] election_importer: Processing candidate SUGANYA.S (DHARAPURAM)
+2026-10-20 08:33:39,724 [INFO] election_importer:     Fallback Link: Matched person PERSON#90011154a800137b from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:39,725 [INFO] election_importer:           Action: Found existing Person: PERSON#90011154a800137b
+2026-10-20 08:33:39,725 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_ec1425b6
+2026-10-20 08:33:39,725 [INFO] election_importer: Processing candidate BANUMATHI.K (DHARAPURAM)
+2026-10-20 08:33:39,832 [INFO] election_importer:     Fallback Link: Matched person PERSON#c9e09a7f466b0da0 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:39,833 [INFO] election_importer:           Action: Found existing Person: PERSON#c9e09a7f466b0da0
+2026-10-20 08:33:39,833 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_25997825
+2026-10-20 08:33:39,833 [INFO] election_importer: Processing candidate KARTHIKA.M (DHARAPURAM)
+2026-10-20 08:33:40,030 [INFO] election_importer:     Fallback Link: Matched person PERSON#03e0f2e18daee5d9 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:40,031 [INFO] election_importer:           Action: Found existing Person: PERSON#03e0f2e18daee5d9
+2026-10-20 08:33:40,031 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_8fe34c86
+2026-10-20 08:33:40,031 [INFO] election_importer: Processing candidate LAKSHMANAN.P (DHARAPURAM)
+2026-10-20 08:33:40,145 [INFO] election_importer:     Fallback Link: Matched person PERSON#4ac0156c8df703af from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:40,145 [INFO] election_importer:           Action: Found existing Person: PERSON#4ac0156c8df703af
+2026-10-20 08:33:40,145 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_fecbdcbe
+2026-10-20 08:33:40,145 [INFO] election_importer: Processing NOTA for DHARAPURAM (2026)
+2026-10-20 08:33:40,202 [INFO] election_importer:           Action: Found existing Person: PERSON#nota
+2026-10-20 08:33:40,202 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#NOTA#dharapuram
+2026-10-20 08:33:40,203 [INFO] election_importer: Processing candidate RAJARATHINAM.S (DHARAPURAM)
+2026-10-20 08:33:40,488 [INFO] election_importer:           Action: Found existing Person: PERSON#rasaratanam
+2026-10-20 08:33:40,488 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_0af8b87b
+2026-10-20 08:33:40,488 [INFO] election_importer: Processing candidate MARIMUTHU.N (DHARAPURAM)
+2026-10-20 08:33:40,801 [INFO] election_importer:           Action: Found existing Person: PERSON#maramoto_5
+2026-10-20 08:33:40,801 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_a2e04682
+2026-10-20 08:33:40,801 [INFO] election_importer: Processing candidate MUTHUSAMY.P (DHARAPURAM)
+2026-10-20 08:33:41,645 [INFO] election_importer:           Action: Found existing Person: PERSON#motosam_4
+2026-10-20 08:33:41,645 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_1e78c47b
+2026-10-20 08:33:41,645 [INFO] election_importer: Processing candidate BANUPRIYA.S (DHARAPURAM)
+2026-10-20 08:33:41,756 [INFO] election_importer:     Fallback Link: Matched person PERSON#4bbb2b0db3822f7e from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:41,756 [INFO] election_importer:           Action: Found existing Person: PERSON#4bbb2b0db3822f7e
+2026-10-20 08:33:41,756 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_dfd6d2a1
+2026-10-20 08:33:41,756 [INFO] election_importer: Processing candidate SATHISHKUMAR.M (DHARAPURAM)
+2026-10-20 08:33:41,855 [INFO] election_importer:     Fallback Link: Matched person PERSON#e9131247c3284b11 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:41,856 [INFO] election_importer:           Action: Found existing Person: PERSON#e9131247c3284b11
+2026-10-20 08:33:41,856 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_133e7c44
+2026-10-20 08:33:41,856 [INFO] election_importer: Processing candidate PERUMAL.R (DHARAPURAM)
+2026-10-20 08:33:42,422 [INFO] election_importer:           Action: Found existing Person: PERSON#paromal
+2026-10-20 08:33:42,423 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_20dc6e9b
+2026-10-20 08:33:42,423 [INFO] election_importer: Processing candidate BANUMATHI.C (DHARAPURAM)
+2026-10-20 08:33:42,618 [INFO] election_importer:     Fallback Link: Matched person PERSON#501b5abe8bb65a44 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:42,619 [INFO] election_importer:           Action: Found existing Person: PERSON#501b5abe8bb65a44
+2026-10-20 08:33:42,619 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_d9b83d26
+2026-10-20 08:33:42,619 [INFO] election_importer: Processing candidate MAHENDRAN.S (DHARAPURAM)
+2026-10-20 08:33:43,060 [INFO] election_importer:           Action: Found existing Person: PERSON#mantran_2
+2026-10-20 08:33:43,061 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_396728c1
+2026-10-20 08:33:43,061 [INFO] election_importer: Processing candidate NALLASAMY.P (DHARAPURAM)
+2026-10-20 08:33:43,182 [INFO] election_importer:     Fallback Link: Matched person PERSON#564ca6b208b27743 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:43,182 [INFO] election_importer:           Action: Found existing Person: PERSON#564ca6b208b27743
+2026-10-20 08:33:43,182 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_4f368533
+2026-10-20 08:33:43,182 [INFO] election_importer: Processing candidate ARULRAJU.G (DHARAPURAM)
+2026-10-20 08:33:43,295 [INFO] election_importer:     Fallback Link: Matched person PERSON#arulrajug_govindan from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:43,295 [INFO] election_importer:           Action: Found existing Person: PERSON#arulrajug_govindan
+2026-10-20 08:33:43,295 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_ef513b60
+2026-10-20 08:33:43,295 [INFO] election_importer: Processing candidate DHANALAKSHMI.S (DHARAPURAM)
+2026-10-20 08:33:43,404 [INFO] election_importer:     Fallback Link: Matched person PERSON#0cfa17211cb933cf from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:43,404 [INFO] election_importer:           Action: Found existing Person: PERSON#0cfa17211cb933cf
+2026-10-20 08:33:43,404 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_ea598a48
+2026-10-20 08:33:43,404 [INFO] election_importer: Processing candidate JOTHEESHWARI.D (DHARAPURAM)
+2026-10-20 08:33:43,693 [INFO] election_importer:           Action: Found existing Person: PERSON#sotasara
+2026-10-20 08:33:43,693 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_a5fa406d
+2026-10-20 08:33:43,693 [INFO] election_importer: Processing candidate RAJESHWARI.V (DHARAPURAM)
+2026-10-20 08:33:43,907 [INFO] election_importer:           Action: Found existing Person: PERSON#rasasara
+2026-10-20 08:33:43,908 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_e709f6d7
+2026-10-20 08:33:43,908 [INFO] election_importer: Processing candidate SATHYABAMA.M (DHARAPURAM)
+2026-10-20 08:33:44,025 [INFO] election_importer:     Name similarity found in 2026 but Party (PARTY#independent) does not match existing records. Forcing new identity.
+2026-10-20 08:33:44,210 [INFO] election_importer:           Action: Found existing Person: PERSON#satapama
+2026-10-20 08:33:44,210 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_75b0b7e5
+2026-10-20 08:33:44,210 [INFO] election_importer: Processing candidate ARUMUGAM.R (DHARAPURAM)
+2026-10-20 08:33:44,325 [INFO] election_importer:     Fallback Link: Matched person PERSON#arumugamr_raman from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:44,325 [INFO] election_importer:           Action: Found existing Person: PERSON#arumugamr_raman
+2026-10-20 08:33:44,326 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_7ac82ed1
+2026-10-20 08:33:44,326 [INFO] election_importer: Processing candidate SASIPRIYA.S (DHARAPURAM)
+2026-10-20 08:33:44,435 [INFO] election_importer:     Fallback Link: Matched person PERSON#cb27aeebed59f343 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:44,436 [INFO] election_importer:           Action: Found existing Person: PERSON#cb27aeebed59f343
+2026-10-20 08:33:44,436 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_a14e70f8
+2026-10-20 08:33:44,436 [INFO] election_importer: Processing candidate MAHESHWARAN.S (DHARAPURAM)
+2026-10-20 08:33:44,548 [INFO] election_importer:     Fallback Link: Matched person PERSON#845848ea74601161 from year 202610 in same constituency (Name/Party priority)
+2026-10-20 08:33:44,549 [INFO] election_importer:           Action: Found existing Person: PERSON#845848ea74601161
+2026-10-20 08:33:44,549 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_8117e1dd
+2026-10-20 08:33:44,549 [INFO] election_importer: Finished. Created: 46, Updated: 5. Successfully processed 51 records across 0 constituencies.
+2026-10-20 19:27:38,071 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-10-20 19:27:38,106 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-10-20 19:27:38,258 [INFO] enrichment_pipeline: Loaded 127 parties (364 lookup keys)
+2026-10-20 19:27:38,258 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-10-20 19:27:38,293 [INFO] enrichment_pipeline: Loaded 38 districts (48 lookup keys)
+2026-10-20 19:27:38,293 [INFO] election_importer: Processing candidate K.MARAGATHAM KUMARAVEL (MADURANTAKAM)
+2026-10-20 19:27:38,456 [INFO] election_importer:           Action: Found existing Person: PERSON#df2edf9ea93c445b89aafa8e7e798cfe
+2026-10-20 19:27:38,457 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#7
+2026-10-20 19:27:38,457 [INFO] election_importer: Processing candidate I.PARANTHAMEN (MADURANTAKAM)
+2026-10-20 19:27:38,542 [INFO] election_importer:           Action: Found existing Person: PERSON#ee5260c00768a1801c31a6312ca96a19
+2026-10-20 19:27:38,542 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#5
+2026-10-20 19:27:38,542 [INFO] election_importer: Processing candidate S.KANITHASAMPATH (MADURANTAKAM)
+2026-10-20 19:27:38,624 [INFO] election_importer:           Action: Found existing Person: PERSON#3e6eba6832d3073b
+2026-10-20 19:27:38,624 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#1
+2026-10-20 19:27:38,624 [INFO] election_importer: Processing candidate G.JANAKIRAMAN (MADURANTAKAM)
+2026-10-20 19:27:38,704 [INFO] election_importer:           Action: Found existing Person: PERSON#gjanakiraman_kgovindasamy
+2026-10-20 19:27:38,704 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#9
+2026-10-20 19:27:38,704 [INFO] election_importer: Processing candidate SUGANTHI.P (MADURANTAKAM)
+2026-10-20 19:27:38,784 [INFO] election_importer:           Action: Found existing Person: PERSON#216da805e5ca0d6f
+2026-10-20 19:27:38,784 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#4
+2026-10-20 19:27:38,784 [INFO] election_importer: Processing candidate KRISHNAKANTH.E (MADURANTAKAM)
+2026-10-20 19:27:39,089 [INFO] election_importer:           Action: Found existing Person: PERSON#krasnakant
+2026-10-20 19:27:39,090 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_61f5d546
+2026-10-20 19:27:39,090 [INFO] election_importer: Processing NOTA for MADURANTAKAM (2026)
+2026-10-20 19:27:39,151 [INFO] election_importer:           Action: Found existing Person: PERSON#nota
+2026-10-20 19:27:39,151 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#NOTA#madurantakam
+2026-10-20 19:27:39,151 [INFO] election_importer: Processing candidate P.N.R.BASKARAN (MADURANTAKAM)
+2026-10-20 19:27:39,670 [INFO] election_importer:           Action: Found existing Person: PERSON#paskaran_6
+2026-10-20 19:27:39,671 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_c6ea98b0
+2026-10-20 19:27:39,671 [INFO] election_importer: Processing candidate NAVINDAR.V (MADURANTAKAM)
+2026-10-20 19:27:39,862 [INFO] election_importer:           Action: Found existing Person: PERSON#nantar
+2026-10-20 19:27:39,862 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_56932a5a
+2026-10-20 19:27:39,862 [INFO] election_importer: Processing candidate RAJAMANI (MADURANTAKAM)
+2026-10-20 19:27:40,163 [INFO] election_importer:           Action: Found existing Person: PERSON#rasamana_3
+2026-10-20 19:27:40,163 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_088e87fd
+2026-10-20 19:27:40,163 [INFO] election_importer: Processing candidate KAYALVIZHI (MADURANTAKAM)
+2026-10-20 19:27:40,255 [INFO] election_importer: Fallback Link: Matched person PERSON#ezhile_eagambaram from year 202610 in same constituency (Turncoat=False)
+2026-10-20 19:27:40,273 [INFO] election_importer:           Action: Found existing Person: PERSON#ezhile_eagambaram
+2026-10-20 19:27:40,273 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_720e1fc0
+2026-10-20 19:27:40,273 [INFO] election_importer: Processing candidate EZHIL.E (MADURANTAKAM)
+2026-10-20 19:27:40,345 [INFO] election_importer:           Action: Found existing Person: PERSON#ezhile_eagambaram
+2026-10-20 19:27:40,345 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#28
+2026-10-20 19:27:40,346 [INFO] election_importer: Processing candidate M.MANOKAR (MADURANTAKAM)
+2026-10-20 19:27:40,627 [INFO] election_importer:           Action: Found existing Person: PERSON#manokar
+2026-10-20 19:27:40,628 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_b4abcac5
+2026-10-20 19:27:40,628 [INFO] election_importer: Processing candidate K.ELAIYARASU (MADURANTAKAM)
+2026-10-20 19:27:40,717 [INFO] election_importer:           Action: Found existing Person: PERSON#0c7ac90b98619ccf
+2026-10-20 19:27:40,717 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#26
+2026-10-20 19:27:40,717 [INFO] election_importer: Processing candidate RANJITHAM.M (MADURANTAKAM)
+2026-10-20 19:27:40,831 [INFO] election_importer:           Action: Found existing Person: PERSON#ranjithamm_muthu
+2026-10-20 19:27:40,831 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#2002
+2026-10-20 19:27:40,831 [INFO] election_importer: Processing candidate N.SATHIS KUMAR (MADURANTAKAM)
+2026-10-20 19:27:41,316 [INFO] election_importer:           Action: Found existing Person: PERSON#sataskomar_7
+2026-10-20 19:27:41,317 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_c66d8aab
+2026-10-20 19:27:41,317 [INFO] election_importer: Processing candidate K.BHUVANESWARI (MADURANTAKAM)
+2026-10-20 19:27:41,403 [INFO] election_importer:           Action: Found existing Person: PERSON#d1801f6f0a2160fc
+2026-10-20 19:27:41,403 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#11
+2026-10-20 19:27:41,403 [INFO] election_importer: Processing candidate DR.G.MOORTHY (MADURANTAKAM)
+2026-10-20 19:27:41,821 [INFO] election_importer:           Action: Found existing Person: PERSON#mot_4
+2026-10-20 19:27:41,822 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_0c0a5733
+2026-10-20 19:27:41,822 [INFO] election_importer: Processing candidate LOGESH.K (MADURANTAKAM)
+2026-10-20 19:27:42,017 [INFO] election_importer:           Action: Found existing Person: PERSON#lokas
+2026-10-20 19:27:42,018 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_7f353ded
+2026-10-20 19:27:42,018 [INFO] election_importer: Processing candidate S.MURUGAN (MADURANTAKAM)
+2026-10-20 19:27:42,749 [INFO] election_importer:           Action: Found existing Person: PERSON#morokan_11
+2026-10-20 19:27:42,750 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_9fa35604
+2026-10-20 19:27:42,750 [INFO] election_importer: Processing candidate M.KADIRVEL (MADURANTAKAM)
+2026-10-20 19:27:42,834 [INFO] election_importer:           Action: Found existing Person: PERSON#mkadirvel_mariyappan
+2026-10-20 19:27:42,835 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#29
+2026-10-20 19:27:42,836 [INFO] election_importer: Processing candidate S.ARUMUGAM (MADURANTAKAM)
+2026-10-20 19:27:42,920 [INFO] election_importer:           Action: Found existing Person: PERSON#msarumugam_sellan
+2026-10-20 19:27:42,920 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#23
+2026-10-20 19:27:42,920 [INFO] election_importer: Processing candidate M.JEGAN (MADURANTAKAM)
+2026-10-20 19:27:43,307 [INFO] election_importer:           Action: Found existing Person: PERSON#sakan_4
+2026-10-20 19:27:43,308 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_3d3c7025
+2026-10-20 19:27:43,308 [INFO] election_importer: Processing candidate G.RAJASEKAR (MADURANTAKAM)
+2026-10-20 19:27:43,390 [INFO] election_importer:           Action: Found existing Person: PERSON#ef7cb7222d5ef035
+2026-10-20 19:27:43,390 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#19
+2026-10-20 19:27:43,390 [INFO] election_importer: Processing candidate J.RAVIKUMAR (MADURANTAKAM)
+2026-10-20 19:27:43,466 [INFO] election_importer:           Action: Found existing Person: PERSON#12871448cd1df539
+2026-10-20 19:27:43,466 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#16
+2026-10-20 19:27:43,467 [INFO] election_importer: Processing candidate V.MUTHUSELVAM (MADURANTAKAM)
+2026-10-20 19:27:43,537 [INFO] election_importer:           Action: Found existing Person: PERSON#05ffb32c9fda715b
+2026-10-20 19:27:43,537 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#13
+2026-10-20 19:27:43,537 [INFO] election_importer: Processing candidate M.G.RAMU (MADURANTAKAM)
+2026-10-20 19:27:43,688 [INFO] election_importer:           Action: Found existing Person: PERSON#6abaabe20b28395f
+2026-10-20 19:27:43,688 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#18
+2026-10-20 19:27:43,688 [INFO] election_importer: Processing candidate K.ARUMUGAM (MADURANTAKAM)
+2026-10-20 19:27:43,768 [INFO] election_importer:           Action: Found existing Person: PERSON#1a47a1f27f7e4b57
+2026-10-20 19:27:43,769 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#22
+2026-10-20 19:27:43,769 [INFO] election_importer: Processing candidate SATHYABAMA.P (DHARAPURAM)
+2026-10-20 19:27:43,858 [INFO] election_importer:           Action: Found existing Person: PERSON#4c51cab285015142
+2026-10-20 19:27:43,858 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#3
+2026-10-20 19:27:43,858 [INFO] election_importer: Processing candidate SUGANYA.S (DHARAPURAM)
+2026-10-20 19:27:43,937 [INFO] election_importer:           Action: Found existing Person: PERSON#90011154a800137b
+2026-10-20 19:27:43,938 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#6
+2026-10-20 19:27:43,938 [INFO] election_importer: Processing candidate BANUMATHI.K (DHARAPURAM)
+2026-10-20 19:27:44,019 [INFO] election_importer:           Action: Found existing Person: PERSON#501b5abe8bb65a44
+2026-10-20 19:27:44,019 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#30
+2026-10-20 19:27:44,019 [INFO] election_importer: Processing candidate KARTHIKA.M (DHARAPURAM)
+2026-10-20 19:27:44,103 [INFO] election_importer:           Action: Found existing Person: PERSON#03e0f2e18daee5d9
+2026-10-20 19:27:44,104 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#2
+2026-10-20 19:27:44,104 [INFO] election_importer: Processing candidate LAKSHMANAN.P (DHARAPURAM)
+2026-10-20 19:27:44,268 [INFO] election_importer:           Action: Found existing Person: PERSON#4ac0156c8df703af
+2026-10-20 19:27:44,269 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#10
+2026-10-20 19:27:44,269 [INFO] election_importer: Processing NOTA for DHARAPURAM (2026)
+2026-10-20 19:27:44,330 [INFO] election_importer:           Action: Found existing Person: PERSON#nota
+2026-10-20 19:27:44,330 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#2026#NOTA#dharapuram
+2026-10-20 19:27:44,330 [INFO] election_importer: Processing candidate RAJARATHINAM.S (DHARAPURAM)
+2026-10-20 19:27:44,532 [INFO] election_importer:           Action: Found existing Person: PERSON#rasaratanam
+2026-10-20 19:27:44,532 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_0af8b87b
+2026-10-20 19:27:44,533 [INFO] election_importer: Processing candidate MARIMUTHU.N (DHARAPURAM)
+2026-10-20 19:27:44,921 [INFO] election_importer:           Action: Found existing Person: PERSON#maramoto_5
+2026-10-20 19:27:44,921 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_a2e04682
+2026-10-20 19:27:44,921 [INFO] election_importer: Processing candidate MUTHUSAMY.P (DHARAPURAM)
+2026-10-20 19:27:45,303 [INFO] election_importer:           Action: Found existing Person: PERSON#motosam_4
+2026-10-20 19:27:45,303 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_1e78c47b
+2026-10-20 19:27:45,303 [INFO] election_importer: Processing candidate BANUPRIYA.S (DHARAPURAM)
+2026-10-20 19:27:45,387 [INFO] election_importer:           Action: Found existing Person: PERSON#4bbb2b0db3822f7e
+2026-10-20 19:27:45,387 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#27
+2026-10-20 19:27:45,387 [INFO] election_importer: Processing candidate SATHISHKUMAR.M (DHARAPURAM)
+2026-10-20 19:27:45,470 [INFO] election_importer:           Action: Found existing Person: PERSON#e9131247c3284b11
+2026-10-20 19:27:45,470 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#21
+2026-10-20 19:27:45,470 [INFO] election_importer: Processing candidate PERUMAL.R (DHARAPURAM)
+2026-10-20 19:27:45,967 [INFO] election_importer:           Action: Found existing Person: PERSON#paromal
+2026-10-20 19:27:45,967 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_20dc6e9b
+2026-10-20 19:27:45,967 [INFO] election_importer: Processing candidate BANUMATHI.C (DHARAPURAM)
+2026-10-20 19:27:46,043 [INFO] election_importer:           Action: Found existing Person: PERSON#501b5abe8bb65a44
+2026-10-20 19:27:46,043 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#30
+2026-10-20 19:27:46,043 [INFO] election_importer: Processing candidate MAHENDRAN.S (DHARAPURAM)
+2026-10-20 19:27:46,482 [INFO] election_importer:           Action: Found existing Person: PERSON#mantran_2
+2026-10-20 19:27:46,482 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_396728c1
+2026-10-20 19:27:46,482 [INFO] election_importer: Processing candidate NALLASAMY.P (DHARAPURAM)
+2026-10-20 19:27:46,563 [INFO] election_importer:           Action: Found existing Person: PERSON#564ca6b208b27743
+2026-10-20 19:27:46,563 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#25
+2026-10-20 19:27:46,563 [INFO] election_importer: Processing candidate ARULRAJU.G (DHARAPURAM)
+2026-10-20 19:27:46,681 [INFO] election_importer: Fallback Link: Matched person PERSON#arulrajug_govindan from year 202610 in same constituency (Turncoat=False)
+2026-10-20 19:27:46,698 [INFO] election_importer:           Action: Found existing Person: PERSON#arulrajug_govindan
+2026-10-20 19:27:46,698 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_ef513b60
+2026-10-20 19:27:46,698 [INFO] election_importer: Processing candidate DHANALAKSHMI.S (DHARAPURAM)
+2026-10-20 19:27:46,858 [INFO] election_importer:           Action: Found existing Person: PERSON#0cfa17211cb933cf
+2026-10-20 19:27:46,858 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#24
+2026-10-20 19:27:46,858 [INFO] election_importer: Processing candidate JOTHEESHWARI.D (DHARAPURAM)
+2026-10-20 19:27:47,054 [INFO] election_importer:           Action: Found existing Person: PERSON#sotasara
+2026-10-20 19:27:47,054 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_a5fa406d
+2026-10-20 19:27:47,054 [INFO] election_importer: Processing candidate RAJESHWARI.V (DHARAPURAM)
+2026-10-20 19:27:47,252 [INFO] election_importer:           Action: Found existing Person: PERSON#rasasara
+2026-10-20 19:27:47,252 [INFO] election_importer:           Action: Creating candidate record AFFIDAVIT#2026#T#fallback_e709f6d7
+2026-10-20 19:27:47,252 [INFO] election_importer: Processing candidate SATHYABAMA.M (DHARAPURAM)
+2026-10-20 19:27:47,427 [INFO] election_importer:           Action: Found existing Person: PERSON#eda5a5b3cee4ff92
+2026-10-20 19:27:47,428 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#20
+2026-10-20 19:27:47,428 [INFO] election_importer: Processing candidate ARUMUGAM.R (DHARAPURAM)
+2026-10-20 19:27:47,513 [INFO] election_importer:           Action: Found existing Person: PERSON#arumugamr_raman
+2026-10-20 19:27:47,514 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#14
+2026-10-20 19:27:47,514 [INFO] election_importer: Processing candidate SASIPRIYA.S (DHARAPURAM)
+2026-10-20 19:27:47,601 [INFO] election_importer:           Action: Found existing Person: PERSON#cb27aeebed59f343
+2026-10-20 19:27:47,601 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#17
+2026-10-20 19:27:47,602 [INFO] election_importer: Processing candidate MAHESHWARAN.S (DHARAPURAM)
+2026-10-20 19:27:47,683 [INFO] election_importer:           Action: Found existing Person: PERSON#845848ea74601161
+2026-10-20 19:27:47,683 [INFO] election_importer:           Action: Updating candidate record AFFIDAVIT#202610#15
+2026-10-20 19:27:47,683 [INFO] election_importer: Finished. Created: 19, Updated: 32. Successfully processed 51 records across 0 constituencies.
+2026-10-20 19:28:16,151 [INFO] botocore.credentials: Found credentials in environment variables.
+2026-10-20 19:28:16,181 [INFO] enrichment_pipeline: Loading parties for resolution...
+2026-10-20 19:28:16,321 [INFO] enrichment_pipeline: Loaded 127 parties (364 lookup keys)
+2026-10-20 19:28:16,321 [INFO] enrichment_pipeline: Loading districts for resolution...
+2026-10-20 19:28:16,355 [INFO] enrichment_pipeline: Loaded 38 districts (48 lookup keys)
+2026-10-20 19:28:16,355 [INFO] election_importer: Processing candidate K.MARAGATHAM KUMARAVEL (MADURANTAKAM)
+2026-10-20 19:28:16,484 [INFO] election_importer:   [Updating] winner stats for K.MARAGATHAM KUMARAVEL (AFFIDAVIT#202610#7)
+2026-10-20 19:28:16,507 [INFO] election_importer: Processing candidate I.PARANTHAMEN (MADURANTAKAM)
+2026-10-20 19:28:16,585 [INFO] election_importer:   [Updating] stats for I.PARANTHAMEN (AFFIDAVIT#202610#5)
+2026-10-20 19:28:16,608 [INFO] election_importer: Processing candidate S.KANITHASAMPATH (MADURANTAKAM)
+2026-10-20 19:28:16,774 [INFO] election_importer:   [Updating] stats for S.KANITHASAMPATH (AFFIDAVIT#202610#1)
+2026-10-20 19:28:16,798 [INFO] election_importer: Processing candidate G.JANAKIRAMAN (MADURANTAKAM)
+2026-10-20 19:28:16,884 [INFO] election_importer:   [Updating] stats for G.JANAKIRAMAN (AFFIDAVIT#202610#9)
+2026-10-20 19:28:16,909 [INFO] election_importer: Processing candidate SUGANTHI.P (MADURANTAKAM)
+2026-10-20 19:28:16,997 [INFO] election_importer:   [Updating] stats for SUGANTHI.P (AFFIDAVIT#202610#4)
+2026-10-20 19:28:17,020 [INFO] election_importer: Processing candidate KRISHNAKANTH.E (MADURANTAKAM)
+2026-10-20 19:28:17,364 [INFO] election_importer:   [Creating] stats for KRISHNAKANTH.E (AFFIDAVIT#2026#T#fallback_61f5d546)
+2026-10-20 19:28:17,388 [INFO] election_importer: Processing NOTA for MADURANTAKAM (2026)
+2026-10-20 19:28:17,448 [INFO] election_importer:   [Updating] stats for None Of The Above (AFFIDAVIT#2026#NOTA#madurantakam)
+2026-10-20 19:28:17,470 [INFO] election_importer: Processing candidate P.N.R.BASKARAN (MADURANTAKAM)
+2026-10-20 19:28:18,007 [INFO] election_importer:   [Creating] stats for P.N.R.BASKARAN (AFFIDAVIT#2026#T#fallback_c6ea98b0)
+2026-10-20 19:28:18,031 [INFO] election_importer: Processing candidate NAVINDAR.V (MADURANTAKAM)
+2026-10-20 19:28:18,334 [INFO] election_importer:   [Creating] stats for NAVINDAR.V (AFFIDAVIT#2026#T#fallback_56932a5a)
+2026-10-20 19:28:18,357 [INFO] election_importer: Processing candidate RAJAMANI (MADURANTAKAM)
+2026-10-20 19:28:18,610 [INFO] election_importer:   [Creating] stats for RAJAMANI (AFFIDAVIT#2026#T#fallback_088e87fd)
+2026-10-20 19:28:18,631 [INFO] election_importer: Processing candidate KAYALVIZHI (MADURANTAKAM)
+2026-10-20 19:28:18,733 [INFO] election_importer: Fallback Link: Matched person PERSON#ezhile_eagambaram from year 202610 in same constituency (Turncoat=False)
+2026-10-20 19:28:18,829 [INFO] election_importer:   [Creating] stats for KAYALVIZHI (AFFIDAVIT#2026#T#fallback_720e1fc0)
+2026-10-20 19:28:18,853 [INFO] election_importer: Processing candidate EZHIL.E (MADURANTAKAM)
+2026-10-20 19:28:18,937 [INFO] election_importer:   [Updating] stats for EZHIL.E (AFFIDAVIT#202610#28)
+2026-10-20 19:28:18,960 [INFO] election_importer: Processing candidate M.MANOKAR (MADURANTAKAM)
+2026-10-20 19:28:19,177 [INFO] election_importer:   [Creating] stats for M.MANOKAR (AFFIDAVIT#2026#T#fallback_b4abcac5)
+2026-10-20 19:28:19,200 [INFO] election_importer: Processing candidate K.ELAIYARASU (MADURANTAKAM)
+2026-10-20 19:28:19,364 [INFO] election_importer:   [Updating] stats for K.ELAIYARASU (AFFIDAVIT#202610#26)
+2026-10-20 19:28:19,388 [INFO] election_importer: Processing candidate RANJITHAM.M (MADURANTAKAM)
+2026-10-20 19:28:19,498 [INFO] election_importer:   [Updating] stats for RANJITHAM.M (AFFIDAVIT#2026#2002)
+2026-10-20 19:28:19,520 [INFO] election_importer: Processing candidate N.SATHIS KUMAR (MADURANTAKAM)
+2026-10-20 19:28:20,042 [INFO] election_importer:   [Creating] stats for N.SATHIS KUMAR (AFFIDAVIT#2026#T#fallback_c66d8aab)
+2026-10-20 19:28:20,065 [INFO] election_importer: Processing candidate K.BHUVANESWARI (MADURANTAKAM)
+2026-10-20 19:28:20,148 [INFO] election_importer:   [Updating] stats for K.BHUVANESWARI (AFFIDAVIT#202610#11)
+2026-10-20 19:28:20,170 [INFO] election_importer: Processing candidate DR.G.MOORTHY (MADURANTAKAM)
+2026-10-20 19:28:20,613 [INFO] election_importer:   [Creating] stats for DR.G.MOORTHY (AFFIDAVIT#2026#T#fallback_0c0a5733)
+2026-10-20 19:28:20,637 [INFO] election_importer: Processing candidate LOGESH.K (MADURANTAKAM)
+2026-10-20 19:28:21,034 [INFO] election_importer:   [Creating] stats for LOGESH.K (AFFIDAVIT#2026#T#fallback_7f353ded)
+2026-10-20 19:28:21,054 [INFO] election_importer: Processing candidate S.MURUGAN (MADURANTAKAM)
+2026-10-20 19:28:21,287 [INFO] election_importer:   [Creating] stats for S.MURUGAN (AFFIDAVIT#2026#T#fallback_9fa35604)
+2026-10-20 19:28:21,309 [INFO] election_importer: Processing candidate M.KADIRVEL (MADURANTAKAM)
+2026-10-20 19:28:21,474 [INFO] election_importer:   [Updating] stats for M.KADIRVEL (AFFIDAVIT#202610#29)
+2026-10-20 19:28:21,497 [INFO] election_importer: Processing candidate S.ARUMUGAM (MADURANTAKAM)
+2026-10-20 19:28:21,578 [INFO] election_importer:   [Updating] stats for S.ARUMUGAM (AFFIDAVIT#202610#23)
+2026-10-20 19:28:21,602 [INFO] election_importer: Processing candidate M.JEGAN (MADURANTAKAM)
+2026-10-20 19:28:22,003 [INFO] election_importer:   [Creating] stats for M.JEGAN (AFFIDAVIT#2026#T#fallback_3d3c7025)
+2026-10-20 19:28:22,027 [INFO] election_importer: Processing candidate G.RAJASEKAR (MADURANTAKAM)
+2026-10-20 19:28:22,108 [INFO] election_importer:   [Updating] stats for G.RAJASEKAR (AFFIDAVIT#202610#19)
+2026-10-20 19:28:22,130 [INFO] election_importer: Processing candidate J.RAVIKUMAR (MADURANTAKAM)
+2026-10-20 19:28:22,216 [INFO] election_importer:   [Updating] stats for J.RAVIKUMAR (AFFIDAVIT#202610#16)
+2026-10-20 19:28:22,239 [INFO] election_importer: Processing candidate V.MUTHUSELVAM (MADURANTAKAM)
+2026-10-20 19:28:22,319 [INFO] election_importer:   [Updating] stats for V.MUTHUSELVAM (AFFIDAVIT#202610#13)
+2026-10-20 19:28:22,340 [INFO] election_importer: Processing candidate M.G.RAMU (MADURANTAKAM)
+2026-10-20 19:28:22,510 [INFO] election_importer:   [Updating] stats for M.G.RAMU (AFFIDAVIT#202610#18)
+2026-10-20 19:28:22,532 [INFO] election_importer: Processing candidate K.ARUMUGAM (MADURANTAKAM)
+2026-10-20 19:28:22,615 [INFO] election_importer:   [Updating] stats for K.ARUMUGAM (AFFIDAVIT#202610#22)
+2026-10-20 19:28:22,639 [INFO] election_importer: Processing candidate SATHYABAMA.P (DHARAPURAM)
+2026-10-20 19:28:22,769 [INFO] election_importer:   [Updating] winner stats for SATHYABAMA.P (AFFIDAVIT#202610#3)
+2026-10-20 19:28:22,792 [INFO] election_importer: Processing candidate SUGANYA.S (DHARAPURAM)
+2026-10-20 19:28:22,876 [INFO] election_importer:   [Updating] stats for SUGANYA.S (AFFIDAVIT#202610#6)
+2026-10-20 19:28:22,900 [INFO] election_importer: Processing candidate BANUMATHI.K (DHARAPURAM)
+2026-10-20 19:28:23,061 [INFO] election_importer:   [Updating] stats for BANUMATHI.K (AFFIDAVIT#202610#30)
+2026-10-20 19:28:23,082 [INFO] election_importer: Processing candidate KARTHIKA.M (DHARAPURAM)
+2026-10-20 19:28:23,158 [INFO] election_importer:   [Updating] stats for KARTHIKA.M (AFFIDAVIT#202610#2)
+2026-10-20 19:28:23,181 [INFO] election_importer: Processing candidate LAKSHMANAN.P (DHARAPURAM)
+2026-10-20 19:28:23,261 [INFO] election_importer:   [Updating] stats for LAKSHMANAN.P (AFFIDAVIT#202610#10)
+2026-10-20 19:28:23,284 [INFO] election_importer: Processing NOTA for DHARAPURAM (2026)
+2026-10-20 19:28:23,341 [INFO] election_importer:   [Updating] stats for None Of The Above (AFFIDAVIT#2026#NOTA#dharapuram)
+2026-10-20 19:28:23,363 [INFO] election_importer: Processing candidate RAJARATHINAM.S (DHARAPURAM)
+2026-10-20 19:28:23,650 [INFO] election_importer:   [Creating] stats for RAJARATHINAM.S (AFFIDAVIT#2026#T#fallback_0af8b87b)
+2026-10-20 19:28:23,673 [INFO] election_importer: Processing candidate MARIMUTHU.N (DHARAPURAM)
+2026-10-20 19:28:24,073 [INFO] election_importer:   [Creating] stats for MARIMUTHU.N (AFFIDAVIT#2026#T#fallback_a2e04682)
+2026-10-20 19:28:24,096 [INFO] election_importer: Processing candidate MUTHUSAMY.P (DHARAPURAM)
+2026-10-20 19:28:24,413 [INFO] election_importer:   [Creating] stats for MUTHUSAMY.P (AFFIDAVIT#2026#T#fallback_1e78c47b)
+2026-10-20 19:28:24,436 [INFO] election_importer: Processing candidate BANUPRIYA.S (DHARAPURAM)
+2026-10-20 19:28:24,597 [INFO] election_importer:   [Updating] stats for BANUPRIYA.S (AFFIDAVIT#202610#27)
+2026-10-20 19:28:24,621 [INFO] election_importer: Processing candidate SATHISHKUMAR.M (DHARAPURAM)
+2026-10-20 19:28:24,702 [INFO] election_importer:   [Updating] stats for SATHISHKUMAR.M (AFFIDAVIT#202610#21)
+2026-10-20 19:28:24,725 [INFO] election_importer: Processing candidate PERUMAL.R (DHARAPURAM)
+2026-10-20 19:28:25,239 [INFO] election_importer:   [Creating] stats for PERUMAL.R (AFFIDAVIT#2026#T#fallback_20dc6e9b)
+2026-10-20 19:28:25,260 [INFO] election_importer: Processing candidate BANUMATHI.C (DHARAPURAM)
+2026-10-20 19:28:25,342 [INFO] election_importer:   [Updating] stats for BANUMATHI.C (AFFIDAVIT#202610#30)
+2026-10-20 19:28:25,363 [INFO] election_importer: Processing candidate MAHENDRAN.S (DHARAPURAM)
+2026-10-20 19:28:25,805 [INFO] election_importer:   [Creating] stats for MAHENDRAN.S (AFFIDAVIT#2026#T#fallback_396728c1)
+2026-10-20 19:28:25,829 [INFO] election_importer: Processing candidate NALLASAMY.P (DHARAPURAM)
+2026-10-20 19:28:25,913 [INFO] election_importer:   [Updating] stats for NALLASAMY.P (AFFIDAVIT#202610#25)
+2026-10-20 19:28:25,938 [INFO] election_importer: Processing candidate ARULRAJU.G (DHARAPURAM)
+2026-10-20 19:28:26,041 [INFO] election_importer: Fallback Link: Matched person PERSON#arulrajug_govindan from year 202610 in same constituency (Turncoat=False)
+2026-10-20 19:28:26,059 [INFO] election_importer:   [Creating] stats for ARULRAJU.G (AFFIDAVIT#2026#T#fallback_ef513b60)
+2026-10-20 19:28:26,156 [INFO] election_importer: Processing candidate DHANALAKSHMI.S (DHARAPURAM)
+2026-10-20 19:28:26,236 [INFO] election_importer:   [Updating] stats for DHANALAKSHMI.S (AFFIDAVIT#202610#24)
+2026-10-20 19:28:26,255 [INFO] election_importer: Processing candidate JOTHEESHWARI.D (DHARAPURAM)
+2026-10-20 19:28:26,465 [INFO] election_importer:   [Creating] stats for JOTHEESHWARI.D (AFFIDAVIT#2026#T#fallback_a5fa406d)
+2026-10-20 19:28:26,487 [INFO] election_importer: Processing candidate RAJESHWARI.V (DHARAPURAM)
+2026-10-20 19:28:26,797 [INFO] election_importer:   [Creating] stats for RAJESHWARI.V (AFFIDAVIT#2026#T#fallback_e709f6d7)
+2026-10-20 19:28:26,820 [INFO] election_importer: Processing candidate SATHYABAMA.M (DHARAPURAM)
+2026-10-20 19:28:26,898 [INFO] election_importer:   [Updating] stats for SATHYABAMA.M (AFFIDAVIT#202610#20)
+2026-10-20 19:28:26,924 [INFO] election_importer: Processing candidate ARUMUGAM.R (DHARAPURAM)
+2026-10-20 19:28:27,009 [INFO] election_importer:   [Updating] stats for ARUMUGAM.R (AFFIDAVIT#202610#14)
+2026-10-20 19:28:27,033 [INFO] election_importer: Processing candidate SASIPRIYA.S (DHARAPURAM)
+2026-10-20 19:28:27,115 [INFO] election_importer:   [Updating] stats for SASIPRIYA.S (AFFIDAVIT#202610#17)
+2026-10-20 19:28:27,224 [INFO] election_importer: Processing candidate MAHESHWARAN.S (DHARAPURAM)
+2026-10-20 19:28:27,306 [INFO] election_importer:   [Updating] stats for MAHESHWARAN.S (AFFIDAVIT#202610#15)
+2026-10-20 19:28:27,329 [INFO] election_importer: Finished. Created: 19, Updated: 32. Successfully processed 51 records across 2 constituencies.

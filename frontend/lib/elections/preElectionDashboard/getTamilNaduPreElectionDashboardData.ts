@@ -4,7 +4,7 @@ import { ConstituencyRepository } from "../../repositories/constituency.reposito
 import { DistrictRepository } from "../../repositories/district.repository";
 import { PersonRepository } from "../../repositories/person.repository";
 import {
-  currentYear,
+  ELECTION_YEAR_CURRENT,
   ELECTION_YEAR_PRIOR,
   ELECTION_STATE
 } from "./dashboard.constants";
@@ -24,7 +24,7 @@ import { cache } from "react";
  * Single source of truth for the Tamil Nadu Pre-Election Dashboard.
  * Aggregates data from DynamoDB, normalizes it, and derives advanced metrics/insights.
  */
-export const getTamilNaduPreElectionDashboardData = cache(async (currentYear: number | string, priorYear: number | string): Promise<PreElectionDashboardPayload | null> => {
+export const getTamilNaduPreElectionDashboardData = cache(async (currentYear: number | string = ELECTION_YEAR_CURRENT, priorYear: number | string = ELECTION_YEAR_PRIOR): Promise<PreElectionDashboardPayload | null> => {
   const mlaRepo = new MLARepository();
   const partyRepo = new PartyRepository();
   const constituencyRepo = new ConstituencyRepository();

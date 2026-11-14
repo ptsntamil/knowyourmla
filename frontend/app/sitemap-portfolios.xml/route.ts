@@ -5,14 +5,14 @@ import { generateXml } from '@/lib/sitemap-utils';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
+  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla.info';
   const tnBaseUrl = `${domain}/tn`;
 
   try {
     const portfolioService = new PortfolioService();
     const portfolios = await portfolioService.getAllPortfolios();
     const urls: { url: string; lastModified: Date; changeFrequency: string; priority: number }[] = [];
-    
+
     (portfolios || []).forEach((p: any) => {
       const slug = p.normalized_name;
       if (!slug) return;

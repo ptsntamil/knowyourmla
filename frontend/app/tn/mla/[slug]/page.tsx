@@ -18,6 +18,8 @@ import ElectionExpensesWidget from "@/components/ElectionExpensesWidget";
 import { LATEST_ELECTION_YEAR, LAST_COMPLETED_ELECTION_YEAR } from "@/lib/constants/elections";
 
 
+export const revalidate = 86400;
+
 interface PageProps {
   params: Promise<{ slug: string }>;
 }

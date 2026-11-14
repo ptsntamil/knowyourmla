@@ -39,7 +39,7 @@ export class PreElectionService {
       return null;
     }
 
-    const dashboardData = await getTamilNaduPreElectionDashboardData();
+    const dashboardData = await getTamilNaduPreElectionDashboardData(year, 2021);
     if (!dashboardData) return null;
 
     // Adapt the new payload structure/types to the existing PreElectionDashboardData interface

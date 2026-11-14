@@ -5,7 +5,7 @@ import { generateXml, slugify } from '@/lib/sitemap-utils';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
+  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla.info';
 
   try {
     const parties = await fetchParties();

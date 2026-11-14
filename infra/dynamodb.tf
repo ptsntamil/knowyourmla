@@ -151,6 +151,11 @@ resource "aws_dynamodb_table" "knowyourmla_candidates" {
     type = "S"
   }
 
+  attribute {
+    name = "election_id"
+    type = "S"
+  }
+
   # GSI to find all candidates for a specific person
   global_secondary_index {
     name            = "PersonIndex"
@@ -227,6 +232,22 @@ resource "aws_dynamodb_table" "knowyourmla_candidates" {
 
     key_schema {
       attribute_name = "year"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI to query all candidate records belonging to one election.
+  global_secondary_index {
+    name            = "ElectionIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "election_id"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
       key_type       = "RANGE"
     }
   }
@@ -612,6 +633,26 @@ resource "aws_dynamodb_table" "knowyourmla_elections" {
     type = "S"
   }
 
+  attribute {
+    name = "election_id"
+    type = "S"
+  }
+
+  global_secondary_index {
+    name            = "ElectionIdIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "election_id"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
   point_in_time_recovery {
     enabled = true
   }
@@ -782,6 +823,32 @@ resource "aws_dynamodb_table" "knowyourmla_portfolios" {
       attribute_name = "ActiveCabinetIndexSK"
       key_type       = "RANGE"
     }
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
+  tags = {
+    Project = "KnowYourMLA"
+    Env     = "prod"
+  }
+}
+
+resource "aws_dynamodb_table" "knowyourmla_election_expenditures" {
+  name         = "knowyourmla_election_expenditures"
+  billing_mode = "PAY_PER_REQUEST"
+  hash_key     = "PK"
+  range_key    = "SK"
+
+  attribute {
+    name = "PK"
+    type = "S"
+  }
+
+  attribute {
+    name = "SK"
+    type = "S"
   }
 
   point_in_time_recovery {

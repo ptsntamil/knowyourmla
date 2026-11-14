@@ -6,7 +6,7 @@ import { fetchParties } from '@/services/api';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
+  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla.info';
 
   // Available election years in the system
   const years = AVAILABLE_ELECTION_YEARS;

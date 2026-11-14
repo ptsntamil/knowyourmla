@@ -6,19 +6,19 @@ import { AVAILABLE_ELECTION_YEARS } from '@/lib/constants/elections';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
+  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla.info';
   const tnBaseUrl = `${domain}/tn`;
 
   try {
     const constituencies = await fetchConstituencies();
     const urls: { url: string; lastModified: Date; changeFrequency: string; priority: number }[] = [];
-    
+
     (constituencies || []).forEach((c: any) => {
       const slug = c.slug || slugify(c.name);
       if (!slug) return;
 
       const profileUrl = `${tnBaseUrl}/constituency/${slug}`;
-      
+
       // Main profile page
       urls.push({
         url: profileUrl,
