@@ -11,6 +11,7 @@ Before starting any development (Frontend, Scrapers, or Infrastructure), you MUS
     * `readme.md` (root) - General architecture and stack overview.
     * `DB_README.md` (root) - **MANDATORY** for all database schema, PK/SK conventions, and access patterns.
 * **Frontend & UI Blueprints:**
+    * `.agents/rules/caching-and-isr-rules.md` - Mandatory persistent caching, ISR, and serverless CPU optimization rules.
     * `frontend/.antigravity/knowyourmla-project-rules.md` - Premium UI standards and coding rules.
     * `frontend/.antigravity/page-blueprints.md` - Layout and component structure definitions.
     * `frontend/.antigravity/architecture-map.md` - Frontend service layer and routing map.

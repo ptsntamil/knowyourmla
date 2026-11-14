@@ -31,12 +31,17 @@ Treat every change like a **safe production PR**.
 - Do not add unnecessary libraries
 - Do not over-engineer
 - Do not redesign UI unless asked
+- Do not use `export const dynamic = "force-dynamic"` on content pages (burns serverless CPU on repeated bot/crawler hits)
+- Do not rely solely on React `cache()` for cross-request data caching (it is request-scoped only)
 
 ## MUST
 - Prefer clarity over cleverness
 - Prefer Server Components
 - Preserve behavior and SEO intent
 - Keep code simple and scalable
+- Must export `export const revalidate = 86400;` on all public content, detail, and listing routes (Page-Level ISR)
+- Must wrap expensive multi-query fetches and data transforms in `unstable_cache` with 24h TTL and explicit tags
+- Must export `export const revalidate = 86400;` on all `opengraph-image.tsx` and dynamic OG image route handlers
 
 ---
 
