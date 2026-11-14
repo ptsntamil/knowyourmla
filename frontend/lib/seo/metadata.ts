@@ -24,8 +24,6 @@ export function buildMetadata({
 }: MetadataOptions): Metadata {
   const canonical = getCanonicalUrl(path);
   const siteName = "KnowYourMLA";
-  const fullTitle = title;
-  const ogImage = image || "/logo.png";
 
   const result: Metadata = {
     applicationName: siteName,

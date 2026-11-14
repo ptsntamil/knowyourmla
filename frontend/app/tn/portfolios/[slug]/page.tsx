@@ -31,10 +31,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function PortfolioPage({ params }: PageProps) {
   const { slug } = await params;
-  
+
   // Normalize slug to remove hyphens/spaces
   const normalizedSlug = slug.toLowerCase().replace(/[^a-z0-9]/g, "");
-  
+
   // If the requested slug has hyphens or uppercase, return 404
   if (slug !== normalizedSlug) {
     notFound();
@@ -56,7 +56,7 @@ export default async function PortfolioPage({ params }: PageProps) {
   // Create a map of minister names
   const uniqueMinisterIds = Array.from(new Set(timeline.map(r => r.minister_id)));
   const ministerNames = new Map<string, string>();
-  
+
   await Promise.all(uniqueMinisterIds.map(async (ministerId) => {
     const person = await personRepo.getPersonById(ministerId);
     if (person) {
@@ -73,8 +73,8 @@ export default async function PortfolioPage({ params }: PageProps) {
 
   const breadcrumbs = [
     commonBreadcrumbs.home,
-    { name: "Ministers", item: "https://www.knowyourmla.in/tn/ministers" },
-    { name: displayTitle, item: `https://www.knowyourmla.in/tn/portfolios/${slug}` }
+    { name: "Ministers", item: "https://knowyourmla.info/tn/ministers" },
+    { name: displayTitle, item: `https://knowyourmla.info/tn/portfolios/${slug}` }
   ];
 
   const currentRecord = sortedTimeline.find(r => !r.end_date);
@@ -84,7 +84,7 @@ export default async function PortfolioPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-brand-gold/30">
       <BreadcrumbSchema items={breadcrumbs} />
-      
+
       <CoverImage title={`${displayTitle} Portfolio`}>
         <div className="flex flex-col items-center space-y-4">
           <Badge variant="brand" size="sm" dot>Portfolio History</Badge>
@@ -97,7 +97,7 @@ export default async function PortfolioPage({ params }: PageProps) {
       </CoverImage>
 
       <main className="max-w-4xl mx-auto px-4 py-16 space-y-12">
-        <SEOIntro 
+        <SEOIntro
           h1={`History of ${displayTitle} Portfolio`}
           intro={`Historical timeline of all ministers who have held the ${displayTitle} portfolio in the Tamil Nadu cabinet.`}
         />
@@ -148,17 +148,17 @@ export default async function PortfolioPage({ params }: PageProps) {
                   {sortedTimeline.map((record, index) => {
                     const isCurrent = !record.end_date;
                     const endDateStr = record.end_date || "Present";
-                    
+
                     // Try to get proper name representation
                     const ministerNameSlug = record.minister_id.replace('PERSON#', '');
                     const ministerDisplayName = ministerNames.get(record.minister_id) || ministerNameSlug;
-                    
+
                     const { government, cabinet } = inferGovernmentAndCabinet(
-                      record.start_date, 
-                      record.government || '', 
+                      record.start_date,
+                      record.government || '',
                       record.cabinet || ''
                     );
-                    
+
                     return (
                       <div key={record.id || index} className="relative pl-8">
                         {/* Timeline dot */}
@@ -192,7 +192,7 @@ export default async function PortfolioPage({ params }: PageProps) {
                               <div className="text-xs font-bold text-slate-500 mt-1">{cabinet}</div>
                             </div>
                           </div>
-                          
+
                           <CabinetEventBadge event={record.cabinet_event || record.event_type || record.reason_for_change} />
                         </div>
                       </div>

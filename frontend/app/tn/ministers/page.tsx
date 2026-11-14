@@ -28,7 +28,7 @@ export async function generateMetadata() {
   const ministerNames = cabinetMinisters.map((m: any) => m.name);
   const portfolios = new Set<string>();
   cabinetMinisters.forEach((m: any) => m.portfolios.forEach((p: string) => portfolios.add(p)));
-  
+
   const repDistricts = new Set<string>();
   districts.forEach((d: any) => {
     if (d.representatives && d.representatives.length > 0) {
@@ -64,7 +64,7 @@ export default async function MinistersListPage() {
   const mlaMap = new Map(mlas.map(mla => [mla.person_id, mla]));
 
   // Build map of person_id -> districts they represent
-  const repMap = new Map<string, {name: string, slug: string}[]>();
+  const repMap = new Map<string, { name: string, slug: string }[]>();
   districts.forEach(d => {
     d.representatives?.forEach(rep => {
       if (!repMap.has(rep.person_id)) {
@@ -110,19 +110,19 @@ export default async function MinistersListPage() {
 
   const breadcrumbs = [
     commonBreadcrumbs.home,
-    { name: "Ministers", item: "https://www.knowyourmla.in/tn/ministers" }
+    { name: "Ministers", item: "https://knowyourmla.info/tn/ministers" }
   ];
 
   const itemListData = enrichedMinisters.map((m: MinisterItem) => ({
     name: m.name,
-    url: `https://www.knowyourmla.in/tn/mla/${m.person_id?.replace("PERSON#", "")}`
+    url: `https://knowyourmla.info/tn/mla/${m.person_id?.replace("PERSON#", "")}`
   }));
 
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-brand-gold/30">
       <BreadcrumbSchema items={breadcrumbs} />
       <ItemListSchema items={itemListData} />
-      
+
       <CoverImage title="Tamil Nadu Ministers">
         <div className="flex flex-col items-start space-y-4">
           <nav className="flex flex-wrap items-center gap-y-2 gap-x-3 text-[10px] font-black uppercase tracking-[0.3em] text-white/60">
@@ -133,15 +133,15 @@ export default async function MinistersListPage() {
           <Badge variant="brand" size="sm" dot>Current Cabinet</Badge>
         </div>
       </CoverImage>
-      
+
       <main className="max-w-7xl mx-auto px-4 py-16 space-y-12">
-        <SEOIntro 
+        <SEOIntro
           h1="Tamil Nadu Cabinet & District In-charge Ministers"
           intro="This page provides the complete Tamil Nadu Ministers list with their respective portfolios, constituencies, district in-charge assignments, and party information. Browse the active cabinet members serving the state."
         />
 
-        <SectionHeader 
-          title="Cabinet Members" 
+        <SectionHeader
+          title="Cabinet Members"
           subtitle="Displaying all active ministers and their portfolios"
           badge={
             <Badge variant="brand" size="md" dot>

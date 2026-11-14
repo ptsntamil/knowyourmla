@@ -6,7 +6,7 @@ import { LATEST_ELECTION_YEAR } from '@/lib/constants/elections';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
+  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla.info';
   const tnBaseUrl = `${domain}/tn`;
   const currentYear = LATEST_ELECTION_YEAR;
 
@@ -19,7 +19,7 @@ export async function GET() {
       (constituencies || []).map(async (c: any) => {
         const slug = c.slug || slugify(c.name);
         if (!slug) return;
-        
+
         const constituencyId = c.id || `CONSTITUENCY#${slug}`;
         const baseUrl = `${tnBaseUrl}/constituency/${slug}/election/${currentYear}/polling-stations`;
 

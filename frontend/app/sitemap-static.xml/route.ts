@@ -4,7 +4,7 @@ import { generateXml } from '@/lib/sitemap-utils';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
+  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla.info';
   const tnBaseUrl = `${domain}/tn`;
 
   const staticPages = [
@@ -15,7 +15,7 @@ export async function GET() {
     { url: `${tnBaseUrl}/party/tvk/manifesto`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${domain}/parties`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
     { url: `${domain}/news`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
-        { url: `${domain}/news/tamil-nadu-mlas-100-percent-attendance-2021-2026`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${domain}/news/tamil-nadu-mlas-100-percent-attendance-2021-2026`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${domain}/news/tn-mlas-cars-vehicles-analysis-2026`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
     { url: `${tnBaseUrl}/vehicles`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
     { url: `${domain}/news/did-vijay-factor-increase-voter-turnout`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },

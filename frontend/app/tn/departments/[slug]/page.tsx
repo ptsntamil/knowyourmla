@@ -30,10 +30,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function DepartmentPage({ params }: PageProps) {
   const { slug } = await params;
-  
+
   // Normalize slug to remove hyphens/spaces
   const normalizedSlug = slug.toLowerCase().replace(/[^a-z0-9]/g, "");
-  
+
   // If the requested slug has hyphens or uppercase, return 404
   if (slug !== normalizedSlug) {
     notFound();
@@ -54,7 +54,7 @@ export default async function DepartmentPage({ params }: PageProps) {
 
   const uniqueMinisterIds = Array.from(new Set(timeline.map(r => r.minister_id)));
   const ministerNames = new Map<string, string>();
-  
+
   await Promise.all(uniqueMinisterIds.map(async (ministerId) => {
     const person = await personRepo.getPersonById(ministerId);
     if (person) {
@@ -69,8 +69,8 @@ export default async function DepartmentPage({ params }: PageProps) {
 
   const breadcrumbs = [
     commonBreadcrumbs.home,
-    { name: "Departments", item: "https://www.knowyourmla.in/tn/departments" },
-    { name: displayTitle, item: `https://www.knowyourmla.in/tn/departments/${slug}` }
+    { name: "Departments", item: "https://knowyourmla.info/tn/departments" },
+    { name: displayTitle, item: `https://knowyourmla.info/tn/departments/${slug}` }
   ];
 
   const currentRecord = sortedTimeline.find(r => !r.end_date);
@@ -80,7 +80,7 @@ export default async function DepartmentPage({ params }: PageProps) {
   return (
     <div className="min-h-screen bg-slate-50 selection:bg-brand-gold/30">
       <BreadcrumbSchema items={breadcrumbs} />
-      
+
       <CoverImage title={`${displayTitle} Department`}>
         <div className="flex flex-col items-center space-y-4">
           <Badge variant="brand" size="sm" dot>Department History</Badge>
@@ -93,7 +93,7 @@ export default async function DepartmentPage({ params }: PageProps) {
       </CoverImage>
 
       <main className="max-w-4xl mx-auto px-4 py-16 space-y-12">
-        <SEOIntro 
+        <SEOIntro
           h1={`History of ${displayTitle} Department`}
           intro={`Historical timeline and portfolio assignments associated with the ${displayTitle} department in the Tamil Nadu government.`}
         />
@@ -146,13 +146,13 @@ export default async function DepartmentPage({ params }: PageProps) {
                     const endDateStr = record.end_date || "Present";
                     const ministerNameSlug = record.minister_id.replace('PERSON#', '');
                     const ministerDisplayName = ministerNames.get(record.minister_id) || ministerNameSlug;
-                    
+
                     const { government, cabinet } = inferGovernmentAndCabinet(
-                      record.start_date, 
-                      record.government || '', 
+                      record.start_date,
+                      record.government || '',
                       record.cabinet || ''
                     );
-                    
+
                     return (
                       <div key={record.id || index} className="relative pl-8">
                         {/* Timeline dot */}
@@ -186,7 +186,7 @@ export default async function DepartmentPage({ params }: PageProps) {
                               <div className="text-xs font-bold text-slate-500 mt-1">{cabinet}</div>
                             </div>
                           </div>
-                          
+
                           <CabinetEventBadge event={record.cabinet_event || record.change_type} />
                         </div>
                       </div>

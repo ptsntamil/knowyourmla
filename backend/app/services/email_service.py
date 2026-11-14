@@ -31,13 +31,23 @@ class EmailService:
             print(f"Error fetching secret: {e}")
             return None
 
-    def send_feedback(self, message: str, url: str) -> bool:
+    def send_feedback(
+        self,
+        message: str,
+        url: str,
+        name: str = None,
+        email: str = None,
+        subject: str = None,
+    ) -> bool:
         """
-        Sends feedback via email.
+        Sends feedback or data requests via email.
 
         Args:
-            message: The user's feedback message.
-            url: The page URL where the feedback was submitted.
+            message: The user's message or request details.
+            url: The page URL where the request was submitted.
+            name: Optional name of the user.
+            email: Optional email of the user.
+            subject: Optional subject for the email.
 
         Returns:
             True if sent successfully, False otherwise.
@@ -52,16 +62,23 @@ class EmailService:
         if not username or not password:
             return False
 
+        recipient = os.environ.get("FEEDBACK_RECIPIENT_EMAIL", "ptsntamil1@gmail.com")
+
         # Create the email message
         msg = MIMEMultipart()
         msg["From"] = username
-        msg["To"] = "ptsntamil1@gmail.com" # Updated recipient for feedback
-        msg["Subject"] = f"User Feedback from KnowYourMLA"
+        msg["To"] = recipient
+        msg["Subject"] = subject or "User Feedback from KnowYourMLA"
+        if email:
+            msg["Reply-To"] = email
 
+        email_title = subject or "User Feedback"
         body = f"""
-        User Feedback:
+        {email_title}:
         --------------------------------------------------
-        {message}
+        Name: {name or 'Not provided'}
+        Email: {email or 'Not provided'}
+        Message: {message}
         --------------------------------------------------
         
         Submitted from URL: {url}
@@ -74,7 +91,7 @@ class EmailService:
             server.starttls()
             server.login(username, password)
             text = msg.as_string()
-            server.sendmail(username, "ptsntamil1@gmail.com", text)
+            server.sendmail(username, recipient, text)
             server.quit()
             return True
         except Exception as e:

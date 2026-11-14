@@ -28,6 +28,7 @@ import { normalizeEducation, normalizeProfession, normalizeTotalAssets, normaliz
 import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
 import { categorizeEducation } from "../utils/insights";
 import { getSharedPartyInfo } from "./shared/party-cache";
+import { DistrictService } from "./district.service";
 
 export class MLAService {
   private mlaRepo: MLARepository;
@@ -36,6 +37,7 @@ export class MLAService {
   private constituencyRepo: ConstituencyRepository;
   private partyRepo: PartyRepository;
   private districtRepo: DistrictRepository;
+  private districtService: DistrictService;
 
   constructor(
     mlaRepo?: MLARepository,
@@ -43,7 +45,8 @@ export class MLAService {
     candidateRepo?: CandidateRepository,
     constituencyRepo?: ConstituencyRepository,
     partyRepo?: PartyRepository,
-    districtRepo?: DistrictRepository
+    districtRepo?: DistrictRepository,
+    districtService?: DistrictService
   ) {
     this.mlaRepo = mlaRepo || new MLARepository();
     this.personRepo = personRepo || new PersonRepository();
@@ -51,6 +54,7 @@ export class MLAService {
     this.constituencyRepo = constituencyRepo || new ConstituencyRepository();
     this.partyRepo = partyRepo || new PartyRepository();
     this.districtRepo = districtRepo || new DistrictRepository();
+    this.districtService = districtService || new DistrictService(this.districtRepo);
   }
 
 
@@ -415,14 +419,14 @@ export class MLAService {
 
         const latestRecord = candidatesData.length > 0 ? candidatesData[candidatesData.length - 1] : {} as any;
 
-        const allDistricts = await this.districtRepo.getAllDistricts();
+        const allDistricts = await this.districtService.getAllDistricts();
         const representedDistricts = allDistricts
           .filter((d: any) => 
             d.representatives?.some((r: any) => r.person_id === actualPersonId)
           )
           .map((d: any) => ({
-            id: d.PK.replace("DISTRICT#", ""),
-            name: d.name || d.PK.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase())
+            id: (d.id || d.PK || "").replace("DISTRICT#", ""),
+            name: d.name || (d.PK ? d.PK.replace("DISTRICT#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()) : "")
           }));
 
         const personDetail: PersonDetail = {
@@ -529,7 +533,7 @@ export class MLAService {
             person_id: pId,
             slug: this.slugify(displayName),
             name: displayName,
-            image_url: normalizeCandidateProfilePic(winner.profile_pic || personMeta.image_url) || null,
+            image_url: normalizeCandidateProfilePic(winner.profile_pic || personMeta.image_url) || undefined,
             constituency: consti.name || constId.replace("CONSTITUENCY#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()),
             constituency_id: constId,
             party: winner.party_id ? (partyInfo.short_name || winner.party_id.replace("PARTY#", "")).toUpperCase() : "",
@@ -605,7 +609,7 @@ export class MLAService {
             person_id: pId,
             slug: this.slugify(displayName),
             name: displayName,
-            image_url: normalizeCandidateProfilePic(winner.profile_pic || personMeta.image_url) || null,
+            image_url: normalizeCandidateProfilePic(winner.profile_pic || personMeta.image_url) || undefined,
             constituency: consti.name || constId.replace("CONSTITUENCY#", "").replace(/-/g, " ").replace(/\b\w/g, (l: any) => l.toUpperCase()),
             constituency_id: constId,
             district,

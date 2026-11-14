@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla-info.vercel.app';
-  
+  const domain = process.env.NEXT_PUBLIC_BASE_URL || 'https://knowyourmla.info';
+
   const sitemaps = [
     'sitemap-static.xml',
     'sitemap-districts.xml',
@@ -14,6 +14,7 @@ export async function GET() {
     'sitemap-elections.xml',
     'sitemap-polling-stations.xml',
     'sitemap-portfolios.xml',
+    'sitemap-analysis.xml',
     // 'sitemap-departments.xml'
   ];
 

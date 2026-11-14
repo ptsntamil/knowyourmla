@@ -26,7 +26,38 @@ def test_submit_feedback_success(mock_email_service):
     assert response.json() == {"message": "Feedback submitted successfully."}
     mock_instance.send_feedback.assert_called_once_with(
         message="Great site!",
-        url="http://localhost:3000/mla/stalin"
+        url="http://localhost:3000/mla/stalin",
+        name=None,
+        email=None,
+        subject=None,
+    )
+
+def test_submit_feedback_with_details(mock_email_service):
+    # Setup mock
+    mock_instance = mock_email_service.return_value
+    mock_instance.send_feedback.return_value = True
+
+    # Test request with name, email and subject
+    response = client.post(
+        "/api/v1/feedback",
+        json={
+            "message": "Please add booth data",
+            "url": "http://localhost:3000/tn/constituency/palani/election/2021/polling-stations",
+            "name": "Kumar",
+            "email": "kumar@example.com",
+            "subject": "Polling Station Data Request: PALANI (2021)"
+        }
+    )
+
+    # Assertions
+    assert response.status_code == 200
+    assert response.json() == {"message": "Feedback submitted successfully."}
+    mock_instance.send_feedback.assert_called_once_with(
+        message="Please add booth data",
+        url="http://localhost:3000/tn/constituency/palani/election/2021/polling-stations",
+        name="Kumar",
+        email="kumar@example.com",
+        subject="Polling Station Data Request: PALANI (2021)"
     )
 
 def test_submit_feedback_failure(mock_email_service):

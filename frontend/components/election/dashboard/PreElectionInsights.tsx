@@ -319,7 +319,7 @@ export default function PreElectionInsightsSection({ insights, urlYear = 2026 }:
             footerLabel="Explore Seats"
           >
             {insights.closestLastElectionSeats.slice(0, 5).map((c, idx) =>
-              renderContestItem(c, idx, c.lastMargin?.toLocaleString() || '--', `${PREVIOUS_ELECTION_YEAR.slice(-2)} Margin`)
+              renderContestItem(c, idx, c.lastMargin?.toLocaleString() || '--', `${String(PREVIOUS_ELECTION_YEAR).slice(-2)} Margin`)
             )}
           </CardWrapper>
 

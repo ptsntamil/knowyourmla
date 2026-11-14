@@ -21,7 +21,7 @@ export default function VehicleCountCard({ vehicleCount, vehicleAssets }: { vehi
         });
       } else if (typeof val === 'string' && val.trim() && val.toLowerCase() !== 'nil' && val.toLowerCase() !== 'none') {
          allVehicles.push({ name: val, owner });
-      } else if (val && typeof val === 'object' && (val.name || val.registration_no || val.value)) {
+      } else if (val && typeof val === 'object' && ((val as any).name || (val as any).registration_no || (val as any).value)) {
          allVehicles.push({ ...val, owner });
       }
     });

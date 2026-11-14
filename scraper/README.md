@@ -69,6 +69,26 @@ python3 scraper/enrichment.py --year 2021
 python3 scraper/enrichment.py --year 2016 --threads 10 --max_id 1000
 ```
 
+### 3. extract_bye_election_results.py
+Extracts official bye-election results directly from Election Commission of India (ECI) results portal pages (`ConstituencywiseS22*.htm`) and formats them into the standard OpenCity CSV schema supported by `import_election_csv.py`.
+
+**When to use:**
+- When bye-election results have been counted and published by ECI on `results.eci.gov.in`.
+- To generate standardized OpenCity CSV results with accurate margins, turnout, and candidate vote shares.
+
+**How to run:**
+```bash
+# Extract default October 2026 bye-elections (Madurantakam & Dharapuram)
+python3 scraper/extract_bye_election_results.py
+
+# Extract specific URLs with custom election date and output
+python3 scraper/extract_bye_election_results.py \
+  --urls "https://results.eci.gov.in/ResultAcByeOct2026/ConstituencywiseS2235.htm" \
+         "https://results.eci.gov.in/ResultAcByeOct2026/ConstituencywiseS22101.htm" \
+  --date 2026/10/6 \
+  --output scraper/assets/OpenCity_TN_Assembly_Bye_Election_202610.csv
+```
+
 ## Data Import
 
 ### import_election_csv.py
@@ -80,6 +100,8 @@ Generic script to import election results from TCPD or OpenCity CSV formats.
 
 **Why to use:**
 - It performs intelligent deduplication to link candidates to existing Person records.
+- **Turncoat Matching**: When `Turncoat` is `TRUE`, cross-party candidate matching is enabled to properly link candidates who changed party between election cycles or in bye-elections, matching on name and birth year/age consistency.
+- **Explicit `candidate_id` Support**: If a `candidate_id` column is provided in the CSV (e.g. `AFFIDAVIT#2026#1858` or numeric `1858`), the importer uses that ID to update that exact candidate record and preserves its linked `person_id`.
 - It automatically updates constituency-level statistics (total votes polled, etc.).
 - It handles data normalization (currency, percentages, names).
 
@@ -127,6 +149,67 @@ python3 scraper/update_party_vote_share.py --dry-run
 
 # Limit to first N parties
 python3 scraper/update_party_vote_share.py --limit 10
+```
+
+### polling_station_extracter.py
+Extracts Form 20 PDF polling station voting results chunk-by-chunk using Gemini AI. Accepts optional ground truth counts for candidates and polling stations to optimize chunk size, prevent hallucinated candidate columns, and accurately terminate extraction.
+
+Includes automated post-extraction verification: checks that each extracted polling station contains votes matching the expected candidate count, and automatically reruns targeted extraction for any stations with mismatched or missing candidate votes.
+
+**How to run:**
+```bash
+# Basic extraction (detects candidates and stations from PDF, verifies candidate count across all stations)
+python3 scraper/helper/polling_station_extracter.py 128
+
+# Extraction with ground truth candidate count and total station count
+python3 scraper/helper/polling_station_extracter.py 128 --candidates-count 14 --station-count 242
+# Or using short options:
+python3 scraper/helper/polling_station_extracter.py 128 -c 14 -s 242
+
+# Force re-downloading PDF even if it already exists locally
+python3 scraper/helper/polling_station_extracter.py 128 --force-download
+```
+
+### import_polling_data.py
+Imports booth-level polling station results, postal ballot totals, and constituency summary records from Form 20 JSON files into the DynamoDB `knowyourmla_polling_results` table.
+
+**How to run:**
+```bash
+# Generate candidate mapping from DynamoDB
+python3 scraper/import_polling_data.py --generate-mapping --year 2026
+
+# Dry run on a constituency Form 20 JSON
+python3 scraper/import_polling_data.py scraper/assets/2026/ac/polling/128.json --dry-run
+
+# Ingest single constituency
+python3 scraper/import_polling_data.py scraper/assets/2026/ac/polling/128.json
+
+# Batch import all local AC JSON files
+for file in scraper/assets/2026/ac/polling/[0-9][0-9][0-9].json; do
+  python3 scraper/import_polling_data.py "$file"
+done
+```
+
+### check_imported_polling_data.py
+Checks which assembly constituencies and polling station data are already imported into DynamoDB (`knowyourmla_polling_results`), comparing against local JSON files and the 234 master constituencies.
+
+**How to run:**
+```bash
+# Check import summary across all constituencies
+python3 scraper/check_imported_polling_data.py
+
+# Include detailed polling station counts per AC
+python3 scraper/check_imported_polling_data.py --count-stations
+
+# Check a specific constituency by number or name
+python3 scraper/check_imported_polling_data.py --ac 128
+python3 scraper/check_imported_polling_data.py --ac oddanchatram
+
+# Show only unimported / pending constituencies
+python3 scraper/check_imported_polling_data.py --only-missing
+
+# Output report in JSON format
+python3 scraper/check_imported_polling_data.py --json
 ```
 
 ## Verification

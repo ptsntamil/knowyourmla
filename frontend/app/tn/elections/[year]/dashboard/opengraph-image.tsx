@@ -5,20 +5,23 @@ import { generatePreElectionDashboardCard, OG_SIZE } from '@/lib/seo/election-og
 export const alt = 'Tamil Nadu 2026 Election Dashboard';
 export const size = OG_SIZE;
 export const contentType = 'image/png';
+export const revalidate = 86400;
 
-export default async function Image() {
-  const displayYear = "2026";
-  const urlYear = 2026;
+export default async function Image({ params }: { params: Promise<{ year: string }> }) {
+  const { year } = await params;
+  const urlYear = year;
+  const displayYear = urlYear === "202610" ? "2026 Bye-Election" : urlYear;
+  const priorYear = urlYear === "202610" ? 2026 : 2021;
   
   try {
-    const data = await getTamilNaduPreElectionDashboardData();
+    const data = await getTamilNaduPreElectionDashboardData(urlYear, priorYear);
     
     if (!data || !data.stats) {
       throw new Error("No dashboard data found");
     }
 
     return new ImageResponse(
-      generatePreElectionDashboardCard(data.stats, year),
+      generatePreElectionDashboardCard(data.stats, Number(urlYear) || 2026),
       { ...size }
     );
   } catch (error) {
@@ -45,7 +48,7 @@ export default async function Image() {
             paddingLeft: '40px'
           }}>
             <h1 style={{ fontSize: '72px', fontWeight: 900, color: '#0f172a', margin: 0, textTransform: 'uppercase' }}>
-              TN Election {year}
+              TN Election {displayYear}
             </h1>
             <p style={{ fontSize: '32px', color: '#64748b', fontWeight: 700, margin: '16px 0 0 0' }}>
               Election Intelligence Dashboard

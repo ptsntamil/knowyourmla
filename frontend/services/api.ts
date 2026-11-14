@@ -8,7 +8,8 @@ import {
   DistrictInsights,
   DistrictInsightsResponse,
   PartyObj,
-  MinisterItem
+  MinisterItem,
+  MLAVehicleResponse
 } from "@/types/models";
 import { LATEST_ELECTION_YEAR } from "@/lib/constants/elections";
 
@@ -129,7 +130,7 @@ export async function fetchMLAs(year: number = parseInt(LATEST_ELECTION_YEAR)): 
   return res.json();
 }
 
-export async function fetchMLAVehicles(year: number = parseInt(LATEST_ELECTION_YEAR)): Promise<any> {
+export async function fetchMLAVehicles(year: number = parseInt(LATEST_ELECTION_YEAR)): Promise<MLAVehicleResponse> {
   if (isServer && USE_V2_API) {
     const { MLAService } = await import("@/lib/services/mla.service");
     const service = new MLAService();
@@ -140,13 +141,19 @@ export async function fetchMLAVehicles(year: number = parseInt(LATEST_ELECTION_Y
 }
 
 
-export async function submitFeedback(message: string, url: string, name?: string, email?: string): Promise<any> {
+export async function submitFeedback(
+  message: string, 
+  url: string, 
+  name?: string, 
+  email?: string, 
+  subject?: string
+): Promise<any> {
   const res = await fetch(`${BASE_URL}/feedback`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ message, url, name, email }),
+    body: JSON.stringify({ message, url, name, email, subject }),
   });
   if (!res.ok) {
     const errorBody = await res.text().catch(() => "No error body");

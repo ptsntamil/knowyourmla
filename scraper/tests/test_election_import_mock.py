@@ -362,3 +362,181 @@ def test_process_row_same_name_party_mismatch_same_year(mock_importer):
     # Should NOT match because party (ADMK vs IND) is different in same year
     call_args = mock_importer.resolver.get_or_create_person.call_args
     assert call_args[1].get('person_id_override') is None
+
+def test_process_row_with_explicit_candidate_id(mock_importer):
+    """Test updating existing candidate using explicit candidate_id from CSV."""
+    row = {
+        'Year': '2026',
+        'Candidate': 'DURAI CHANDRASEKAR',
+        'Constituency_Name': 'PONNERI',
+        'District_Name': 'THIRUVALLUR',
+        'Party': 'DMK',
+        'candidate_id': 'AFFIDAVIT#2026#MYNETA_1858',
+        'Votes': '50000',
+        'Position': '1'
+    }
+
+    mock_importer.candidates_table.get_item.return_value = {
+        'Item': {
+            'PK': 'AFFIDAVIT#2026#MYNETA_1858',
+            'person_id': 'PERSON_EXPLICIT_1858',
+            'candidate_name': 'DURAI CHANDRASEKAR'
+        }
+    }
+
+    status = mock_importer.process_row(row, dry_run=False)
+
+    assert status == "updated"
+    # Verify candidate table update targeted the explicit candidate_id PK
+    update_call = mock_importer.candidates_table.update_item.call_args[1]
+    assert update_call['Key']['PK'] == 'AFFIDAVIT#2026#MYNETA_1858'
+    # Verify person_id from existing candidate record is preserved
+    call_args = mock_importer.resolver.get_or_create_person.call_args
+    assert call_args[1].get('person_id_override') == 'PERSON_EXPLICIT_1858'
+
+def test_process_row_with_raw_numeric_candidate_id(mock_importer):
+    """Test formatting raw numeric candidate_id into standard PK format."""
+    row = {
+        'Year': '2026',
+        'Candidate': 'DURAI CHANDRASEKAR',
+        'Constituency_Name': 'PONNERI',
+        'District_Name': 'THIRUVALLUR',
+        'Party': 'DMK',
+        'candidate_id': '3806',
+        'Votes': '45000',
+        'Position': '2'
+    }
+
+    mock_importer.candidates_table.get_item.return_value = {
+        'Item': {
+            'PK': 'AFFIDAVIT#2026#3806',
+            'person_id': 'PERSON_3806'
+        }
+    }
+
+    status = mock_importer.process_row(row, dry_run=False)
+
+    assert status == "updated"
+    update_call = mock_importer.candidates_table.update_item.call_args[1]
+    assert update_call['Key']['PK'] == 'AFFIDAVIT#2026#3806'
+
+def test_process_row_turncoat_cross_year_match(mock_importer):
+    """Test candidate matching across parties when Turncoat is True."""
+    row = {
+        'Year': '2021',
+        'Candidate': 'DURAI CHANDRASEKAR',
+        'Constituency_Name': 'PONNERI',
+        'District_Name': 'THIRUVALLUR',
+        'Party': 'DMK',
+        'Age': '45',
+        'Turncoat': 'TRUE'
+    }
+
+    mock_importer.resolver.resolve_party_id.return_value = 'DMK_ID'
+    # Database only has this person under ADMK in 2016 (different party)
+    mock_importer.candidates_table.query.return_value = {
+        'Items': [{
+            'PK': 'AFFIDAVIT#2016#OLD_ID',
+            'person_id': 'PERSON_TURNCOAT_MATCH',
+            'candidate_name': 'DURAI CHANDRASEKAR',
+            'party_id': 'ADMK_ID',
+            'age': 40,
+            'year': 2016
+        }]
+    }
+
+    mock_importer.process_row(row, dry_run=False)
+
+    # Should match PERSON_TURNCOAT_MATCH because Turncoat is TRUE and age is consistent (40 in 2016 vs 45 in 2021)
+    call_args = mock_importer.resolver.get_or_create_person.call_args
+    assert call_args[1].get('person_id_override') == 'PERSON_TURNCOAT_MATCH'
+
+def test_process_row_non_turncoat_party_mismatch_cross_year(mock_importer):
+    """Test candidate does NOT match across parties when Turncoat is False."""
+    row = {
+        'Year': '2021',
+        'Candidate': 'DURAI CHANDRASEKAR',
+        'Constituency_Name': 'PONNERI',
+        'District_Name': 'THIRUVALLUR',
+        'Party': 'DMK',
+        'Age': '45',
+        'Turncoat': 'FALSE'
+    }
+
+    mock_importer.resolver.resolve_party_id.return_value = 'DMK_ID'
+    mock_importer.candidates_table.query.return_value = {
+        'Items': [{
+            'PK': 'AFFIDAVIT#2016#OLD_ID',
+            'person_id': 'PERSON_ADMK',
+            'candidate_name': 'DURAI CHANDRASEKAR',
+            'party_id': 'ADMK_ID',
+            'age': 40,
+            'year': 2016
+        }]
+    }
+
+    mock_importer.process_row(row, dry_run=False)
+
+    # Should NOT match because Turncoat is False and parties differ (DMK vs ADMK)
+    call_args = mock_importer.resolver.get_or_create_person.call_args
+    assert call_args[1].get('person_id_override') is None
+
+def test_process_row_turncoat_same_year_match(mock_importer):
+    """Test candidate linking across parties in same year when Turncoat is True."""
+    row = {
+        'Year': '2026',
+        'Candidate': 'MOHAN K',
+        'Constituency_Name': 'CHEYYAR',
+        'Party': 'DMK',
+        'Age': '58',
+        'Turncoat': 'Yes'
+    }
+
+    mock_importer.resolver.resolve_party_id.return_value = 'DMK_ID'
+    mock_importer.candidates_table.query.return_value = {
+        'Items': [{
+            'PK': 'AFFIDAVIT#2026#ID_MOHAN_ADMK',
+            'person_id': 'PERSON_MOHAN_ADMK',
+            'candidate_name': 'MOHAN K',
+            'party_id': 'ADMK_ID',
+            'age': 58,
+            'year': 2026
+        }]
+    }
+
+    mock_importer.process_row(row, dry_run=False)
+
+    # Should link person because Turncoat is True and age matches
+    call_args = mock_importer.resolver.get_or_create_person.call_args
+    assert call_args[1].get('person_id_override') == 'PERSON_MOHAN_ADMK'
+
+def test_process_row_turncoat_age_mismatch_rejected(mock_importer):
+    """Test candidate is NOT linked to different party if age is incompatible, even if Turncoat is True."""
+    row = {
+        'Year': '2021',
+        'Candidate': 'DURAI CHANDRASEKAR',
+        'Constituency_Name': 'PONNERI',
+        'District_Name': 'THIRUVALLUR',
+        'Party': 'DMK',
+        'Age': '45',
+        'Turncoat': '1'
+    }
+
+    mock_importer.resolver.resolve_party_id.return_value = 'DMK_ID'
+    # DB candidate has age 70 in 2016 (diff > 20 years!)
+    mock_importer.candidates_table.query.return_value = {
+        'Items': [{
+            'PK': 'AFFIDAVIT#2016#OLD_ID',
+            'person_id': 'PERSON_DIFFERENT_AGE',
+            'candidate_name': 'DURAI CHANDRASEKAR',
+            'party_id': 'ADMK_ID',
+            'age': 70,
+            'year': 2016
+        }]
+    }
+
+    mock_importer.process_row(row, dry_run=False)
+
+    call_args = mock_importer.resolver.get_or_create_person.call_args
+    assert call_args[1].get('person_id_override') is None
+

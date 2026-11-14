@@ -6,7 +6,7 @@ export default function WebSiteSchema() {
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "KnowYourMLA",
-    "url": process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla-info.vercel.app"
+    "url": process.env.NEXT_PUBLIC_BASE_URL || "https://knowyourmla.info"
   };
 
   return <JsonLd data={data} />;

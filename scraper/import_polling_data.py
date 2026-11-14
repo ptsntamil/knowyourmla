@@ -408,12 +408,40 @@ class PollingDataImporter:
             "created_at": int(datetime.now(timezone.utc).timestamp())
         }
 
-    def process_ac_file(self, file_path: str, dry_run: bool = False):
+    def _lookup_electors(self, const_norm: str, year: int) -> int:
+        """Looks up total electors from election CSV if missing in Form 20 meta.
+
+        Args:
+            const_norm: Normalized constituency name.
+            year: Election year.
+
+        Returns:
+            Total registered electors count, or 0 if not found.
+        """
+        if year != 2026:
+            return 0
+        if not hasattr(self, "_electors_cache"):
+            self._electors_cache: Dict[str, int] = {}
+            script_dir = os.path.dirname(os.path.abspath(__file__))
+            csv_path = os.path.join(script_dir, "assets", "OpenCity_TN_Assembly_Election_2026.csv")
+            if os.path.exists(csv_path):
+                import csv
+                with open(csv_path, "r", encoding="utf-8") as f:
+                    for row in csv.DictReader(f):
+                        name = row.get("Constituency_Name", "").strip()
+                        c_id = canonicalize_constituency(name)
+                        electors = row.get("Electors", "").strip()
+                        if c_id and electors.isdigit():
+                            self._electors_cache[c_id] = int(electors)
+        return self._electors_cache.get(const_norm, 0)
+
+    def process_ac_file(self, file_path: str, dry_run: bool = False, year: Optional[int] = None):
         """Process a Form 20 JSON file for an entire AC.
 
         Args:
             file_path: Path to the JSON file.
             dry_run: If True, do not write to DynamoDB.
+            year: Optional election year override (defaults to file meta or 2026).
         """
         logger.info(f"Processing file: {file_path}")
         with open(file_path, 'r') as f:
@@ -421,11 +449,15 @@ class PollingDataImporter:
 
         meta = data.get('meta', {})
         ac_name = meta.get('ac_name')
-        year = int(meta.get('year', 2026))
-        total_electors = int(meta.get('total_electors', 0))
+        if year is None:
+            year = int(meta.get('year', 2026))
 
         const_norm = canonicalize_constituency(ac_name)
         const_id = f"CONSTITUENCY#{const_norm}"
+
+        total_electors = int(meta.get('total_electors', 0))
+        if total_electors == 0:
+            total_electors = self._lookup_electors(const_norm, year)
 
         json_candidates = data.get('candidates', {})
         stations = data.get('stations', [])
@@ -501,6 +533,6 @@ if __name__ == "__main__":
         importer.load_mappings(args.mapping)
     
     if args.file:
-        importer.process_ac_file(args.file, dry_run=args.dry_run)
+        importer.process_ac_file(args.file, dry_run=args.dry_run, year=args.year)
     elif not args.generate_mapping:
         parser.print_help()

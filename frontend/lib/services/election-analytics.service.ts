@@ -889,14 +889,16 @@ export class ElectionAnalyticsService {
   getPollingStationResults = cache(async (constituencyId: string, year: number): Promise<ConstituencyPollingData | null> => {
     const cid = constituencyId.startsWith("CONSTITUENCY#") ? constituencyId : `CONSTITUENCY#${constituencyId}`;
 
-    const [constituency, pollingResults, acSummary, allParties, candidates, districts, explicitPostalRecord] = await Promise.all([
-          this.constituencyRepo.getConstituencyMetadata(cid),
-          this.pollingRepo.getPollingResultsByConstituency(cid, year),
-          this.pollingRepo.getACSummary(cid, year),
+    return unstable_cache(
+      async (cIdStr: string, yrNum: number): Promise<ConstituencyPollingData | null> => {
+        const [constituency, pollingResults, acSummary, allParties, candidates, districts, explicitPostalRecord] = await Promise.all([
+          this.constituencyRepo.getConstituencyMetadata(cIdStr),
+          this.pollingRepo.getPollingResultsByConstituency(cIdStr, yrNum),
+          this.pollingRepo.getACSummary(cIdStr, yrNum),
           this.partyRepo.getAllParties(),
-          this.candidateRepo.getCandidatesByConstituencyAndYear(cid, year),
+          this.candidateRepo.getCandidatesByConstituencyAndYear(cIdStr, yrNum),
           this.districtRepo.getAllDistricts(),
-          this.pollingRepo.getPostalVotes(cid, year)
+          this.pollingRepo.getPostalVotes(cIdStr, yrNum)
         ]);
 
         if (!constituency || !pollingResults || pollingResults.length === 0) return null;
@@ -909,8 +911,8 @@ export class ElectionAnalyticsService {
         const avgTurnout = acSummary?.poll_percentage || 0;
 
         // Extract Postal Votes from results if present
-        const postalRecord = explicitPostalRecord || pollingResults.find(ps => ps.SK === 'POSTAL' && ps.year === year);
-        const stations = pollingResults.filter(ps => ps.SK === 'METADATA' && ps.year === year);
+        const postalRecord = explicitPostalRecord || pollingResults.find(ps => ps.SK === 'POSTAL' && ps.year === yrNum);
+        const stations = pollingResults.filter(ps => ps.SK === 'METADATA' && ps.year === yrNum);
 
         const analyzedStations: PollingStationAnalysis[] = stations.map(ps => {
           const resultsArray = Object.entries(ps.results)
@@ -1083,15 +1085,19 @@ export class ElectionAnalyticsService {
         });
 
         return {
-          constituencyId: cid.replace("CONSTITUENCY#", ""),
+          constituencyId: cIdStr.replace("CONSTITUENCY#", ""),
           constituencyName: constituency.name,
           districtName,
-          year,
+          year: yrNum,
           totalPollingStations: analyzedStations.length,
           avgTurnout,
           summary,
           pollingStations: analyzedStations,
           acSummary: acSummary || undefined
         };
+      },
+      ["polling-station-results", cid, year.toString()],
+      { revalidate: 86400, tags: ["polling-results", `polling-results-${cid}-${year}`] }
+    )(cid, year);
   });
 }

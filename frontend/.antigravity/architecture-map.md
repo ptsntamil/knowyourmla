@@ -39,3 +39,9 @@ This map provides a high-level overview of the KnowYourMLA project structure, ma
 - **Charts:** `AssetChart`, `VoteTrendChart`, `MarginTrendChart` (from `AnalyticsCharts.tsx`).
 - **Widgets:** `MetricWidgets.tsx` (Attendance, Questions), `ElectionExpensesWidget`.
 - **Layouts:** `CoverImage` (Hero), `SectionNav` (Sticky local navigation).
+- **Fallbacks & Requests:** `PollingStationFallback`, `PollingRequestModal` (booth-level data availability fallback and request modal).
+
+## 7. Caching & ISR Strategy
+- **Persistent Data Layer:** All expensive DynamoDB aggregations and queries in `lib/services/` (e.g. `getPollingStationResults`, `getMLAProfile`, `getPartyAnalytics`) are wrapped in `unstable_cache` with a 24h (`86400`) TTL and granular cache tags.
+- **Page-Level ISR:** All public detail and listing routes export `revalidate = 86400` to enable edge CDN caching on Vercel and eliminate repeated serverless CPU execution.
+- **Dynamic Preview / OG Images:** Social-preview image generation (`opengraph-image.tsx` and `/og/...` route handlers) export `revalidate = 86400` so that Satori/Resvg WASM rendering runs once and caches at the edge.
