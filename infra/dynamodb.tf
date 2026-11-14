@@ -860,3 +860,104 @@ resource "aws_dynamodb_table" "knowyourmla_election_expenditures" {
     Env     = "prod"
   }
 }
+
+resource "aws_dynamodb_table" "knowyourmla_polling_stations" {
+  name         = "knowyourmla_polling_stations"
+  billing_mode = "PAY_PER_REQUEST"
+
+  # Primary Key: PK = CONSTITUENCY#<normalized_name>, SK = PS#<polling_station_no>
+  hash_key  = "PK"
+  range_key = "SK"
+
+  attribute {
+    name = "PK"
+    type = "S"
+  }
+
+  attribute {
+    name = "SK"
+    type = "S"
+  }
+
+  attribute {
+    name = "pincode"
+    type = "S"
+  }
+
+  attribute {
+    name = "constituency_id"
+    type = "S"
+  }
+
+  attribute {
+    name = "polling_station_no"
+    type = "S"
+  }
+
+  attribute {
+    name = "GSI1PK"
+    type = "S"
+  }
+
+  attribute {
+    name = "GSI1SK"
+    type = "S"
+  }
+
+  # GSI1: Inverted index for fast lookup across filters (pincode, ward, locality, building category, overseas)
+  global_secondary_index {
+    name            = "GSI1"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "GSI1PK"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "GSI1SK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # PincodeIndex: Search all polling stations in a given pincode across the state
+  global_secondary_index {
+    name            = "PincodeIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "pincode"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "PK"
+      key_type       = "RANGE"
+    }
+  }
+
+  # GSI2: List all stations for a constituency in sequential order
+  global_secondary_index {
+    name            = "ConstituencyIndex"
+    projection_type = "ALL"
+
+    key_schema {
+      attribute_name = "constituency_id"
+      key_type       = "HASH"
+    }
+
+    key_schema {
+      attribute_name = "polling_station_no"
+      key_type       = "RANGE"
+    }
+  }
+
+  point_in_time_recovery {
+    enabled = true
+  }
+
+  tags = {
+    Project = "KnowYourMLA"
+    Env     = "prod"
+  }
+}

@@ -97,6 +97,10 @@ Python pipeline that scrapes IndiaVotes (election results) and Myneta (affidavit
 
 ### Frontend (Next.js)
 - **Server Components by default** — only add `"use client"` when event handlers, browser APIs, or local state are needed
+- **Mandatory Page-Level ISR (`export const revalidate = 86400`)** — all detail, listing, and dashboard pages must export `revalidate = 86400` to be cached at Vercel Edge CDN
+- **Never use `force-dynamic`** — never set `export const dynamic = "force-dynamic"` on content pages; use ISR with `revalidate = 86400` instead
+- **Persistent Service Caching (`unstable_cache`)** — all heavy DynamoDB queries and analytics transforms in `lib/services/` must be wrapped in `unstable_cache` (86400s TTL + tags); never rely on React `cache()` alone for cross-request persistence
+- **Edge Caching for Social Previews** — all `opengraph-image.tsx` and image route handlers must export `revalidate = 86400` to prevent repeated Satori/Resvg WASM CPU executions
 - **Never change URL structure or break SEO** — every page needs `generateMetadata()` with title, description, canonical, OpenGraph, Twitter cards
 - **Structured data required** — BreadcrumbList on all pages, PersonSchema on MLA profiles, ItemListSchema on listings
 - **Zero `any` policy** — all types conform to `types/models.ts`

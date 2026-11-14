@@ -5,6 +5,8 @@ import { PersonRepository } from "../repositories/person.repository";
 import { DistrictRepository } from "../repositories/district.repository";
 import { CandidateRepository } from "../repositories/candidate.repository";
 import { PollingResultRepository, ACSummary } from "../repositories/polling-result.repository";
+import { PollingStationRepository, PollingStationMaster, PollingStationBundle } from "../repositories/polling-station.repository";
+import { getAcNoFromSlug } from "../utils/constituency-ac-map";
 import { getPartyLogo } from "../utils/party-utils";
 import { normalizeTotalAssets } from "../utils/profile-normalizers";
 import { normalizeCandidateProfilePic } from "../utils/profile-pic.utils";
@@ -241,6 +243,7 @@ export interface PollingStationAnalysis {
   insights: string[];
   pollingStationName?: string;
   electors?: number;
+  stationDetail?: PollingStationMaster;
 }
 
 
@@ -269,6 +272,8 @@ export interface ConstituencyPollingData {
   };
   pollingStations: PollingStationAnalysis[];
   acSummary?: ACSummary;
+  lookups?: PollingStationBundle['lookups'];
+  meta?: PollingStationBundle['meta'];
 }
 
 export class ElectionAnalyticsService {
@@ -279,6 +284,7 @@ export class ElectionAnalyticsService {
   private districtRepo: DistrictRepository;
   private candidateRepo: CandidateRepository;
   private pollingRepo: PollingResultRepository;
+  private pollingStationRepo: PollingStationRepository;
 
   constructor(
     mlaRepo?: MLARepository,
@@ -293,6 +299,7 @@ export class ElectionAnalyticsService {
     this.districtRepo = new DistrictRepository();
     this.candidateRepo = new CandidateRepository();
     this.pollingRepo = new PollingResultRepository();
+    this.pollingStationRepo = new PollingStationRepository();
   }
 
 
@@ -891,210 +898,306 @@ export class ElectionAnalyticsService {
 
     return unstable_cache(
       async (cIdStr: string, yrNum: number): Promise<ConstituencyPollingData | null> => {
-        const [constituency, pollingResults, acSummary, allParties, candidates, districts, explicitPostalRecord] = await Promise.all([
+        const slug = cIdStr.replace(/^CONSTITUENCY#/i, "").toLowerCase();
+        const fallbackAcNo = getAcNoFromSlug(slug);
+
+        const [constituency, pollingResults, acSummary, allParties, candidates, districts, explicitPostalRecord, stationBundle] = await Promise.all([
           this.constituencyRepo.getConstituencyMetadata(cIdStr),
           this.pollingRepo.getPollingResultsByConstituency(cIdStr, yrNum),
           this.pollingRepo.getACSummary(cIdStr, yrNum),
           this.partyRepo.getAllParties(),
           this.candidateRepo.getCandidatesByConstituencyAndYear(cIdStr, yrNum),
           this.districtRepo.getAllDistricts(),
-          this.pollingRepo.getPostalVotes(cIdStr, yrNum)
+          this.pollingRepo.getPostalVotes(cIdStr, yrNum),
+          this.pollingStationRepo.getConstituencyBundle(slug, fallbackAcNo),
         ]);
-
-        if (!constituency || !pollingResults || pollingResults.length === 0) return null;
 
         const partyMap = new Map(allParties.map((p: any) => [p.PK, p]));
         const districtMap = new Map(districts.map((d: any) => [d.PK, d.name]));
         const candidateMap = new Map(candidates.map((c: any) => [c.PK, c]));
 
-        const districtName = districtMap.get(constituency.district_id) || "N/A";
+        const constName = constituency?.name || stationBundle?.meta?.ac_name || slug.toUpperCase().replace(/-/g, ' ');
+        const districtName = districtMap.get(constituency?.district_id) || stationBundle?.meta?.pc_name || "Tamil Nadu";
         const avgTurnout = acSummary?.poll_percentage || 0;
 
-        // Extract Postal Votes from results if present
-        const postalRecord = explicitPostalRecord || pollingResults.find(ps => ps.SK === 'POSTAL' && ps.year === yrNum);
-        const stations = pollingResults.filter(ps => ps.SK === 'METADATA' && ps.year === yrNum);
-
-        const analyzedStations: PollingStationAnalysis[] = stations.map(ps => {
-          const resultsArray = Object.entries(ps.results)
-            .filter(([id]) => id !== 'NOTA')
-            .map(([id, stats]) => {
-              const candidate = candidateMap.get(id);
-              const party = candidate ? partyMap.get(candidate.party_id) : null;
-              return {
-                candidateId: id,
-                name: candidate?.candidate_name || "Unknown",
-                party: party?.name || "Independent",
-                partyShort: party?.short_name || "IND",
-                votes: stats.votes,
-                voteShare: stats.vote_share_percentage,
-                contributionPercent: stats.candidate_contribution_percentage,
-                isWinner: false,
-                partyColorBg: party?.color_bg,
-                partyColorText: party?.color_text,
-                partyColorBorder: party?.color_border,
-                partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
-                profilePic: normalizeCandidateProfilePic(candidate?.profile_pic),
-              };
-            })
-            .sort((a, b) => b.votes - a.votes);
-
-          if (resultsArray.length > 0) resultsArray[0].isWinner = true;
-
-          const winner = resultsArray[0];
-          const runnerUp = resultsArray[1];
-          const marginVotes = winner && runnerUp ? winner.votes - runnerUp.votes : winner?.votes || 0;
-          const marginPercentage = ps.valid_votes > 0 ? (marginVotes / ps.valid_votes) * 100 : 0;
-          const notaPercentage = ps.valid_votes > 0 ? (ps.nota_votes / ps.valid_votes) * 100 : 0;
-
-          const turnoutPercentage = ps.total_electors && ps.total_electors > 0
-            ? (ps.total_votes_polled / ps.total_electors) * 100
-            : null;
-
-          // Classification Logic
-          let boothType: PollingStationAnalysis['boothType'] = 'NORMAL';
-          if (winner && winner.voteShare > 45) boothType = 'STRONGHOLD';
-          else if (marginPercentage < 3) boothType = 'SWING';
-          else if (resultsArray.length >= 3 && resultsArray[0].voteShare - resultsArray[2].voteShare < 10) boothType = 'MULTI_CORNERED';
-
-          if (notaPercentage > 2) boothType = 'NOTA_HEAVY';
-          if (turnoutPercentage !== null) {
-            if (turnoutPercentage > avgTurnout + 5) boothType = 'HIGH_TURNOUT';
-            if (turnoutPercentage < avgTurnout - 5) boothType = 'LOW_TURNOUT';
-          }
-
-          // Stronghold Tag
-          let strongholdTag = '';
-          if (winner && winner.voteShare > (avgTurnout > 0 ? avgTurnout + 10 : 45)) {
-            strongholdTag = `${winner.partyShort} Stronghold`;
-          }
-
-          // Insights
-          const insights: string[] = [];
-          if (boothType === 'STRONGHOLD') insights.push(`${winner?.partyShort} dominated this booth with ${winner?.voteShare}% vote share.`);
-          if (boothType === 'SWING') insights.push(`Close contest observed with a margin of only ${marginVotes} votes.`);
-          if (notaPercentage > 2) insights.push(`High NOTA preference detected (${notaPercentage.toFixed(2)}%).`);
-
-          return {
-            pollingStationNo: ps.polling_station_no,
-            winnerCandidateId: winner?.candidateId || "N/A",
-            winnerName: winner?.name || "N/A",
-            winnerVotes: winner?.votes || 0,
-            winnerVoteShare: winner?.voteShare || 0,
-            marginVotes,
-            marginPercentage,
-            boothType,
-            turnoutPercentage: turnoutPercentage || 0.0,
-            totalVotes: ps.total_votes_polled,
-            validVotes: ps.valid_votes,
-            notaVotes: ps.nota_votes,
-            notaPercentage,
-            candidateResults: resultsArray,
-            strongholdTag,
-            insights,
-            pollingStationName: ps.ps_name || ps.polling_station_name || undefined,
-            electors: ps.electors || ps.total_electors || undefined
-          };
-
-        });
-
-        // Add Postal Votes as a special "Polling Station 0"
-        if (postalRecord) {
-          const postalResultsArray = Object.entries(postalRecord.results)
-            .filter(([id]) => id !== 'NOTA')
-            .map(([id, stats]) => {
-              const candidate = candidateMap.get(id);
-              const party = candidate ? partyMap.get(candidate.party_id) : null;
-              return {
-                candidateId: id,
-                name: candidate?.candidate_name || "Unknown",
-                party: party?.name || "Independent",
-                partyShort: party?.short_name || "IND",
-                votes: (stats as any).votes,
-                voteShare: (stats as any).vote_share_percentage || 0,
-                contributionPercent: (stats as any).candidate_contribution_percentage || 0,
-                isWinner: false,
-                partyColorBg: party?.color_bg,
-                partyColorText: party?.color_text,
-                partyColorBorder: party?.color_border,
-                partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
-                profilePic: normalizeCandidateProfilePic(candidate?.profile_pic),
-              };
-            })
-            .sort((a, b) => b.votes - a.votes);
-
-          if (postalResultsArray.length > 0) postalResultsArray[0].isWinner = true;
-
-          const pWinner = postalResultsArray[0];
-          const pRunnerUp = postalResultsArray[1];
-          const pMarginVotes = pWinner && pRunnerUp ? pWinner.votes - pRunnerUp.votes : pWinner?.votes || 0;
-          const pTotalValid = (postalRecord.valid_votes || 0) + (postalRecord.nota_votes || 0);
-          const pMarginPercentage = pTotalValid > 0 ? (pMarginVotes / pTotalValid) * 100 : 0;
-          const pNotaPercentage = pTotalValid > 0 ? (postalRecord.nota_votes / pTotalValid) * 100 : 0;
-
-          analyzedStations.push({
-            pollingStationNo: 'POSTAL', // Using POSTAL for Postal Votes
-            winnerCandidateId: pWinner?.candidateId || "N/A",
-            winnerName: pWinner?.name || "N/A",
-            winnerVotes: pWinner?.votes || 0,
-            winnerVoteShare: pWinner?.voteShare || 0,
-            marginVotes: pMarginVotes,
-            marginPercentage: pMarginPercentage,
-            boothType: 'NORMAL', // Postal votes usually don't get stronghold tags etc
-            turnoutPercentage: 0,
-            totalVotes: postalRecord.total_votes_polled,
-            validVotes: postalRecord.valid_votes,
-            notaVotes: postalRecord.nota_votes,
-            notaPercentage: pNotaPercentage,
-            candidateResults: postalResultsArray,
-            strongholdTag: 'Postal Votes',
-            insights: [`Results from ${postalRecord.total_votes_polled.toLocaleString()} postal ballots.`]
+        // Map station details by station number
+        const stationDetailMap = new Map<string, PollingStationMaster>();
+        if (stationBundle?.stations) {
+          stationBundle.stations.forEach(s => {
+            const no = s.polling_station_no || String(s.ps_no);
+            stationDetailMap.set(no, s);
+            stationDetailMap.set(String(s.ps_no), s);
           });
         }
 
-        analyzedStations.sort((a, b) => {
-          const aVal = a.pollingStationNo === 'POSTAL' ? 0 : parseInt(a.pollingStationNo) || Number.MAX_SAFE_INTEGER;
-          const bVal = b.pollingStationNo === 'POSTAL' ? 0 : parseInt(b.pollingStationNo) || Number.MAX_SAFE_INTEGER;
-          return aVal - bVal;
-        });
+        // Case 1: Form 20 vote results exist for this constituency & year
+        if (pollingResults && pollingResults.length > 0) {
+          const postalRecord = explicitPostalRecord || pollingResults.find(ps => ps.SK === 'POSTAL' && ps.year === yrNum);
+          const stations = pollingResults.filter(ps => ps.SK === 'METADATA' && ps.year === yrNum);
 
-        // Summary Analytics
-        const summary = {
-          highestTurnoutBooth: [...analyzedStations].sort((a, b) => b.totalVotes - a.totalVotes)[0]?.pollingStationNo || '0',
-          lowestTurnoutBooth: [...analyzedStations].sort((a, b) => a.totalVotes - b.totalVotes)[0]?.pollingStationNo || '0',
-          closestContestBooth: [...analyzedStations].filter(s => s.marginVotes > 0).sort((a, b) => a.marginVotes - b.marginVotes)[0]?.pollingStationNo || '0',
-          highestMarginBooth: [...analyzedStations].sort((a, b) => b.marginVotes - a.marginVotes)[0]?.pollingStationNo || '0',
-          highestNotaBooth: [...analyzedStations].sort((a, b) => b.notaPercentage - a.notaPercentage)[0]?.pollingStationNo || '0',
-          candidateStrongestBooths: {} as Record<string, { boothNo: string; share: number; candidateName: string }>
-        };
+          const analyzedStations: PollingStationAnalysis[] = stations.map(ps => {
+            const resultsArray = Object.entries(ps.results)
+              .filter(([id]) => id !== 'NOTA')
+              .map(([id, stats]) => {
+                const candidate = candidateMap.get(id);
+                const party = candidate ? partyMap.get(candidate.party_id) : null;
+                return {
+                  candidateId: id,
+                  name: candidate?.candidate_name || "Unknown",
+                  party: party?.name || "Independent",
+                  partyShort: party?.short_name || "IND",
+                  votes: stats.votes,
+                  voteShare: stats.vote_share_percentage,
+                  contributionPercent: stats.candidate_contribution_percentage,
+                  isWinner: false,
+                  partyColorBg: party?.color_bg,
+                  partyColorText: party?.color_text,
+                  partyColorBorder: party?.color_border,
+                  partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
+                  profilePic: normalizeCandidateProfilePic(candidate?.profile_pic),
+                };
+              })
+              .sort((a, b) => b.votes - a.votes);
 
-        candidates.forEach(c => {
-          const id = c.PK;
-          const strongest = [...analyzedStations].sort((a, b) => {
-            const shareA = a.candidateResults.find(r => r.candidateId === id)?.voteShare || 0;
-            const shareB = b.candidateResults.find(r => r.candidateId === id)?.voteShare || 0;
-            return shareB - shareA;
-          })[0];
+            if (resultsArray.length > 0) resultsArray[0].isWinner = true;
 
-          if (strongest) {
-            summary.candidateStrongestBooths[id] = {
-              boothNo: strongest.pollingStationNo,
-              share: strongest.candidateResults.find(r => r.candidateId === id)?.voteShare || 0,
-              candidateName: c.candidate_name
+            const winner = resultsArray[0];
+            const runnerUp = resultsArray[1];
+            const marginVotes = winner && runnerUp ? winner.votes - runnerUp.votes : winner?.votes || 0;
+            const marginPercentage = ps.valid_votes > 0 ? (marginVotes / ps.valid_votes) * 100 : 0;
+            const notaPercentage = ps.valid_votes > 0 ? (ps.nota_votes / ps.valid_votes) * 100 : 0;
+
+            const turnoutPercentage = ps.total_electors && ps.total_electors > 0
+              ? (ps.total_votes_polled / ps.total_electors) * 100
+              : null;
+
+            // Classification Logic
+            let boothType: PollingStationAnalysis['boothType'] = 'NORMAL';
+            if (winner && winner.voteShare > 45) boothType = 'STRONGHOLD';
+            else if (marginPercentage < 3) boothType = 'SWING';
+            else if (resultsArray.length >= 3 && resultsArray[0].voteShare - resultsArray[2].voteShare < 10) boothType = 'MULTI_CORNERED';
+
+            if (notaPercentage > 2) boothType = 'NOTA_HEAVY';
+            if (turnoutPercentage !== null) {
+              if (turnoutPercentage > avgTurnout + 5) boothType = 'HIGH_TURNOUT';
+              if (turnoutPercentage < avgTurnout - 5) boothType = 'LOW_TURNOUT';
+            }
+
+            // Stronghold Tag
+            let strongholdTag = '';
+            if (winner && winner.voteShare > (avgTurnout > 0 ? avgTurnout + 10 : 45)) {
+              strongholdTag = `${winner.partyShort} Stronghold`;
+            }
+
+            // Insights
+            const insights: string[] = [];
+            if (boothType === 'STRONGHOLD') insights.push(`${winner?.partyShort} dominated this booth with ${winner?.voteShare}% vote share.`);
+            if (boothType === 'SWING') insights.push(`Close contest observed with a margin of only ${marginVotes} votes.`);
+            if (notaPercentage > 2) insights.push(`High NOTA preference detected (${notaPercentage.toFixed(2)}%).`);
+
+            const detail = stationDetailMap.get(ps.polling_station_no) || stationDetailMap.get(String(ps.polling_station_no));
+
+            return {
+              pollingStationNo: ps.polling_station_no,
+              winnerCandidateId: winner?.candidateId || "N/A",
+              winnerName: winner?.name || "N/A",
+              winnerVotes: winner?.votes || 0,
+              winnerVoteShare: winner?.voteShare || 0,
+              marginVotes,
+              marginPercentage,
+              boothType,
+              turnoutPercentage: turnoutPercentage || 0.0,
+              totalVotes: ps.total_votes_polled,
+              validVotes: ps.valid_votes,
+              notaVotes: ps.nota_votes,
+              notaPercentage,
+              candidateResults: resultsArray,
+              strongholdTag,
+              insights,
+              pollingStationName: ps.ps_name || ps.polling_station_name || detail?.building?.name || undefined,
+              electors: ps.electors || ps.total_electors || undefined,
+              stationDetail: detail || undefined,
             };
-          }
-        });
+          });
 
-        return {
-          constituencyId: cIdStr.replace("CONSTITUENCY#", ""),
-          constituencyName: constituency.name,
-          districtName,
-          year: yrNum,
-          totalPollingStations: analyzedStations.length,
-          avgTurnout,
-          summary,
-          pollingStations: analyzedStations,
-          acSummary: acSummary || undefined
-        };
+          // Add Postal Votes as a special "Polling Station 0"
+          if (postalRecord) {
+            const postalResultsArray = Object.entries(postalRecord.results)
+              .filter(([id]) => id !== 'NOTA')
+              .map(([id, rawStats]) => {
+                const stats = rawStats as { votes: number; vote_share_percentage?: number; candidate_contribution_percentage?: number };
+                const candidate = candidateMap.get(id);
+                const party = candidate ? partyMap.get(candidate.party_id) : null;
+                return {
+                  candidateId: id,
+                  name: candidate?.candidate_name || "Unknown",
+                  party: party?.name || "Independent",
+                  partyShort: party?.short_name || "IND",
+                  votes: stats.votes,
+                  voteShare: stats.vote_share_percentage || 0,
+                  contributionPercent: stats.candidate_contribution_percentage || 0,
+                  isWinner: false,
+                  partyColorBg: party?.color_bg,
+                  partyColorText: party?.color_text,
+                  partyColorBorder: party?.color_border,
+                  partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
+                  profilePic: normalizeCandidateProfilePic(candidate?.profile_pic),
+                };
+              })
+              .sort((a, b) => b.votes - a.votes);
+
+            if (postalResultsArray.length > 0) postalResultsArray[0].isWinner = true;
+
+            const pWinner = postalResultsArray[0];
+            const pRunnerUp = postalResultsArray[1];
+            const pMarginVotes = pWinner && pRunnerUp ? pWinner.votes - pRunnerUp.votes : pWinner?.votes || 0;
+            const pTotalValid = (postalRecord.valid_votes || 0) + (postalRecord.nota_votes || 0);
+            const pMarginPercentage = pTotalValid > 0 ? (pMarginVotes / pTotalValid) * 100 : 0;
+            const pNotaPercentage = pTotalValid > 0 ? (postalRecord.nota_votes / pTotalValid) * 100 : 0;
+
+            analyzedStations.push({
+              pollingStationNo: 'POSTAL',
+              winnerCandidateId: pWinner?.candidateId || "N/A",
+              winnerName: pWinner?.name || "N/A",
+              winnerVotes: pWinner?.votes || 0,
+              winnerVoteShare: pWinner?.voteShare || 0,
+              marginVotes: pMarginVotes,
+              marginPercentage: pMarginPercentage,
+              boothType: 'NORMAL',
+              turnoutPercentage: 0,
+              totalVotes: postalRecord.total_votes_polled,
+              validVotes: postalRecord.valid_votes,
+              notaVotes: postalRecord.nota_votes,
+              notaPercentage: pNotaPercentage,
+              candidateResults: postalResultsArray,
+              strongholdTag: 'Postal Votes',
+              insights: [`Results from ${postalRecord.total_votes_polled.toLocaleString()} postal ballots.`]
+            });
+          }
+
+          analyzedStations.sort((a, b) => {
+            const aVal = a.pollingStationNo === 'POSTAL' ? 0 : parseInt(a.pollingStationNo) || Number.MAX_SAFE_INTEGER;
+            const bVal = b.pollingStationNo === 'POSTAL' ? 0 : parseInt(b.pollingStationNo) || Number.MAX_SAFE_INTEGER;
+            return aVal - bVal;
+          });
+
+          // Summary Analytics
+          const summary = {
+            highestTurnoutBooth: [...analyzedStations].sort((a, b) => b.totalVotes - a.totalVotes)[0]?.pollingStationNo || '0',
+            lowestTurnoutBooth: [...analyzedStations].sort((a, b) => a.totalVotes - b.totalVotes)[0]?.pollingStationNo || '0',
+            closestContestBooth: [...analyzedStations].filter(s => s.marginVotes > 0).sort((a, b) => a.marginVotes - b.marginVotes)[0]?.pollingStationNo || '0',
+            highestMarginBooth: [...analyzedStations].sort((a, b) => b.marginVotes - a.marginVotes)[0]?.pollingStationNo || '0',
+            highestNotaBooth: [...analyzedStations].sort((a, b) => b.notaPercentage - a.notaPercentage)[0]?.pollingStationNo || '0',
+            candidateStrongestBooths: {} as Record<string, { boothNo: string; share: number; candidateName: string }>
+          };
+
+          candidates.forEach(c => {
+            const id = c.PK;
+            const strongest = [...analyzedStations].sort((a, b) => {
+              const shareA = a.candidateResults.find(r => r.candidateId === id)?.voteShare || 0;
+              const shareB = b.candidateResults.find(r => r.candidateId === id)?.voteShare || 0;
+              return shareB - shareA;
+            })[0];
+
+            if (strongest) {
+              summary.candidateStrongestBooths[id] = {
+                boothNo: strongest.pollingStationNo,
+                share: strongest.candidateResults.find(r => r.candidateId === id)?.voteShare || 0,
+                candidateName: c.candidate_name
+              };
+            }
+          });
+
+          return {
+            constituencyId: cIdStr.replace("CONSTITUENCY#", ""),
+            constituencyName: constName,
+            districtName,
+            year: yrNum,
+            totalPollingStations: analyzedStations.length,
+            avgTurnout,
+            summary,
+            pollingStations: analyzedStations,
+            acSummary: acSummary || undefined,
+            lookups: stationBundle?.lookups,
+            meta: stationBundle?.meta,
+          };
+        }
+
+        // Case 2: Pre-election or booth demarcation directory without Form 20 counts (e.g. 2026 ECI master list)
+        if (stationBundle && stationBundle.stations && stationBundle.stations.length > 0) {
+          const candidateResultsTemplate = candidates.map(c => {
+            const party = partyMap.get(c.party_id);
+            return {
+              candidateId: c.PK,
+              name: c.candidate_name || "Candidate",
+              party: party?.name || "Independent",
+              partyShort: party?.short_name || "IND",
+              votes: 0,
+              voteShare: 0,
+              contributionPercent: 0,
+              isWinner: false,
+              partyColorBg: party?.color_bg,
+              partyColorText: party?.color_text,
+              partyColorBorder: party?.color_border,
+              partyLogoUrl: getPartyLogo(party?.short_name) || party?.logo_url,
+              profilePic: normalizeCandidateProfilePic(c.profile_pic),
+            };
+          });
+
+          const analyzedStations: PollingStationAnalysis[] = stationBundle.stations.map(st => {
+            const psNoStr = st.polling_station_no || String(st.ps_no);
+            const areasCount = st.areas?.length || 0;
+            const bldLocation = st.building?.location ? ` in ${st.building.location}` : '';
+
+            return {
+              pollingStationNo: psNoStr,
+              winnerCandidateId: "TBD",
+              winnerName: "Pre-Election",
+              winnerVotes: 0,
+              winnerVoteShare: 0,
+              marginVotes: 0,
+              marginPercentage: 0,
+              boothType: 'NORMAL',
+              turnoutPercentage: 0,
+              totalVotes: 0,
+              validVotes: 0,
+              notaVotes: 0,
+              notaPercentage: 0,
+              candidateResults: candidateResultsTemplate,
+              insights: [`Official ECI Polling Station serving ${areasCount} designated electoral area${areasCount === 1 ? '' : 's'}${bldLocation}.`],
+              pollingStationName: st.building?.name || undefined,
+              stationDetail: st,
+            };
+          });
+
+          analyzedStations.sort((a, b) => {
+            const aVal = parseInt(a.pollingStationNo) || Number.MAX_SAFE_INTEGER;
+            const bVal = parseInt(b.pollingStationNo) || Number.MAX_SAFE_INTEGER;
+            return aVal - bVal;
+          });
+
+          return {
+            constituencyId: cIdStr.replace("CONSTITUENCY#", ""),
+            constituencyName: constName,
+            districtName,
+            year: yrNum,
+            totalPollingStations: analyzedStations.length,
+            avgTurnout: 0,
+            summary: {
+              highestTurnoutBooth: analyzedStations[0]?.pollingStationNo || "1",
+              lowestTurnoutBooth: analyzedStations[0]?.pollingStationNo || "1",
+              closestContestBooth: analyzedStations[0]?.pollingStationNo || "1",
+              highestMarginBooth: analyzedStations[0]?.pollingStationNo || "1",
+              highestNotaBooth: analyzedStations[0]?.pollingStationNo || "1",
+              candidateStrongestBooths: {},
+            },
+            pollingStations: analyzedStations,
+            lookups: stationBundle.lookups,
+            meta: stationBundle.meta,
+          };
+        }
+
+        return null;
       },
       ["polling-station-results", cid, year.toString()],
       { revalidate: 86400, tags: ["polling-results", `polling-results-${cid}-${year}`] }
