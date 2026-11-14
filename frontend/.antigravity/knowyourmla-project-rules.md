@@ -60,3 +60,9 @@ To ensure UI consistency, use established components; **NEVER inline styles** fo
   - `brand-gold`: #D4AF37 (Accent)
   - `brand-green`: #10B981 (Success)
   - `bg-page-bg`: #F8FAFC (Background)
+
+## 8. Caching, ISR & Serverless CPU Optimization
+- **Rule 8.1 (No force-dynamic):** NEVER use `export const dynamic = "force-dynamic"` on content, profile, or listing pages. Always use `export const revalidate = 86400;`.
+- **Rule 8.2 (Mandatory Page-Level ISR):** All public content routes (MLA profiles, constituency pages, polling station listings & booths, party profiles, election dashboards) MUST export `export const revalidate = 86400;`.
+- **Rule 8.3 (Service-Layer Persistent Caching):** Heavy DynamoDB queries and data transforms in `lib/services/` MUST use `unstable_cache` with a 24h TTL (`86400`) and explicit cache tags. React's `cache()` is request-scoped only and MUST NOT be relied upon for cross-request persistence.
+- **Rule 8.4 (Edge Caching for Social Preview OG Images):** All `opengraph-image.tsx` and dynamic OG image route handlers MUST export `export const revalidate = 86400;` to cache Satori/Resvg WASM rendering at Vercel Edge CDN.
