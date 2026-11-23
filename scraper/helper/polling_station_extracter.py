@@ -133,7 +133,7 @@ def _init_gemini_chat(
         while file_upload.state == "PROCESSING":
             time.sleep(2)
             file_upload = client.files.get(name=file_upload.name)
-        return client, file_upload, client.chats.create(model="gemini-3.1-flash-lite")
+        return client, file_upload, client.chats.create(model="gemini-3.8-flash")
     except Exception as e:
         print(f"[!] Init error: {e}")
         return None, None, None

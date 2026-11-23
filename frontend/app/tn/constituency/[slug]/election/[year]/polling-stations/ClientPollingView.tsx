@@ -54,6 +54,7 @@ const ClientPollingView: React.FC<ClientPollingViewProps> = ({ initialData, slug
         selectedCandidateIds={selectedCandidateIds}
         selectedWinnerId={selectedWinnerId}
         onResetWinnerFilter={() => setSelectedWinnerId(null)}
+        lookups={initialData.lookups}
       />
     </div>
   );

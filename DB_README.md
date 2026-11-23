@@ -13,6 +13,10 @@ The project uses **four DynamoDB tables** across two logical layers:
 | Enrichment | `knowyourmla_political_parties` | Master registry of political parties |
 | Enrichment | `knowyourmla_states` | Master registry of states |
 | Enrichment | `knowyourmla_districts` | Master registry of districts |
+| Enrichment | `knowyourmla_elections` | Master registry of elections |
+| Enrichment | `knowyourmla_polling_results` | Polling station level election results (Form 20) |
+| Enrichment | `knowyourmla_portfolios` | Ministerial portfolios and assignments |
+| Enrichment | `knowyourmla_polling_stations` | Master registry of polling station demarcations & locations |
 
 All tables share a `PK` / `SK` composite primary key convention.
 
@@ -697,6 +701,142 @@ For ultra-fast, 1-RCU reads of the entire cabinet list page.
 |---|---|---|---|
 | `CandidateIndex` | `CandidateIndexPK` | `CandidateIndexSK` | What portfolios did this MLA hold over time? |
 | `ActiveCabinetIndex` | `ActiveCabinetIndexPK` | `ActiveCabinetIndexSK` | Who is holding what in the current active cabinet? |
+
+---
+
+## Table 11 — `knowyourmla_polling_stations`
+
+Master registry of polling stations, campus buildings, and electoral demarcations extracted from official ECI "List of Polling Stations" orders. Designed as a high-performance single-table hierarchy supporting multi-entity storage (`AC_META`, `STATION`, `INDEX`, `LOCAL_BODY`, `PINCODE`).
+
+| Field | Value |
+|---|---|
+| `PK` | `AC#{state_code}#{ac_no:03d}` (e.g. `AC#TN#001`) |
+| `SK` | `META` \| `PS#{ps_no:04d}` \| `LB#{id}` \| `PIN#{pincode}` \| `IDX#{kind}#{value}#{ps_sk}` |
+
+### Multi-Entity Schema
+
+| Entity Type | PK | SK | GSI1PK | GSI1SK | Description |
+|---|---|---|---|---|---|
+| `AC_META` | `AC#TN#001` | `META` | — | — | Constituency metadata, totals, pincodes, local body counts |
+| `STATION` | `AC#TN#001` | `PS#0016` | — | — | Complete polling station details (building, areas, filters, search text) |
+| `INDEX` | `AC#TN#001` | `IDX#<kind>#<val>#PS#0016` | `AC#TN#001#<kind>#<val>` | `PS#0016` | Inverted index for fast filtering (`PIN`, `LB`, `RV`, `WARD`, `LOC`, `CAT`, `OVERSEAS`) |
+| `LOCAL_BODY` | `AC#TN#001` | `LB#kannampakkam` | — | — | Village/panchayat lookup for dropdowns |
+| `PINCODE` | `AC#TN#001` | `PIN#601202` | — | — | Pincode lookup for dropdowns |
+
+### Primary `STATION` Fields
+
+| Field | Type | Description |
+|---|---|---|
+| `PK` | String | `AC#{state_code}#{ac_no:03d}` (e.g. `AC#TN#001`) |
+| `SK` | String | `PS#{ps_no:04d}{ps_no_suffix}` (e.g. `PS#0001`) |
+| `entity` | String | `STATION` |
+| `entity_type` | String | `POLLING_STATION` (for backward-compatibility) |
+| `state_code` | String | State ISO code (e.g. `TN`) |
+| `state_name` | String | State name (e.g. `Tamil Nadu`) |
+| `ac_no` | Number | Assembly Constituency Number (1–234) |
+| `ac_name` | String | Assembly Constituency Name (e.g. `Gummidipoondi`) |
+| `pc_no` | Number | Parliamentary Constituency Number |
+| `pc_name` | String | Parliamentary Constituency Name |
+| `pc_category` | String | Parliamentary reservation category (`GEN`, `SC`, `ST`) |
+| `ps_no` | Number | Integer booth number (e.g. `1`, `16`) |
+| `ps_no_suffix` | String / Null | Suffix if any (e.g. `"A"`, null) |
+| `sl_no` | Number | Table serial number in official list |
+| `station_type` | String | Voter classification (`ALL VOTERS`, `MEN ONLY`, `WOMEN ONLY`) |
+| `has_overseas_electors` | Boolean | Whether station handles overseas/NRI voters (`[999]`) |
+| `building` | Map | Structured building metadata (`name`, `category`, `management`, `wing_portion`, `facing`, `location`, `pincode`, `raw_text`) |
+| `areas` | List | Normalized polling areas served (`area_no`, `local_body_name`, `local_body_type`, `is_revenue_village`, `locality`, `ward_nos`, `door_from`, `door_to`, `local_body_id`, `locality_id`) |
+| `filters` | Map | Precomputed filter tags (`pincodes`, `local_body_ids`, `rv_ids`, `ward_nos`, `ward_keys`, `locality_ids`, `building_category`) |
+| `search_text` | String | Lowercase space-separated tokens for fast keyword matching |
+| `needs_review` | Boolean | Flag indicating station needs manual verification |
+| `review_status` | String | `ok`, `needs_review`, `approved`, or `gemini_checked` |
+| `review_codes` | List | Unresolved validation codes (e.g. `["no_pincode"]`) |
+| `constituency_id` | String | FK → `CONSTITUENCY#{slug}` |
+| `polling_station_no` | String | String booth number for legacy GSI queries |
+| `pincode` | String | 6-digit postal code |
+
+### Sample Records
+
+#### 1. `STATION` Record
+```json
+{
+  "PK": "AC#TN#001",
+  "SK": "PS#0001",
+  "entity": "STATION",
+  "entity_type": "POLLING_STATION",
+  "ac_no": 1,
+  "ac_name": "Gummidipoondi",
+  "ps_no": 1,
+  "ps_no_suffix": null,
+  "sl_no": 1,
+  "station_type": "ALL VOTERS",
+  "has_overseas_electors": false,
+  "building": {
+    "name": "Panchayat Union Primary School",
+    "category": "PRIMARY_SCHOOL",
+    "management": "PANCHAYAT_UNION",
+    "wing_portion": "North Building South Facing",
+    "facing": "SOUTH",
+    "location": "Egumadurai",
+    "pincode": "601201",
+    "raw_text": "Panchayat Union Primary School , North Building South Facing, Egumadurai -601201"
+  },
+  "areas": [
+    {
+      "area_no": 1,
+      "local_body_name": "Egumadurai",
+      "local_body_type": "P",
+      "is_revenue_village": true,
+      "locality": "Egumadurai village",
+      "ward_nos": ["1"],
+      "door_from": null,
+      "door_to": null,
+      "local_body_canonical": "Egumadurai",
+      "local_body_id": "egumadurai",
+      "locality_id": "egumaduraivillage"
+    }
+  ],
+  "filters": {
+    "pincodes": ["601201"],
+    "local_body_ids": ["egumadurai"],
+    "rv_ids": ["egumadurai"],
+    "ward_nos": ["1"],
+    "ward_keys": ["egumadurai#1"],
+    "locality_ids": ["egumadurai#egumaduraivillage"],
+    "building_category": "PRIMARY_SCHOOL"
+  },
+  "search_text": "601201 egumadurai egumadurai village panchayat union primary school",
+  "pincode": "601201",
+  "constituency_id": "CONSTITUENCY#gummidipoondi",
+  "polling_station_no": "1"
+}
+```
+
+#### 2. `INDEX` Record
+```json
+{
+  "PK": "AC#TN#001",
+  "SK": "IDX#PIN#601201#PS#0001",
+  "entity": "INDEX",
+  "kind": "PIN",
+  "value": "601201",
+  "GSI1PK": "AC#TN#001#PIN#601201",
+  "GSI1SK": "PS#0001",
+  "ps_no": 1,
+  "building_name": "Panchayat Union Primary School",
+  "location": "Egumadurai",
+  "pincode": "601201",
+  "category": "PRIMARY_SCHOOL",
+  "areas": 6
+}
+```
+
+### GSIs on `knowyourmla_polling_stations`
+
+| GSI | Partition Key | Sort Key | Projection | Use Case |
+|---|---|---|---|---|
+| `GSI1` | `GSI1PK` | `GSI1SK` | `ALL` | Fast inverted index query for any filter (PIN, LB, RV, WARD, LOC, CAT, OVERSEAS) |
+| `PincodeIndex` | `pincode` | `PK` | `ALL` | Search all polling stations in a given pincode/postal area across the state |
+| `ConstituencyIndex` | `constituency_id` | `polling_station_no` | `ALL` | Retrieve all stations in sequential order for a constituency |
 
 ---
 

@@ -12,7 +12,8 @@ import {
   Target,
   BarChart,
   Zap,
-  Info
+  Info,
+  Building
 } from 'lucide-react';
 import Link from 'next/link';
 import PartyBadge from "@/components/ui/PartyBadge";
@@ -99,12 +100,42 @@ export default async function PollingStationDetailPage({ params }: PageProps) {
               <h1 className="text-4xl md:text-5xl font-black text-slate-900 tracking-tight">
                 Polling Station {number} Analysis
               </h1>
-              {station.pollingStationName && (
+              {station.stationDetail?.building?.name ? (
+                <div className="space-y-1.5 mt-2">
+                  <div className="flex items-start gap-2 text-slate-800 font-bold text-lg">
+                    <Building size={20} className="text-blue-600 shrink-0 mt-1" />
+                    <span>{station.stationDetail.building.name}</span>
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2 text-xs font-semibold text-slate-500 pl-7">
+                    {station.stationDetail.building.location && (
+                      <span className="flex items-center gap-1">
+                        <MapPin size={13} className="text-slate-400" />
+                        {station.stationDetail.building.location}
+                      </span>
+                    )}
+                    {station.stationDetail.building.pincode && (
+                      <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">
+                        PIN: {station.stationDetail.building.pincode}
+                      </span>
+                    )}
+                    {station.stationDetail.building.wing_portion && (
+                      <span className="bg-blue-50 text-blue-700 px-2 py-0.5 rounded border border-blue-200">
+                        {station.stationDetail.building.wing_portion}
+                      </span>
+                    )}
+                    {station.stationDetail.building.facing && (
+                      <span className="bg-amber-50 text-amber-700 px-2 py-0.5 rounded border border-amber-200">
+                        Facing: {station.stationDetail.building.facing}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              ) : station.pollingStationName ? (
                 <div className="flex items-center gap-2 text-slate-500 font-bold text-lg mt-2">
                   <MapPin size={20} className="text-blue-600 shrink-0" />
                   <span>{station.pollingStationName}</span>
                 </div>
-              )}
+              ) : null}
             </div>
 
             <div className="bg-slate-900 text-white p-6 rounded-2xl shadow-xl flex items-center gap-6 min-w-[300px]">
@@ -230,6 +261,91 @@ export default async function PollingStationDetailPage({ params }: PageProps) {
                 </table>
               </div>
             </section>
+
+            {/* ECI Polling Station Demarcation & Facility Details */}
+            {station.stationDetail && (
+              <section className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden p-6 space-y-4">
+                <div className="flex items-center justify-between border-b border-slate-100 pb-4">
+                  <h2 className="text-xl font-black text-slate-900 flex items-center gap-2">
+                    <Building className="w-5 h-5 text-blue-600" />
+                    ECI Demarcation & Facility Details
+                  </h2>
+                  <span className="text-xs font-bold text-slate-500 bg-slate-100 px-2.5 py-1 rounded-full">
+                    {station.stationDetail.areas?.length || 0} Areas Demarcated
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-slate-50/70 rounded-2xl p-4 border border-slate-100 space-y-2">
+                    <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">Polling Building</p>
+                    <p className="text-sm font-bold text-slate-800">{station.stationDetail.building?.name || 'Not Available'}</p>
+                    <p className="text-xs text-slate-500 flex items-center gap-1">
+                      <MapPin size={13} className="text-slate-400" />
+                      {station.stationDetail.building?.location || 'Tamil Nadu'}
+                      {station.stationDetail.building?.pincode ? ` — PIN: ${station.stationDetail.building.pincode}` : ''}
+                    </p>
+                    {(station.stationDetail.building?.wing_portion || station.stationDetail.building?.facing) && (
+                      <div className="flex gap-2 pt-1 text-xs">
+                        {station.stationDetail.building.wing_portion && (
+                          <span className="bg-white px-2 py-0.5 rounded border border-slate-200 font-medium text-slate-600">
+                            Wing: {station.stationDetail.building.wing_portion}
+                          </span>
+                        )}
+                        {station.stationDetail.building.facing && (
+                          <span className="bg-white px-2 py-0.5 rounded border border-slate-200 font-medium text-slate-600">
+                            Facing: {station.stationDetail.building.facing}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="bg-slate-50/70 rounded-2xl p-4 border border-slate-100 space-y-2">
+                    <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">Demarcation Metadata</p>
+                    <div className="space-y-1 text-xs text-slate-600">
+                      <p><span className="font-semibold text-slate-700">Polling Station No:</span> #{station.pollingStationNo}</p>
+                      <p><span className="font-semibold text-slate-700">Station Type:</span> {station.stationDetail.station_type || station.boothType || 'Normal'}</p>
+                      {station.stationDetail.filters?.rv_ids && station.stationDetail.filters.rv_ids.length > 0 && (
+                        <p>
+                          <span className="font-semibold text-slate-700">Revenue Villages:</span>{' '}
+                          {station.stationDetail.filters.rv_ids.join(', ')}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {station.stationDetail.areas && station.stationDetail.areas.length > 0 && (
+                  <div className="pt-2 space-y-3">
+                    <p className="text-xs font-black uppercase tracking-wider text-slate-500">Demarcated Localities / Streets</p>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                      {station.stationDetail.areas.map((area, idx) => (
+                        <div key={idx} className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex flex-col justify-between">
+                          <div className="flex items-start gap-2">
+                            <span className="w-5 h-5 rounded-md bg-blue-100 text-blue-800 text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                              {area.area_no || idx + 1}
+                            </span>
+                            <div className="min-w-0">
+                              <p className="text-xs font-bold text-slate-800 leading-snug">{area.locality || area.local_body_name || area.raw_text}</p>
+                              {area.local_body_name && (
+                                <p className="text-[11px] text-slate-500">
+                                  {area.local_body_name} {area.is_revenue_village ? '(Revenue Village)' : ''}
+                                </p>
+                              )}
+                            </div>
+                          </div>
+                          {Boolean(area.ward_nos?.length) && (
+                            <div className="flex items-center gap-2 mt-2 pt-2 border-t border-slate-200/60 text-[10px] text-slate-500 font-medium">
+                              <span>Ward: {area.ward_nos?.join(', ')}</span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </section>
+            )}
           </div>
 
           {/* Sidebar Insights */}
@@ -283,7 +399,14 @@ export default async function PollingStationDetailPage({ params }: PageProps) {
   );
 }
 
-const MetricCard = ({ label, value, subValue, icon }: any) => (
+interface MetricCardProps {
+  label: string;
+  value: string;
+  subValue: string;
+  icon: React.ReactElement<{ size?: number }>;
+}
+
+const MetricCard = ({ label, value, subValue, icon }: MetricCardProps) => (
   <div className="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm space-y-2 group hover:scale-[1.02] transition-transform">
     <div className="flex items-center justify-between">
       <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">{label}</p>
@@ -298,7 +421,14 @@ const MetricCard = ({ label, value, subValue, icon }: any) => (
   </div>
 );
 
-const ComparisonMetric = ({ label, booth, ac, unit }: any) => {
+interface ComparisonMetricProps {
+  label: string;
+  booth: number;
+  ac: number;
+  unit: string;
+}
+
+const ComparisonMetric = ({ label, booth, ac, unit }: ComparisonMetricProps) => {
   const diff = booth - ac;
   const isHigher = diff > 0;
 
